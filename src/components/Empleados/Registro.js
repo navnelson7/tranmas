@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
 const Registro = () => {
+    const [registro, guardarRegistro] = useState({
+
+    })
     return ( 
         <div className="container">
             <Form>
