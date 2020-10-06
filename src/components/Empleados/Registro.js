@@ -37,34 +37,22 @@ const Registro = () => {
                         </Row>
                         <Row>
                             <Col sm={12}>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="basic -addon1">Nombres</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <FormControl 
-                                        placeholder="Nombres"
-                                        arial-label="Nombres"
-                                        arial-describedby="basic -addon1"
-                                        name="nombres"
-                                    />
+                            <InputGroup className="mb-3">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text>Nombre del Empleado</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl 
+                                    placeholder="nombres"
+                                    name="nombres"
+                                />
+                                <FormControl 
+                                    placeholder="apellidos"
+                                    name="apellidos "
+                                />
                                 </InputGroup>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col sm={12}>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="basic -addon1">Apellidos</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <FormControl 
-                                        placeholder="Apellidos"
-                                        aria-label="Apellidos"
-                                        aria-describedby="basic -addon1"
-                                        name="apellidos"
-                                    />
-                                </InputGroup>
-                            </Col>
-                        </Row>
+            
                         <Row>
                             <Col sm={4}>
                                 <InputGroup className="mb-3">
@@ -83,6 +71,7 @@ const Registro = () => {
                                         <InputGroup.Text>Sexo</InputGroup.Text>
                                     </InputGroup.Append>
                                     <FormControl as="select" name="sexo">
+                                        <option> </option>
                                         <option>Femenino</option>
                                         <option>Masculino</option>
                                     </FormControl>
@@ -208,6 +197,7 @@ const Registro = () => {
                                         <InputGroup.Text id="basic -addon1">Estado Civil</InputGroup.Text>
                                     </InputGroup.Append>
                                     <FormControl as="select" name="estado_civil">
+                                        <option></option>
                                         <option>Soltero</option>
                                         <option>Casado</option>
                                         <option>Viudo</option>
@@ -216,15 +206,18 @@ const Registro = () => {
                             </Col>
                             <Col sm={6}>
                                 <InputGroup className="mb-3">
-                                    <InputGroup.Prepend>
-                                        <InputGroup.Checkbox 
-                                            aria-label="activo"
-                                        />
-                                    </InputGroup.Prepend>
-                                    <FormControl 
-                                        aria-label="activo"
-                                        placeholder="Activo"
-                                    />
+                                    <InputGroup.Append>
+                                        <InputGroup.Text id="basic -addon1">Tipo de Empleado</InputGroup.Text>
+                                    </InputGroup.Append>
+                                    <FormControl as="select" name="tipo_empleado">
+                                        <option> </option>
+                                        <option>Directivo</option>
+                                        <option>Administrador</option>
+                                        <option>Auxiliar</option>
+                                        <option>Motorista</option>
+                                        <option>Vigilante</option>
+                                        <option>Conserge</option>
+                                    </FormControl>
                                 </InputGroup>
                             </Col>
                         </Row>
@@ -255,28 +248,13 @@ const Registro = () => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col sm="4">
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="basic -addon1">Tipo de Empleado</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <FormControl as="select" name="tipo_empleado">
-                                        <option>Directivo</option>
-                                        <option>Administrador</option>
-                                        <option>Auxiliar</option>
-                                        <option>Motorista</option>
-                                        <option>Vigilante</option>
-                                        <option>Conserge</option>
-                                    </FormControl>
-                                </InputGroup>
-                            </Col>
-
-                            <Col sm="4">
+                            <Col sm="6">
                                 <InputGroup className="mb-3">
                                     <InputGroup.Append>
                                         <InputGroup.Text id="basic -addon1">Estado</InputGroup.Text>
                                     </InputGroup.Append>
                                     <FormControl as="select" name="estado">
+                                        <option> </option>
                                         <option>Contrato Activo</option>
                                         <option>Suspendido</option>
                                         <option>Incapacitado</option>
@@ -285,12 +263,13 @@ const Registro = () => {
                                 </InputGroup>
                             </Col>
 
-                            <Col sm="4">
+                            <Col sm="6">
                                 <InputGroup className="mb-3">
                                     <InputGroup.Append>
                                         <InputGroup.Text id="basic -addon1">Departamento</InputGroup.Text>
                                     </InputGroup.Append>
                                     <FormControl as="select" name="departamento">
+                                        <option></option>
                                         <option>Administracion</option>
                                         <option>Contabilidad</option>
                                         <option>Finanzas</option>
@@ -309,6 +288,13 @@ const Registro = () => {
                                     </InputGroup.Prepend>
                                     <FormControl as="textarea" aria-label="Comentarios" />
                                 </InputGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm={3}>
+                                <Form.Group controlId="formBasicCheckbox">
+                                    <Form.Check type="checkbox" label="Activo" name="estado"/>
+                                </Form.Group>
                             </Col>
                         </Row>
                         <Button varian="Primera" size="lg">Guardar</Button>
