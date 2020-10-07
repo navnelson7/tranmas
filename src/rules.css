@@ -4,3 +4,7 @@
     justify-content: center;
     min-height: 100vh;
 }
+
+.texto-usuario-nuevo {
+    align-self: center;
+}
