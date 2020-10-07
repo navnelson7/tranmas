@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import {Row, Col, Table} from 'react-bootstrap';
+
 const Repuestos = () => {
-    return ( <
-        div class = "container" >
-        <
-        h1 > REPUESTOS < /h1>     <
-        /div>
+    return ( 
+        <Fragment>
+            <div className="container">
+                <h1>Listado de Repuestos</h1>
+                <Table>
+
+                </Table>
+            </div>
+        </Fragment>
     );
 }
 

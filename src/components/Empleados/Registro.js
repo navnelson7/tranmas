@@ -23,7 +23,7 @@ const Registro = () => {
         id_estado: '',
         id_departamento: '',
         comentarios: '',
-        estado: ''
+        estado: false
 
     })
 
@@ -56,6 +56,13 @@ const Registro = () => {
         guardarRegistro({
             ...registro,
             [e.target.name] : e.target.value 
+        })
+    }
+
+    const handleCheck= e => {
+        guardarRegistro({
+            ...registro,
+            [e.target.name] : e.target.checked
         })
     }
 
@@ -403,7 +410,8 @@ const Registro = () => {
                                         type="checkbox" 
                                         label="Activo" 
                                         name="estado" 
-                                        value={estado}/>
+                                        value={estado}
+                                        onChange={handleCheck}/>
                                 </Form.Group>
                             </Col>
                         </Row>
