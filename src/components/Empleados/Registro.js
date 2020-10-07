@@ -1,9 +1,63 @@
 import React, { useState } from 'react';
 import {Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
 const Registro = () => {
+
     const [registro, guardarRegistro] = useState({
+        codigo: '',
+        nombres: '',
+        apellidos: '',
+        edad: '',
+        sexo: '',
+        telefono: '',
+        direccon: '',
+        dui: '',
+        nit: '',
+        afp: '',
+        isss: '',
+        fecha_ingreso_empresa: '',
+        fecha_nacimiento: '',
+        estado_civil: '',
+        licencia_conducir: '',
+        licencia_de_arma: '',
+        id_tipo_empleado: '',
+        id_estado: '',
+        id_departamento: '',
+        comentarios: ''
 
     })
+
+    const {
+        id,
+        codigo,
+        nombres,
+        apellidos,
+        edad,
+        sexo,
+        telefono,
+        direccion,
+        dui,
+        nit,
+        afp,
+        isss,
+        fecha_ingreso_empresa,
+        fecha_nacimiento,
+        estado_civil,
+        licencia_conducir,
+        licencia_de_arma,
+        id_tipo_empleado,
+        id_estado,
+        id_departamento,
+        comentarios
+    } = registro;
+
+    const onChange = e => {
+        guardarRegistro({
+            ...registro,
+            [e.target.name] : e.target.value 
+        })
+    }
+
+
     return ( 
         <div className="container">
             <Form>
@@ -20,6 +74,8 @@ const Registro = () => {
                                         arial-label="codigo"
                                         arial-describedby="basic-addon1"
                                         name="codigo"
+                                        value={codigo}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -34,28 +90,43 @@ const Registro = () => {
                                         aria-label="id"
                                         arial-describedby="basic-addon1"
                                         name="id"
+                                        value={id}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
                         </Row>
                         <Row>
-                            <Col sm={12}>
-                            <InputGroup className="mb-3">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text>Nombre del Empleado</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl 
-                                    placeholder="nombres"
-                                    name="nombres"
-                                />
-                                <FormControl 
-                                    placeholder="apellidos"
-                                    name="apellidos "
-                                />
+                            <Col sm={6}>
+                                <InputGroup className="mb-3">
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text>Nombres</InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <FormControl 
+                                        placeholder="nombres"
+                                        name="nombres"
+                                        value={nombres}
+                                        onChange={onChange}
+                                    />
+                                </InputGroup>
+                            </Col>
+                            <Col sm={6}>
+                                <InputGroup className="mb-3">
+                                    <InputGroup.Append>
+                                            <InputGroup.Text id="basic -addon1">Apellidos</InputGroup.Text>
+                                    </InputGroup.Append>
+                                    <FormControl 
+                                            placeholder="Apellidos"
+                                            aria-label="apellidos"
+                                            arial-describedby="basic-addon1"
+                                            name="apellidos "
+                                            value={apellidos}
+                                            onChange={onChange}
+                                    />
                                 </InputGroup>
                             </Col>
                         </Row>
-            
+                
                         <Row>
                             <Col sm={4}>
                                 <InputGroup className="mb-3">
@@ -64,7 +135,9 @@ const Registro = () => {
                                     </InputGroup.Append>
                                     <FormControl 
                                         aria-label="Edad"
-                                        aria-describedby="basic -addon1"
+                                        aria-describedby="basic-addon1"
+                                        value={edad}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -73,10 +146,10 @@ const Registro = () => {
                                     <InputGroup.Append>
                                         <InputGroup.Text>Sexo</InputGroup.Text>
                                     </InputGroup.Append>
-                                    <FormControl as="select" name="sexo">
-                                        <option> </option>
-                                        <option>Femenino</option>
-                                        <option>Masculino</option>
+                                    <FormControl as="select" name="sexo" value={sexo} onChange={onChange}>
+                                        <option value="null"> </option>
+                                        <option value="F">Femenino</option>
+                                        <option value="M">Masculino</option>
                                     </FormControl>
                                 </InputGroup>
                             </Col>
@@ -90,6 +163,8 @@ const Registro = () => {
                                         aria-label="Telefono"
                                         aria-describedby="basic -addon1"
                                         name="telefono"
+                                        value={telefono}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -105,6 +180,8 @@ const Registro = () => {
                                         aria-label="Direccion"
                                         aria-describedby="basic -addon1"
                                         name="direccion"
+                                        value={direccion}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -120,6 +197,8 @@ const Registro = () => {
                                         aria-label="DUI"
                                         aria-describedby="DUI"
                                         name="dui"
+                                        value={dui}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -133,6 +212,8 @@ const Registro = () => {
                                         aria-label="NIT"
                                         aria-describedby="NIT"
                                         name="nit"
+                                        value={nit}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -148,6 +229,8 @@ const Registro = () => {
                                         aria-label="ISSS"
                                         aria-describedby="ISSS"
                                         name="isss"
+                                        value={isss}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -161,6 +244,8 @@ const Registro = () => {
                                         aria-label="AFP"
                                         aria-describedby="AFP"
                                         name="afp"
+                                        value={afp}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -176,6 +261,8 @@ const Registro = () => {
                                         aria-describedby="Nacimiento"
                                         type="date"
                                         name="fecha_nacimiento"
+                                        value={fecha_nacimiento}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -188,7 +275,9 @@ const Registro = () => {
                                         aria-label="Ingreso"
                                         aria-describedby="Ingreso"
                                         type="date"
-                                        name="fecha_ingreso"
+                                        name="fecha_ingreso_empresa"
+                                        value={fecha_ingreso_empresa}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -199,11 +288,12 @@ const Registro = () => {
                                     <InputGroup.Append>
                                         <InputGroup.Text id="basic -addon1">Estado Civil</InputGroup.Text>
                                     </InputGroup.Append>
-                                    <FormControl as="select" name="estado_civil">
-                                        <option></option>
-                                        <option>Soltero</option>
-                                        <option>Casado</option>
-                                        <option>Viudo</option>
+                                    <FormControl as="select" name="estado_civil" value={estado_civil} onChange={onChange}>
+                                        <option value="null"></option>
+                                        <option value="Soltero">Soltero</option>
+                                        <option value="Casado">Casado</option>
+                                        <option value="Viudo">Viudo</option>
+                                        <option value="Divorciado">Divorciado</option>
                                     </FormControl>
                                 </InputGroup>
                             </Col>
@@ -212,14 +302,14 @@ const Registro = () => {
                                     <InputGroup.Append>
                                         <InputGroup.Text id="basic -addon1">Tipo de Empleado</InputGroup.Text>
                                     </InputGroup.Append>
-                                    <FormControl as="select" name="tipo_empleado">
-                                        <option> </option>
-                                        <option>Directivo</option>
-                                        <option>Administrador</option>
-                                        <option>Auxiliar</option>
-                                        <option>Motorista</option>
-                                        <option>Vigilante</option>
-                                        <option>Conserge</option>
+                                    <FormControl as="select" name="tipo_empleado" value={id_tipo_empleado} onChange={onChange}>
+                                        <option value="null"> </option>
+                                        <option value="uuid1">Directivo</option>
+                                        <option value="uuid2">Administrador</option>
+                                        <option value="uuid3">Auxiliar</option>
+                                        <option value="uuid4">Motorista</option>
+                                        <option value="uuid5">Vigilante</option>
+                                        <option value="uuid6">Conserge</option>
                                     </FormControl>
                                 </InputGroup>
                             </Col>
@@ -234,6 +324,9 @@ const Registro = () => {
                                         placeholder="00000000"
                                         aria-label="Licencia de Conducir"
                                         aria-describedby="Licencia de Conducir"
+                                        name="licencia_conducir"
+                                        value={licencia_conducir}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -246,6 +339,9 @@ const Registro = () => {
                                         placeholder="00000000"
                                         aria-label="Licencia de Arma"
                                         aria-describedby="Licencia de Arma"
+                                        name="licencia_de_arma"
+                                        value={licencia_de_arma}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -256,12 +352,12 @@ const Registro = () => {
                                     <InputGroup.Append>
                                         <InputGroup.Text id="basic -addon1">Estado</InputGroup.Text>
                                     </InputGroup.Append>
-                                    <FormControl as="select" name="estado">
-                                        <option> </option>
-                                        <option>Contrato Activo</option>
-                                        <option>Suspendido</option>
-                                        <option>Incapacitado</option>
-                                        <option>Despedido</option>
+                                    <FormControl as="select" name="estado" value={id_estado} onChange={onChange}> 
+                                        <option value="uuid"> </option>
+                                        <option value="uuid2">Contrato Activo</option>
+                                        <option value="uuid3">Suspendido</option>
+                                        <option value="uuid4">Incapacitado</option>
+                                        <option value="uuid5">Despedido</option>
                                     </FormControl>
                                 </InputGroup>
                             </Col>
@@ -271,14 +367,14 @@ const Registro = () => {
                                     <InputGroup.Append>
                                         <InputGroup.Text id="basic -addon1">Departamento</InputGroup.Text>
                                     </InputGroup.Append>
-                                    <FormControl as="select" name="departamento">
-                                        <option></option>
-                                        <option>Administracion</option>
-                                        <option>Contabilidad</option>
-                                        <option>Finanzas</option>
-                                        <option>Almacen</option>
-                                        <option>Taller</option>
-                                        <option>Mantenimiento</option>
+                                    <FormControl as="select" name="departamento" value={id_departamento} onChange={onChange}> 
+                                        <option value="uuid1"></option>
+                                        <option value="uuid2">Administracion</option>
+                                        <option value="uuid3">Contabilidad</option>
+                                        <option value="uuid4">Finanzas</option>
+                                        <option value="uuid5">Almacen</option>
+                                        <option value="uuid6">Taller</option>
+                                        <option value="uuid7">Mantenimiento</option>
                                     </FormControl>
                                 </InputGroup>
                             </Col>
@@ -289,7 +385,13 @@ const Registro = () => {
                                     <InputGroup.Prepend>
                                         <InputGroup.Text>Comentarios</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <FormControl as="textarea" aria-label="Comentarios" />
+                                    <FormControl 
+                                        as="textarea" 
+                                        aria-label="Comentarios" 
+                                        name="comentarios"
+                                        value={comentarios}
+                                        onChange={onChange}
+                                    />
                                 </InputGroup>
                             </Col>
                         </Row>

@@ -54,7 +54,7 @@ const Login = () => {
                             </Form.Group>
                             <Button variant="primary" size="lg" block>Ingresar</Button>
                         </Form>
-                        <Link>
+                        <Link to='/nuevo-usuario'>
                             Usuario Nuevo
                         </Link>
                         </Card.Body>
