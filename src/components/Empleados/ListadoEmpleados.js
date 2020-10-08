@@ -6,8 +6,8 @@ import Barra from '../../layouts/Barra';
 import { Container,Table, Button } from 'react-bootstrap';
 
 const empleados = [
-    {nombres: 'Juan Perez'},
-    {nombres: 'Miguel Perez'}
+    {id:1, nombres: 'Juan Perez'},
+    {id:2, nombres: 'Miguel Perez'}
 ]
 
 const ListadoEmpleados = () => {
