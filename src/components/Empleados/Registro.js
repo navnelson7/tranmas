@@ -67,6 +67,19 @@ const Registro = () => {
     }
 
 
+    const onSubmit = e => {
+        e.preventDefault();
+        //validar que no haya datos vacios
+
+
+        //
+
+
+        //pasarlo a la accion
+
+
+        //reinicar el form
+    }
     return ( 
         <div className="container">
             <Form>
