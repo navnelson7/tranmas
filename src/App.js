@@ -6,11 +6,10 @@ import NuevoUsuario from './components/Auth/NuevoUsuario';
 import Registro from './components/Empleados/Registro';
 import ListadoEmpleados from './components/Empleados/ListadoEmpleados';
 import ListadoRepuestos from './components/Repuestos/ListadoRepuestos';
+import FormRepuestos from './components/Repuestos/FormRepuetos';
 
 
 import EmpleadosState from './context/empleados/empleadosState';
-
-
 
 
 import ApolloCliente from 'apollo-client';
@@ -42,6 +41,7 @@ function App() {
               <Route exact path="/registro" component= {Registro} />
               <Route exact path="/listado-empleados" component = {ListadoEmpleados} />
               <Route exact path="/listado-repuestos" component= {ListadoRepuestos} />
+              <Route exact path="/formulario-repuestos" component= {FormRepuestos} />
             </Switch>
           </Router>
         </EmpleadosState>
