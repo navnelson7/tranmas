@@ -3,11 +3,11 @@ import Empleado from './Empleado';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Barra from '../../layouts/Barra';
-import { Container,Table, Button } from 'react-bootstrap';
+import { Container,Table, Button, Alert } from 'react-bootstrap';
 
 const empleados = [
-    {id:1, nombres: 'Juan Perez'},
-    {id:2, nombres: 'Miguel Perez'}
+    {id:1, nombres:"Juan Perez"},
+    {id:2, nombres:"Veronica Arteaga"}
 ]
 
 const ListadoEmpleados = () => {
@@ -23,13 +23,18 @@ const ListadoEmpleados = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {empleados.map(empleado =>(
-                            <tr>
-                                <Empleado 
-                                empleado={empleado}
-                            />
-                            </tr>
-                        ))}
+                        { empleados.length === 0
+                            ? (<tr><td>No hay Empleados registrados </td></tr>)
+                            : empleados.map(empleado =>(
+                                <tr  key={empleado.id}>
+                                    <Empleado 
+                                    empleado={empleado}
+                                />
+                                </tr>
+                            ))
+                            
+                            
+                        }
                     </tbody>
                 </Table>
             </Container>
