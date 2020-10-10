@@ -1,4 +1,4 @@
 import { createContext } from 'react';
-const repuestoContext = createContext();
+const repuestosContext = createContext();
 
-export default repuestoContext;
+export default repuestosContext;
