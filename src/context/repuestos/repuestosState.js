@@ -1,22 +1,37 @@
 import React, { useReducer } from 'react';
-import repuestosContext from './repuestosContext';
-import repuestosReducer from './repuestosReducer';
+import RepuestosReducer from './repuestosReducer';
+import RepuestosContext from './repuestosContext';
+
+import { OBTENER_REPUESTOS } from '../../types/index';
+
 
 const RepuestosState = props => {
     const initialState = {
-
+        repuestos:[
+            {id: 1, nombre: "Llantas Michellin"},
+            {id: 2, nombre: "Aceite Castrol"}
+        ]
     }
 
-    const [state, dispatch] = useReducer(repuestosReducer, initialState)
+    
+
+    const [state, dispatch] = useReducer(RepuestosReducer, initialState);
+
+    const obtenerRepuestos = () => {
+        dispatch({
+            type:OBTENER_REPUESTOS
+        })
+    }
 
     return (
-        <repuestosContext.Provider
+        <RepuestosContext.Provider
             value = {{
-                
+                repuestos: state.repuestos,
+                obtenerRepuestos
             }}
         >
             {props.children}
-        </repuestosContext.Provider>
+        </RepuestosContext.Provider>
     )
 
     
