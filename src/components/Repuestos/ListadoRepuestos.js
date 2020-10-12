@@ -1,15 +1,29 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import Repuesto from './Repuesto';
-import {Table, Container} from 'react-bootstrap';
+import {Table, Container, Spinner} from 'react-bootstrap';
 import repuestoContext from '../../context/repuestos/repuestosContext';
 
+import {useQuery} from '@apollo/client';
+import  {getRepuestos} from '../../graphql/Queries';
 
 
 const ListadoRepuestos = () => {
     
-
+    const { data } = useQuery(getRepuestos);
+   
     const repuestosContext = useContext(repuestoContext);
     const {repuestos} = repuestosContext;
+
+     
+    useEffect(() => {
+        if (data) {
+          console.log("====================================");
+          console.log(data);
+          console.log("====================================");
+        //   repuestoContext(data.repuestos);
+        }
+        //eslint-disable-next-line
+      }, [data]);
 
     return ( 
         <Fragment>

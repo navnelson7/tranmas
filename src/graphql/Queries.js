@@ -6,6 +6,10 @@ export const getRepuestos = gql `
             id
             nombre
             cantidad
-    }
+            fecha_factura
+        }
+        unidades_de_medida{
+            unidad_de_medida
+        }
 }
 `;
