@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+
 const Repuesto = ({ repuesto }) => {
     return (
         <Fragment>

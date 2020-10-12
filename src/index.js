@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import rules from './rules.css';
+import {rules} from './rules.css';
 import App from './App';
+
+import {ApolloProvider} from '@apollo/client';
+import { client } from './graphql/ApolloClient';
+
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

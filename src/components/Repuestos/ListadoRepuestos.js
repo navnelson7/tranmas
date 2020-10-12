@@ -1,11 +1,12 @@
 import React, { Fragment, useContext } from 'react';
 import Repuesto from './Repuesto';
-import {Row, Col, Table, Container} from 'react-bootstrap';
+import {Table, Container} from 'react-bootstrap';
 import repuestoContext from '../../context/repuestos/repuestosContext';
 
 
 
 const ListadoRepuestos = () => {
+    
 
     const repuestosContext = useContext(repuestoContext);
     const {repuestos} = repuestosContext;

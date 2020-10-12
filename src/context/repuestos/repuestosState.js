@@ -1,11 +1,17 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import RepuestosReducer from './repuestosReducer';
 import RepuestosContext from './repuestosContext';
+
+
+
 
 import { OBTENER_REPUESTOS } from '../../types/index';
 
 
 const RepuestosState = props => {
+
+
+
     const initialState = {
         repuestos:[
             {id: 1, nombre: "Llantas Michellin"},
