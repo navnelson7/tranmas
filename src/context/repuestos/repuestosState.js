@@ -1,6 +1,10 @@
-import React, { useReducer, useEffect } from 'react';
-import RepuestosReducer from './repuestosReducer';
-import RepuestosContext from './repuestosContext';
+import React, { useReducer, useContext,  } from 'react';
+
+import RepuestosReducer from '../../context/repuestos/repuestosReducer';
+import RepuestosContext from '../../context/repuestos/repuestosContext'
+
+import {useQuery} from '@apollo/client';
+import {getRepuestos} from '../../graphql/Queries';
 
 
 
@@ -9,23 +13,25 @@ import { OBTENER_REPUESTOS } from '../../types/index';
 
 
 const RepuestosState = props => {
-
-
+    const { data, loading, error } = useQuery(getRepuestos);
+   
+    const repuestosContext = useContext(RepuestosContext);
+    const {repuestos} = repuestosContext;
+    console.log(data);
 
     const initialState = {
         repuestos:[
-            {id: 1, nombre: "Llantas Michellin"},
-            {id: 2, nombre: "Aceite Castrol"}
+            
         ]
     }
-
+    
     
 
     const [state, dispatch] = useReducer(RepuestosReducer, initialState);
 
     const obtenerRepuestos = () => {
         dispatch({
-            type:OBTENER_REPUESTOS
+            type:OBTENER_REPUESTOS,
         })
     }
 

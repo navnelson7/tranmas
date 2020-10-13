@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Container, Card, Form, Button} from 'react-bootstrap';
+//import { Container, Card, Form, Button} from 'react-bootstrap';
 const NuevoUsuario = () => {
     return ( 
         <Fragment>

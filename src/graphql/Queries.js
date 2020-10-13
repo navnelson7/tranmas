@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export const getRepuestos = gql `
-    query {        
+    query allrepuestos {        
         repuestos{
             id
             nombre
@@ -11,5 +11,14 @@ export const getRepuestos = gql `
         unidades_de_medida{
             unidad_de_medida
         }
+}
+`;
+
+export const getDepartamentos = gql `
+    query getDepartamentos {
+        departamentos{
+        id
+        departamento
+  }
 }
 `;

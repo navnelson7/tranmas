@@ -1,8 +1,8 @@
 import {
-    REGISTRO,
+    //REGISTRO,
     OBTENER_EMPLEADOS,
-    AGREGAR_EMPLEADO,
-    VALIDAR_FORMULARIO
+    //AGREGAR_EMPLEADO,
+    //VALIDAR_FORMULARIO
 } from '../../types/index.js';
 
 export default (state, action) => {
