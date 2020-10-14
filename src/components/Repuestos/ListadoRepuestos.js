@@ -45,10 +45,13 @@ const ListadoRepuestos = () => {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>id</th>
                             <th>Nombres</th>
+                            <th>Marca</th>
                             <th>Cantidad</th>
+                            <th>U. Medida</th>
                             <th>Precio</th>
+                            <th>Proveedor</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
