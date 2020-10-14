@@ -13,25 +13,27 @@ import { OBTENER_REPUESTOS } from '../../types/index';
 
 
 const RepuestosState = props => {
-    const { data, loading, error } = useQuery(getRepuestos);
+    //const { data, loading, error } = useQuery(getRepuestos);
    
     const repuestosContext = useContext(RepuestosContext);
-    const {repuestos} = repuestosContext;
-    console.log(data);
 
     const initialState = {
         repuestos:[
             
         ]
     }
+
+    const [state, dispatch] = useReducer(RepuestosReducer, initialState);
+    
+    const {repuestos} = repuestosContext;
     
     
 
-    const [state, dispatch] = useReducer(RepuestosReducer, initialState);
 
     const obtenerRepuestos = () => {
         dispatch({
             type:OBTENER_REPUESTOS,
+            payload: state.data
         })
     }
 

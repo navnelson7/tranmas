@@ -7,6 +7,7 @@ export const getRepuestos = gql `
             nombre
             cantidad
             fecha_factura
+            precio
         }
         unidades_de_medida{
             unidad_de_medida
