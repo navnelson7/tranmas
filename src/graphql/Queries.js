@@ -46,3 +46,12 @@ export const getEstadoRepuestos = gql `
 }
 
 `;
+
+export const getProveedores = gql `
+    query getProveedores{
+        proveedores{
+        id
+        nombre_proveedor
+    }
+}
+`;

@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { Container, Row ,Form, FormControl, Col, InputGroup, Card, Button } from 'react-bootstrap';
+import ListBoxEstadoRepuesto   from '../listbox/ListBoxEstadoRepuesto';
+import ListBoxProveedores from '../listbox/ListBoxProveedores';
 const FormRepuestos = () => {
     return (
         <Fragment>
@@ -133,18 +135,7 @@ const FormRepuestos = () => {
                                         />    
                                     </InputGroup>
                                 </Col>
-                                <Col sm={6}>
-                                    <InputGroup className="mb-3">
-                                        <InputGroup.Prepend>
-                                            <InputGroup.Text id="basic-addon1">Proveedor</InputGroup.Text>
-                                        </InputGroup.Prepend>
-                                        <FormControl as="select" name="id_proveedor">
-                                            <option value="01">Impressa Repuestos</option>
-                                            <option value="02">Econo Parts</option>
-                                            <option value="03">Muller SA de CV</option>                                            
-                                        </FormControl>
-                                    </InputGroup>
-                                </Col>
+                               <ListBoxProveedores />
                             </Row>
                             <Row>
                                 <Col sm={6}>
@@ -161,17 +152,7 @@ const FormRepuestos = () => {
                                         />
                                     </InputGroup>
                                 </Col>
-                                <Col sm={6}>
-                                    <InputGroup className="mb-3">
-                                        <InputGroup.Prepend>
-                                            <InputGroup.Text id="basic-addon1">Estado Repuesto</InputGroup.Text>
-                                        </InputGroup.Prepend>
-                                        <FormControl as="select" name="id_estado_repuesto">
-                                            <option value="01">Almacenado</option>
-                                            <option value="02">Obsoleto</option>
-                                        </FormControl>
-                                    </InputGroup>
-                                </Col>
+                                <ListBoxEstadoRepuesto/>
                             </Row>
                             <Row>
                             <Col sm={12}>
