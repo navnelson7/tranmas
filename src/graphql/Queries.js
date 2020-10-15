@@ -50,17 +50,26 @@ export const getEstadoRepuestos = gql `
 export const getProveedores = gql `
     query getProveedores{
         proveedores{
-        id
-        nombre_proveedor
+            id
+            nombre_proveedor
+        }
     }
-}
 `;
 
 export const getUnidadMedida = gql `
     query getUnidadesMedida{
         unidades_de_medida{
-        id
-        unidad_de_medida
-  }
+            id
+            unidad_de_medida
+        }
+}
+`;
+
+export const getMarcas = gql `
+    query getMarcas{
+        marcas{
+            id
+            marca
+    }
 }
 `;

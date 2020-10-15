@@ -4,6 +4,7 @@ import { Container, Row ,Form, FormControl, Col, InputGroup, Card, Button } from
 import ListBoxEstadoRepuesto   from '../listbox/ListBoxEstadoRepuesto';
 import ListBoxProveedores from '../listbox/ListBoxProveedores';
 import ListBoxUnidadMedida from '../listbox/ListBoxUnidadMedida';
+import ListBoxMarcas from '../listbox/ListBoxMarcas';
 
 const FormRepuestos = () => {
     return (
@@ -117,18 +118,7 @@ const FormRepuestos = () => {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col sm={6}>
-                                    <InputGroup className="mb-3">
-                                        <InputGroup.Prepend>
-                                            <InputGroup.Text id="basic-addon1">Marca</InputGroup.Text>
-                                        </InputGroup.Prepend>
-                                        <FormControl 
-                                            aria-label="id_marca"
-                                            aria-describedby="basic-addon1"
-                                            name="id_marca"
-                                        />    
-                                    </InputGroup>
-                                </Col>
+                                <ListBoxMarcas />
                                <ListBoxProveedores />
                             </Row>
                             <Row>
