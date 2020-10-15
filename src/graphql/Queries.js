@@ -55,3 +55,12 @@ export const getProveedores = gql `
     }
 }
 `;
+
+export const getUnidadMedida = gql `
+    query getUnidadesMedida{
+        unidades_de_medida{
+        id
+        unidad_de_medida
+  }
+}
+`;

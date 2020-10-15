@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 import { Container, Row ,Form, FormControl, Col, InputGroup, Card, Button } from 'react-bootstrap';
+
 import ListBoxEstadoRepuesto   from '../listbox/ListBoxEstadoRepuesto';
 import ListBoxProveedores from '../listbox/ListBoxProveedores';
+import ListBoxUnidadMedida from '../listbox/ListBoxUnidadMedida';
+
 const FormRepuestos = () => {
     return (
         <Fragment>
@@ -67,18 +70,9 @@ const FormRepuestos = () => {
                                         />
                                     </InputGroup>
                                 </Col>
-                                <Col sm={4}>
-                                    <InputGroup className="mb-3">
-                                        <InputGroup.Append>
-                                            <InputGroup.Text id="basic-addon1">Medida</InputGroup.Text>
-                                        </InputGroup.Append>
-                                        <FormControl as="select" name="id_unidad_medida">
-                                            <option></option>
-                                            <option value="Galones">Galones</option>
-                                            <option value="Litros">Litros</option>
-                                        </FormControl>
-                                    </InputGroup>
-                                </Col>
+                                
+                                <ListBoxUnidadMedida />
+
                             </Row>
                             <Row>
                                 <Col sm={4}>

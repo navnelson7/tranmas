@@ -13,15 +13,14 @@ const ListBoxProveedores = () => {
 
 
     if (loading) return 'Loading...';   if (error) return `Error! ${error.message}`;
-    console.log("data->",data.proveedores);
     return (
         <Col sm={6}>
-            <InputGroup.Prepend className="mb-3">
+            <InputGroup className="mb-3">
                 <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1">Proveedor</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl as="select" name="id_proveedor">
-                    <option id={3}>"Seleccione un proveedor</option>
+                    <option>"Seleccione un proveedor</option>
                     { data.proveedores.lenght === 0
                                 ? (<option id="0">No hay data</option>)
                                 :  data.proveedores.map(proveedor =>(
@@ -29,7 +28,7 @@ const ListBoxProveedores = () => {
                                 ))
                             }
                 </FormControl>
-                </InputGroup.Prepend>
+                </InputGroup>
         </Col>
     );
 }
