@@ -1,10 +1,20 @@
 .abs-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .texto-usuario-nuevo {
-    align-self: center;
+  align-self: center;
+}
+
+.box-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20%;
+}
+.mt-dropdown{
+  margin-top: 5px;
 }
