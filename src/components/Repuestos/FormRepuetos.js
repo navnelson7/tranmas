@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Container, Row ,Form, FormControl, Col, InputGroup, Card, Button } from 'react-bootstrap';
 
 import ListBoxEstadoRepuesto   from '../listbox/ListBoxEstadoRepuesto';
@@ -7,6 +7,39 @@ import ListBoxUnidadMedida from '../listbox/ListBoxUnidadMedida';
 import ListBoxMarcas from '../listbox/ListBoxMarcas';
 
 const FormRepuestos = () => {
+
+    const [repuesto, guardarRepuesto] = useState({
+        codigo_repuesto: '',
+        id_unidad_medidad: '',
+        precio: '',
+        cantidad:'',
+        id_usuario:'',
+        id_proveedor:'',
+        numero_factura:'',
+        fecha_factura:'',
+        fecha_ingreso: '',
+        id_estado: '',
+        id_marca:'',
+        activo:'',
+        nombre:''
+    })
+
+    const {
+        codigo_repuesto,
+        id_unidad_medidad,
+        precio,
+        cantidad,
+        id_usuario,
+        id_proveedor,
+        numero_factura,
+        fecha_factura,
+        fecha_ingreso,
+        id_estado,
+        id_marca,
+        activo,
+        nombre
+    } = repuesto
+
     return (
         <Fragment>
             <Container>
@@ -24,7 +57,8 @@ const FormRepuestos = () => {
                                             placeholder="0000000000"
                                             aria-label="codigo"
                                             aria-describedby="basic-addon1"
-                                            name="codigo"
+                                            name="codigo_repuesto"
+                                            value={codigo_repuesto}
                                         />                               
                                     </InputGroup>
                                 </Col>
@@ -38,6 +72,7 @@ const FormRepuestos = () => {
                                                 aria-label="nombre"
                                                 aria-describedby="basic-addon1"
                                                 name="nombre"
+                                                value={nombre}
                                             />
                                     </InputGroup>
                                 </Col>
@@ -54,6 +89,7 @@ const FormRepuestos = () => {
                                             aria-label="cantidad"
                                             aria-describedby="basic-addon1"
                                             name="cantidad"
+                                            value={cantidad}
                                         />
                                     </InputGroup>
                                 </Col>
@@ -68,6 +104,7 @@ const FormRepuestos = () => {
                                             aria-label="precio"
                                             aria-describedby="basic-addon1"
                                             name="precio"
+                                            value={precio}
                                         />
                                     </InputGroup>
                                 </Col>
@@ -87,6 +124,7 @@ const FormRepuestos = () => {
                                             aria-label="numero_factura"
                                             arita-describedby="basic-addon1"
                                             name="numero_factura"
+                                            value={numero_factura}
                                         />
                                     </InputGroup>
                                 </Col>
