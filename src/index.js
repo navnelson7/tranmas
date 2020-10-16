@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {rules} from './rules.css';
+import './rules.css';
 import App from './App';
 
 import {ApolloProvider} from '@apollo/client';
