@@ -7,6 +7,16 @@ import { getMarcas } from '../../graphql/Queries';
 
 const ListBoxMarcas = () => {
 
+    const [marcaRepuesto, setMarca] = useState({
+        id:'',
+        marca:''
+    })
+
+    const {
+        id,
+        marca
+    } = marcaRepuesto
+
     const { data, loading, error } = useQuery(getMarcas);
 
     const [marcas, setMarcas] = useState([]);

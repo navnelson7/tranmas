@@ -21,7 +21,8 @@ const FormRepuestos = () => {
         id_estado: '',
         id_marca:'',
         activo:'',
-        nombre:''
+        nombre:'',
+        comentarios:''
     })
 
     const {
@@ -37,8 +38,25 @@ const FormRepuestos = () => {
         id_estado,
         id_marca,
         activo,
-        nombre
+        nombre,
+        comentarios,
     } = repuesto
+
+    const onChange = e =>{
+        guardarRepuesto({
+            ...repuesto,
+            [e.target.name]: e.target.value
+        })
+
+    }
+
+    const handleCheck= e=> {
+        guardarRepuesto({
+            ...repuesto,
+            [e.target.name] : e.target.checked
+        })
+    }
+    
 
     return (
         <Fragment>
@@ -138,6 +156,7 @@ const FormRepuestos = () => {
                                             aria-label="fecha_factura"
                                             aria-describedby="basic-addon1"
                                             name="fecha_factura"
+                                            value={fecha_factura}
                                         />
                                     </InputGroup>
                                 </Col>
@@ -151,13 +170,14 @@ const FormRepuestos = () => {
                                             aria-label="fecha_ingreso"
                                             aria-describedby="basic-addon1"
                                             name="fecha_ingreso"
+                                            value={fecha_ingreso}
                                         />
                                     </InputGroup>
                                 </Col>
                             </Row>
                             <Row>
-                                <ListBoxMarcas />
-                               <ListBoxProveedores />
+                                <ListBoxMarcas value={id_marca}/>
+                               <ListBoxProveedores  value={id_proveedor}/>
                             </Row>
                             <Row>
                                 <Col sm={6}>
@@ -170,11 +190,12 @@ const FormRepuestos = () => {
                                             aria-label="id_usuario"
                                             aria-describedby="basic-addon1"
                                             name="id_usuario"
+                                            value={id_usuario}
                                             readOnly
                                         />
                                     </InputGroup>
                                 </Col>
-                                <ListBoxEstadoRepuesto/>
+                                <ListBoxEstadoRepuesto value={id_estado}/>
                             </Row>
                             <Row>
                             <Col sm={12}>
@@ -186,7 +207,7 @@ const FormRepuestos = () => {
                                         as="textarea" 
                                         aria-label="Comentarios" 
                                         name="comentarios"
-                                        //value={comentarios}
+                                        value={comentarios}
                                         //onChange={onChange}
                                     />
                                 </InputGroup>
@@ -198,9 +219,9 @@ const FormRepuestos = () => {
                                     <Form.Check 
                                         type="checkbox" 
                                         label="Activo" 
-                                        name="estado" 
-                                        //value={estado}
-                                        //onChange={handleCheck}
+                                        name="id_estado" 
+                                        value={id_estado}
+                                        onChange={handleCheck}
                                         />
                                 </Form.Group>
                             </Col>
