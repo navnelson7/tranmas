@@ -82,13 +82,21 @@ export const getRoles = gql`
 `;
 
 export const getEmpleados = gql`
-  query {
-    empleados {
-      activo
-      id
-      apellidos
-      nit
-      nombres
-    }
+query {
+  empleados {
+    activo
+    id
+    apellidos
+    nit
+    nombres
   }
+}
 `;
+
+export const getEmailUsers = gql`
+query {
+    users{
+      email
+    }
+}
+`

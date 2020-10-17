@@ -15,6 +15,11 @@
   align-items: center;
   margin-top: 20%;
 }
-.mt-dropdown{
+
+.mt-dropdown {
   margin-top: 5px;
+}
+
+.box-left {
+  margin-left: 11%;
 }
