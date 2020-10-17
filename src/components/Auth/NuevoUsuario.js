@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { useHistory } from "react-router-dom";
 import {
@@ -15,9 +15,10 @@ import { getRoles } from "../../graphql/Queries";
 import { setUserOne } from "../../graphql/Mutations";
 import { ToastComponent } from "../Toast";
 import Empleados from "./Empleados";
+import { getEmailUsers } from "../../graphql/Queries";
 
 function NuevoUsuario() {
-  const {push} = useHistory();
+  const { push } = useHistory();
 
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
@@ -25,6 +26,17 @@ function NuevoUsuario() {
 
   //QUERIES
   const { loading, error, data } = useQuery(getRoles);
+  const responseUsers = useQuery(getEmailUsers);
+
+  const [EmailTotales, setEmailTotales] = useState([]);
+
+
+  useEffect(() => {
+    let users = [];
+    users = responseUsers.data === undefined ? [] : responseUsers.data.users;
+    setEmailTotales(users)
+  }, [responseUsers.data]);
+
   //MUTATIONS
   const [addUser] = useMutation(setUserOne);
 
@@ -37,15 +49,6 @@ function NuevoUsuario() {
     id_role: "",
     id_empleado: "",
   });
-  if (loading)
-    return (
-      <Fragment>
-        <div className="box-center">
-          <Spinner animation="border" variant="primary" />
-        </div>
-      </Fragment>
-    );
-  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
 
   const setStateUser = (name, value, showRol) => {
     setnewUser({
@@ -56,8 +59,28 @@ function NuevoUsuario() {
       setRolSelected(showRol);
     }
   };
+
+  if (responseUsers.loading)
+    return (
+      <Fragment>
+        <div className="box-center">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      </Fragment>
+    );
+  if (loading)
+    return (
+      <Fragment>
+        <div className="box-center">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      </Fragment>
+    );
+  if (error || responseUsers.error) return <p align="center">{`Error! ${error.message}`}</p>;
+
+
   //ENVIAMOS LA INFO A GRAPHQL
-  const onSubmit = (e) => {
+  const onSubmit = (e, emailSelected) => {
     e.preventDefault();
     if (newUser.id_role === "") {
       setIconType("error")
@@ -84,28 +107,40 @@ function NuevoUsuario() {
       setshowAlert(true);
       setTextAlert("Debes seleccionar tu nombre en empleado");
     } else {
-      //Le damos a GraphQL los datos que obtiene por parametro
-      addUser({
-        variables: newUser,
-      })
-        .then((res) => {
-          if (res.data) {
-            setIconType("success")
-            setshowAlert(true);
-            setTextAlert("Registrado correctamente");
-            setTimeout(() => {
-              //si todo va bien lo redirecciona al inicio
-              push('/')
-            }, 2000);
-          }
+      let emailExists = false;
+      for (const iterator of EmailTotales) {
+        if (newUser.email === iterator.email) {
+          emailExists = true
+        }
+      }
+      if (emailExists) {
+        setTextAlert("Correo existente");
+        setIconType("error")
+        setshowAlert(true);
+      } else {
+        addUser({
+          variables: newUser,
         })
-        .catch(() => {
-          setIconType("error")
-          setshowAlert(true);
-          setTextAlert("Ocurrio un problema");
-        });
+          .then((res) => {
+            if (res.data) {
+              setIconType("success")
+              setshowAlert(true);
+              setTextAlert("Registrado correctamente");
+              setTimeout(() => {
+                //si todo va bien lo redirecciona al inicio
+                push('/')
+              }, 2000);
+            }
+          })
+          .catch((error) => {
+            setTextAlert("Ocurrio un problema");
+            setIconType("error")
+            setshowAlert(true);
+          });
+      }
     }
   };
+
   return (
     <Fragment>
       <ToastComponent
