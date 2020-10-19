@@ -298,10 +298,10 @@ const StyleNavFooter = styled.div`
     border-top: 1px solid #e6ecf0;
   }
   .navbar-zoom {
-    padding-right: 15px;
-    padding-left: 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   .fixed-bottom {
     position: fixed;
