@@ -130,7 +130,7 @@ const FormRepuestos = () => {
                                     </InputGroup>
                                 </Col>
                                 
-                                <ListBoxUnidadMedida/>
+                                <ListBoxUnidadMedida changeMedida={onChange} name="unidad_de_medida"/>
 
                             </Row>
                             <Row>

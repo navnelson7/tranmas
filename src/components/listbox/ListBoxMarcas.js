@@ -34,10 +34,10 @@ const ListBoxMarcas = ({changeMarca}) => {
                 <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1">Marca</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl as="select" name="id_marca" onChange={changeMarca} value={id}>
+                <FormControl as="select" name="id_marca" value={id} onChange={changeMarca} >
                     <option>Selecciones una Marca</option>
                     {data.marcas.lenght === 0
-                        ? (<option>Sin data</option>)
+                        ? (<option id="0">Sin data</option>)
                         : data.marcas.map (marca =>(
                         <option key={marca.id} value={marca.id}>{marca.marca}</option>
                         ))

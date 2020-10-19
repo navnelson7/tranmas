@@ -3,11 +3,21 @@ import { InputGroup, FormControl, Col } from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
 import { getUnidadMedida } from '../../graphql/Queries';
 
-const ListBoxUnidadMedida = () => {
+const ListBoxUnidadMedida = ({changeMedida}) => {
+
+    const [unidades, setUnidades] = useState({
+        id:'',
+        unidad_de_medida:''
+    })
+
+    const {
+        id,
+        unidad_de_medida
+    } = unidades
+
     const {data, loading, error} = useQuery(getUnidadMedida);
-    const [unidadesdemedida, setUnidadMedida] = useState([]);
-    const actualizarUnidadesMedida = (data) =>{
-        setUnidadMedida(data);
+    const actualizarUnidades = (data) =>{
+        setUnidades(data);
     }
 
     if(loading) return 'Loading... '; if(error) return `Error! ${error.message}`;
@@ -19,7 +29,7 @@ const ListBoxUnidadMedida = () => {
                 <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1">Unidad de Medida</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl as="select" name="id_unidad_medida">
+                <FormControl as="select" name="id_unidad_medida" value={id} onChange={changeMedida}>
                     <option>Selecciona una medida</option>
                     {data.unidades_de_medida.lenght === 0
                         ? (<option>Sin data</option>)
