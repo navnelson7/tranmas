@@ -284,6 +284,7 @@ const StyleNavegacion = styled.div`
   .wrapper-left {
     display: flex;
     position: relative;
+    margin-top: 35px;
   }
   .wrapper-left .sidebar-left {
     position: fixed;

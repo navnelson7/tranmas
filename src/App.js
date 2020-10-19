@@ -15,6 +15,7 @@ import EmpleadosState from './context/empleados/empleadosState';
 import RepuestosState from './context/repuestos/repuestosState';
 import Navegacion from './components/Navegacion';
 import Proveedores from './components/Proveedores';
+import NavegacionTop from './components/Navegacion/NavegacionTop';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Router>
         <EmpleadosState>
           <RepuestosState>
+            <NavegacionTop/>
             <Navegacion />
             <Switch>
               <Route exact path="/" component={Login} />
