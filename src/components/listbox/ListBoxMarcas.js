@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 
 import { getMarcas } from '../../graphql/Queries';
 
-const ListBoxMarcas = () => {
+const ListBoxMarcas = ({changeRepuesto}) => {
 
     const [marcaRepuesto, setMarca] = useState({
         id:'',
@@ -24,6 +24,8 @@ const ListBoxMarcas = () => {
         setMarcas(data);
     }
     
+   
+
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
 
@@ -33,7 +35,7 @@ const ListBoxMarcas = () => {
                 <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1">Marca</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl as="select" name="id_marca">
+                <FormControl as="select" name="id_marca" onChange={changeRepuesto} value={id}>
                     <option>Selecciones una Marca</option>
                     {data.marcas.lenght === 0
                         ? (<option>Sin data</option>)

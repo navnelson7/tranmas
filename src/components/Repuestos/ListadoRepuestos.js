@@ -13,7 +13,7 @@ import { OBTENER_REPUESTOS } from '../../types/index';
 
 const ListadoRepuestos = () => {
 
-
+    
     const { data, loading, error } = useQuery(getRepuestos);
 
     const repuestosContext = useContext(repuestoContext);
@@ -22,18 +22,18 @@ const ListadoRepuestos = () => {
     const [state, dispatch] = useReducer(RepuestosReducer, []);
 
     useEffect(() => {
+        if (data === undefined) {
+            dispatch({
+                type: OBTENER_REPUESTOS,
+                payload: []
+            })
+        }
         if (data) {
             dispatch({
                 type: OBTENER_REPUESTOS,
                 payload: data.repuestos
             })
 
-        }
-        if (data === undefined) {
-            dispatch({
-                type: OBTENER_REPUESTOS,
-                payload: []
-            })
         }
         //eslint-disable-next-line
     }, [data]);

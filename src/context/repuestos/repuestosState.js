@@ -25,7 +25,7 @@ const RepuestosState = props => {
 
     const [state, dispatch] = useReducer(RepuestosReducer, initialState);
     
-    const {repuestos} = repuestosContext;
+    const {repuestos} = RepuestosReducer;
     
     
 

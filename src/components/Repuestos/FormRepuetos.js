@@ -8,7 +8,7 @@ import ListBoxMarcas from '../listbox/ListBoxMarcas';
 
 const FormRepuestos = () => {
 
-    const [repuesto, guardarRepuesto] = useState({
+    const [repuestoin, guardarRepuesto] = useState({
         codigo_repuesto: '',
         id_unidad_medidad: '',
         precio: '',
@@ -40,11 +40,11 @@ const FormRepuestos = () => {
         activo,
         nombre,
         comentarios,
-    } = repuesto
+    } = repuestoin
 
     const onChange = e =>{
         guardarRepuesto({
-            ...repuesto,
+            ...repuestoin,
             [e.target.name]: e.target.value
         })
 
@@ -52,11 +52,10 @@ const FormRepuestos = () => {
 
     const handleCheck= e=> {
         guardarRepuesto({
-            ...repuesto,
+            ...repuestoin,
             [e.target.name] : e.target.checked
         })
-    }
-    
+    }    
 
     return (
         <Fragment>
@@ -74,9 +73,10 @@ const FormRepuestos = () => {
                                         <FormControl 
                                             placeholder="0000000000"
                                             aria-label="codigo"
-                                            aria-describedby="basic-addon1"
+                                            aria-describedby="basic -addon1"
                                             name="codigo_repuesto"
                                             value={codigo_repuesto}
+                                            onChange={onChange}
                                         />                               
                                     </InputGroup>
                                 </Col>
@@ -91,6 +91,7 @@ const FormRepuestos = () => {
                                                 aria-describedby="basic-addon1"
                                                 name="nombre"
                                                 value={nombre}
+                                                onChange={onChange}
                                             />
                                     </InputGroup>
                                 </Col>
@@ -127,7 +128,7 @@ const FormRepuestos = () => {
                                     </InputGroup>
                                 </Col>
                                 
-                                <ListBoxUnidadMedida />
+                                <ListBoxUnidadMedida/>
 
                             </Row>
                             <Row>
@@ -175,8 +176,8 @@ const FormRepuestos = () => {
                                     </InputGroup>
                                 </Col>
                             </Row>
-                            <Row>
-                                <ListBoxMarcas value={id_marca}/>
+                            <Row> 
+                                <ListBoxMarcas changeRepuesto={onChange}/>
                                <ListBoxProveedores  value={id_proveedor}/>
                             </Row>
                             <Row>

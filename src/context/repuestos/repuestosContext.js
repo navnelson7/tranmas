@@ -1,8 +1,4 @@
 import { createContext } from 'react';
-const repuestosContext = createContext({
-    repuestos: [
-
-    ]
-});
+const repuestosContext = createContext();
 
 export default repuestosContext;
