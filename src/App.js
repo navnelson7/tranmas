@@ -14,6 +14,7 @@ import FormRepuestos from './components/Repuestos/FormRepuetos';
 import EmpleadosState from './context/empleados/empleadosState';
 import RepuestosState from './context/repuestos/repuestosState';
 import Navegacion from './components/Navegacion';
+import Proveedores from './components/Proveedores';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Navegacion />
             <Switch>
               <Route exact path="/" component={Login} />
+              <Route exact path="/proveedores" component={Proveedores} />
               <Route exact path="/nuevo-usuario" component={NuevoUsuario} />
               <Route exact path="/registro" component={Registro} />
               <Route exact path="/listado-empleados" component={ListadoEmpleados} />

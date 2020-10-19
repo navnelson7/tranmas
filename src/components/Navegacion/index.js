@@ -6,12 +6,14 @@ import homeIcon from "./iconos/home.svg";
 import loginIcon from "./iconos/login.svg";
 import empleadosIcon from "./iconos/empleados.svg";
 import repuestosIcon from "./iconos/repuesto.svg";
+import proveedorIcon from "./iconos/proveedor.svg";
 
 //icons active
 import homeIconActive from "./iconos-active/home.svg";
 import loginIconActive from "./iconos-active/login.svg";
 import empleadosIconActive from "./iconos-active/empleados.svg";
 import repuestosIconActive from "./iconos-active/repuesto.svg";
+import proveedorIconActive from "./iconos-active/proveedor.svg";
 
 function Navegacion() {
   let location = useLocation();
@@ -108,6 +110,40 @@ function Navegacion() {
                   </p>
                 </div>
               </div>
+
+              <div className="grid-sidebar bg-active">
+                <div className="icon-sidebar-align">
+                  <img
+                    src={
+                      location.pathname === "/proveedores"
+                        ? proveedorIconActive
+                        : proveedorIcon
+                    }
+                    alt="Listado de empleados"
+                  />
+                </div>
+                <div className="mt-txt">
+                  <p
+                    style={
+                      location.pathname === "/proveedores"
+                        ? { color: "#1DA1F2" }
+                        : { color: "black" }
+                    }
+                  >
+                    <Link
+                      to="/proveedores"
+                      style={
+                        location.pathname === "/proveedores"
+                          ? { color: "#1DA1F2" }
+                          : { color: "black" }
+                      }
+                    >
+                      Proveedores
+                    </Link>
+                  </p>
+                </div>
+              </div>
+
               <div className="grid-sidebar bg-active">
                 <div className="icon-sidebar-align">
                   <img
@@ -139,104 +175,101 @@ function Navegacion() {
         <StyleNavFooter>
           <div className="navbar-zoom fixed-bottom grid-navigation">
             <div>
-              <div className="img-center">
-                <p align="center">
-                  <img
-                    src={location.pathname === "/" ? homeIconActive : homeIcon}
-                    alt="Inicio"
-                  />
-                </p>
-              </div>
-              <p className="title-navegacion-active">
-                <Link
-                  to="/"
-                  style={
-                    location.pathname === "/"
-                      ? { color: "#1DA1F2" }
-                      : { color: "black" }
-                  }
-                >
-                  Inicio
-                </Link>
-              </p>
-            </div>
-            <div>
-              <div className="img-center">
-                <p align="center">
-                  <img
-                    src={
-                      location.pathname === "/listado-repuestos"
-                        ? repuestosIconActive
-                        : repuestosIcon
-                    }
-                    alt="Listado de repuestos"
-                  />
-                </p>
-              </div>
-              <p className="title-navegacion">
-                <Link
-                  to="/listado-repuestos"
-                  style={
-                    location.pathname === "/listado-repuestos"
-                      ? { color: "#1DA1F2" }
-                      : { color: "black" }
-                  }
-                >
-                  Respuestos
-                </Link>
-              </p>
-            </div>
-            <div>
-              <div className="img-center">
-                <p align="center">
-                  <img
-                    src={
-                      location.pathname === "/listado-empleados"
-                        ? empleadosIconActive
-                        : empleadosIcon
-                    }
-                    alt="Listado de empleados"
-                  />
-                </p>
-              </div>
-              <p className="title-navegacion">
-                <Link
-                  to="/listado-empleados"
-                  style={
-                    location.pathname === "/listado-empleados"
-                      ? { color: "#1DA1F2" }
-                      : { color: "black" }
-                  }
-                >
-                  Empleados
-                </Link>
-              </p>
-            </div>
-            <div>
-              <div className="img-center">
-                <p align="center">
-                  <img
-                    src={
-                      location.pathname === "/nuevo-usuario"
-                        ? loginIconActive
-                        : loginIcon
-                    }
-                    alt="Registro"
-                  />
-                </p>
-              </div>
-              <p className="title-navegacion">
               <Link
-                  to="/nuevo-usuario"
-                  style={
-                    location.pathname === "/nuevo-usuario"
-                      ? { color: "#1DA1F2" }
-                      : { color: "black" }
-                  }
-                >
-                  Registro
-                </Link>
-              </p>
+                to="/"
+                style={
+                  location.pathname === "/"
+                    ? { color: "#1DA1F2" }
+                    : { color: "black" }
+                }
+              >
+                <div className="img-center">
+                  <p align="center">
+                    <img
+                      src={
+                        location.pathname === "/" ? homeIconActive : homeIcon
+                      }
+                      alt="Inicio"
+                    />
+                  </p>
+                </div>
+                <p className="title-navegacion-active">Inicio</p>
+              </Link>
+            </div>
+
+            <div>
+              <Link
+                to="/listado-repuestos"
+                style={
+                  location.pathname === "/listado-repuestos"
+                    ? { color: "#1DA1F2" }
+                    : { color: "black" }
+                }
+              >
+                <div className="img-center">
+                  <p align="center">
+                    <img
+                      src={
+                        location.pathname === "/listado-repuestos"
+                          ? repuestosIconActive
+                          : repuestosIcon
+                      }
+                      alt="Listado de repuestos"
+                    />
+                  </p>
+                </div>
+                <p className="title-navegacion">Respuestos</p>
+              </Link>
+            </div>
+
+            <div>
+              <Link
+                to="/listado-empleados"
+                style={
+                  location.pathname === "/listado-empleados"
+                    ? { color: "#1DA1F2" }
+                    : { color: "black" }
+                }
+              >
+                <div className="img-center">
+                  <p align="center">
+                    <img
+                      src={
+                        location.pathname === "/listado-empleados"
+                          ? empleadosIconActive
+                          : empleadosIcon
+                      }
+                      alt="Listado de empleados"
+                    />
+                  </p>
+                </div>
+                <p className="title-navegacion">Empleados</p>
+              </Link>
+            </div>
+            
+            <div>
+              <Link
+                to="/nuevo-usuario"
+                style={
+                  location.pathname === "/nuevo-usuario"
+                    ? { color: "#1DA1F2" }
+                    : { color: "black" }
+                }
+              >
+                <div className="img-center">
+                  <p align="center">
+                    <img
+                      src={
+                        location.pathname === "/nuevo-usuario"
+                          ? loginIconActive
+                          : loginIcon
+                      }
+                      alt="Registro"
+                    />
+                  </p>
+                </div>
+                <p className="title-navegacion">Registro</p>
+              </Link>
             </div>
           </div>
         </StyleNavFooter>
