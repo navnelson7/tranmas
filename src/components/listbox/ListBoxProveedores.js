@@ -4,9 +4,21 @@ import { useQuery } from '@apollo/client';
 import { getProveedores } from '../../graphql/Queries'
 
 
-const ListBoxProveedores = () => {
+const ListBoxProveedores = ({changeProveedor}) => {
+
+    const [proveedores, setProveedores] = useState([{
+        id: '',
+        nombre_proveedor: ''
+    }]);
+
+    const {
+        id,
+        nombre_proveedor
+    } = proveedores 
+
     const {data, loading, error} = useQuery(getProveedores);
-    const [proveerdores, setProveedores] = useState([]);
+    
+    
     const actualizarProveedores = (data) => {
         setProveedores(data.proveerdores);
     }
@@ -19,7 +31,7 @@ const ListBoxProveedores = () => {
                 <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1">Proveedor</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl as="select" name="id_proveedor">
+                <FormControl as="select" name="id_proveedor" value={id} onChange={changeProveedor}>
                     <option>"Seleccione un proveedor</option>
                     { data.proveedores.lenght === 0
                                 ? (<option id="0">No hay data</option>)

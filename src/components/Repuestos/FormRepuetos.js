@@ -109,6 +109,7 @@ const FormRepuestos = () => {
                                             aria-describedby="basic-addon1"
                                             name="cantidad"
                                             value={cantidad}
+                                            onChange={onChange}
                                         />
                                     </InputGroup>
                                 </Col>
@@ -124,6 +125,7 @@ const FormRepuestos = () => {
                                             aria-describedby="basic-addon1"
                                             name="precio"
                                             value={precio}
+                                            onChange={onChange}
                                         />
                                     </InputGroup>
                                 </Col>
@@ -177,8 +179,8 @@ const FormRepuestos = () => {
                                 </Col>
                             </Row>
                             <Row> 
-                                <ListBoxMarcas changeRepuesto={onChange}/>
-                               <ListBoxProveedores  value={id_proveedor}/>
+                                <ListBoxMarcas changeMarca={onChange}/>
+                               <ListBoxProveedores  changeProveedor={onChange}/>
                             </Row>
                             <Row>
                                 <Col sm={6}>
