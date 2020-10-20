@@ -1,40 +1,76 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
+import rightIcon from "./iconos/right.svg";
+import leftIcon from "./iconos/left.svg";
+import addProveedorIcon from "./iconos/add-proveedor.svg";
+import reloadIcon from "./iconos/refresh.svg";
+import { useQuery } from '@apollo/client';
+import { getProveedoresTable } from "../../graphql/Queries";
+
 
 function Proveedores() {
+  const { loading, error, data, refetch } = useQuery(getProveedoresTable);
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
   return (
     <StyleTable>
       <div>
+        <br />
+        <div className="flex-icons-right">
+          <div className="grid-icons-right">
+          <div className="box-icons-right" title="Añadir proveedor">
+              <img src={addProveedorIcon} alt="Añadir proveedor" className="mt-icons" />
+            </div>
+            <div className="box-icons-right" title="Recargar consulta">
+              <img src={reloadIcon} alt="Recargar consulta" className="mt-icons" onClick={() => refetch()} />
+            </div>
+          </div>
+        </div>
         <table className="rwd-table table-left shawdow">
           <tbody>
             <tr>
-              <th>Testing</th>
-              <th>Genre</th>
-              <th>Year</th>
-              <th>Gross</th>
+              <th>N°</th>
+              <th>Nombre</th>
+              <th>NIT</th>
+              <th>Teléfono de Contacto</th>
+              <th>Teléfono de Empresa</th>
+              <th>Contacto de Proveedor</th>
+              <th>NRC</th>
+              <th>Fecha</th>
             </tr>
             <tr>
-              <td data-th="Movie Title">Star Wars</td>
-              <td data-th="Genre">Adventure, Sci-fi</td>
-              <td data-th="Year">1977</td>
-              <td data-th="Gross">a</td>
-            </tr>
-            <tr>
-              <td data-th="Movie Title">Howard The Duck</td>
-              <td data-th="Genre">"Comedy"</td>
-              <td data-th="Year">1986</td>
-              <td data-th="Gross">$16,295,774</td>
-            </tr>
-            <tr>
-              <td data-th="Movie Title">American Graffiti</td>
-              <td data-th="Genre">Comedy, Drama</td>
-              <td data-th="Year">1973</td>
-              <td data-th="Gross">$115,000,000</td>
+              {
+                data.proveedores.map((proveedor, index) => {
+                  return (
+                    <Fragment key={proveedor.id}>
+                      <td data-th="N°">{index + 1}</td>
+                      <td data-th="Nombre">{proveedor.nombre_proveedor}</td>
+                      <td data-th="NIT">{proveedor.nit}</td>
+                      <td data-th="Teléfono de Contacto">{proveedor.telefono_contacto}</td>
+                      <td data-th="Teléfono de Empresa">{proveedor.telefono_empresa}</td>
+                      <td data-th="Contacto de Proveedor">{proveedor.contacto_proveedor}</td>
+                      <td data-th="NRC">{proveedor.nrc}</td>
+                      <td data-th="Fecha">{new Date(proveedor.updated_at).toDateString()}</td>
+                    </Fragment>
+                  )
+                })
+              }
             </tr>
           </tbody>
         </table>
       </div>
-      <br/><br/>
+      <div className="flex-icons-right">
+          <div className="grid-icons-right">
+          <div className="box-icons-right" title="Atras">
+              <img src={leftIcon} alt="Atras" className="mt-icons" />
+            </div>
+            <div className="box-icons-right" title="Adelante">
+              <img src={rightIcon} alt="Adelante" className="mt-icons" />
+            </div>
+          </div>
+        </div>
+      <br /><br />
     </StyleTable>
   );
 }
@@ -135,4 +171,30 @@ const StyleTable = styled.div`
       margin-left: 18%;
     }
   }
+
+  /* ICONS RIGHT */
+  .flex-icons-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+    .grid-icons-right {
+      display: grid;
+      grid-template-columns: auto auto;
+    }
+    .box-icons-right {
+      margin-right: 10px;
+      margin-left: 10px;
+      height: 35px;
+      width: 35px;
+      border-radius: 50px;
+      text-align:center;
+      cursor: pointer;
+    }
+    .box-icons-right:hover {
+     background-color: #E6ECF0;
+    }
+    .mt-icons{
+      margin-top: 4px;
+    }
 `;

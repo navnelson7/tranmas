@@ -100,3 +100,20 @@ query {
     }
 }
 `
+
+
+export const getProveedoresTable = gql`
+query {
+  proveedores{
+    id
+    nombre_proveedor
+    nit
+    telefono_contacto
+    telefono_empresa
+    contacto_proveedor
+    nrc
+    updated_at
+  }
+}
+`
+
