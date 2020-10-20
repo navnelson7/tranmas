@@ -43,7 +43,7 @@ const ListadoRepuestos = () => {
             <Container>
                 <div className="box-left">
                     <h1>LISTADO DE REPUESTO</h1>
-                    <Table striped bordered hover>
+                    <Table striped bordered hover size="sm">
                         <thead>
                             <tr>
                                 <th>Nombres</th>
@@ -53,6 +53,7 @@ const ListadoRepuestos = () => {
                                 <th>Precio</th>
                                 <th>Proveedor</th>
                                 <th>Estado</th>
+                                <th colSpan="3">acciones</th>
                             </tr>
                         </thead>
                         <tbody>
