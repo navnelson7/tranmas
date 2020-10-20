@@ -9,6 +9,7 @@ import Registro from './components/Empleados/Registro';
 import ListadoEmpleados from './components/Empleados/ListadoEmpleados';
 import ListadoRepuestos from './components/Repuestos/ListadoRepuestos';
 import FormRepuestos from './components/Repuestos/FormRepuetos';
+import NuevoProveedor from "./components/Proveedores/Registro";
 
 
 import EmpleadosState from './context/empleados/empleadosState';
@@ -28,6 +29,7 @@ function App() {
             <Navegacion />
             <Switch>
               <Route exact path="/" component={Login} />
+              <Route exact path="/nuevo-proveedor" component={NuevoProveedor} />
               <Route exact path="/proveedores" component={Proveedores} />
               <Route exact path="/nuevo-usuario" component={NuevoUsuario} />
               <Route exact path="/registro" component={Registro} />
