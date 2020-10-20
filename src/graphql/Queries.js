@@ -82,29 +82,31 @@ export const getRoles = gql`
 `;
 
 export const getEmpleados = gql`
-query {
-  empleados {
-    activo
-    id
-    apellidos
-    nit
-    nombres
+  query {
+    empleados {
+      activo
+      id
+      apellidos
+      nit
+      nombres
+    }
   }
-}
 `;
 
 export const getEmailUsers = gql`
-query {
-    users{
+  query {
+    users {
       email
     }
-}
-`
-
+  }
+`;
 
 export const getProveedoresTable = gql`
-query {
-  proveedores{
+query proveedores(
+  $limit: Int
+  $offset: Int
+) {
+  proveedores(limit: $limit, offset: $offset){
     id
     nombre_proveedor
     nit
@@ -113,7 +115,8 @@ query {
     contacto_proveedor
     nrc
     updated_at
+    email_contacto
+    email_empresa
   }
 }
-`
-
+`;
