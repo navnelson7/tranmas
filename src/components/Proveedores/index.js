@@ -4,26 +4,34 @@ import rightIcon from "./iconos/right.svg";
 import leftIcon from "./iconos/left.svg";
 import addProveedorIcon from "./iconos/add-proveedor.svg";
 import reloadIcon from "./iconos/refresh.svg";
-import { useQuery } from '@apollo/client';
+import { useQuery } from "@apollo/client";
 import { getProveedoresTable } from "../../graphql/Queries";
-
 
 function Proveedores() {
   const { loading, error, data, refetch } = useQuery(getProveedoresTable);
 
-  if (loading) return 'Loading...';
-  if (error) return `Error! ${error.message}`;
+  if (loading) return "Loading...";
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
   return (
     <StyleTable>
       <div>
         <br />
         <div className="flex-icons-right">
           <div className="grid-icons-right">
-          <div className="box-icons-right" title="Añadir proveedor">
-              <img src={addProveedorIcon} alt="Añadir proveedor" className="mt-icons" />
+            <div className="box-icons-right" title="Añadir proveedor">
+              <img
+                src={addProveedorIcon}
+                alt="Añadir proveedor"
+                className="mt-icons"
+              />
             </div>
             <div className="box-icons-right" title="Recargar consulta">
-              <img src={reloadIcon} alt="Recargar consulta" className="mt-icons" onClick={() => refetch()} />
+              <img
+                src={reloadIcon}
+                alt="Recargar consulta"
+                className="mt-icons"
+                onClick={() => refetch()}
+              />
             </div>
           </div>
         </div>
@@ -39,38 +47,45 @@ function Proveedores() {
               <th>NRC</th>
               <th>Fecha</th>
             </tr>
-            <tr>
-              {
-                data.proveedores.map((proveedor, index) => {
-                  return (
-                    <Fragment key={proveedor.id}>
-                      <td data-th="N°">{index + 1}</td>
-                      <td data-th="Nombre">{proveedor.nombre_proveedor}</td>
-                      <td data-th="NIT">{proveedor.nit}</td>
-                      <td data-th="Teléfono de Contacto">{proveedor.telefono_contacto}</td>
-                      <td data-th="Teléfono de Empresa">{proveedor.telefono_empresa}</td>
-                      <td data-th="Contacto de Proveedor">{proveedor.contacto_proveedor}</td>
-                      <td data-th="NRC">{proveedor.nrc}</td>
-                      <td data-th="Fecha">{new Date(proveedor.updated_at).toDateString()}</td>
-                    </Fragment>
-                  )
-                })
-              }
-            </tr>
+            {data.proveedores.map((proveedor, index) => {
+              return (
+                <tr key={proveedor.id}>
+                  <Fragment>
+                    <td data-th="N°">{index + 1}</td>
+                    <td data-th="Nombre">{proveedor.nombre_proveedor}</td>
+                    <td data-th="NIT">{proveedor.nit}</td>
+                    <td data-th="Teléfono de Contacto">
+                      {proveedor.telefono_contacto}
+                    </td>
+                    <td data-th="Teléfono de Empresa">
+                      {proveedor.telefono_empresa}
+                    </td>
+                    <td data-th="Contacto de Proveedor">
+                      {proveedor.contacto_proveedor}
+                    </td>
+                    <td data-th="NRC">{proveedor.nrc}</td>
+                    <td data-th="Fecha">
+                      {new Date(proveedor.updated_at).toDateString()}
+                    </td>
+                  </Fragment>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
       <div className="flex-icons-right">
-          <div className="grid-icons-right">
+        <div className="grid-icons-right">
           <div className="box-icons-right" title="Atras">
-              <img src={leftIcon} alt="Atras" className="mt-icons" />
-            </div>
-            <div className="box-icons-right" title="Adelante">
-              <img src={rightIcon} alt="Adelante" className="mt-icons" />
-            </div>
+            <img src={leftIcon} alt="Atras" className="mt-icons" />
+          </div>
+          <div className="box-icons-right" title="Adelante">
+            <img src={rightIcon} alt="Adelante" className="mt-icons" />
           </div>
         </div>
-      <br /><br />
+      </div>
+      <br />
+      <br />
     </StyleTable>
   );
 }
@@ -174,27 +189,27 @@ const StyleTable = styled.div`
 
   /* ICONS RIGHT */
   .flex-icons-right {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
-    }
-    .grid-icons-right {
-      display: grid;
-      grid-template-columns: auto auto;
-    }
-    .box-icons-right {
-      margin-right: 10px;
-      margin-left: 10px;
-      height: 35px;
-      width: 35px;
-      border-radius: 50px;
-      text-align:center;
-      cursor: pointer;
-    }
-    .box-icons-right:hover {
-     background-color: #E6ECF0;
-    }
-    .mt-icons{
-      margin-top: 4px;
-    }
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .grid-icons-right {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .box-icons-right {
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 35px;
+    width: 35px;
+    border-radius: 50px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .box-icons-right:hover {
+    background-color: #e6ecf0;
+  }
+  .mt-icons {
+    margin-top: 4px;
+  }
 `;
