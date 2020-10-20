@@ -31,9 +31,9 @@ const ListBoxEstadoRepuesto = ({changeEstadoRepuesto}) => {
                     <InputGroup.Text id="basic-addon1">Estado Repuesto</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl as="select" name="id_estado" value={id} onChange={changeEstadoRepuesto} >
-                    <option>Elije un estado</option>
+                    <option>selecciona una opció</option>
                     { data.estado_repuestos_stock.lenght === 0
-                                ? (<option id={0}>Sin Data</option>)
+                                ? (<option id="0">Sin Data</option>)
                                 :  data.estado_repuestos_stock.map(estado =>(
                                     <option key={estado.id} value={estado.id}>{estado.estado_repuestos}</option>
                                 ))

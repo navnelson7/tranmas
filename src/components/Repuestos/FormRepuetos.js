@@ -17,19 +17,20 @@ const FormRepuestos = () => {
     
     
     const [repuestoin, guardarRepuesto] = useState({
-        codigo_repuesto: '',
-        id_unidad_medida: '',
-        precio: '',
-        cantidad:'',
-        id_usuario:'74ce2303-ba9c-4682-84d9-7936679e2610',
-        id_proveedor:'',
-        numero_factura:'',
-        fecha_factura:'',
-        fecha_ingreso: '',
-        id_marca:'',
-        activo:'',
-        nombre:'',
-        comentarios:''
+        "activo": '',
+	    "cantidad": '',
+        "fecha_factura": '',
+        "fecha_ingreso": '',
+        "id_estado": '',
+        "id_marca": '',
+        "id_proveedor": '',
+        "comentarios": '',
+        "id_unidad_medida": '',
+        "id_usuario": "74ce2303-ba9c-4682-84d9-7936679e2610",
+        "codigo_repuesto": '',
+        "nombre": '',
+        "numero_factura": '',
+        "precio": '',
     })
 
     const {
@@ -65,11 +66,8 @@ const FormRepuestos = () => {
 
     const onSubmit = (e)=>{
         e.preventDefault();
-        if(repuestoin !== ""){
-            addRepuetos({
-                variables: repuestoin,
-            })
-        }
+        addRepuetos({ variables: repuestoin  })
+
     }
     return (
         <Fragment>
