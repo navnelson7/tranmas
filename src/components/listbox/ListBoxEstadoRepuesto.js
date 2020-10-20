@@ -4,9 +4,19 @@ import { useQuery } from '@apollo/client';
 import { getEstadoRepuestos, getRepuestos } from '../../graphql/Queries'
 
 
-const ListBoxEstadoRepuesto = () => {
+const ListBoxEstadoRepuesto = ({changeEstadoRepuesto}) => {
+    
+    const [estadoRepuesto, CambiarEstadoRepuestos] = useState({
+        id:'',
+        estado_repuesto:''
+    });
+
+    const {
+        id,
+        estado_repuesto
+    } = estadoRepuesto
+
     const {data, loading, error} = useQuery(getEstadoRepuestos);
-    const [estadoRepuesto, CambiarEstadoRepuestos] = useState([]);
     const cambiarState = (data) => {
         CambiarEstadoRepuestos(data.estado_repuestos_stock);
     }
@@ -20,7 +30,7 @@ const ListBoxEstadoRepuesto = () => {
                 <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1">Estado Repuesto</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl as="select" name="id_estado_repuesto">
+                <FormControl as="select" name="id_estado" value={id} onChange={changeEstadoRepuesto} >
                     <option>Elije un estado</option>
                     { data.estado_repuestos_stock.lenght === 0
                                 ? (<option id={0}>Sin Data</option>)

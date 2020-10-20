@@ -5,7 +5,7 @@ import { getUnidadMedida } from '../../graphql/Queries';
 
 const ListBoxUnidadMedida = ({changeMedida}) => {
 
-    const [unidades, setUnidades] = useState({
+    const [unidad, setUnidades] = useState({
         id:'',
         unidad_de_medida:''
     })
@@ -13,7 +13,7 @@ const ListBoxUnidadMedida = ({changeMedida}) => {
     const {
         id,
         unidad_de_medida
-    } = unidades
+    } = unidad
 
     const {data, loading, error} = useQuery(getUnidadMedida);
     const actualizarUnidades = (data) =>{

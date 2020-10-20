@@ -1,4 +1,6 @@
-import { OBTENER_REPUESTOS } from '../../types';
+import {
+    OBTENER_REPUESTOS,
+} from '../../types';
 
 export default (state, action) => {
     switch (action.type) {

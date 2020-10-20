@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import repuestosContext from '../../context/repuestos/repuestosContext';
 
 const Repuesto = ({ repuesto }) => {
     return (

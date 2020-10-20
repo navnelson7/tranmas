@@ -6,19 +6,26 @@ import ListBoxProveedores from '../listbox/ListBoxProveedores';
 import ListBoxUnidadMedida from '../listbox/ListBoxUnidadMedida';
 import ListBoxMarcas from '../listbox/ListBoxMarcas';
 
+import {useQuery, useMutation} from "@apollo/client"
+import {setRepuestosOne} from '../../graphql/Mutations';
+import {ToastComponent} from "../Toast";
+
+
 const FormRepuestos = () => {
 
+    const [addRepuetos] = useMutation(setRepuestosOne);
+    
+    
     const [repuestoin, guardarRepuesto] = useState({
         codigo_repuesto: '',
-        id_unidad_medidad: '',
+        id_unidad_medida: '',
         precio: '',
         cantidad:'',
-        id_usuario:'',
+        id_usuario:'74ce2303-ba9c-4682-84d9-7936679e2610',
         id_proveedor:'',
         numero_factura:'',
         fecha_factura:'',
         fecha_ingreso: '',
-        id_estado: '',
         id_marca:'',
         activo:'',
         nombre:'',
@@ -27,7 +34,7 @@ const FormRepuestos = () => {
 
     const {
         codigo_repuesto,
-        id_unidad_medidad,
+        id_unidad_medida,
         precio,
         cantidad,
         id_usuario,
@@ -35,7 +42,6 @@ const FormRepuestos = () => {
         numero_factura,
         fecha_factura,
         fecha_ingreso,
-        id_estado,
         id_marca,
         activo,
         nombre,
@@ -57,6 +63,14 @@ const FormRepuestos = () => {
         })
     }    
 
+    const onSubmit = (e)=>{
+        e.preventDefault();
+        if(repuestoin !== ""){
+            addRepuetos({
+                variables: repuestoin,
+            })
+        }
+    }
     return (
         <Fragment>
             <Container>
@@ -130,7 +144,7 @@ const FormRepuestos = () => {
                                     </InputGroup>
                                 </Col>
                                 
-                                <ListBoxUnidadMedida changeMedida={onChange} name="unidad_de_medida"/>
+                                <ListBoxUnidadMedida changeMedida={onChange}/>
 
                             </Row>
                             <Row>
@@ -146,6 +160,7 @@ const FormRepuestos = () => {
                                             arita-describedby="basic-addon1"
                                             name="numero_factura"
                                             value={numero_factura}
+                                            onChange={onChange}
                                         />
                                     </InputGroup>
                                 </Col>
@@ -160,6 +175,7 @@ const FormRepuestos = () => {
                                             aria-describedby="basic-addon1"
                                             name="fecha_factura"
                                             value={fecha_factura}
+                                            onChange={onChange}
                                         />
                                     </InputGroup>
                                 </Col>
@@ -174,6 +190,7 @@ const FormRepuestos = () => {
                                             aria-describedby="basic-addon1"
                                             name="fecha_ingreso"
                                             value={fecha_ingreso}
+                                            onChange={onChange}
                                         />
                                     </InputGroup>
                                 </Col>
@@ -198,7 +215,7 @@ const FormRepuestos = () => {
                                         />
                                     </InputGroup>
                                 </Col>
-                                <ListBoxEstadoRepuesto value={id_estado}/>
+                                <ListBoxEstadoRepuesto changeEstadoRepuesto={onChange}/>
                             </Row>
                             <Row>
                             <Col sm={12}>
@@ -211,7 +228,7 @@ const FormRepuestos = () => {
                                         aria-label="Comentarios" 
                                         name="comentarios"
                                         value={comentarios}
-                                        //onChange={onChange}
+                                        onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
@@ -222,14 +239,14 @@ const FormRepuestos = () => {
                                     <Form.Check 
                                         type="checkbox" 
                                         label="Activo" 
-                                        name="id_estado" 
-                                        value={id_estado}
+                                        name="activo" 
+                                        value={activo}
                                         onChange={handleCheck}
                                         />
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Button varian="Primera" size="lg">Guardar</Button>
+                        <Button varian="Primera" size="lg" onClick={onSubmit}>Guardar</Button>
                         </Card.Body>
                     </Card>
                 </Form>

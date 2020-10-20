@@ -3,8 +3,7 @@ import React, { useReducer, useContext,  } from 'react';
 import RepuestosReducer from '../../context/repuestos/repuestosReducer';
 import RepuestosContext from '../../context/repuestos/repuestosContext'
 
-import {useQuery} from '@apollo/client';
-import {getRepuestos} from '../../graphql/Queries';
+
 
 
 
@@ -36,6 +35,8 @@ const RepuestosState = props => {
             payload: state.data
         })
     }
+
+    
 
     return (
         <RepuestosContext.Provider
