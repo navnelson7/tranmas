@@ -32,9 +32,9 @@ const ListBoxProveedores = ({changeProveedor}) => {
                     <InputGroup.Text id="basic-addon1">Proveedor</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl as="select" name="id_proveedor" value={id} onChange={changeProveedor}>
-                    <option>"Seleccione un proveedor</option>
+                    <option>Seleccione un proveedor</option>
                     { data.proveedores.lenght === 0
-                                ? (<option id="0">No hay data</option>)
+                                ? (<option id="">No hay data</option>)
                                 :  data.proveedores.map(proveedor =>(
                                     <option key={proveedor.id} value={proveedor.id}>{proveedor.nombre_proveedor}</option>
                                 ))
