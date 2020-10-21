@@ -8,6 +8,12 @@ import { Table, Container } from 'react-bootstrap';
 import repuestoContext from '../../context/repuestos/repuestosContext';
 import RepuestosReducer from '../../context/repuestos/repuestosReducer';
 
+import styled from "styled-components";
+import rightIcon from "../iconos/right.svg";
+import leftIcon from "../iconos/left.svg";
+import addProveedorIcon from "../iconos/add-proveedor.svg";
+import reloadIcon from "../iconos/refresh.svg";
+
 import { OBTENER_REPUESTOS } from '../../types/index';
 
 
@@ -43,7 +49,7 @@ const ListadoRepuestos = () => {
             <Container>
                 <div className="box-left">
                     <h1>LISTADO DE REPUESTO</h1>
-                    <Table striped bordered hover>
+                    <Table striped bordered hover responsive>
                         <thead>
                             <tr>
                                 <th>Nombres</th>
@@ -53,6 +59,7 @@ const ListadoRepuestos = () => {
                                 <th>Precio</th>
                                 <th>Proveedor</th>
                                 <th>Estado</th>
+                                <th colSpan="3">acciones</th>
                             </tr>
                         </thead>
                         <tbody>
