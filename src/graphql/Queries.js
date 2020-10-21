@@ -114,6 +114,7 @@ query proveedores(
     telefono_empresa
     contacto_proveedor
     nrc
+    activo
     updated_at
     email_contacto
     email_empresa
