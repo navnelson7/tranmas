@@ -14,9 +14,12 @@ import NuevoProveedor from "./components/Proveedores/Registro";
 
 import EmpleadosState from './context/empleados/empleadosState';
 import RepuestosState from './context/repuestos/repuestosState';
+import MarcasState from './context/Marcas/marcasSate';
+
 import Navegacion from './components/Navegacion';
 import Proveedores from './components/Proveedores';
 import NavegacionTop from './components/Navegacion/NavegacionTop';
+import ListadoMarcas from './components/Marcas/ListadoMarcas';
 
 
 function App() {
@@ -24,20 +27,23 @@ function App() {
     <Fragment>
       <Router>
         <EmpleadosState>
-          <RepuestosState>
-            <NavegacionTop/>
-            <Navegacion />
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route exact path="/nuevo-proveedor" component={NuevoProveedor} />
-              <Route exact path="/proveedores" component={Proveedores} />
-              <Route exact path="/nuevo-usuario" component={NuevoUsuario} />
-              <Route exact path="/registro" component={Registro} />
-              <Route exact path="/listado-empleados" component={ListadoEmpleados} />
-              <Route exact path="/listado-repuestos" component={ListadoRepuestos} />
-              <Route exact path="/formulario-repuestos" component={FormRepuestos} />
-            </Switch>
-          </RepuestosState>
+          <MarcasState>
+            <RepuestosState>
+              <NavegacionTop/>
+              <Navegacion />
+              <Switch>
+                <Route exact path="/" component={Login} />
+                <Route exact path="/nuevo-proveedor" component={NuevoProveedor} />
+                <Route exact path="/proveedores" component={Proveedores} />
+                <Route exact path="/nuevo-usuario" component={NuevoUsuario} />
+                <Route exact path="/registro" component={Registro} />
+                <Route exact path="/listado-empleados" component={ListadoEmpleados} />
+                <Route exact path="/listado-repuestos" component={ListadoRepuestos} />
+                <Route exact path="/formulario-repuestos" component={FormRepuestos} />
+                <Route exact path="/listado-marcas" component={ListadoMarcas} />
+              </Switch>
+            </RepuestosState>
+          </MarcasState>
         </EmpleadosState>
       </Router>
     </Fragment>

@@ -1,21 +1,15 @@
 import React, { Fragment, useContext, useEffect, useReducer } from 'react';
 
-import { useQuery } from '@apollo/client';
-import { getRepuestos } from '../../graphql/Queries'
-
 import Repuesto from './Repuesto';
 import { Table, Container } from 'react-bootstrap';
 import repuestoContext from '../../context/repuestos/repuestosContext';
 import RepuestosReducer from '../../context/repuestos/repuestosReducer';
 
-import styled from "styled-components";
-import rightIcon from "../iconos/right.svg";
-import leftIcon from "../iconos/left.svg";
-import addProveedorIcon from "../iconos/add-proveedor.svg";
-import reloadIcon from "../iconos/refresh.svg";
 
 import { OBTENER_REPUESTOS } from '../../types/index';
 
+import { useQuery } from '@apollo/client';
+import { getRepuestos } from '../../graphql/Queries'
 
 const ListadoRepuestos = () => {
 

@@ -138,6 +138,7 @@ const FormRepuestos = () => {
                 textAlert={TextAlert}
             />
             <Container>
+                <div className="box-left">
                 <h1>Formulario para Ingreso de Repuestos</h1>
                 <Form>
                     <Card>
@@ -314,6 +315,7 @@ const FormRepuestos = () => {
                         </Card.Body>
                     </Card>
                 </Form>
+                </div>
             </Container>
         </Fragment>
     );
