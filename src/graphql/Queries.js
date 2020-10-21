@@ -117,6 +117,7 @@ query proveedores(
     updated_at
     email_contacto
     email_empresa
+    comentarios
   }
 }
 `;
