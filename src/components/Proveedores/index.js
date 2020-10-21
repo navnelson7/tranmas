@@ -66,6 +66,7 @@ function Proveedores() {
                 <th>Correo de contacto</th>
                 <th>Correo de empresa</th>
                 <th>NRC</th>
+                <th>Comentarios</th>
                 <th>Fecha</th>
               </tr>
               {data.proveedores.map((proveedor, index) => {
@@ -96,6 +97,7 @@ function Proveedores() {
                       {proveedor.email_empresa}
                     </td>
                     <td data-th="NRC">{proveedor.nrc}</td>
+                    <td data-th="NRC">{proveedor.comentarios}</td>
                     <td data-th="Fecha">
                       {new Date(proveedor.updated_at).toDateString()}
                     </td>

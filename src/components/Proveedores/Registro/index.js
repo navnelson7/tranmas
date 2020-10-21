@@ -1,8 +1,22 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Registro() {
+  const [newProveedor, setnewProveedor] = useState({
+    nombre_proveedor: "",
+    nit: "",
+    telefono_contacto: "",
+    telefono_empresa: "",
+    contacto_proveedor: "",
+    nrc: "",
+    updated_at: "",
+    email_contacto: "",
+    email_empresa: "",
+    comentarios: ""
+  });
+  
   return (
     <Fragment>
       <StyleNuevoProveedor>
@@ -10,47 +24,66 @@ function Registro() {
           <h2>Añadir Proveedor</h2>
           <div className="grid-forms-proveedor">
             <div className="mt-grid">
-              <Form.Control type="text" placeholder="Nombre de Proveedor" />
+              <Form.Control type="text" name="nombre_proveedor" placeholder="Nombre de Proveedor" />
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" placeholder="NIT" />
+              <Form.Control type="text" name="nit" placeholder="NIT" />
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" placeholder="NRC" />
-            </div>
-          </div>
-
-          <div className="grid-forms-proveedor">
-            <div className="mt-grid">
-              <Form.Control type="text" placeholder="Correo de contacto" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" placeholder="Correo de empresa" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" placeholder="Comentarios" />
+              <Form.Control type="text" name="nrc" placeholder="NRC" />
             </div>
           </div>
 
           <div className="grid-forms-proveedor">
             <div className="mt-grid">
-              <Form.Control type="text" placeholder="Teléfono de contacto" />
+              <Form.Control type="text" name="email_contacto" placeholder="Correo de contacto" />
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" placeholder="Teléfono de empresa" />
+              <Form.Control type="text" name="telefono_empresa" placeholder="Correo de empresa" />
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" placeholder="Teléfono de proveedor" />
+              <Form.Control type="text" name="comentarios" placeholder="Comentarios" />
+            </div>
+          </div>
+
+          <div className="grid-forms-proveedor">
+            <div className="mt-grid">
+              <Form.Control type="text" name="telefono_contacto" placeholder="Teléfono de contacto" />
+            </div>
+
+            <div className="mt-grid">
+              <Form.Control type="text" name="telefono_empresa" placeholder="Teléfono de empresa" />
+            </div>
+
+            <div className="mt-grid">
+              <Form.Control type="text" name="contacto_proveedor" placeholder="Teléfono de proveedor" />
             </div>
           </div>
         </div>
       </StyleNuevoProveedor>
+      <br />
+      <StyleBtn>
+        <div>
+          <ul>
+            <li>
+              <Link to="/proveedores">
+                <button className="btn-opcion bg-cancelar">
+                  <strong>Cancelar</strong>
+                </button>
+              </Link>
+              <button className="btn-opcion bg-guardar">
+                <strong>Guardar</strong>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <br />
+        <br />
+      </StyleBtn>
     </Fragment>
   );
 }
@@ -96,5 +129,58 @@ const StyleNuevoProveedor = styled.div`
       margin-left: 15%;
       margin-top: 2%;
     }
+  }
+`;
+
+const StyleBtn = styled.div`
+  ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  a {
+    color: black;
+  }
+  .btn-opcion {
+    display: inline-block;
+    font-weight: 400;
+    height: 40px;
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    /* BORDER RADIUS */
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .bg-cancelar {
+    transition: 0.3s;
+    color: black;
+    background: transparent;
+  }
+  .bg-cancelar:hover {
+    transition: 0.3s;
+    color: black;
+    background: #e6ecf0;
+  }
+  .bg-guardar {
+    transition: 0.3s;
+    color: #ffffff;
+    background: #3d50fa;
+  }
+  .bg-guardar:hover {
+    transition: 0.3s;
+    color: #ffffff;
+    background: #1f30cc;
   }
 `;
