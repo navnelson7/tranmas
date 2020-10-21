@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const setUserOne = gql`
+export const setUserOne = gql `
   mutation insert_users_one(
     $email: String
     $password: String
@@ -23,7 +23,7 @@ export const setUserOne = gql`
   }
 `;
 
-export const setRepuestosOne = gql`
+export const setRepuestosOne = gql `
   mutation addRepuestos(
     $activo: Boolean
     $cantidad: numeric
@@ -67,7 +67,7 @@ export const setRepuestosOne = gql`
   }
 `;
 
-const setProveedor = gql`
+const setProveedor = gql `
   mutation insert_proveedores_one(
     $nombre_proveedor: String
     $activo: Boolean
@@ -101,4 +101,13 @@ const setProveedor = gql`
       id
     }
   }
+`;
+
+//update mutation
+const updateActivoRepuesto = gql `
+  mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!){
+  update_repuestos(where:{id: {_eq: $id}}, _set: {activo: $activo}){
+    affected_rows
+  }
+}
 `;

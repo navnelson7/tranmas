@@ -6,12 +6,19 @@ import ListBoxProveedores from '../listbox/ListBoxProveedores';
 import ListBoxUnidadMedida from '../listbox/ListBoxUnidadMedida';
 import ListBoxMarcas from '../listbox/ListBoxMarcas';
 
-import {useQuery, useMutation} from "@apollo/client"
+import {useMutation} from "@apollo/client"
 import {setRepuestosOne} from '../../graphql/Mutations';
+
 import {ToastComponent} from "../Toast";
+import { concatPagination } from '@apollo/client/utilities';
+
 
 
 const FormRepuestos = () => {
+
+    const [showAlert, setshowAlert] = useState(false);
+    const [IconType, setIconType] = useState("");
+    const [TextAlert, setTextAlert] = useState("");
 
     const [addRepuetos] = useMutation(setRepuestosOne);
     
@@ -33,21 +40,7 @@ const FormRepuestos = () => {
         "precio": '',
     })
 
-    const {
-        codigo_repuesto,
-        id_unidad_medida,
-        precio,
-        cantidad,
-        id_usuario,
-        id_proveedor,
-        numero_factura,
-        fecha_factura,
-        fecha_ingreso,
-        id_marca,
-        activo,
-        nombre,
-        comentarios,
-    } = repuestoin
+    
 
     const onChange = e =>{
         guardarRepuesto({
@@ -64,13 +57,86 @@ const FormRepuestos = () => {
         })
     }    
 
+    const {
+        codigo_repuesto,
+        id_unidad_medida,
+        precio,
+        cantidad,
+        id_usuario,
+        id_proveedor,
+        numero_factura,
+        fecha_factura,
+        fecha_ingreso,
+        id_marca,
+        activo,
+        nombre,
+        comentarios,
+    } = repuestoin
+
     const onSubmit = (e)=>{
         e.preventDefault();
-        addRepuetos({ variables: repuestoin  })
+        console.log(activo);
+        if(codigo_repuesto.trim() === "" || 
+            precio.trim() === "" || 
+            cantidad.trim() === "" || 
+            id_usuario.trim() === "" ||
+            numero_factura.trim() === "" ||
+            fecha_factura.trim() === "" ||
+            fecha_ingreso.trim() === "" ||
+            activo  === "" ||
+            nombre.trim() === "" ||
+            comentarios.trim() === ""){
+                setIconType("error")
+                setshowAlert(true);
+                setTextAlert("Debes llenar todos los campos");
+                return
+        }else{
+            addRepuetos({ 
+                variables: repuestoin  
+            })
+            .then((res) => {
+                if(res.data){
+                    setIconType("success")
+                    setshowAlert(true);
+                    setTextAlert("Registrado correctamente");
+                    setTimeout(() => {
+                    }, 2000);
+                }
+            })
+            .catch((error) =>{
+                setTextAlert("Ocurrio un problema");
+                setIconType("error");
+                setshowAlert(true);
+            })
+            
+        }
 
+
+        guardarRepuesto({
+            "activo": '',
+            "cantidad": '',
+            "fecha_factura": '',
+            "fecha_ingreso": '',
+            "id_estado": '',
+            "id_marca": '',
+            "id_proveedor": '',
+            "comentarios": '',
+            "id_unidad_medida": '',
+            "id_usuario": "74ce2303-ba9c-4682-84d9-7936679e2610",
+            "codigo_repuesto": '',
+            "nombre": '',
+            "numero_factura": '',
+            "precio": '',
+        })
     }
     return (
         <Fragment>
+             <ToastComponent
+                showAlert={showAlert}
+                setShowAlert={setshowAlert}
+                iconType={IconType}
+                textAlert={TextAlert}
+            />
             <Container>
                 <h1>Formulario para Ingreso de Repuestos</h1>
                 <Form>
