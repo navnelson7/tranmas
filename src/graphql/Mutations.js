@@ -67,7 +67,7 @@ export const setRepuestosOne = gql`
   }
 `;
 
-const setProveedor = gql`
+export const setProveedorOne = gql`
   mutation insert_proveedores_one(
     $nombre_proveedor: String
     $activo: Boolean

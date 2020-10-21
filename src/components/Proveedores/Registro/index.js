@@ -1,9 +1,21 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Form, Spinner } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import { useMutation } from '@apollo/client';
+import { setProveedorOne } from "../../../graphql/Mutations";
+import { ToastComponent } from "../../Toast";
+
 
 function Registro() {
+  const [addProveedor] = useMutation(setProveedorOne);
+
+  const { push } = useHistory();
+
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
+  const [TextAlert, setTextAlert] = useState("");
+  const [Loading, setLoading] = useState(false);
   const [newProveedor, setnewProveedor] = useState({
     nombre_proveedor: "",
     nit: "",
@@ -11,56 +23,101 @@ function Registro() {
     telefono_empresa: "",
     contacto_proveedor: "",
     nrc: "",
-    updated_at: "",
+    updated_at: new Date().getFullYear() + '-' + new Date().getMonth() + "-" + new Date().getDate(),
+    created_at: new Date().getFullYear() + '-' + new Date().getMonth() + "-" + new Date().getDate(),
     email_contacto: "",
     email_empresa: "",
-    comentarios: ""
+    comentarios: "",
+    activo: true,
   });
-  
+  const changeProveedor = (e) => {
+    setnewProveedor({
+      ...newProveedor,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const submitProveedor = (e) => {
+    e.preventDefault()
+    setLoading(true)
+    addProveedor({
+      variables: newProveedor,
+    })
+      .then((res) => {
+        if (res.data) {
+          setLoading(false)
+          setIconType("success")
+          setshowAlert(true);
+          setTextAlert("Registrado correctamente");
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push('/proveedores')
+          }, 2000);
+        }
+      })
+      .catch(() => {
+        setLoading(false)
+        setTextAlert("Ocurrio un problema");
+        setIconType("error")
+        setshowAlert(true);
+      });
+  }
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
+      <br/>
+      {
+        Loading ? <div className="box-center">
+          <Spinner/>
+        </div> : null
+      }
       <StyleNuevoProveedor>
         <div className="box-left-proveedor">
           <h2>Añadir Proveedor</h2>
           <div className="grid-forms-proveedor">
             <div className="mt-grid">
-              <Form.Control type="text" name="nombre_proveedor" placeholder="Nombre de Proveedor" />
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="nombre_proveedor" placeholder="Nombre de Proveedor" />
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" name="nit" placeholder="NIT" />
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="nit" placeholder="NIT" />
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" name="nrc" placeholder="NRC" />
-            </div>
-          </div>
-
-          <div className="grid-forms-proveedor">
-            <div className="mt-grid">
-              <Form.Control type="text" name="email_contacto" placeholder="Correo de contacto" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" name="telefono_empresa" placeholder="Correo de empresa" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" name="comentarios" placeholder="Comentarios" />
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="nrc" placeholder="NRC" />
             </div>
           </div>
 
           <div className="grid-forms-proveedor">
             <div className="mt-grid">
-              <Form.Control type="text" name="telefono_contacto" placeholder="Teléfono de contacto" />
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="email_contacto" placeholder="Correo de contacto" />
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" name="telefono_empresa" placeholder="Teléfono de empresa" />
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="telefono_empresa" placeholder="Correo de empresa" />
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" name="contacto_proveedor" placeholder="Teléfono de proveedor" />
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="comentarios" placeholder="Comentarios" />
+            </div>
+          </div>
+
+          <div className="grid-forms-proveedor">
+            <div className="mt-grid">
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="telefono_contacto" placeholder="Teléfono de contacto" />
+            </div>
+
+            <div className="mt-grid">
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="telefono_empresa" placeholder="Teléfono de empresa" />
+            </div>
+
+            <div className="mt-grid">
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="contacto_proveedor" placeholder="Teléfono de proveedor" />
             </div>
           </div>
         </div>
@@ -75,7 +132,7 @@ function Registro() {
                   <strong>Cancelar</strong>
                 </button>
               </Link>
-              <button className="btn-opcion bg-guardar">
+              <button className="btn-opcion bg-guardar" onClick={e => submitProveedor(e)}>
                 <strong>Guardar</strong>
               </button>
             </li>

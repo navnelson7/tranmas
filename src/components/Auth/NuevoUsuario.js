@@ -17,6 +17,7 @@ import { ToastComponent } from "../Toast";
 import Empleados from "./Empleados";
 import { getEmailUsers } from "../../graphql/Queries";
 
+
 function NuevoUsuario() {
   const { push } = useHistory();
 
@@ -132,7 +133,7 @@ function NuevoUsuario() {
               }, 2000);
             }
           })
-          .catch((error) => {
+          .catch(() => {
             setTextAlert("Ocurrio un problema");
             setIconType("error")
             setshowAlert(true);
