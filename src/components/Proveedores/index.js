@@ -58,11 +58,11 @@ function Proveedores() {
                 <th></th>
                 <th></th>
                 <th>N°</th>
-                <th>Nombre</th>
+                <th>Nombre de Proveedor</th>
                 <th>NIT</th>
                 <th>Teléfono de Contacto</th>
                 <th>Teléfono de Empresa</th>
-                <th>Teléfono de Proveedor</th>
+                <th>Contacto de Proveedor</th>
                 <th>Correo de contacto</th>
                 <th>Correo de empresa</th>
                 <th>NRC</th>

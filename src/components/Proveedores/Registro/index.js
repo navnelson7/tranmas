@@ -117,7 +117,7 @@ function Registro() {
             </div>
 
             <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="contacto_proveedor" placeholder="Teléfono de proveedor" />
+              <Form.Control type="text" onChange={e => changeProveedor(e)} name="contacto_proveedor" placeholder="Contacto de proveedor" />
             </div>
           </div>
         </div>
