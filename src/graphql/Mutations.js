@@ -104,45 +104,15 @@ export const setProveedorOne = gql `
 `;
 
 //update mutation
-<<<<<<< HEAD
 const updateActivoRepuesto = gql `
-  mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!){
-  update_repuestos(where:{id: {_eq: $id}}, _set: {activo: $activo}){
-    affected_rows
-=======
-const updateActivoRepuesto = gql`
   mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!) {
     update_repuestos(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
       affected_rows
     }
->>>>>>> eee1c975f7a8647237c555b408a7a388a04c1195
   }
 `;
 
-<<<<<<< HEAD
-
-export const setMarcasOne = gql `
-    mutation insert_users_one(
-    $marca: String
-  ) {
-    insert_marcas_one(
-      object: {
-        marca: $marca
-      }
-    ) {
-      marca
-    }
-  }
-`;
-
-
-//PROBAR borrado logico 
 export const updateActivoProveedor = gql `
-mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean){
-  update_proveedores_by_pk(pk_columns: {
-    id: $id
-=======
-export const updateActivoProveedor = gql`
   mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean) {
     update_proveedores_by_pk(
       pk_columns: { id: $id }
@@ -150,11 +120,10 @@ export const updateActivoProveedor = gql`
     ) {
       activo
     }
->>>>>>> eee1c975f7a8647237c555b408a7a388a04c1195
   }
 `;
 
-export const updateProveedorOne = gql`
+export const updateProveedorOne = gql `
   mutation update_proveedores_by_pk(
     $nombre_proveedor: String
     $activo: Boolean
