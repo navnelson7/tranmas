@@ -20,6 +20,7 @@ import Navegacion from './components/Navegacion';
 import Proveedores from './components/Proveedores';
 import NavegacionTop from './components/Navegacion/NavegacionTop';
 import ListadoMarcas from './components/Marcas/ListadoMarcas';
+import FormularioMarcas from './components/Marcas/FormularioMarcas';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Route exact path="/listado-repuestos" component={ListadoRepuestos} />
                 <Route exact path="/formulario-repuestos" component={FormRepuestos} />
                 <Route exact path="/listado-marcas" component={ListadoMarcas} />
+                <Route exact path="/formulario-marcas" component={FormularioMarcas} />
               </Switch>
             </RepuestosState>
           </MarcasState>

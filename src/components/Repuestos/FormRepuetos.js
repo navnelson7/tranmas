@@ -75,7 +75,6 @@ const FormRepuestos = () => {
 
     const onSubmit = (e)=>{
         e.preventDefault();
-        console.log(activo);
         if(codigo_repuesto.trim() === "" || 
             precio.trim() === "" || 
             cantidad.trim() === "" || 
@@ -311,7 +310,7 @@ const FormRepuestos = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Button varian="Primera" size="lg" onClick={onSubmit}>Guardar</Button>
+                        <Button variant="Primery" size="lg" onClick={onSubmit}>Guardar</Button>
                         </Card.Body>
                     </Card>
                 </Form>

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const setUserOne = gql`
+export const setUserOne = gql `
   mutation insert_users_one(
     $email: String
     $password: String
@@ -23,7 +23,7 @@ export const setUserOne = gql`
   }
 `;
 
-export const setRepuestosOne = gql`
+export const setRepuestosOne = gql `
   mutation addRepuestos(
     $activo: Boolean
     $cantidad: numeric
@@ -67,7 +67,7 @@ export const setRepuestosOne = gql`
   }
 `;
 
-export const setProveedorOne = gql`
+export const setProveedorOne = gql `
   mutation insert_proveedores_one(
     $nombre_proveedor: String
     $activo: Boolean
@@ -104,7 +104,7 @@ export const setProveedorOne = gql`
 `;
 
 //update mutation
-const updateActivoRepuesto = gql`
+const updateActivoRepuesto = gql `
   mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!){
   update_repuestos(where:{id: {_eq: $id}}, _set: {activo: $activo}){
     affected_rows
@@ -112,8 +112,24 @@ const updateActivoRepuesto = gql`
 }
 `;
 
-//PROBAR 
-export const updateActivoProveedor = gql`
+
+export const setMarcasOne = gql `
+    mutation insert_users_one(
+    $marca: String
+  ) {
+    insert_marcas_one(
+      object: {
+        marca: $marca
+      }
+    ) {
+      marca
+    }
+  }
+`;
+
+
+//PROBAR borrado logico 
+export const updateActivoProveedor = gql `
 mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean){
   update_proveedores_by_pk(pk_columns: {
     id: $id
