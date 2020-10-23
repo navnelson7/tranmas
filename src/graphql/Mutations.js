@@ -105,24 +105,62 @@ export const setProveedorOne = gql`
 
 //update mutation
 const updateActivoRepuesto = gql`
-  mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!){
-  update_repuestos(where:{id: {_eq: $id}}, _set: {activo: $activo}){
-    affected_rows
+  mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!) {
+    update_repuestos(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
+      affected_rows
+    }
   }
-}
 `;
 
-//PROBAR 
 export const updateActivoProveedor = gql`
-mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean){
-  update_proveedores_by_pk(pk_columns: {
-    id: $id
-  }
-    _set: {
-      activo: $activo
+  mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean) {
+    update_proveedores_by_pk(
+      pk_columns: { id: $id }
+      _set: { activo: $activo }
+    ) {
+      activo
     }
-  ){
-    activo
   }
-}
-`
+`;
+
+export const updateProveedorOne = gql`
+  mutation update_proveedores_by_pk(
+    $nombre_proveedor: String
+    $activo: Boolean
+    $comentarios: String
+    $contacto_proveedor: String
+    $created_at: date
+    $email_contacto: String
+    $email_empresa: String
+    $nit: String
+    $nrc: String
+    $telefono_contacto: String
+    $telefono_empresa: String
+    $updated_at: date
+    $id: uuid!
+    $__typename: String
+  ) {
+    update_proveedores_by_pk(
+      _set: {
+        id: $id
+        nombre_proveedor: $nombre_proveedor
+        activo: $activo
+        comentarios: $comentarios
+        contacto_proveedor: $contacto_proveedor
+        created_at: $created_at
+        email_contacto: $email_contacto
+        email_empresa: $email_empresa
+        nit: $nit
+        nrc: $nrc
+        telefono_contacto: $telefono_contacto
+        telefono_empresa: $telefono_empresa
+        updated_at: $updated_at
+      }
+      pk_columns: {
+        id: $id
+      }
+    ) {
+      id
+    }
+  }
+`;
