@@ -1,4 +1,5 @@
 import {
+    AGREGAR_EMPLEADO,
     //REGISTRO,
     OBTENER_EMPLEADOS,
     //AGREGAR_EMPLEADO,
@@ -11,6 +12,11 @@ export default (state, action) => {
             return {
                 ...state,
                 empleados: action.payload
+            }
+        case AGREGAR_EMPLEADO:
+            return {
+                ...state,
+                empleados: [...state.empleados, action.payload]
             }
         default:
             return state;

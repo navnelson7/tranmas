@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import {Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
+import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
 const Registro = () => {
 
-    const [registro, guardarRegistro] = useState({
+    const [empleado, guardarRegistro] = useState({
+        id:'',
         codigo: '',
         nombres: '',
         apellidos: '',
@@ -50,18 +51,18 @@ const Registro = () => {
         id_departamento,
         comentarios,
         estado
-    } = registro;
+    } = empleado;
 
     const onChange = e => {
         guardarRegistro({
-            ...registro,
+            ...empleado,
             [e.target.name] : e.target.value 
         })
     }
 
     const handleCheck= e => {
         guardarRegistro({
-            ...registro,
+            ...empleado,
             [e.target.name] : e.target.checked
         })
     }
@@ -81,7 +82,9 @@ const Registro = () => {
         //reinicar el form
     }
     return ( 
-        <div className="container">
+        <Container>
+            <div className="box-left">
+                <h1>REGISTRO DE EMPLEADOS</h1>
             <Form>
                 <Card>
                     <Card.Body>
@@ -110,7 +113,7 @@ const Registro = () => {
                                     <FormControl 
                                         placeholder="Id de Sistema"
                                         aria-label="id"
-                                        arial-describedby="basic-addon1"
+                                        aria-describedby="basic-addon1"
                                         name="id"
                                         value={id}
                                         onChange={onChange}
@@ -432,7 +435,8 @@ const Registro = () => {
                     </Card.Body>
                 </Card>
             </Form>
-        </div>
+            </div>
+        </Container>
      );
 }
  

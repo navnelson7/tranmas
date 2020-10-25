@@ -1,15 +1,30 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import Empleado from './Empleado';
+
+import EmpleadosContext from '../../context/empleados/empleadosContext';
+
+import {useQuery} from '@apollo/client';
+import {getEmpleados} from '../../graphql/Queries'; 
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Table } from 'react-bootstrap';
 
-const empleados = [
-    { id: 1, nombres: "Juan Perez" },
-    { id: 2, nombres: "Veronica Arteaga" }
-]
 
 function ListadoEmpleados() {
+
+    const empleadosContext = useContext(EmpleadosContext);
+    const {empleados, obtenerEmpleados} = empleadosContext;
+
+    const {loadind, data, error } = useQuery(getEmpleados);
+
+    useEffect(()=>{
+        obtenerEmpleados();
+    },[]);
+
+    if (empleados.length === 0) return null;
+
+    
+
     return (
         <Fragment>
             <Container>

@@ -5,7 +5,7 @@ import {
 export default (state, action) => {
     switch (action.type) {
         case OBTENER_REPUESTOS:
-            console.log(action.payload);
+            console.log("en el reducer");
             return {
                 ...state,
                 repuestos: action.payload

@@ -11,7 +11,9 @@ import {
 
 const EmpleadosState = props => {
     const empleados = [
-        
+        { id: 1, nombres: "Juan Perez" },
+        { id: 2, nombres: "Veronica Arteaga" },
+        { id: 4, nombres: "Jose Raul Navarro" }
     ]
     const initialState = {
         empleados: []
@@ -19,10 +21,17 @@ const EmpleadosState = props => {
 
     const [state, dispatch] = useReducer(empleadosReducer,initialState);
 
-    const obtenerEmpleados = () => {
+    const obtenerEmpleados = ()=> {
         dispatch({
             type: OBTENER_EMPLEADOS,
             payload: empleados
+        })
+    }
+
+    const agregarEmpleado = empleado =>{
+        dispatch({
+            type: AGREGAR_EMPLEADO,
+            payload: empleado
         })
     }
     return (
