@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {InputGroup, FormControl, Col} from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
 import { getProveedores } from '../../graphql/Queries'

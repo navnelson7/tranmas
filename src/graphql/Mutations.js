@@ -164,3 +164,18 @@ export const updateProveedorOne = gql `
     }
   }
 `;
+
+export const setMarcasOne = gql `
+  mutation addMarcas(
+    $marca: String
+  ) {
+    insert_marcas_one(
+      object: {
+        marca: $marca
+      }
+    ) {
+      id
+      marca
+    }
+  }
+`;

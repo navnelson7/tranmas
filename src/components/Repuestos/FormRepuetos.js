@@ -10,7 +10,7 @@ import {useMutation} from "@apollo/client"
 import {setRepuestosOne} from '../../graphql/Mutations';
 
 import {ToastComponent} from "../Toast";
-import { concatPagination } from '@apollo/client/utilities';
+//import { concatPagination } from '@apollo/client/utilities';
 
 
 
@@ -261,7 +261,7 @@ const FormRepuestos = () => {
                             </Row>
                             <Row> 
                                 <ListBoxMarcas changeMarca={onChange}/>
-                               <ListBoxProveedores  changeProveedor={onChange}/>
+                                <ListBoxProveedores  changeProveedor={onChange}/>
                             </Row>
                             <Row>
                                 <Col sm={6}>
@@ -310,7 +310,7 @@ const FormRepuestos = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Button variant="Primery" size="lg" onClick={onSubmit}>Guardar</Button>
+                        <Button varian="Primery" size="lg" onClick={onSubmit}>Guardar</Button>
                         </Card.Body>
                     </Card>
                 </Form>
