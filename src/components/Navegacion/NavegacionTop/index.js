@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Fragment } from "react";
 import styled from "styled-components";
+import ContextInputSearch from "../../../context/ContextInputSearch";
+import { useLocation } from "react-router-dom";
+import FiltroDropdown from "../Filtro";
 
 function NavegacionTop() {
+  const { pathname } = useLocation();
+  const { StateSearch, setStateSearch } = useContext(ContextInputSearch);
+
+  const EnterSearch = (e) => {
+    if (e.which === 13) {
+      if (pathname === "/proveedores") {
+        console.log("Hola Nelson");
+      }
+    }
+  };
   return (
     <Fragment>
       <StyleNavTop>
@@ -22,12 +35,18 @@ function NavegacionTop() {
             <div></div>
             <div className="grid-input-search">
               <div>
+                <FiltroDropdown />
+              </div>
+              <div>
                 <input
                   type="text"
                   className="border-0-login form-control-login input-border-none"
                   placeholder="Buscar"
                   id="search"
                   autoComplete="off"
+                  value={StateSearch}
+                  onChange={(e) => setStateSearch(e.target.value)}
+                  onKeyPress={(e) => EnterSearch(e)}
                 />
               </div>
               <div className="box-search">
@@ -155,10 +174,6 @@ const StyleNavTop = styled.div`
       background-color: white;
       border: 0px solid #1a10a8;
       height: 30px;
-      border-radius: 5px 0px 0px 5px;
-      -moz-border-radius: 5px 0px 0px 5px;
-      -webkit-border-radius: 5px 0px 0px 5px;
-      border: 0px solid #000000;
     }
 
     .input-group-text {
@@ -185,7 +200,7 @@ const StyleNavTop = styled.div`
 
     .grid-input-search {
       display: grid;
-      grid-template-columns: 580px auto;
+      grid-template-columns: auto 580px auto;
     }
 
     .box-search {
