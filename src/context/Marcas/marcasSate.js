@@ -24,15 +24,15 @@ const MarcasState = props => {
         })
     }
 
-    return ( <
-        MarcasContext.Provider value = {
-            {
+    return ( 
+        <MarcasContext.Provider 
+            value = {{
                 marcas: state.marcas,
                 obtenerMarcas
-            }
-        } >
-        { props.children } <
-        /MarcasContext.Provider>
+            }} 
+        >
+            { props.children }
+        </MarcasContext.Provider>
     );
 }
 

@@ -10,13 +10,32 @@ import { useContext } from 'react';
 import { useReducer } from 'react';
 
 import {OBTENER_MEDIDAS} from '../../types';
+import { useEffect } from 'react';
 
 const ListadoMedidas = () => {
     const {loading,data,error} = useQuery(getMedidas);
 
     const medidasContext = useContext(MedidasContext);
+    const {medidas} = medidasContext;
 
     const [state, dispatch] = useReducer(medidasReducer);
+
+    useEffect(() =>{
+        if(data === undefined){
+            dispatch({
+                type: OBTENER_MEDIDAS,
+                payload: medidas
+            })
+        }
+
+        if(data){
+            console.log(data.unidades_de_medida);
+            dispatch({
+                type: OBTENER_MEDIDAS,
+                payload: data.unidades_de_medida
+            })
+        }
+    },[data])
     
     return (
         <Fragment>
