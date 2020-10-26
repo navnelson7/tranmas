@@ -54,7 +54,7 @@ function App() {
                   <Route exact path="/listado-marcas" component={ListadoMarcas}/>
                   <Route exact path="/formulario-marcas" component={FormularioMarcas}/>
                   <Route exact path="/formulario-medidas" component={FormularioMedidas}/>
-                  <Route exact path="./listado-medidas" component={ListadoMedidas}/>
+                  <Route exact path="/listado-medidas" component={ListadoMedidas}/>
                 </Switch>
               </RepuestosState>
             </SearchContextProvider>

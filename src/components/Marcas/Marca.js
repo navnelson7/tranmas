@@ -1,6 +1,4 @@
 import React, { Fragment } from 'react';
-import {Container} from 'react-bootstrap'
-
 
 const Marca = ({marca}) => {
     return ( 

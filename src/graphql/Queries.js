@@ -162,3 +162,12 @@ export const getProveedoresById = gql `
     }
   }
 `;
+
+export const getMedidas = gql `
+    query getMedidas{
+    unidades_de_medida{
+      id
+      unidad_de_medida
+    }
+  }
+`;

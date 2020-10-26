@@ -1,7 +1,7 @@
 import React, { useReducer, useContext } from 'react';
 
-import MarcasReducer from '../../context/Marcas/marcasReducer';
-import MarcasContext from '../../context/Marcas/marcasContext';
+import MarcasReducer from './marcasReducer';
+import MarcasContext from './marcasContext';
 
 import { OBTENER_MARCAS } from '../../types/index';
 
@@ -15,25 +15,25 @@ const MarcasState = props => {
     }
 
     const [state, dispatch] = useReducer(MarcasReducer, initialState)
-    const {marcas} = MarcasReducer;
+    const { marcas } = MarcasReducer;
 
     const obtenerMarcas = () => {
         dispatch({
-            type:OBTENER_MARCAS,
+            type: OBTENER_MARCAS,
             payloaad: state.data
         })
     }
-    
-    return ( 
-        <MarcasContext.Provider
-            value = {{
+
+    return ( <
+        MarcasContext.Provider value = {
+            {
                 marcas: state.marcas,
                 obtenerMarcas
-            }}
-        >
-            {props.children}
-        </MarcasContext.Provider>
-     );
+            }
+        } >
+        { props.children } <
+        /MarcasContext.Provider>
+    );
 }
- 
+
 export default MarcasState
