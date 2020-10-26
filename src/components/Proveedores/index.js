@@ -21,6 +21,7 @@ function Proveedores() {
   const { action } = useHistory();
   const [PaginateNumber, setPaginateNumber] = useState(0);
   const [DataProveedor, setDataProveedor] = useState([]);
+  const [DataProveedorCopy, setDataProveedorCopy] = useState([]);
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
@@ -34,6 +35,7 @@ function Proveedores() {
     let datos = [];
     datos = data === undefined ? [] : data.proveedores;
     setDataProveedor(datos);
+    setDataProveedorCopy(datos)
   }, [data]);
 
   //RELOAD
@@ -93,6 +95,13 @@ function Proveedores() {
       responseFilter.data === undefined ? [] : responseFilter.data.proveedores;
     setDataProveedor(resultados);
   }, [ExecuteFilter]);
+
+  useEffect(() => {
+    if (StateSearch === "") {
+      console.log("excuted");
+      setDataProveedor(DataProveedorCopy)
+    }
+  }, [StateSearch, ExecuteFilter]);
 
   //PAGINACION
   const retrocederPage = () => {
