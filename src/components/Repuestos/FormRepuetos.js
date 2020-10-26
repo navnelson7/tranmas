@@ -310,7 +310,7 @@ const FormRepuestos = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Button varian="Primery" size="lg" onClick={onSubmit}>Guardar</Button>
+                        <Button varian="Primary" size="lg" onClick={onSubmit}>Guardar</Button>
                         </Card.Body>
                     </Card>
                 </Form>

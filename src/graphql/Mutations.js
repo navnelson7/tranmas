@@ -179,3 +179,18 @@ export const setMarcasOne = gql `
     }
   }
 `;
+
+export const setMedidasOne = gql `
+   mutation addMedidas(
+      $unidad_de_medida: String
+   ){
+     insert_unidades_de_medida_one(
+       object: {
+         unidad_de_medida: $unidad_de_medida
+       }
+     ){
+       id
+       unidad_de_medida
+     }
+   }
+`;

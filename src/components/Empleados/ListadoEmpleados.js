@@ -15,11 +15,13 @@ function ListadoEmpleados() {
     const empleadosContext = useContext(EmpleadosContext);
     const {empleados, obtenerEmpleados} = empleadosContext;
 
-    const {loadind, data, error } = useQuery(getEmpleados);
+    const {loading, data, error } = useQuery(getEmpleados);
 
     useEffect(()=>{
-        obtenerEmpleados();
-    },[]);
+        if (data){
+            obtenerEmpleados();
+        }
+    },[data]);
 
     if (empleados.length === 0) return null;
 

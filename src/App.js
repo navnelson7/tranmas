@@ -20,6 +20,8 @@ import Proveedores from "./components/Proveedores";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
 import ListadoMarcas from "./components/Marcas/ListadoMarcas";
 import FormularioMarcas from "./components/Marcas/FormularioMarcas";
+import FormularioMedidas from "./components/Medidas/FormularioMedidas";
+import ListadoMedidas from "./components/Medidas/ListadoMedidas";
 
 function App() {
   return (
@@ -46,31 +48,13 @@ function App() {
                   <Route exact path="/proveedores" component={Proveedores} />
                   <Route exact path="/nuevo-usuario" component={NuevoUsuario} />
                   <Route exact path="/registro" component={Registro} />
-                  <Route
-                    exact
-                    path="/listado-empleados"
-                    component={ListadoEmpleados}
-                  />
-                  <Route
-                    exact
-                    path="/listado-repuestos"
-                    component={ListadoRepuestos}
-                  />
-                  <Route
-                    exact
-                    path="/formulario-repuestos"
-                    component={FormRepuestos}
-                  />
-                  <Route
-                    exact
-                    path="/listado-marcas"
-                    component={ListadoMarcas}
-                  />
-                  <Route
-                    exact
-                    path="/formulario-marcas"
-                    component={FormularioMarcas}
-                  />
+                  <Route exact path="/listado-empleados" component={ListadoEmpleados}/>
+                  <Route exact path="/listado-repuestos" component={ListadoRepuestos}/>
+                  <Route exact path="/formulario-repuestos" component={FormRepuestos}/>
+                  <Route exact path="/listado-marcas" component={ListadoMarcas}/>
+                  <Route exact path="/formulario-marcas" component={FormularioMarcas}/>
+                  <Route exact path="/formulario-medidas" component={FormularioMedidas}/>
+                  <Route exact path="./listado-medidas" component={ListadoMedidas}/>
                 </Switch>
               </RepuestosState>
             </SearchContextProvider>
