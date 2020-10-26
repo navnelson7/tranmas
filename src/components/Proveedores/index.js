@@ -1,44 +1,100 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useContext } from "react";
 import styled from "styled-components";
 import rightIcon from "./iconos/right.svg";
 import leftIcon from "./iconos/left.svg";
 import addProveedorIcon from "./iconos/add-proveedor.svg";
 import reloadIcon from "./iconos/refresh.svg";
 import { ToastComponent } from "../Toast";
+import ContextInputSearch from "../../context/ContextInputSearch";
 
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, gql, useLazyQuery } from "@apollo/client";
 import { getProveedoresTable } from "../../graphql/Queries";
 import { updateActivoProveedor } from "../../graphql/Mutations";
 
 import { Link, useHistory } from "react-router-dom";
 
 function Proveedores() {
-  const history = useHistory();
+  //CONTEXT
+  const { ExecuteFilter, StateSearch, SelectField } = useContext(
+    ContextInputSearch
+  );
+  const { action } = useHistory();
   const [PaginateNumber, setPaginateNumber] = useState(0);
   const [DataProveedor, setDataProveedor] = useState([]);
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
+
+  // GET DATA FROM TABLE
   const { loading, error, data, refetch } = useQuery(getProveedoresTable, {
     variables: { limit: 10, offset: PaginateNumber },
   });
-  const [updateProveedor] = useMutation(updateActivoProveedor);
 
   useEffect(() => {
-    if (history.action === "PUSH") {
-      refetch()
+    let datos = [];
+    datos = data === undefined ? [] : data.proveedores;
+    setDataProveedor(datos);
+  }, [data]);
+
+  //RELOAD
+  useEffect(() => {
+    if (action === "PUSH") {
+      refetch();
     }
-  }, [history])
+  }, [action]);
 
+  //LAZY QUERIE OF FILTER
+  const GET_FILTER = gql`
+  query($text: String) {
+    proveedores(where: { ${SelectField}: { _similar: $text } }) {
+      id
+      nombre_proveedor
+      nit
+      telefono_contacto
+      telefono_empresa
+      contacto_proveedor
+      nrc
+      activo
+      updated_at
+      email_contacto
+      email_empresa
+      comentarios
+    }
+  }
+  `;
+  const GET_FILTER_DATE = gql`
+    query($text: date) {
+      proveedores(where: { updated_at: { _eq: $text } }) {
+        id
+        nombre_proveedor
+        nit
+        telefono_contacto
+        telefono_empresa
+        contacto_proveedor
+        nrc
+        activo
+        updated_at
+        email_contacto
+        email_empresa
+        comentarios
+      }
+    }
+  `;
+
+  const [getFilter, responseFilter] = useLazyQuery(
+    SelectField === "updated_at" ? GET_FILTER_DATE : GET_FILTER,
+    {
+      variables: { text: StateSearch },
+    }
+  );
   useEffect(() => {
-    let datos = []
-    datos = data === undefined ? [] : data.proveedores
-    setDataProveedor(datos)
-  }, [data])
+    getFilter();
+    let resultados =
+      responseFilter.data === undefined ? [] : responseFilter.data.proveedores;
+    setDataProveedor(resultados);
+  }, [ExecuteFilter]);
 
-  if (loading) return "Loading...";
-  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
-
+  //PAGINACION
   const retrocederPage = () => {
     if (PaginateNumber <= 0) {
       setPaginateNumber(0);
@@ -47,16 +103,21 @@ function Proveedores() {
     }
   };
 
+  //EDITAR
+  const [updateProveedor] = useMutation(updateActivoProveedor);
+
   const updateProveedorSubmit = (e, idSelected) => {
-    e.preventDefault()
+    e.preventDefault();
     updateProveedor({ variables: { id: idSelected, activo: false } })
       .then((res) => {
-        //ELIMINARLO DE LA VISTA 
+        //ELIMINARLO DE LA VISTA
         if (res.data) {
-          const ProveedoresTotatles = DataProveedor.filter(proveedor => proveedor.id !== idSelected)
-          setDataProveedor(ProveedoresTotatles)
+          const ProveedoresTotatles = DataProveedor.filter(
+            (proveedor) => proveedor.id !== idSelected
+          );
+          setDataProveedor(ProveedoresTotatles);
           setTextAlert("Eliminado correctamente");
-          setIconType("success")
+          setIconType("success");
           setshowAlert(true);
           setTimeout(() => {
             setshowAlert(false);
@@ -65,16 +126,21 @@ function Proveedores() {
       })
       .catch(() => {
         setTextAlert("Ocurrio un error");
-        setIconType("error")
+        setIconType("error");
         setshowAlert(true);
         setTimeout(() => {
           setshowAlert(false);
         }, 2000);
       });
-  }
+  };
+
+  if (loading) return "Loading...";
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
+
   return (
     <Fragment>
-      <br /><br />
+      <br />
+      <br />
       <ToastComponent
         showAlert={showAlert}
         setShowAlert={setshowAlert}
@@ -125,17 +191,43 @@ function Proveedores() {
                   <th>Fecha</th>
                 </tr>
                 {DataProveedor.map((proveedor, index) => {
-                  return (
-                    proveedor.activo ? <tr key={proveedor.id}>
-                      <td data-th="" className="hover-options" onClick={(e) => updateProveedorSubmit(e, proveedor.id)}>
-                        <svg className="hover-options" fill="#A18D8F" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none" /><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" /></svg>
+                  return proveedor.activo ? (
+                    <tr key={proveedor.id}>
+                      <td
+                        data-th=""
+                        className="hover-options"
+                        onClick={(e) => updateProveedorSubmit(e, proveedor.id)}
+                      >
+                        <svg
+                          className="hover-options"
+                          fill="#A18D8F"
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          width="24"
+                        >
+                          <path d="M0 0h24v24H0z" fill="none" />
+                          <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                        </svg>
                       </td>
                       <td data-th="" className="hover-options">
-                      <Link to={`/actualizar-proveedor/${proveedor.id}`}>
-                        <svg className="hover-options" fill="#A18D8F" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none" /><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
-                      </Link>
+                        <Link to={`/actualizar-proveedor/${proveedor.id}`}>
+                          <svg
+                            className="hover-options"
+                            fill="#A18D8F"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            width="24"
+                          >
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                          </svg>
+                        </Link>
                       </td>
-                      <td data-th="N°">{index + 1} {proveedor.activo}</td>
+                      <td data-th="N°">
+                        {index + 1} {proveedor.activo}
+                      </td>
                       <td data-th="Nombre">{proveedor.nombre_proveedor}</td>
                       <td data-th="NIT">{proveedor.nit}</td>
                       <td data-th="Teléfono de Contacto">
@@ -155,11 +247,9 @@ function Proveedores() {
                       </td>
                       <td data-th="NRC">{proveedor.nrc}</td>
                       <td data-th="NRC">{proveedor.comentarios}</td>
-                      <td data-th="Fecha">
-                        {proveedor.updated_at}
-                      </td>
-                    </tr> : null
-                  );
+                      <td data-th="Fecha">{proveedor.updated_at}</td>
+                    </tr>
+                  ) : null;
                 })}
               </tbody>
             </table>
@@ -354,12 +444,12 @@ const StyleTable = styled.div`
     font-size: 12px;
     margin-top: 8px;
   }
-  .hover-options:hover{
+  .hover-options:hover {
     transition: 0.1s;
   }
-  .hover-options:hover{
+  .hover-options:hover {
     transition: 0.1s;
     cursor: pointer;
-    fill: #7400B8;
+    fill: #7400b8;
   }
 `;

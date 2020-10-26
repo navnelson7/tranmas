@@ -1,25 +1,69 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import iconFilter from "./filtro.svg";
+import ContextInputSearch from "../../../context/ContextInputSearch";
 
 function FiltroDropdown() {
+  const { setSelectField, setNombreField } = useContext(ContextInputSearch);
+
+  const Fields = [
+    {
+      nombre: "Nombre de proveedor",
+      field: "nombre_proveedor",
+    },
+    {
+      nombre: "NIT",
+      field: "nit",
+    },
+    {
+      nombre: "Teléfono de contacto",
+      field: "telefono_contacto",
+    },
+    {
+      nombre: "Teléfono de empresa",
+      field: "telefono_empresa",
+    },
+    {
+      nombre: "Contacto de proveedor",
+      field: "contacto_proveedor",
+    },
+    {
+      nombre: "nrc",
+      field: "nrc",
+    },
+    {
+      nombre: "Fecha de actualización",
+      field: "updated_at",
+    },
+    {
+      nombre: "Correo de contacto",
+      field: "email_contacto",
+    },
+    {
+      nombre: "Correo de empresa",
+      field: "email_empresa",
+    },
+    {
+      nombre: "Comentarios",
+      field: "comentarios",
+    },
+  ];
   return (
     <StyleDropdown>
       <div className="container-dropdown" style={{ float: "right" }}>
         <button className="btn">
           <img src={iconFilter} alt="" />
           <div className="dropdown scroll-container">
-            <span>Nombre de proveedor</span>
-            <span>Nit</span>
-            <span>Teléfono de contacto</span>
-            <span>Teléfono de empresa</span>
-            <span>Contacto de proveedor</span>
-            <span>NRC</span>
-            <span>Activo</span>
-            <span>Fecha de actualización</span>
-            <span>Correo de contacto</span>
-            <span>Correo de empresa</span>
-            <span>Comentarios</span>
+            {Fields.map((field) => {
+              return (
+                <span onClick={() => {
+                  setNombreField(field.nombre)
+                  setSelectField(field.field)
+                }}>
+                  {field.nombre}
+                </span>
+              );
+            })}
           </div>
         </button>
       </div>

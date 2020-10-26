@@ -7,12 +7,18 @@ import FiltroDropdown from "../Filtro";
 
 function NavegacionTop() {
   const { pathname } = useLocation();
-  const { StateSearch, setStateSearch } = useContext(ContextInputSearch);
+  const {
+    StateSearch,
+    setStateSearch,
+    setExecuteFilter,
+    ExecuteFilter,
+    NombreField
+  } = useContext(ContextInputSearch);
 
   const EnterSearch = (e) => {
     if (e.which === 13) {
       if (pathname === "/proveedores") {
-        console.log("Hola Nelson");
+        setExecuteFilter(!ExecuteFilter);
       }
     }
   };
@@ -41,11 +47,11 @@ function NavegacionTop() {
                 <input
                   type="text"
                   className="border-0-login form-control-login input-border-none"
-                  placeholder="Buscar"
+                  placeholder={NombreField}
                   id="search"
                   autoComplete="off"
                   value={StateSearch}
-                  onChange={(e) => setStateSearch(e.target.value)}
+                  onChange={(e) => setStateSearch(e.target.value.trim())}
                   onKeyPress={(e) => EnterSearch(e)}
                 />
               </div>
