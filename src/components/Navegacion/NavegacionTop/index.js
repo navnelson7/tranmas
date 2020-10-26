@@ -12,7 +12,7 @@ function NavegacionTop() {
     setStateSearch,
     setExecuteFilter,
     ExecuteFilter,
-    NombreField
+    NombreField,
   } = useContext(ContextInputSearch);
 
   const EnterSearch = (e) => {
@@ -27,12 +27,29 @@ function NavegacionTop() {
       <StyleNavTop>
         {/* NAVBAR TOP MOBILE */}
         <div className="top-navbar-mobile">
-          <div className="flex-icons--nav-mobile">
-            <img
-              className="img-nav-user-mobile"
-              src="https://yt3.ggpht.com/a/default-user=s88-rj"
-              alt=""
-            />
+          <div className="grid-navbar-mobile">
+            <div>
+              <input
+                type="text"
+                className="border-0-login form-control-login input-border-none"
+                placeholder={NombreField}
+                id="search"
+                autoComplete="off"
+                value={StateSearch}
+                onChange={(e) => setStateSearch(e.target.value.trim())}
+                onKeyPress={(e) => EnterSearch(e)}
+              />
+            </div>
+            <div>
+              <FiltroDropdown />
+            </div>
+            <div className="flex-icons--nav-mobile">
+              <img
+                className="img-nav-user-mobile"
+                src="https://yt3.ggpht.com/a/default-user=s88-rj"
+                alt=""
+              />
+            </div>
           </div>
         </div>
         {/* NAVBAR TOP DESKTOP */}
@@ -139,6 +156,41 @@ const StyleNavTop = styled.div`
       display: flex;
       justify-content: flex-end;
       align-items: flex-end;
+    }
+    .grid-navbar-mobile {
+      display: grid;
+      grid-template-columns: 50% 20% 30%;
+    }
+
+    /* INPUT SEARCH */
+
+    .form-control-login {
+      display: block;
+      width: auto;
+      padding: 8px 8px;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      background-color: white;
+      border: 0px solid #1a10a8;
+      height: 30px;
+    }
+
+    .input-group-text {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+      align-items: center;
+      padding: 0.375rem 0.75rem;
+      height: 20px;
+      margin-bottom: 0;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      white-space: nowrap;
+      border: 0px solid #000000;
     }
   }
   /*NAVBAR TOP DESKTOP */
