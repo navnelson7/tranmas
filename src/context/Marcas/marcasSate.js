@@ -20,7 +20,7 @@ const MarcasState = props => {
     const obtenerMarcas = () => {
         dispatch({
             type: OBTENER_MARCAS,
-            payloaad: state.data
+            payload: state.data
         })
     }
 

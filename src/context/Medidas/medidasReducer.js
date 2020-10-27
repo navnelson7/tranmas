@@ -7,7 +7,7 @@ export default (state, action) => {
         case OBTENER_MEDIDAS:
             return {
                 ...state,
-                medidas: action.payload
+                unidades_de_medida: action.payload
             }
         default:
             return state;

@@ -49,6 +49,9 @@ const ListadoMedidas = () => {
                                 <th>Unidad de Medida</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            
+                        </tbody>
                     </Table>
                 </div>
             </Container>

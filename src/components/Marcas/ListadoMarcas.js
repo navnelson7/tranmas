@@ -44,7 +44,6 @@ const ListadoMarcas = () => {
                     <Table striped bordered hover responsive>
                         <thead>
                             <tr>
-                                <th>Identificador</th>
                                 <th>Nombre de la Marca</th>
                             </tr>
                         </thead>

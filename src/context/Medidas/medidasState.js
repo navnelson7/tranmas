@@ -1,20 +1,23 @@
-import React, {useReducer} from 'react';
+import React, { useContext, useReducer } from 'react';
+
 import MedidasReducer from './medidasReducer';
 import MedidasContext from './medidasContext';
 
-import { OBTENER_MEDIDAS } from '../../types';
-import { useContext } from 'react';
+import {OBTENER_MEDIDAS}  from '../../types/index';
+import medidasReducer from './medidasReducer';
 
-const MedidasSatate = props => {
+const UnidadesState = props => {
+
     const medidasContext = useContext(MedidasContext);
-    const initialState = {
-        medidas: [
+
+    const initalState = {
+        unidades_de_medida: [
 
         ]
     }
 
-    const [state, dispatch] = useReducer(MedidasReducer, initialState);
-    const {medidas} = MedidasReducer;
+    const [state, dispatch] = useReducer(MedidasReducer, initalState);
+    const {unidades_de_medida} = medidasReducer;
 
     const obtenerMedidas = () => {
         dispatch({
@@ -25,14 +28,14 @@ const MedidasSatate = props => {
 
     return (
         <MedidasContext.Provider
-            value={{
-                medidas: state.medidas,
+            value ={{
+                marcas: state.unidades_de_medida,
                 obtenerMedidas
             }}
         >
-            {props.children}
+            { props.children }            
         </MedidasContext.Provider>
-    );
+     );
 }
-
-export default MedidasSatate;
+ 
+export default UnidadesState;
