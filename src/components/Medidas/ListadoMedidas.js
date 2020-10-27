@@ -50,7 +50,16 @@ const ListadoMedidas = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            { state.unidades_de_medida.lenght === 0
+                            ? (<tr><td>No hay data</td></tr>)
+                            : state.unidades_de_medida.map(unidad_de_medida =>(
+                                <tr key={unidad_de_medida.id}>
+                                    <Medida 
+                                        unidad_de_medida={unidad_de_medida}
+                                    />
+                                </tr>
+                            ))
+                            }
                         </tbody>
                     </Table>
                 </div>

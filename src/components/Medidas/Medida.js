@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-const Medida = (medida) => {
+const Medida = (unidad_de_medida) => {
     return ( 
         <Fragment>
-            <td>{medida.id}</td>
-            <td>{medida.unidad_de_medida}</td>
+            <td>{unidad_de_medida.id}</td>
+            <td>{unidad_de_medida.unidad_de_medida}</td>
         </Fragment>
      );
 }
