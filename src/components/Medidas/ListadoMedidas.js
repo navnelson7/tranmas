@@ -36,7 +36,7 @@ const ListadoMedidas = () => {
         }
     },[data])
     if(loading) return(<p>Cargando...</p>);
-    console.log(state.unidades_de_medida);
+    
     return (
         <Fragment>
             <Container>
