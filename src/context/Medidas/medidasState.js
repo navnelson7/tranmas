@@ -29,7 +29,7 @@ const UnidadesState = props => {
     return (
         <MedidasContext.Provider
             value ={{
-                marcas: state.unidades_de_medida,
+                unidades_de_medida: state.unidades_de_medida,
                 obtenerMedidas
             }}
         >

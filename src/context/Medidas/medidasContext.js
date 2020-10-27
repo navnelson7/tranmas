@@ -1,5 +1,5 @@
 import { createContext } from 'react'
 const medidasContext = createContext({
-    medidas: []
+    unidades_de_medida: []
 });
 export default medidasContext;

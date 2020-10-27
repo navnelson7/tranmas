@@ -16,7 +16,7 @@ const ListadoMedidas = () => {
     const {loading,data,error} = useQuery(getMedidas);
 
     const medidasContext = useContext(MedidasContext);
-    const {medidas} = medidasContext;
+    const {unidades_de_medida} = medidasContext;
 
     const [state, dispatch] = useReducer(medidasReducer);
 
@@ -24,19 +24,19 @@ const ListadoMedidas = () => {
         if(data === undefined){
             dispatch({
                 type: OBTENER_MEDIDAS,
-                payload: medidas
+                payload: []
             })
         }
 
         if(data){
-            console.log(data.unidades_de_medida);
             dispatch({
                 type: OBTENER_MEDIDAS,
                 payload: data.unidades_de_medida
             })
         }
     },[data])
-    
+    if(loading) return(<p>Cargando...</p>);
+    console.log(state.unidades_de_medida);
     return (
         <Fragment>
             <Container>
@@ -45,12 +45,11 @@ const ListadoMedidas = () => {
                     <Table striped bordered hover responsive>
                         <thead>
                             <tr>
-                                <th>Identificador</th>
                                 <th>Unidad de Medida</th>
                             </tr>
                         </thead>
                         <tbody>
-                            { state.unidades_de_medida.lenght === 0
+                            {/* { state.unidades_de_medida.lenght === 0
                             ? (<tr><td>No hay data</td></tr>)
                             : state.unidades_de_medida.map(unidad_de_medida =>(
                                 <tr key={unidad_de_medida.id}>
@@ -59,7 +58,7 @@ const ListadoMedidas = () => {
                                     />
                                 </tr>
                             ))
-                            }
+                            } */}
                         </tbody>
                     </Table>
                 </div>
