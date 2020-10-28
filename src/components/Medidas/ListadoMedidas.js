@@ -21,63 +21,6 @@ const ListadoMedidas = () => {
 
   const [state, dispatch] = useReducer(medidasReducer);
 
-  // useEffect(() =>{
-  //     if(data === undefined){
-  //         dispatch({
-  //             type: OBTENER_MEDIDAS,
-  //             payload: []
-  //         })
-  //     }
-
-<<<<<<< HEAD
-        if(data){
-            dispatch({
-                type: OBTENER_MEDIDAS,
-                payload: data.unidades_de_medida
-            })
-        }
-    },[data])
-    if(loading) return(<p>Cargando...</p>);
-    
-    return (
-        <Fragment>
-            <Container>
-                <div className="box-left">
-                    <h1>Listados de Unidades de Medida</h1>
-                    <Table striped bordered hover responsive>
-                        <thead>
-                            <tr>
-                                <th>Unidad de Medida</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* { state.unidades_de_medida.lenght === 0
-                            ? (<tr><td>No hay data</td></tr>)
-                            : state.unidades_de_medida.map(unidad_de_medida =>(
-                                <tr key={unidad_de_medida.id}>
-                                    <Medida 
-                                        unidad_de_medida={unidad_de_medida}
-                                    />
-                                </tr>
-                            ))
-                            } */}
-                        </tbody>
-                    </Table>
-                </div>
-            </Container>
-        </Fragment>
-    );
-}
-=======
-  //     if(data){
-  //         dispatch({
-  //             type: OBTENER_MEDIDAS,
-  //             payload: data.unidades_de_medida
-  //         })
-  //     }
-  // },[data])
->>>>>>> 820eebec0c0b2066df6d37fb13ccf98dd0888c53
-
   useEffect(() => {
     setLoader(true);
     let datos = [];

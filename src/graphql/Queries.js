@@ -28,6 +28,7 @@ export const getRepuestos = gql `
     repuestos {
       id
       nombre
+      codigo_repuesto
       marcar_de_repuestos {
         marca
       }

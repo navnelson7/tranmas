@@ -29,7 +29,7 @@ const ListBoxEstadoRepuestos = ({changeEstadoRepuesto}) => {
         <Col sm={6}>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                    <InputGroup.Text id="basic-addon1">Marca</InputGroup.Text>
+                    <InputGroup.Text id="basic-addon1">Estado de Repuesto</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl as="select" name="id_estado" value={id} onChange={changeEstadoRepuesto}>
                     <option>Seleccione un Estado</option>

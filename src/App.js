@@ -22,6 +22,7 @@ import ListadoMarcas from "./components/Marcas/ListadoMarcas";
 import FormularioMarcas from "./components/Marcas/FormularioMarcas";
 import FormularioMedidas from "./components/Medidas/FormularioMedidas";
 import ListadoMedidas from "./components/Medidas/ListadoMedidas";
+import BusquedaProductos from "./components/Repuestos/BusquedaProductos";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
                   <Route exact path="/formulario-marcas" component={FormularioMarcas}/>
                   <Route exact path="/formulario-medidas" component={FormularioMedidas}/>
                   <Route exact path="/listado-medidas" component={ListadoMedidas}/>
+                  <Route exact path="/busqueda-productos" component={BusquedaProductos} />
                 </Switch>
               </RepuestosState>
             </SearchContextProvider>
