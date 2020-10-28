@@ -36,15 +36,41 @@ const BusquedaProductos = () => {
             name: 'Nombre Repuestos',
             selector: 'nombre',
             sortable: true
+        },
+        {
+            name: 'Marca',
+            selector: 'marcar_de_repuestos.marca',
+            sortable: true
+        },
+        {
+            name: 'Cantidad',
+            selector:'cantidad',
+            sortable:true
+        },
+        {
+            name: 'Fecha Factura',
+            selector: 'fecha_factura',
+            sortable: true
+        },
+        {
+            name: 'P/U',
+            selector: 'precio',
+            sortable: true,
+        },
+        {
+            name: 'Estado',
+            selector: 'estado_repuesto_stock.estado_repuestos',
+            sortable: true
         }
     ]
     return (
         <Container>
-            <div>
+            <div className='box-left'>
             <Datatable 
                 columns={columnas}
                 data={repuestos}
                 title="Lista de datos"
+                pagination
             />
         </div>
         </Container>
