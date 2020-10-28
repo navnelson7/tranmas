@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import iconFilter from "./filtro.svg";
 import ContextInputSearch from "../../../context/ContextInputSearch";
+import { v4 as uuidv4 } from "uuid";
 
 function FiltroDropdown() {
   const { setSelectField, setNombreField } = useContext(ContextInputSearch);
@@ -56,10 +57,13 @@ function FiltroDropdown() {
           <div className="dropdown scroll-container">
             {Fields.map((field) => {
               return (
-                <span onClick={() => {
-                  setNombreField(field.nombre)
-                  setSelectField(field.field)
-                }}>
+                <span
+                  onClick={() => {
+                    setNombreField(field.nombre);
+                    setSelectField(field.field);
+                  }}
+                  key={uuidv4()}
+                >
                   {field.nombre}
                 </span>
               );

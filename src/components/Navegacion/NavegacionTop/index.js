@@ -159,14 +159,14 @@ const StyleNavTop = styled.div`
     }
     .grid-navbar-mobile {
       display: grid;
-      grid-template-columns: 50% 20% 30%;
+      grid-template-columns: 80% 1% 20%;
     }
 
     /* INPUT SEARCH */
 
     .form-control-login {
       display: block;
-      width: auto;
+      width: 100%;
       padding: 8px 8px;
       font-size: 1rem;
       font-weight: 400;
