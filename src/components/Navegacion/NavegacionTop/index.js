@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Fragment } from "react";
 import styled from "styled-components";
 import ContextInputSearch from "../../../context/ContextInputSearch";
 import { useLocation } from "react-router-dom";
 import FiltroDropdown from "../Filtro";
+import { listenNotification } from "../../../graphql/Suscription";
+import { useSubscription } from "@apollo/client";
+import alertSound from "./sonido/alert.mp3";
 
 function NavegacionTop() {
+  const [Notificaciones, setNotificaciones] = useState([]);
+  const [NumberNotification, setNumberNotification] = useState(0);
+  const { data, loading } = useSubscription(listenNotification);
+
   const { pathname } = useLocation();
   const {
     StateSearch,
@@ -22,6 +29,20 @@ function NavegacionTop() {
       }
     }
   };
+
+  useEffect(() => {
+    let datos = [];
+    datos = data === undefined ? [] : data.notificaciones;
+    setNotificaciones(datos);
+    setNumberNotification(NumberNotification + 1);
+    if (NumberNotification >= 2) {
+      var audio = new Audio(alertSound);
+      audio.play();
+    }
+  }, [data]);
+  if (loading) {
+    return "";
+  }
   return (
     <Fragment>
       <StyleNavTop>
@@ -57,7 +78,14 @@ function NavegacionTop() {
                       notifications
                     </span>
                     <div className="dropdown scroll-container">
-                      <span>Nelson actualizo un proveedor</span>
+                      {Notificaciones.map((notificacion) => {
+                        return (
+                          <span>
+                            <strong>{notificacion.usuario}</strong>{" "}
+                            {notificacion.mensaje}
+                          </span>
+                        );
+                      })}
                     </div>
                   </button>
                 </div>
@@ -120,13 +148,20 @@ function NavegacionTop() {
                           style={{
                             fontSize: "24px",
                             color: "#ffffff",
-                            marginTop: "4px"
+                            marginTop: "4px",
                           }}
                         >
                           notifications
                         </span>
                         <div className="dropdown scroll-container">
-                          <span>Nelson actualizo un proveedor</span>
+                          {Notificaciones.map((notificacion) => {
+                            return (
+                              <span>
+                                <strong>{notificacion.usuario}</strong>{" "}
+                                {notificacion.mensaje}
+                              </span>
+                            );
+                          })}
                         </div>
                       </button>
                     </div>
