@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Fragment } from "react";
 import styled from "styled-components";
 import ContextInputSearch from "../../../context/ContextInputSearch";
 import { useLocation } from "react-router-dom";
 import FiltroDropdown from "../Filtro";
+import { listenNotification } from "../../../graphql/Suscription";
+import { useSubscription } from "@apollo/client";
+import alertSound from "./sonido/alert.mp3";
 
 function NavegacionTop() {
+  const [Notificaciones, setNotificaciones] = useState([]);
+  const [NumberNotification, setNumberNotification] = useState(0);
+  const { data, loading } = useSubscription(listenNotification);
+
   const { pathname } = useLocation();
   const {
     StateSearch,
@@ -22,6 +29,20 @@ function NavegacionTop() {
       }
     }
   };
+
+  useEffect(() => {
+    let datos = [];
+    datos = data === undefined ? [] : data.notificaciones;
+    setNotificaciones(datos);
+    setNumberNotification(NumberNotification + 1);
+    if (NumberNotification >= 2) {
+      var audio = new Audio(alertSound);
+      audio.play();
+    }
+  }, [data]);
+  if (loading) {
+    return "";
+  }
   return (
     <Fragment>
       <StyleNavTop>
@@ -43,13 +64,45 @@ function NavegacionTop() {
             <div>
               <FiltroDropdown />
             </div>
-            <div className="flex-icons--nav-mobile">
-              <img
-                className="img-nav-user-mobile"
-                src="https://yt3.ggpht.com/a/default-user=s88-rj"
-                alt=""
-              />
-            </div>
+            <StyleDropdown>
+              <div className="flex-icons--nav-mobile">
+                <div className="container-dropdown" style={{ float: "right" }}>
+                  <button className="btn">
+                    <span
+                      className="material-icons"
+                      style={{
+                        fontSize: "24px",
+                        color: "#ffffff",
+                      }}
+                    >
+                      notifications
+                    </span>
+                    <div className="dropdown scroll-container">
+                      {Notificaciones.map((notificacion) => {
+                        return (
+                          <span>
+                            <strong>{notificacion.usuario}</strong>{" "}
+                            {notificacion.mensaje}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </button>
+                </div>
+                <div className="container-dropdown" style={{ float: "right" }}>
+                  <button className="btn">
+                    <img
+                      className="img-nav-user-mobile"
+                      src="https://yt3.ggpht.com/a/default-user=s88-rj"
+                      alt=""
+                    />
+                    <div className="dropdown scroll-container">
+                      <span>Cerrar Sesión</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </StyleDropdown>
           </div>
         </div>
         {/* NAVBAR TOP DESKTOP */}
@@ -81,41 +134,56 @@ function NavegacionTop() {
                 </span>
               </div>
             </div>
-            <div className="flex-icons-right">
-              <div className="grid-icons-right">
-                <div className="box-icons-right">
-                  <span
-                    className="material-icons"
-                    style={{
-                      fontSize: "24px",
-                      color: "#ffffff",
-                      marginTop: "5px",
-                    }}
+            <StyleDropdown>
+              <div className="flex-icons-right">
+                <div className="grid-icons-right">
+                  <div className="box-icons-right">
+                    <div
+                      className="container-dropdown"
+                      style={{ float: "right" }}
+                    >
+                      <button className="btn">
+                        <span
+                          className="material-icons"
+                          style={{
+                            fontSize: "24px",
+                            color: "#ffffff",
+                            marginTop: "4px",
+                          }}
+                        >
+                          notifications
+                        </span>
+                        <div className="dropdown scroll-container">
+                          {Notificaciones.map((notificacion) => {
+                            return (
+                              <span>
+                                <strong>{notificacion.usuario}</strong>{" "}
+                                {notificacion.mensaje}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    className="container-dropdown"
+                    style={{ float: "right" }}
                   >
-                    apps
-                  </span>
-                </div>
-                <div className="box-icons-right">
-                  <span
-                    className="material-icons"
-                    style={{
-                      fontSize: "24px",
-                      color: "#ffffff",
-                      marginTop: "5px",
-                    }}
-                  >
-                    notifications
-                  </span>
-                </div>
-                <div>
-                  <img
-                    className="box-icons-right"
-                    src="https://yt3.ggpht.com/a/default-user=s88-rj"
-                    alt=""
-                  />
+                    <button className="btn">
+                      <img
+                        className="box-icons-right"
+                        src="https://yt3.ggpht.com/a/default-user=s88-rj"
+                        alt=""
+                      />
+                      <div className="dropdown scroll-container">
+                        <span>Cerrar Sesión</span>
+                      </div>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </StyleDropdown>
           </div>
         </header>
       </StyleNavTop>
@@ -151,6 +219,7 @@ const StyleNavTop = styled.div`
       height: 24px;
       width: 24px;
       border-radius: 50px;
+      margin-bottom: 5px;
     }
     .flex-icons--nav-mobile {
       display: flex;
@@ -159,14 +228,14 @@ const StyleNavTop = styled.div`
     }
     .grid-navbar-mobile {
       display: grid;
-      grid-template-columns: 50% 20% 30%;
+      grid-template-columns: 75% 1% 25%;
     }
 
     /* INPUT SEARCH */
 
     .form-control-login {
       display: block;
-      width: auto;
+      width: 100%;
       padding: 8px 8px;
       font-size: 1rem;
       font-weight: 400;
@@ -294,5 +363,83 @@ const StyleNavTop = styled.div`
       width: 32px;
       border-radius: 50px;
     }
+  }
+`;
+
+const StyleDropdown = styled.div`
+  .container-dropdown {
+    background-color: transparent;
+    position: relative;
+    border-radius: 5px 0px 0px 5px;
+    -moz-border-radius: 5px 0px 0px 5px;
+    -webkit-border-radius: 5px 0px 0px 5px;
+    border: 0px solid #000000;
+  }
+  .btn {
+    outline: 0;
+    border: 0;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: transparent;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .btn:focus .dropdown,
+  .btn:active .dropdown {
+    transform: translate(0, 20px);
+    opacity: 1;
+    visibility: visible;
+  }
+  .btn .material-icons {
+    border-radius: 100%;
+  }
+  .btn .dropdown {
+    position: absolute;
+    width: 100px;
+    margin-left: -55px;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    opacity: 0;
+    background-color: white;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 1;
+  }
+  span:hover {
+    color: white;
+    background-color: #3d50fa;
+  }
+  .btn .dropdown span {
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 16px 0;
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  /* SCROLL CONTAINER */
+  .scroll-container {
+    overflow: scroll;
+    height: auto;
+    width: auto;
+    overflow-x: hidden;
+    transition: 1s;
+  }
+  .scroll-container::-webkit-scrollbar {
+    width: 5px;
+  }
+  /* Track */
+  .scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  /* Handle */
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: #d6d0d0;
+  }
+  /* Handle on hover */
+  .scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #3c50fa;
+    border-radius: 5px;
   }
 `;

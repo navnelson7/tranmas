@@ -98,7 +98,6 @@ function Proveedores() {
 
   useEffect(() => {
     if (StateSearch === "") {
-      console.log("excuted");
       setDataProveedor(DataProveedorCopy)
     }
   }, [StateSearch, ExecuteFilter]);
@@ -362,7 +361,7 @@ const StyleTable = styled.div`
     background: white;
     color: #8c7d84;
     border-radius: 0.4em;
-    font-size: 12px;
+    font-size: 14px;
   }
   .rwd-table tr {
     border-color: #46637f;
