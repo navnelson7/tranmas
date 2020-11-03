@@ -87,7 +87,8 @@ const BusquedaProductos = () => {
         busqueda,
     } = state
 
-     const onChange = e => {
+     const onChange = async e => {
+         e.persist();
          guardarState({
              ...state,
             [e.target.name]: e.target.value,
@@ -101,9 +102,12 @@ const BusquedaProductos = () => {
              if(item.nombre.includes(busqueda)){
                  return item;
              }
+             if(item.marcar_de_repuestos.marca.includes(busqueda)){
+                 return item;
+             }
          });
          if(busqueda.length === 0 ){
-            guardarEncontrados(repuestos)
+            guardarEncontrados(search)
          }else{
             guardarEncontrados(search);
         }  
@@ -114,7 +118,7 @@ const BusquedaProductos = () => {
             <div className="barraBusqueda">
                 <input 
                     type="text"
-                    placeholder_="buscar"
+                    placeholder="buscar por nombre, marca"
                     className="textFiled"
                     name="busqueda"
                     value={busqueda}
