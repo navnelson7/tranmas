@@ -107,6 +107,9 @@ const BusquedaProductos = () => {
              if(item.codigo_repuesto.includes(busqueda)){
                  return item;
              }
+             if(item.fecha_factura.toString().includes(busqueda)){
+                 return item;
+             }
          });
          if(busqueda === 0 ){
             guardarEncontrados(search)
@@ -121,8 +124,16 @@ const BusquedaProductos = () => {
              style: {
                  background: '#F18E6B ',
                  color: 'white'
-             } 
+             }
+         },
+         {
+             when: row => row.estado_repuesto_stock.estado_repuestos == 'Obsoleto',
+             style: {
+                 background: '#DA9AF5 ',
+                 color: 'white'
+             }
          }
+
      ]
     return (
         <Container>

@@ -12,7 +12,6 @@ import EditarProveedor from "./components/Proveedores/Editar";
 import { SearchContextProvider } from "./context/ContextInputSearch";
 
 import EmpleadosState from "./context/empleados/empleadosState";
-import RepuestosState from "./context/repuestos/repuestosState";
 import MarcasState from "./context/Marcas/marcasSate";
 
 import Navegacion from "./components/Navegacion";
@@ -31,7 +30,6 @@ function App() {
         <EmpleadosState>
           <MarcasState>
             <SearchContextProvider>
-              <RepuestosState>
                 <NavegacionTop />
                 <Navegacion />
                 <Switch>
@@ -58,7 +56,7 @@ function App() {
                   <Route exact path="/listado-medidas" component={ListadoMedidas}/>
                   <Route exact path="/busqueda-productos" component={BusquedaProductos} />
                 </Switch>
-              </RepuestosState>
+
             </SearchContextProvider>
           </MarcasState>
         </EmpleadosState>

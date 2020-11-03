@@ -1,42 +1,31 @@
-import React, { Fragment, useContext, useEffect, useReducer } from 'react';
+import React, { Fragment,  useEffect,  useState } from 'react';
 
 import Repuesto from './Repuesto';
 import { Table, Container } from 'react-bootstrap';
-import repuestoContext from '../../context/repuestos/repuestosContext';
-import RepuestosReducer from '../../context/repuestos/repuestosReducer';
 
 
-import { OBTENER_REPUESTOS } from '../../types/index';
 
 import { useQuery } from '@apollo/client';
 import { getRepuestos } from '../../graphql/Queries'
 
 const ListadoRepuestos = () => {
 
+    const [listadoRepuestos, setListadoRepuestos] = useState([]);
     
     const { data, loading, error } = useQuery(getRepuestos);
 
-    const repuestosContext = useContext(repuestoContext);
-    const { repuestos } = repuestosContext;
 
-    const [state, dispatch] = useReducer(RepuestosReducer, []);
 
-    useEffect(() => {
-        if (data === undefined) {
-            dispatch({
-                type: OBTENER_REPUESTOS,
-                payload: []
-            })
+
+    useEffect(() =>{
+        if(loading){
+            return
         }
-        if (data) {
-            dispatch({
-                type: OBTENER_REPUESTOS,
-                payload: data.repuestos
-            })
-
+        if(data){
+            setListadoRepuestos(data.repuestos);
         }
-        //eslint-disable-next-line
-    }, [data]);
+        console.log(listadoRepuestos);
+    })
     if (loading) return (<p>cargando</p>)
     return (
         <Fragment>
@@ -58,9 +47,9 @@ const ListadoRepuestos = () => {
                         </thead>
                         <tbody>
 
-                            {state.repuestos.lenght === 0
+                            {listadoRepuestos.lenght === 0
                                 ? (<tr><td>No hay repuestos</td></tr>)
-                                : state.repuestos.map(repuesto => (
+                                : listadoRepuestos.map(repuesto => (
                                     <tr key={repuesto.id}>
                                         <Repuesto
                                             repuesto={repuesto}
