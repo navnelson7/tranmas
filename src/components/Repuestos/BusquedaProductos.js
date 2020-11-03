@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import {useQuery} from '@apollo/client';
 import {getRepuestos} from '../../graphql/Queries';
 import Datatable from 'react-data-table-component';
@@ -19,7 +19,6 @@ const BusquedaProductos = () => {
 
     const obtenerRepuestos =()=> {
         setRepuestos(data.repuestos)
-        console.log(data.repuestos);
     }
 
    
@@ -105,13 +104,26 @@ const BusquedaProductos = () => {
              if(item.marcar_de_repuestos.marca.includes(busqueda)){
                  return item;
              }
+             if(item.codigo_repuesto.includes(busqueda)){
+                 return item;
+             }
          });
-         if(busqueda.length === 0 ){
+         if(busqueda === 0 ){
             guardarEncontrados(search)
          }else{
             guardarEncontrados(search);
         }  
      }
+
+     const conditionalRowStyles = [
+         {
+             when: row => row.cantidad<3 ,
+             style: {
+                 background: '#F18E6B ',
+                 color: 'white'
+             } 
+         }
+     ]
     return (
         <Container>
             <div className='box-left'>
@@ -134,6 +146,8 @@ const BusquedaProductos = () => {
                 title="Lista de datos"
                 pagination
                 paginationComponentOptions={paginacionOptiones}
+                noDataComponent={<div className="alert alert-info">Escribe nombre o marca en el cuadro de busqueda</div>}
+                conditionalRowStyles={conditionalRowStyles}
             />
         </div>
         </Container>
