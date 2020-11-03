@@ -1,39 +1,30 @@
 import { useQuery } from '@apollo/react-hooks';
-import React, { Fragment, useReducer, useEffect, useContext } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import {Container,Table,} from 'react-bootstrap';
 import Marca from './Marca';
-import MarcasContext from '../../context/Marcas/marcasContext';
-import marcasReducer from '../../context/Marcas/marcasReducer';
 
-import { OBTENER_MARCAS }  from '../../types/index';
 
 
 
 import {getMarcas} from '../../graphql/Queries'
 
 const ListadoMarcas = () => {
+
+    const [listadoMarcas, setListadoMarcas] = useState([]);
+
     const {data, loading, error} = useQuery(getMarcas);
 
-    const marcasContext = useContext(MarcasContext);
-    const {marcas} = marcasContext;
 
-    const [state, dispatch] = useReducer(marcasReducer);
-
-    useEffect(() => {
-        if(data === undefined){
-            dispatch({
-                type: OBTENER_MARCAS,
-                payload: []
-            })
+    useEffect(()=> {
+        if(loading){
+            return
         }
         if(data){
-            dispatch({
-                type: OBTENER_MARCAS,
-                payload: data.marcas
-            })
+            setListadoMarcas(data.marcas);
         }
-        //eslint-disable-next-line
+        console.log(listadoMarcas);
     },[data]);
+
 
     if(loading)return (<p>Cargando</p>)
     return (
@@ -48,9 +39,9 @@ const ListadoMarcas = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {state.marcas.lenght === 0
+                            {listadoMarcas.lenght === 0
                                 ? (<tr><td>No hay Marcas</td></tr>)
-                                : state.marcas.map(marca =>(
+                                : listadoMarcas.map(marca =>(
                                     <tr key={marca.id}>
                                         <Marca 
                                             marca={marca}
