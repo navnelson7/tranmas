@@ -194,3 +194,18 @@ export const setMedidasOne = gql `
      }
    }
 `;
+
+export const setEstadosOne = gql `
+    mutation addEstadosRepuestosStock(
+      $estado_repuestos: String
+    ){
+      insert_estado_repuestos_stock_one(
+        object: {
+          estado_repuestos: $estado_repuestos
+        }
+      ){
+        id
+        estado_repuestos
+      }
+    }
+`
