@@ -52,7 +52,6 @@ const FormularioEstadoRepuestos = () => {
                 setIconType("error");
                 setTextAlert("Ocurrio un problema");
                 setshowAlert(true);
-                console.log(error);
             })
         }
         guardarEstado({

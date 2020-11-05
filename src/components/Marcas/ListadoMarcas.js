@@ -36,6 +36,7 @@ const ListadoMarcas = () => {
                         <thead>
                             <tr>
                                 <th>Nombre de la Marca</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
