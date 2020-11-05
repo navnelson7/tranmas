@@ -7,6 +7,8 @@ import FiltroDropdown from "../Filtro";
 import { listenNotification } from "../../../graphql/Suscription";
 import { useSubscription } from "@apollo/client";
 import alertSound from "./sonido/alert.mp3";
+import { v4 as uuidv4 } from "uuid";
+
 
 function NavegacionTop() {
   const [Notificaciones, setNotificaciones] = useState([]);
@@ -54,7 +56,6 @@ function NavegacionTop() {
                 type="text"
                 className="border-0-login form-control-login input-border-none"
                 placeholder={NombreField}
-                id="search"
                 autoComplete="off"
                 value={StateSearch}
                 onChange={(e) => setStateSearch(e.target.value.trim())}
@@ -80,7 +81,7 @@ function NavegacionTop() {
                     <div className="dropdown scroll-container">
                       {Notificaciones.map((notificacion) => {
                         return (
-                          <span>
+                          <span key={uuidv4()}>
                             <strong>{notificacion.usuario}</strong>{" "}
                             {notificacion.mensaje}
                           </span>
@@ -118,7 +119,6 @@ function NavegacionTop() {
                   type="text"
                   className="border-0-login form-control-login input-border-none"
                   placeholder={NombreField}
-                  id="search"
                   autoComplete="off"
                   value={StateSearch}
                   onChange={(e) => setStateSearch(e.target.value.trim())}
@@ -156,7 +156,7 @@ function NavegacionTop() {
                         <div className="dropdown scroll-container">
                           {Notificaciones.map((notificacion) => {
                             return (
-                              <span>
+                              <span key={uuidv4()}>
                                 <strong>{notificacion.usuario}</strong>{" "}
                                 {notificacion.mensaje}
                               </span>
