@@ -4,7 +4,10 @@ const Estado = ({estado}) => {
     return (
        <Fragment>
            <td>{estado.estado_repuestos}</td>
-           <td><Button variant="info">Actualizar</Button></td>
+           <>
+               <Button variant="info">Actualizar</Button>
+               <Button variant="danger">Eliminar</Button>
+            </>
        </Fragment>
     );
 }

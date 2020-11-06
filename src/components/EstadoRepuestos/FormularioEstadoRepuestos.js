@@ -34,34 +34,6 @@ const FormularioEstadoRepuestos = () => {
     });
   };
 
-<<<<<<< HEAD
-    const onSubmit = e => {
-        e.preventDefault();
-        if(estado_repuestos.trim() === ''){
-            setIconType("error")
-            setshowAlert(true)
-            setTextAlert("El campo estado no puede estar vacio")
-            return 
-        }else{
-            addEstados({
-                variables: estado_repuestos
-            })
-            .then((res)=>{
-                if(res.data){
-                    setIconType("success");
-                    setshowAlert(true);
-                    setTextAlert("Estado registrado correctamente")
-                }
-            })
-            .catch((error)=>{
-                setIconType("error");
-                setTextAlert("Ocurrio un problema");
-                setshowAlert(true);
-            })
-        }
-        guardarEstado({
-            "estado_repuestos": ''
-=======
   const onSubmit = (e) => {
     e.preventDefault();
     if (estados.estado_repuestos.trim() === "") {
@@ -79,7 +51,6 @@ const FormularioEstadoRepuestos = () => {
             setshowAlert(true);
             setTextAlert("Estado registrado correctamente");
           }
->>>>>>> 70340fd451fa2861bbdd969d3ba6bc402864067e
         })
         .catch((error) => {
           setIconType("error");
