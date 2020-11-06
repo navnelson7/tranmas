@@ -8,7 +8,6 @@ import Estado from './Estado';
 
 const ListaEstadoRepuestos = () => {
 
-    const [idEstado, deleteEstado] = useState();
     const [estados, setEstados] = useState([]);
     const {loading, data, error} = useQuery(getEstadoRepuestos);
 
@@ -43,7 +42,6 @@ const ListaEstadoRepuestos = () => {
                                    <tr key={estado.id}>
                                        <Estado 
                                         estado={estado}
-                                        deleteEstado={deleteEstado}
                                        />
                                    </tr>
                                ))
