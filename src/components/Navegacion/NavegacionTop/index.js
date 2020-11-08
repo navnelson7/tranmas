@@ -4,17 +4,9 @@ import styled from "styled-components";
 import ContextInputSearch from "../../../context/ContextInputSearch";
 import { useLocation } from "react-router-dom";
 import FiltroDropdown from "../Filtro";
-import { listenNotification } from "../../../graphql/Suscription";
-import { useSubscription } from "@apollo/client";
-import alertSound from "./sonido/alert.mp3";
-import { v4 as uuidv4 } from "uuid";
-
+import DropdownNotificaciones from "./DropdownNotificaciones";
 
 function NavegacionTop() {
-  const [Notificaciones, setNotificaciones] = useState([]);
-  const [NumberNotification, setNumberNotification] = useState(0);
-  const { data, loading } = useSubscription(listenNotification);
-
   const { pathname } = useLocation();
   const {
     StateSearch,
@@ -31,20 +23,6 @@ function NavegacionTop() {
       }
     }
   };
-
-  useEffect(() => {
-    let datos = [];
-    datos = data === undefined ? [] : data.notificaciones;
-    setNotificaciones(datos);
-    setNumberNotification(NumberNotification + 1);
-    if (NumberNotification >= 2) {
-      var audio = new Audio(alertSound);
-      audio.play();
-    }
-  }, [data]);
-  if (loading) {
-    return "";
-  }
   return (
     <Fragment>
       <StyleNavTop>
@@ -78,16 +56,7 @@ function NavegacionTop() {
                     >
                       notifications
                     </span>
-                    <div className="dropdown scroll-container">
-                      {Notificaciones.map((notificacion) => {
-                        return (
-                          <span key={uuidv4()}>
-                            <strong>{notificacion.usuario}</strong>{" "}
-                            {notificacion.mensaje}
-                          </span>
-                        );
-                      })}
-                    </div>
+                    <DropdownNotificaciones />
                   </button>
                 </div>
                 <div className="container-dropdown" style={{ float: "right" }}>
@@ -153,16 +122,7 @@ function NavegacionTop() {
                         >
                           notifications
                         </span>
-                        <div className="dropdown scroll-container">
-                          {Notificaciones.map((notificacion) => {
-                            return (
-                              <span key={uuidv4()}>
-                                <strong>{notificacion.usuario}</strong>{" "}
-                                {notificacion.mensaje}
-                              </span>
-                            );
-                          })}
-                        </div>
+                        <DropdownNotificaciones />
                       </button>
                     </div>
                   </div>
