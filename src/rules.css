@@ -1,50 +1,54 @@
 .abs-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .texto-usuario-nuevo {
-    align-self: center;
+  align-self: center;
 }
 
 .box-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20%;
 }
 
 .mt-dropdown {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .box-left {
-    margin-left: 11%;
-    margin-top: 2%;
+  margin-left: 11%;
+  margin-top: 2%;
 }
 
 .textField {
-    height: 32px;
-    width: 200px;
-    border: 1px solid #e5e5e5;
-    padding: 0 32px 0 16px;
+  height: 32px;
+  width: 200px;
+  border: 1px solid #e5e5e5;
+  padding: 0 32px 0 16px;
 }
 
 .textField:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .btnBuscar {
-    height: 34px;
-    width: 32px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+  height: 34px;
+  width: 32px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .barraBusqueda {
-    float: right;
-    padding: 20px;
+  float: right;
+  padding: 20px;
+}
+label {
+  color: transparent;
+  font-size: 0.1px;
 }

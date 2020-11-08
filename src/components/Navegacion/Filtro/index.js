@@ -53,7 +53,7 @@ function FiltroDropdown() {
     <StyleDropdown>
       <div className="container-dropdown" style={{ float: "right" }}>
         <button className="btn">
-          <img src={iconFilter} alt="" />
+          <img src={iconFilter} alt="" width="30px" height="30px" />
           <div className="dropdown scroll-container">
             {Fields.map((field) => {
               return (

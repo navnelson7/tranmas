@@ -29,6 +29,8 @@ function Navegacion() {
                   <img
                     src={location.pathname === "/" ? homeIconActive : homeIcon}
                     alt="Inicio"
+                    height="32px"
+                    width="32px"
                   />
                 </div>
                 <div className="mt-txt">
@@ -54,6 +56,8 @@ function Navegacion() {
                         ? repuestosIconActive
                         : repuestosIcon
                     }
+                    height="32px"
+                    width="32px"
                     alt="Listado de repuestos"
                   />
                 </div>
@@ -86,6 +90,8 @@ function Navegacion() {
                         ? empleadosIconActive
                         : empleadosIcon
                     }
+                    height="32px"
+                    width="32px"
                     alt="Listado de empleados"
                   />
                 </div>
@@ -119,6 +125,8 @@ function Navegacion() {
                         ? proveedorIconActive
                         : proveedorIcon
                     }
+                    height="32px"
+                    width="32px"
                     alt="Listado de empleados"
                   />
                 </div>
@@ -152,6 +160,8 @@ function Navegacion() {
                         ? loginIconActive
                         : loginIcon
                     }
+                    height="32px"
+                    width="32px"
                     alt="Registro"
                   />
                 </div>
@@ -189,6 +199,8 @@ function Navegacion() {
                       src={
                         location.pathname === "/" ? homeIconActive : homeIcon
                       }
+                      height="32px"
+                      width="32px"
                       alt="Inicio"
                     />
                   </p>
@@ -214,6 +226,8 @@ function Navegacion() {
                           ? repuestosIconActive
                           : repuestosIcon
                       }
+                      height="32px"
+                      width="32px"
                       alt="Listado de repuestos"
                     />
                   </p>
@@ -239,6 +253,8 @@ function Navegacion() {
                           ? empleadosIconActive
                           : empleadosIcon
                       }
+                      height="32px"
+                      width="32px"
                       alt="Listado de empleados"
                     />
                   </p>
@@ -246,7 +262,7 @@ function Navegacion() {
                 <p className="title-navegacion">Empleados</p>
               </Link>
             </div>
-            
+
             <div>
               <Link
                 to="/nuevo-usuario"
@@ -264,6 +280,8 @@ function Navegacion() {
                           ? loginIconActive
                           : loginIcon
                       }
+                      height="32px"
+                      width="32px"
                       alt="Registro"
                     />
                   </p>
