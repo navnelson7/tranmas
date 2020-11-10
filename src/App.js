@@ -9,7 +9,6 @@ import NuevoProveedor from "./components/Proveedores/Registro";
 import EditarProveedor from "./components/Proveedores/Editar";
 import { SearchContextProvider } from "./context/ContextInputSearch";
 
-import EmpleadosState from "./context/empleados/empleadosState";
 
 import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";

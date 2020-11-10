@@ -1,18 +1,20 @@
-import React, { Fragment } from 'react';
-import {Button} from 'react-bootstrap';
+import React, { Fragment, useState } from 'react';
+import { Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-const editandoMarca = (e)=> {
-    e.PreventDefault();
 
-}
-
-const borrandoMarca = (e) => {
-    e.PreventDefault();
-}
 
 const Marca = ({marca}) => {
+
+    const editandoMarca = (e)=> {
+        e.preventDefault();
+        console.log(marca.id)
+    }
+    
+    const borrandoMarca = (e) => {
+        e.preventDefault();
+    }
     return ( 
         <Fragment>
             <td>{marca.marca}</td>     

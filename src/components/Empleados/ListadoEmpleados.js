@@ -51,8 +51,6 @@ function ListadoEmpleados() {
                                         />
                                     </tr>
                                 ))
-
-
                             }
                         </tbody>
                     </Table>
