@@ -113,6 +113,9 @@ export const getEmpleados = gql `
       apellidos
       nit
       nombres
+      codigo_empleado
+      edad
+      dui
     }
   }
 `;
