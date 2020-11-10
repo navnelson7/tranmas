@@ -4,17 +4,9 @@ import styled from "styled-components";
 import ContextInputSearch from "../../../context/ContextInputSearch";
 import { useLocation } from "react-router-dom";
 import FiltroDropdown from "../Filtro";
-import { listenNotification } from "../../../graphql/Suscription";
-import { useSubscription } from "@apollo/client";
-import alertSound from "./sonido/alert.mp3";
-import { v4 as uuidv4 } from "uuid";
-
+import DropdownNotificaciones from "./DropdownNotificaciones";
 
 function NavegacionTop() {
-  const [Notificaciones, setNotificaciones] = useState([]);
-  const [NumberNotification, setNumberNotification] = useState(0);
-  const { data, loading } = useSubscription(listenNotification);
-
   const { pathname } = useLocation();
   const {
     StateSearch,
@@ -31,20 +23,6 @@ function NavegacionTop() {
       }
     }
   };
-
-  useEffect(() => {
-    let datos = [];
-    datos = data === undefined ? [] : data.notificaciones;
-    setNotificaciones(datos);
-    setNumberNotification(NumberNotification + 1);
-    if (NumberNotification >= 2) {
-      var audio = new Audio(alertSound);
-      audio.play();
-    }
-  }, [data]);
-  if (loading) {
-    return "";
-  }
   return (
     <Fragment>
       <StyleNavTop>
@@ -52,15 +30,18 @@ function NavegacionTop() {
         <div className="top-navbar-mobile">
           <div className="grid-navbar-mobile">
             <div>
-              <input
-                type="text"
-                className="border-0-login form-control-login input-border-none"
-                placeholder={NombreField}
-                autoComplete="off"
-                value={StateSearch}
-                onChange={(e) => setStateSearch(e.target.value.trim())}
-                onKeyPress={(e) => EnterSearch(e)}
-              />
+              <label>
+                Que deseas buscar?
+                <input
+                  type="text"
+                  className="border-0-login form-control-login input-border-none"
+                  placeholder={NombreField}
+                  autoComplete="off"
+                  value={StateSearch}
+                  onChange={(e) => setStateSearch(e.target.value.trim())}
+                  onKeyPress={(e) => EnterSearch(e)}
+                />
+              </label>
             </div>
             <div>
               <FiltroDropdown />
@@ -68,7 +49,7 @@ function NavegacionTop() {
             <StyleDropdown>
               <div className="flex-icons--nav-mobile">
                 <div className="container-dropdown" style={{ float: "right" }}>
-                  <button className="btn">
+                  <a href="#" className="btn">
                     <span
                       className="material-icons"
                       style={{
@@ -78,29 +59,22 @@ function NavegacionTop() {
                     >
                       notifications
                     </span>
-                    <div className="dropdown scroll-container">
-                      {Notificaciones.map((notificacion) => {
-                        return (
-                          <span key={uuidv4()}>
-                            <strong>{notificacion.usuario}</strong>{" "}
-                            {notificacion.mensaje}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </button>
+                    <DropdownNotificaciones />
+                  </a>
                 </div>
                 <div className="container-dropdown" style={{ float: "right" }}>
-                  <button className="btn">
+                  <a href="#" className="btn">
                     <img
                       className="img-nav-user-mobile"
                       src="https://yt3.ggpht.com/a/default-user=s88-rj"
                       alt=""
+                      width="24px"
+                      height="24px"
                     />
                     <div className="dropdown scroll-container">
                       <span>Cerrar Sesión</span>
                     </div>
-                  </button>
+                  </a>
                 </div>
               </div>
             </StyleDropdown>
@@ -115,15 +89,18 @@ function NavegacionTop() {
                 <FiltroDropdown />
               </div>
               <div>
-                <input
-                  type="text"
-                  className="border-0-login form-control-login input-border-none"
-                  placeholder={NombreField}
-                  autoComplete="off"
-                  value={StateSearch}
-                  onChange={(e) => setStateSearch(e.target.value.trim())}
-                  onKeyPress={(e) => EnterSearch(e)}
-                />
+                <label>
+                  Que deseas buscar?
+                  <input
+                    type="text"
+                    className="border-0-login form-control-login input-border-none"
+                    placeholder={NombreField}
+                    autoComplete="off"
+                    value={StateSearch}
+                    onChange={(e) => setStateSearch(e.target.value.trim())}
+                    onKeyPress={(e) => EnterSearch(e)}
+                  />
+                </label>
               </div>
               <div className="box-search">
                 <span
@@ -142,7 +119,7 @@ function NavegacionTop() {
                       className="container-dropdown"
                       style={{ float: "right" }}
                     >
-                      <button className="btn">
+                      <a href="#" className="btn">
                         <span
                           className="material-icons"
                           style={{
@@ -153,17 +130,8 @@ function NavegacionTop() {
                         >
                           notifications
                         </span>
-                        <div className="dropdown scroll-container">
-                          {Notificaciones.map((notificacion) => {
-                            return (
-                              <span key={uuidv4()}>
-                                <strong>{notificacion.usuario}</strong>{" "}
-                                {notificacion.mensaje}
-                              </span>
-                            );
-                          })}
-                        </div>
-                      </button>
+                        <DropdownNotificaciones />
+                      </a>
                     </div>
                   </div>
                   <div
@@ -175,6 +143,8 @@ function NavegacionTop() {
                         className="box-icons-right"
                         src="https://yt3.ggpht.com/a/default-user=s88-rj"
                         alt=""
+                        width="32px"
+                        height="32px"
                       />
                       <div className="dropdown scroll-container">
                         <span>Cerrar Sesión</span>
