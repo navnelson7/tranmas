@@ -130,7 +130,11 @@ export const getEmailUsers = gql `
 
 export const getProveedoresTable = gql `
   query proveedores($limit: Int, $offset: Int) {
-    proveedores(limit: $limit, offset: $offset) {
+    proveedores(limit: $limit, offset: $offset, where: {
+      activo: {
+        _eq: true
+      }
+    }) {
       id
       nombre_proveedor
       nit

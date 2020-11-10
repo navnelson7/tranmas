@@ -20,6 +20,7 @@ function Proveedores() {
   );
   const { action } = useHistory();
   const [PaginateNumber, setPaginateNumber] = useState(0);
+  const [PaginacionPantalla, setPaginacionPantalla] = useState(0);
   const [DataProveedor, setDataProveedor] = useState([]);
   const [DataProveedorCopy, setDataProveedorCopy] = useState([]);
   const [showAlert, setshowAlert] = useState(false);
@@ -30,12 +31,12 @@ function Proveedores() {
   const { loading, error, data, refetch } = useQuery(getProveedoresTable, {
     variables: { limit: 10, offset: PaginateNumber },
   });
-
+  console.log(data);
   useEffect(() => {
     let datos = [];
     datos = data === undefined ? [] : data.proveedores;
     setDataProveedor(datos);
-    setDataProveedorCopy(datos)
+    setDataProveedorCopy(datos);
   }, [data]);
 
   //RELOAD
@@ -98,16 +99,18 @@ function Proveedores() {
 
   useEffect(() => {
     if (StateSearch === "") {
-      setDataProveedor(DataProveedorCopy)
+      setDataProveedor(DataProveedorCopy);
     }
   }, [StateSearch, ExecuteFilter]);
 
   //PAGINACION
   const retrocederPage = () => {
     if (PaginateNumber <= 0) {
+      setPaginacionPantalla(0);
       setPaginateNumber(0);
     } else {
-      setPaginateNumber(PaginateNumber - 1);
+      setPaginacionPantalla(PaginacionPantalla - 1);
+      setPaginateNumber(PaginateNumber - 10);
     }
   };
 
@@ -144,7 +147,6 @@ function Proveedores() {
 
   if (loading) return "Loading...";
   if (error) return <p align="center">{`Error! ${error.message}`}</p>;
-
   return (
     <Fragment>
       <br />
@@ -267,7 +269,7 @@ function Proveedores() {
           <div className="grid-icons-right">
             <div>
               {/* EN REALIDAD LA PAGINACION EMPIEZA DE CERO PERO PARA EL USUARIO EMPEZARA DE 1 */}
-              <p className="txt-page">Pagina {PaginateNumber + 1}</p>
+              <p className="txt-page">Pagina {PaginacionPantalla + 1}</p>
             </div>
             <div
               className="box-icons-right"
@@ -279,7 +281,10 @@ function Proveedores() {
             <div
               className="box-icons-right"
               title="Adelante"
-              onClick={() => setPaginateNumber(PaginateNumber + 1)}
+              onClick={() => {
+                setPaginateNumber(PaginateNumber + 10);
+                setPaginacionPantalla(PaginacionPantalla + 1);
+              }}
             >
               <img src={rightIcon} alt="Adelante" className="mt-icons" />
             </div>
