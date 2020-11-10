@@ -14,16 +14,21 @@ const Estado = ({estado}) => {
      const borrandoEstado= (e)=> {
          e.preventDefault()
          setIdEstado(estado.id)
-         deleteEstado({
-             variables: id
-         }).then((res) => {
-            if (res.data) {
-              console.log("Borrado")
-            }
-          })
-          .catch((error) => {
-            console.log("error")
-          });
+         console.log(id);
+         if(id === ''){
+             return
+         }else{
+            deleteEstado({
+                variables: id
+            }).then((res) => {
+               if (res.data) {
+                 console.log("Borrado")
+               }
+             })
+             .catch((error) => {
+               console.log("error")
+             });
+         }
      }
 
      const editandoEstado = (e) =>{
@@ -36,7 +41,7 @@ const Estado = ({estado}) => {
             <td>{estado.estado_repuestos}</td>
             <td>
                <Button variant="info" value={estado.id} onClick={editandoEstado}><FontAwesomeIcon icon={faEdit}/></Button>
-               <Button variant="danger" value={estado.id} onClick={borrandoEstado} ><FontAwesomeIcon icon={faTrash}/></Button>
+               <Button variant="danger" value={estado.id} onClick={borrandoEstado}><FontAwesomeIcon icon={faTrash}/></Button>
             </td>
        </Fragment>
     );

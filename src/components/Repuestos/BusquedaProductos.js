@@ -5,6 +5,7 @@ import {getRepuestos} from '../../graphql/Queries';
 import Datatable from 'react-data-table-component';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import {Button} from 'react-bootstrap';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
@@ -133,7 +134,6 @@ const BusquedaProductos = () => {
                  color: 'white'
              }
          }
-
      ]
     return (
         <Container>
@@ -148,11 +148,10 @@ const BusquedaProductos = () => {
                     onChange={onChange}
                 />
                 
-                <FontAwesomeIcon icon={faSearch} />
+                <Button><FontAwesomeIcon icon={faSearch} /></Button>
             </div>
             <Datatable 
                 columns={columnas}
-                //data={repuestos}
                 data={encontrados}
                 title="Lista de datos"
                 pagination

@@ -204,15 +204,16 @@ export const setEstadosOne = gql `
 `;
 
 export const deletEstadosbyId = gql `
-  mutation ($id: uuid) {
-  delete_estado_repuestos_stock(
-    where: {
-      id: {
-        _eq: $id
-      }
-    }
-  ) {
+ mutation deleteEstadoRepuestos($id: uuid) {
+  update_estado_repuestos_stock(where: {id: {_eq: $id}}, _set: {
+    activo: false
+  }) {
     affected_rows
+    returning {
+      id
+      estado_repuestos
+      activo
+    }
   }
 }
 `;
