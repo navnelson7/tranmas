@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import {Button} from 'react-bootstrap'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 const Repuesto = ({ repuesto }) => {
     return (
@@ -11,8 +13,10 @@ const Repuesto = ({ repuesto }) => {
             <td>{repuesto.precio}</td>
             <td>{repuesto.proveedor_de_repuesto.nombre_proveedor}</td>
             <td>{repuesto.estado_repuesto_stock.estado_repuestos}</td>
-            <td><Button variant="danger" value={repuesto.id}>Borrar</Button></td>
-            <td><Button variant="info">Actualizar</Button></td>
+            <td>
+                <Button variant="info" value={repuesto.id} ><FontAwesomeIcon icon={faEdit}/></Button>
+                <Button variant="danger" value={repuesto.id}  ><FontAwesomeIcon icon={faTrash}/></Button>
+            </td>
         </Fragment>
     );
 }

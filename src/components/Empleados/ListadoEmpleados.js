@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import Empleado from './Empleado';
 
-import EmpleadosContext from '../../context/empleados/empleadosContext';
 
 import {useQuery} from '@apollo/client';
 import {getEmpleados} from '../../graphql/Queries'; 
@@ -22,7 +21,7 @@ function ListadoEmpleados() {
         if(data){
             setListadoEmpleados(data.empleados);
         }
-        console.log(listadoEmpleados);
+        console.log(data);
     },[data]);
 
     if (listadoEmpleados.length === 0) return null;
@@ -37,7 +36,9 @@ function ListadoEmpleados() {
                     <Table striped bordered hover >
                         <thead>
                             <tr>
+                                <th>Codigo</th>
                                 <th>Nombres</th>
+                                <th>Apellidos</th>
                             </tr>
                         </thead>
                         <tbody>
