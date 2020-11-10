@@ -44,7 +44,6 @@ function App() {
   return (
     <Fragment>
       <Router>
-        <EmpleadosState>
           <SearchContextProvider>
             <NavegacionTop />
             <Navegacion />
@@ -63,21 +62,9 @@ function App() {
               </Route>
               <Route exact path="/nuevo-usuario" component={NuevoUsuario} />
               <Route exact path="/registro" component={Registro} />
-              <Route
-                exact
-                path="/listado-empleados"
-                component={ListadoEmpleados}
-              />
-              <Route
-                exact
-                path="/listado-repuestos"
-                component={ListadoRepuestos}
-              />
-              <Route
-                exact
-                path="/formulario-repuestos"
-                component={FormRepuestos}
-              />
+              <Route exact path="/listado-empleados" component={ListadoEmpleados}/>
+              <Route exact path="/listado-repuestos" component={ListadoRepuestos}/>
+              <Route exact path="/formulario-repuestos" component={FormRepuestos}/>
               <Route exact path="/listado-marcas">
                 <Suspense fallback="Cargando...">
                   <ListadoMarcas />
@@ -103,11 +90,11 @@ function App() {
                   <BusquedaProductos />
                 </Suspense>
               </Route>
-              <Route
-                exact
-                path="/listado-estados-repuestos"
-                component={ListadoEstadoRepuestos}
-              />
+              <Route exact path="/listado-estados-repuestos">
+                <Suspense fallback="cargando">
+                  <ListadoEstadoRepuestos />
+                </Suspense>
+                </Route>
               <Route exact path="/formulario-estados">
                 <Suspense fallback="Cargando...">
                   <FormularioEstadoRepuestos />
@@ -115,7 +102,6 @@ function App() {
               </Route>
             </Switch>
           </SearchContextProvider>
-        </EmpleadosState>
       </Router>
     </Fragment>
   );

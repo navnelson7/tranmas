@@ -12,18 +12,20 @@ import { Container, Table } from 'react-bootstrap';
 
 function ListadoEmpleados() {
 
-    const empleadosContext = useContext(EmpleadosContext);
-    const {empleados, obtenerEmpleados} = empleadosContext;
-
+    const [listadoEmpleados, setListadoEmpleados] = useState([]);
     const {loading, data, error } = useQuery(getEmpleados);
 
     useEffect(()=>{
-        if (data){
-            obtenerEmpleados();
+        if(loading){
+            return
         }
+        if(data){
+            setListadoEmpleados(data.empleados);
+        }
+        console.log(listadoEmpleados);
     },[data]);
 
-    if (empleados.length === 0) return null;
+    if (listadoEmpleados.length === 0) return null;
 
     
 
@@ -39,9 +41,9 @@ function ListadoEmpleados() {
                             </tr>
                         </thead>
                         <tbody>
-                            {empleados.length === 0
+                            {listadoEmpleados.length === 0
                                 ? (<tr><td>No hay Empleados registrados </td></tr>)
-                                : empleados.map(empleado => (
+                                : listadoEmpleados.map(empleado => (
                                     <tr key={empleado.id}>
                                         <Empleado
                                             empleado={empleado}
