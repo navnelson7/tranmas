@@ -5,8 +5,6 @@ import Login from "./components/Auth/Login";
 import NuevoUsuario from "./components/Auth/NuevoUsuario";
 import Registro from "./components/Empleados/Registro";
 import ListadoEmpleados from "./components/Empleados/ListadoEmpleados";
-import ListadoRepuestos from "./components/Repuestos/ListadoRepuestos";
-import FormRepuestos from "./components/Repuestos/FormRepuetos";
 import NuevoProveedor from "./components/Proveedores/Registro";
 import EditarProveedor from "./components/Proveedores/Editar";
 import { SearchContextProvider } from "./context/ContextInputSearch";
@@ -17,6 +15,10 @@ import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
 
 //IMPORT LAZY IN COMPONENTS
+const FormRepuestos = lazy(() => import("./components/Repuestos/FormRepuetos"));
+
+const ListadoRepuestos = lazy(() => import("./components/Repuestos/ListadoRepuestos"));
+
 const Proveedores = lazy(() => import("./components/Proveedores"));
 const ListadoMarcas = lazy(() => import("./components/Marcas/ListadoMarcas"));
 const FormularioMarcas = lazy(() =>
@@ -71,13 +73,19 @@ function App() {
               <Route
                 exact
                 path="/listado-repuestos"
-                component={ListadoRepuestos}
-              />
+              >
+                <Suspense fallback="Cargando...">
+                  <ListadoRepuestos />
+                </Suspense>
+              </Route>
               <Route
                 exact
                 path="/formulario-repuestos"
-                component={FormRepuestos}
-              />
+              >
+                <Suspense fallback="Cargando...">
+                  <FormRepuestos />
+                </Suspense>
+              </Route>
               <Route exact path="/listado-marcas">
                 <Suspense fallback="Cargando...">
                   <ListadoMarcas />
@@ -106,8 +114,11 @@ function App() {
               <Route
                 exact
                 path="/listado-estados-repuestos"
-                component={ListadoEstadoRepuestos}
-              />
+              >
+                <Suspense fallback="Cargando...">
+                  <ListadoEstadoRepuestos />
+                </Suspense>
+              </Route>
               <Route exact path="/formulario-estados">
                 <Suspense fallback="Cargando...">
                   <FormularioEstadoRepuestos />
