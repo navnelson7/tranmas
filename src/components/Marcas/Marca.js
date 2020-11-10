@@ -9,7 +9,6 @@ const Marca = ({marca}) => {
 
     const editandoMarca = (e)=> {
         e.preventDefault();
-        console.log(marca.id)
     }
     
     const borrandoMarca = (e) => {
@@ -20,7 +19,7 @@ const Marca = ({marca}) => {
             <td>{marca.marca}</td>     
             <td>
                 <Button variant="info" value={marca.id} onClick={editandoMarca}><FontAwesomeIcon icon={faEdit}/></Button>
-               <Button variant="danger" value={marca.id} onClick={borrandoMarca} ><FontAwesomeIcon icon={faTrash}/></Button>
+                <Button variant="danger" value={marca.id} onClick={borrandoMarca}><FontAwesomeIcon icon={faTrash}/></Button>
             </td>
         </Fragment>
      );

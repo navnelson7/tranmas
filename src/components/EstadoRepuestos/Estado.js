@@ -1,15 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import {Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faEdit,faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
 
 import { deletEstadosbyId } from '../../graphql/Mutations';
 import { useMutation } from '@apollo/react-hooks';
 import { useState } from 'react';
 
 const Estado = ({estado}) => {
+    const [borrado, setActivado] = useState("");
+    const [variante,setVariante] = useState("danger");
+    const [icono, setIcono] = useState("");
     const [id, setIdEstado] = useState([]);
     const [deleteEstado] = useMutation(deletEstadosbyId);
+
+    useEffect(()=>{
+        if(estado.activo === true){
+            setActivado("Ativado")
+            console.log(borrado);
+        }else{
+            setActivado("Inactivo")
+        }
+        if(estado.activo === false){
+            setVariante("warning")
+        }
+        if(estado.activo ===false){
+            setIcono(<FontAwesomeIcon icon={faArrowAltCircleUp}/>)
+        }else
+            setIcono(<FontAwesomeIcon icon={faTrash}/>)
+    },[])
 
      const borrandoEstado= (e)=> {
          e.preventDefault()
@@ -33,7 +52,7 @@ const Estado = ({estado}) => {
 
      const editandoEstado = (e) =>{
          e.preventDefault();
-         console.log(estado.id);
+         console.log(estado.activo);
      }
     return (
 
@@ -41,8 +60,9 @@ const Estado = ({estado}) => {
             <td>{estado.estado_repuestos}</td>
             <td>
                <Button variant="info" value={estado.id} onClick={editandoEstado}><FontAwesomeIcon icon={faEdit}/></Button>
-               <Button variant="danger" value={estado.id} onClick={borrandoEstado}><FontAwesomeIcon icon={faTrash}/></Button>
+               <Button variant={variante} value={estado.id} onClick={borrandoEstado}>{icono}</Button>
             </td>
+            <td>{borrado}</td>
        </Fragment>
     );
 }

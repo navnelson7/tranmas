@@ -65,6 +65,7 @@ export const getEstadoRepuestos = gql `
     estado_repuestos_stock {
       id
       estado_repuestos
+      activo
     }
   }
 `;

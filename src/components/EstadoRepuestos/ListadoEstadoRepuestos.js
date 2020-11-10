@@ -33,6 +33,7 @@ const ListaEstadoRepuestos = () => {
                             <tr>
                                 <th>Estados para Repuestos</th>
                                 <th>Acciones</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
