@@ -217,3 +217,18 @@ export const deletEstadosbyId = gql `
   }
 }
 `;
+
+export const activateEstadosbyId = gql `
+ mutation deleteEstadoRepuestos($id: uuid) {
+  update_estado_repuestos_stock(where: {id: {_eq: $id}}, _set: {
+    activo: true
+  }) {
+    affected_rows
+    returning {
+      id
+      estado_repuestos
+      activo
+    }
+  }
+}
+`;

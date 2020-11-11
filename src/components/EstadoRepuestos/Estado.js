@@ -11,6 +11,7 @@ const Estado = ({estado}) => {
     const [borrado, setActivado] = useState("");
     const [variante,setVariante] = useState("danger");
     const [icono, setIcono] = useState("");
+    const [accion, setAccion] = useState("");
     const [id, setIdEstado] = useState([]);
     const [deleteEstado] = useMutation(deletEstadosbyId);
 
