@@ -14,6 +14,8 @@ import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
 
 //IMPORT LAZY IN COMPONENTS
+const EditarRepuestos = lazy(() => import("./components/Repuestos/Editar"));
+
 const FormRepuestos = lazy(() => import("./components/Repuestos/FormRepuetos"));
 
 const ListadoRepuestos = lazy(() => import("./components/Repuestos/ListadoRepuestos"));
@@ -50,6 +52,11 @@ function App() {
             <Navegacion />
             <Switch>
               <Route exact path="/" component={Login} />
+              <Route exact path="/actualizar-repuestos/:id">
+                <Suspense fallback="Cargando....">
+                  <EditarRepuestos />
+                </Suspense>
+              </Route>
               <Route
                 exact
                 path="/actualizar-proveedor/:id"
