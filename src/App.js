@@ -12,6 +12,7 @@ import { SearchContextProvider } from "./context/ContextInputSearch";
 
 import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
+import UnidadesTransporte from "./components/UnidadesTransporte";
 
 //IMPORT LAZY IN COMPONENTS
 const EditarRepuestos = lazy(() => import("./components/Repuestos/Editar"));
@@ -52,6 +53,7 @@ function App() {
             <Navegacion />
             <Switch>
               <Route exact path="/" component={Login} />
+              <Route exact path="/unidades-transporte" component={UnidadesTransporte} />
               <Route exact path="/actualizar-repuestos/:id">
                 <Suspense fallback="Cargando....">
                   <EditarRepuestos />
