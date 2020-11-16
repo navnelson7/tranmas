@@ -1,50 +1,145 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import { Form } from "react-bootstrap";
+import { Form, Button, Spinner } from "react-bootstrap";
 import editIcon from "./icons/edit.svg";
+import { useMutation } from "@apollo/client";
+import { setTransporteOne } from "../../../graphql/Mutations";
+import { ToastComponent } from "../../Toast";
+import { useHistory } from "react-router-dom";
+
 function Registro() {
+  const { push } = useHistory();
+
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
+  const [TextAlert, setTextAlert] = useState("");
+  const [Loading, setLoading] = useState(false);
+  const [UnidadTransporte, setUnidadTransporte] = useState({
+    activo: true,
+    updated_at:
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate(),
+    created_at:
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate(),
+  });
+
+  const [addTransporte] = useMutation(setTransporteOne);
+
+  const changeTransporte = (e) => {
+    if (e.target.name === "numero_equipo" || "numero_pasajeros") {
+      setUnidadTransporte({
+        ...UnidadTransporte,
+        [e.target.name]: parseInt(e.target.value),
+      });
+    }
+    setUnidadTransporte({
+      ...UnidadTransporte,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitTransporte = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    addTransporte({
+      variables: UnidadTransporte,
+    })
+      .then((res) => {
+        if (res.data) {
+          setLoading(false);
+          setIconType("success");
+          setshowAlert(true);
+          setTextAlert("Registrado correctamente");
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push("/unidades-transporte");
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        setTextAlert("Ocurrio un problema");
+        setIconType("error");
+        setshowAlert(true);
+      });
+  };
+  if (Loading) return <Spinner />;
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
       <StyleRegitroUnidades>
         <div className="box-left-container">
           <div className="grid-form-transporte">
             <div>
               <h5>Especificaciones</h5>
-              <Form.Control type="text" name="modelo" placeholder="Modelo" />
+              <Form.Control
+                type="text"
+                name="modelo"
+                placeholder="Modelo"
+                onChange={(e) => changeTransporte(e)}
+              />
               <br />
-              <Form.Control type="text" name="marca" placeholder="Marca" />
+              <Form.Control
+                type="text"
+                name="marca"
+                placeholder="Marca"
+                onChange={(e) => changeTransporte(e)}
+              />
               <br />
-              <Form.Control type="text" name="color" placeholder="Color" />
+              <Form.Control
+                type="text"
+                name="color"
+                placeholder="Color"
+                onChange={(e) => changeTransporte(e)}
+              />
               <br />
               <Form.Control
                 type="text"
                 name="color_tapiceria"
                 placeholder="Color de tapiceria"
+                onChange={(e) => changeTransporte(e)}
               />
               <br />
               <h5>Numeraciones</h5>
               <Form.Control
-                type="text"
+                type="number"
                 name="numero_equipo"
                 placeholder="Numero de equipo"
+                onChange={(e) => changeTransporte(e)}
               />
               <br />
               <Form.Control
-                type="text"
+                type="number"
                 name="numero_pasajeros"
                 placeholder="Numero de pasajeros"
+                onChange={(e) => changeTransporte(e)}
               />
               <br />
               <Form.Control
                 type="text"
                 name="numero_placa"
                 placeholder="Numero de placa"
+                onChange={(e) => changeTransporte(e)}
               />
               <br />
               <Form.Control
                 type="text"
-                name="numero_circulacion"
+                name="numero_tarjeta_circulacion"
                 placeholder="Numero de tarjeta de circulación"
+                onChange={(e) => changeTransporte(e)}
               />
 
               <br />
@@ -53,14 +148,20 @@ function Registro() {
                 type="text"
                 name="serie_chasis"
                 placeholder="Serie de chasis"
+                onChange={(e) => changeTransporte(e)}
               />
               <br />
               <Form.Control
                 type="text"
                 name="serie_motor"
                 placeholder="Serie de motor"
+                onChange={(e) => changeTransporte(e)}
               />
               <br />
+
+              <Button variant="primary" onClick={(e) => submitTransporte(e)}>
+                Guardar
+              </Button>
             </div>
 
             <div>
@@ -87,7 +188,7 @@ function Registro() {
             </div>
             <br />
             <br />
-            <br/>
+            <br />
           </div>
         </div>
       </StyleRegitroUnidades>

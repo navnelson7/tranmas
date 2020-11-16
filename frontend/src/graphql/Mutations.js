@@ -204,62 +204,102 @@ export const setEstadosOne = gql`
 `;
 
 export const deletEstadosbyId = gql`
- mutation deleteEstadoRepuestos($id: uuid) {
-  update_estado_repuestos_stock(where: {id: {_eq: $id}}, _set: {
-    activo: false
-  }) {
-    affected_rows
-    returning {
-      id
-      estado_repuestos
-      activo
+  mutation deleteEstadoRepuestos($id: uuid) {
+    update_estado_repuestos_stock(
+      where: { id: { _eq: $id } }
+      _set: { activo: false }
+    ) {
+      affected_rows
+      returning {
+        id
+        estado_repuestos
+        activo
+      }
     }
   }
-}
 `;
 
 export const activateEstadosbyId = gql`
- mutation deleteEstadoRepuestos($id: uuid) {
-  update_estado_repuestos_stock(where: {id: {_eq: $id}}, _set: {
-    activo: true
-  }) {
-    affected_rows
-    returning {
-      id
-      estado_repuestos
-      activo
+  mutation deleteEstadoRepuestos($id: uuid) {
+    update_estado_repuestos_stock(
+      where: { id: { _eq: $id } }
+      _set: { activo: true }
+    ) {
+      affected_rows
+      returning {
+        id
+        estado_repuestos
+        activo
+      }
     }
   }
-}
 `;
 
-
 export const updateRepuestoOne = gql`
-mutation update_repuestos_by_pk(
-  $activo: Boolean
-  $cantidad: numeric
-  $codigo_repuesto: String
-  $fecha_factura:date
-  $fecha_ingreso: date
-  $nombre: String
-  $numero_factura: Int
-  $precio: money
-  $updated_at: date
-  $id: uuid!
-  $__typename: String
-) {
-  update_repuestos_by_pk(_set: {
-    id: $id
-    cantidad: $cantidad,
-    codigo_repuesto: $codigo_repuesto,
-    nombre: $nombre,
-    numero_factura: $numero_factura
-    precio: $precio
-    updated_at: $updated_at
-  }, pk_columns: {
-    id: $id
-  }) {
-    id
+  mutation update_repuestos_by_pk(
+    $activo: Boolean
+    $cantidad: numeric
+    $codigo_repuesto: String
+    $fecha_factura: date
+    $fecha_ingreso: date
+    $nombre: String
+    $numero_factura: Int
+    $precio: money
+    $updated_at: date
+    $id: uuid!
+    $__typename: String
+  ) {
+    update_repuestos_by_pk(
+      _set: {
+        id: $id
+        cantidad: $cantidad
+        codigo_repuesto: $codigo_repuesto
+        nombre: $nombre
+        numero_factura: $numero_factura
+        precio: $precio
+        updated_at: $updated_at
+      }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
   }
-}
-`
+`;
+
+export const setTransporteOne = gql`
+  mutation(
+    $activo: Boolean
+    $color: String
+    $color_tapiceria: String
+    $marca: String
+    $modelo: String
+    $numero_equipo: numeric
+    $numero_pasajeros: numeric
+    $numero_placa: String
+    $numero_tarjeta_circulacion: String
+    $serie_chasis: String
+    $serie_motor: String
+    $updated_at: date
+    $created_at: date
+  ) {
+    insert_unidades_de_transporte_one(
+      object: {
+        activo: $activo
+        color: $color
+        color_tapiceria: $color_tapiceria
+        marca: $marca
+        modelo: $modelo
+        numero_equipo: $numero_equipo
+        numero_pasajeros: $numero_pasajeros
+        numero_placa: $numero_placa
+        numero_tarjeta_circulacion: $numero_tarjeta_circulacion
+        serie_chasis: $serie_chasis
+        serie_motor: $serie_motor
+        updated_at: $updated_at
+        created_at: $created_at
+      }
+    ) {
+      id
+    }
+  }
+`;
