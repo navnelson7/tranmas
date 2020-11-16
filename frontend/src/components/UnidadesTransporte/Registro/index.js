@@ -60,7 +60,7 @@ function Registro() {
                 name="serie_motor"
                 placeholder="Serie de motor"
               />
-              <br/>
+              <br />
             </div>
 
             <div>
@@ -85,6 +85,9 @@ function Registro() {
                 </div>
               </div>
             </div>
+            <br />
+            <br />
+            <br/>
           </div>
         </div>
       </StyleRegitroUnidades>
@@ -112,16 +115,6 @@ const StyleRegitroUnidades = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  .grid-form-transporte {
-    display: grid;
-    grid-template-columns: 60% 40%;
-  }
-  .box-left-container {
-    margin-left: 18%;
-    margin-top: 2%;
-    overflow-x: hidden;
   }
   @media (min-width: 0px) and (max-width: 767px) {
     .box-left-container {
@@ -165,5 +158,28 @@ const StyleRegitroUnidades = styled.div`
   }
   .txt-editar {
     color: black;
+  }
+
+  //GRID FORM TRANSPORTE
+
+  /* MOBILE */
+  @media (max-width: 1025px) {
+    .grid-form-transporte {
+      display: grid;
+      grid-template-columns: 100%;
+    }
+  }
+
+  /* DESKTOP */
+  @media (min-width: 1025px) {
+    .grid-form-transporte {
+      display: grid;
+      grid-template-columns: 60% 40%;
+    }
+    .box-left-container {
+      margin-left: 18.5%;
+      margin-top: 2%;
+      overflow-x: hidden;
+    }
   }
 `;
