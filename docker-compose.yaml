@@ -39,6 +39,8 @@ services:
   webflask:
     container_name: webflask
     build: ./backend-python
+    volumes: 
+      - ./images:/code/images
     ports:
     - "5000:5000"
 
