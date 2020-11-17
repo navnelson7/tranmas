@@ -64,7 +64,7 @@ const StyleCards = styled.div`
 
   .box-image {
     width: 100%;
-    height: 100%;
+    height: 180px;
     background-color: blue;
   }
 

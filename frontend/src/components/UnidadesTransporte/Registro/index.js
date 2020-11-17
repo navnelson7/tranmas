@@ -171,7 +171,7 @@ function Registro() {
 
               <div className="box-center-image">
                 <div className="img-bus">
-                  <div className="banner-imagen-oferta txt-editar">
+                  <div className="banner-imagen txt-editar">
                     <div className="grid-box-editar">
                       <div>
                         <img src={editIcon} alt="" />
@@ -237,9 +237,7 @@ const StyleRegitroUnidades = styled.div`
     }
   }
 
-  /* IMAGEN CARDS HOVER */
-
-  .banner-imagen-oferta {
+  .banner-imagen {
     top: 160px;
     position: relative;
     width: 45%;
