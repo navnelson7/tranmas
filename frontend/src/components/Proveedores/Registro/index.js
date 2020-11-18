@@ -3,13 +3,12 @@ import styled from "styled-components";
 import { Form, Spinner } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useMutation } from '@apollo/client';
-import { setProveedorOne, updateActivoProveedor } from "../../../graphql/Mutations";
+import { setProveedorOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
 
 
 function Registro() {
   const [addProveedor] = useMutation(setProveedorOne);
-  const [updateProveedor] = useMutation(updateActivoProveedor);
 
 
   const { push } = useHistory();

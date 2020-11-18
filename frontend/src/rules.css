@@ -48,7 +48,14 @@
   float: right;
   padding: 20px;
 }
+
 label {
   color: transparent;
   font-size: 0.1px;
+}
+
+.center-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
