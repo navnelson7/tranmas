@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-export const getEmpmleados = gql`
+export const getEmpmleados = gql `
     query getEmpleados {
     empleados {
       codigo_empleado
@@ -23,7 +23,7 @@ export const getEmpmleados = gql`
   }
 `;
 
-export const getRepuestos = gql`
+export const getRepuestos = gql `
   query allrepuestos {
     repuestos {
       id
@@ -51,7 +51,7 @@ export const getRepuestos = gql`
   }
 `;
 
-export const getDepartamentos = gql`
+export const getDepartamentos = gql `
   query getDepartamentos {
     departamentos {
       id
@@ -60,7 +60,7 @@ export const getDepartamentos = gql`
   }
 `;
 
-export const getEstadoRepuestos = gql`
+export const getEstadoRepuestos = gql `
   query getEstadoRepuestos {
     estado_repuestos_stock {
       id
@@ -70,7 +70,7 @@ export const getEstadoRepuestos = gql`
   }
 `;
 
-export const getProveedores = gql`
+export const getProveedores = gql `
   query getProveedores {
     proveedores {
       id
@@ -79,7 +79,7 @@ export const getProveedores = gql`
   }
 `;
 
-export const getUnidadMedida = gql`
+export const getUnidadMedida = gql `
   query getUnidadesMedida {
     unidades_de_medida {
       id
@@ -88,7 +88,7 @@ export const getUnidadMedida = gql`
   }
 `;
 
-export const getMarcas = gql`
+export const getMarcas = gql `
   query getMarcas {
     marcas {
       id
@@ -97,7 +97,7 @@ export const getMarcas = gql`
   }
 `;
 
-export const getRoles = gql`
+export const getRoles = gql `
   query {
     roles {
       id
@@ -106,7 +106,7 @@ export const getRoles = gql`
   }
 `;
 
-export const getEmpleados = gql`
+export const getEmpleados = gql `
   query {
     empleados {
       activo
@@ -121,7 +121,7 @@ export const getEmpleados = gql`
   }
 `;
 
-export const getEmailUsers = gql`
+export const getEmailUsers = gql `
   query {
     users {
       email
@@ -129,7 +129,7 @@ export const getEmailUsers = gql`
   }
 `;
 
-export const getProveedoresTable = gql`
+export const getProveedoresTable = gql `
   query proveedores($limit: Int, $offset: Int) {
     proveedores(limit: $limit, offset: $offset, where: {
       activo: {
@@ -152,7 +152,7 @@ export const getProveedoresTable = gql`
   }
 `;
 
-export const getProveedoresById = gql`
+export const getProveedoresById = gql `
   query proveedores_by_pk($id: uuid!) {
     proveedores_by_pk(id: $id) {
       id
@@ -172,7 +172,7 @@ export const getProveedoresById = gql`
   }
 `;
 
-export const getMedidas = gql`
+export const getMedidas = gql `
     query getMedidas{
     unidades_de_medida{
       id
@@ -182,7 +182,7 @@ export const getMedidas = gql`
 `;
 
 
-export const getRepuestosById = gql`
+export const getRepuestosById = gql `
 query repuestos_by_pk($id: uuid!){
   repuestos_by_pk(id: $id){
     id
@@ -197,4 +197,13 @@ query repuestos_by_pk($id: uuid!){
     updated_at
   }
 }
-`
+`;
+
+export const getEstadoEmpleados = gql `
+  query getEstadoEmpleados{
+    estados_de_empleados{
+      id
+      estado_empleado
+    }
+  } 
+`;

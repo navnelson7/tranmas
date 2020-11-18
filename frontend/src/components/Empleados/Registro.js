@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
+
+import ListBoxTipoEmpleados from '../Empleados/ListBoxTipoEmpleado';
 const Registro = () => {
 
     const [empleado, guardarRegistro] = useState({
@@ -50,7 +52,6 @@ const Registro = () => {
         id_estado,
         id_departamento,
         comentarios,
-        estado
     } = empleado;
 
     const onChange = e => {
@@ -60,12 +61,7 @@ const Registro = () => {
         })
     }
 
-    const handleCheck= e => {
-        guardarRegistro({
-            ...empleado,
-            [e.target.name] : e.target.checked
-        })
-    }
+   
 
 
     const onSubmit = e => {
@@ -371,20 +367,7 @@ const Registro = () => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col sm="6">
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="basic -addon1">Estado</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <FormControl as="select" name="id_estado" value={id_estado} onChange={onChange}> 
-                                        <option value="uuid"> </option>
-                                        <option value="uuid2">Contrato Activo</option>
-                                        <option value="uuid3">Suspendido</option>
-                                        <option value="uuid4">Incapacitado</option>
-                                        <option value="uuid5">Despedido</option>
-                                    </FormControl>
-                                </InputGroup>
-                            </Col>
+                           <ListBoxTipoEmpleados changeEstadoEmpleado={onChange} />
 
                             <Col sm="6">
                                 <InputGroup className="mb-3">
@@ -417,18 +400,6 @@ const Registro = () => {
                                         onChange={onChange}
                                     />
                                 </InputGroup>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col sm={3}>
-                                <Form.Group controlId="formBasicCheckbox">
-                                    <Form.Check 
-                                        type="checkbox" 
-                                        label="Activo" 
-                                        name="estado" 
-                                        value={estado}
-                                        onChange={handleCheck}/>
-                                </Form.Group>
                             </Col>
                         </Row>
                         <Button varian="Primera" size="lg">Guardar</Button>
