@@ -1,15 +1,23 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import { Form, Spinner } from "react-bootstrap";
+import {
+  Form,
+  Spinner,
+  Container,
+  Card,
+  Row,
+  InputGroup,
+  Col,
+  FormControl,
+  Button,
+} from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client";
 import { setProveedorOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
 
-
-function Registro() {
+function RegistroProveedor() {
   const [addProveedor] = useMutation(setProveedorOne);
-
 
   const { push } = useHistory();
 
@@ -24,8 +32,18 @@ function Registro() {
     telefono_empresa: "",
     contacto_proveedor: "",
     nrc: "",
-    updated_at: new Date().getFullYear() + '-' + (new Date().getMonth() +1) + "-" + new Date().getDate(),
-    created_at: new Date().getFullYear() + '-' + (new Date().getMonth() +1) + "-" + new Date().getDate(),
+    updated_at:
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate(),
+    created_at:
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate(),
     email_contacto: "",
     email_empresa: "",
     comentarios: "",
@@ -34,35 +52,35 @@ function Registro() {
   const changeProveedor = (e) => {
     setnewProveedor({
       ...newProveedor,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const submitProveedor = (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     addProveedor({
       variables: newProveedor,
     })
       .then((res) => {
         if (res.data) {
-          setLoading(false)
-          setIconType("success")
+          setLoading(false);
+          setIconType("success");
           setshowAlert(true);
           setTextAlert("Registrado correctamente");
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
-            push('/proveedores')
+            push("/proveedores");
           }, 2000);
         }
       })
       .catch(() => {
-        setLoading(false)
+        setLoading(false);
         setTextAlert("Ocurrio un problema");
-        setIconType("error")
+        setIconType("error");
         setshowAlert(true);
       });
-  }
+  };
   return (
     <Fragment>
       <ToastComponent
@@ -71,58 +89,163 @@ function Registro() {
         iconType={IconType}
         textAlert={TextAlert}
       />
-      <br/>
-      {
-        Loading ? <div className="box-center">
-          <Spinner/>
-        </div> : null
-      }
-      <StyleNuevoProveedor>
-        <div className="box-left-proveedor">
-          <h2>Añadir Proveedor</h2>
-          <div className="grid-forms-proveedor">
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="nombre_proveedor" placeholder="Nombre de Proveedor" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="nit" placeholder="NIT" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="nrc" placeholder="NRC" />
-            </div>
-          </div>
-
-          <div className="grid-forms-proveedor">
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="email_contacto" placeholder="Correo de contacto" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="email_empresa" placeholder="Correo de empresa" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="comentarios" placeholder="Comentarios" />
-            </div>
-          </div>
-
-          <div className="grid-forms-proveedor">
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="telefono_contacto" placeholder="Teléfono de contacto" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="telefono_empresa" placeholder="Teléfono de empresa" />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control type="text" onChange={e => changeProveedor(e)} name="contacto_proveedor" placeholder="Contacto de proveedor" />
-            </div>
-          </div>
+      <br />
+      {Loading ? (
+        <div className="box-center">
+          <Spinner />
         </div>
-      </StyleNuevoProveedor>
+      ) : null}
+      <Container>
+        <div className="box-left">
+          <h1>Formulario para Ingreso de Proveedores</h1>
+          <Form>
+            <Card>
+              <Card.Body>
+                <Row>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Nombre de Proveedor
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="Nombre de Proveedor"
+                        aria-label="codigo"
+                        aria-describedby="basic -addon1"
+                        name="nombre_proveedor"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Contacto de proveedor
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="Contacto de proveedor"
+                        aria-label="nombre"
+                        aria-describedby="basic-addon1"
+                        name="contacto_proveedor"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">NIT</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="NIT"
+                        aria-label="cantidad"
+                        aria-describedby="basic-addon1"
+                        name="nit"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">NRC</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="nrc"
+                        aria-label="precio"
+                        aria-describedby="basic-addon1"
+                        name="nrc"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Email Contacto
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="Email Contacto"
+                        name="email_contacto"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Email Empresa
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="Email Empresa"
+                        name="email_empresa"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Teléfono Contacto
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="Teléfono Contacto"
+                        name="telefono_contacto"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Teléfono Empresa
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="Teléfono Empresa"
+                        name="telefono_empresa"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={12}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>Comentarios</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        as="textarea"
+                        aria-label="Comentarios"
+                        name="comentarios"
+                        onChange={e => changeProveedor(e)}
+                      />
+                    </InputGroup>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          </Form>
+        </div>
+      </Container>
       <br />
       <StyleBtn>
         <div>
@@ -133,7 +256,10 @@ function Registro() {
                   <strong>Cancelar</strong>
                 </button>
               </Link>
-              <button className="btn-opcion bg-guardar" onClick={e => submitProveedor(e)}>
+              <button
+                className="btn-opcion bg-guardar"
+                onClick={(e) => submitProveedor(e)}
+              >
                 <strong>Guardar</strong>
               </button>
             </li>
@@ -146,49 +272,7 @@ function Registro() {
   );
 }
 
-export default Registro;
-
-const StyleNuevoProveedor = styled.div`
-  .box-left-proveedor {
-    margin-left: 18%;
-    margin-top: 2%;
-  }
-  .grid-forms-proveedor {
-    display: grid;
-    grid-template-columns: 33% 33% 33%;
-    grid-gap: 1%;
-    margin-left: 1%;
-    margin-right: 2%;
-  }
-  .mt-grid {
-    margin-top: 10px;
-  }
-  @media (min-width: 0px) and (max-width: 767px) {
-    .box-left-proveedor {
-      margin-left: 2%;
-      margin-top: 2%;
-    }
-    .grid-forms-proveedor {
-      display: grid;
-      grid-template-columns: 100%;
-      grid-gap: 1%;
-      margin-left: 1%;
-      margin-right: 2%;
-    }
-  }
-  @media (min-width: 768px) and (max-width: 1024px) {
-    .box-left-proveedor {
-      margin-left: 2%;
-      margin-top: 2%;
-    }
-  }
-  @media (min-width: 1920px) {
-    .box-left-proveedor {
-      margin-left: 15%;
-      margin-top: 2%;
-    }
-  }
-`;
+export default RegistroProveedor;
 
 const StyleBtn = styled.div`
   ul {
