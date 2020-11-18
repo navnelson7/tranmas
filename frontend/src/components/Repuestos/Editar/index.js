@@ -92,6 +92,7 @@ function EditarRepuestos() {
           <h2>Editar Proveedor</h2>
           <div className="grid-forms-proveedor">
             <div className="mt-grid">
+              Producto
               <Form.Control
                 type="text"
                 onChange={(e) => changeProveedor(e)}
