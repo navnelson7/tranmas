@@ -21,22 +21,20 @@ function Proveedores() {
   const { action } = useHistory();
   const [PaginateNumber, setPaginateNumber] = useState(0);
   const [PaginacionPantalla, setPaginacionPantalla] = useState(0);
-  const [DataProveedor, setDataProveedor] = useState([]);
   const [DataProveedorCopy, setDataProveedorCopy] = useState([]);
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
+  const [Loading, setLoading] = useState(false);
 
   // GET DATA FROM TABLE
   const { loading, error, data, refetch } = useQuery(getProveedoresTable, {
     variables: { limit: 10, offset: PaginateNumber },
   });
-  console.log(data);
   useEffect(() => {
-    let datos = [];
-    datos = data === undefined ? [] : data.proveedores;
-    setDataProveedor(datos);
-    setDataProveedorCopy(datos);
+      let datos = [];
+      datos = data === undefined ? [] : data.proveedores;
+      setDataProveedorCopy(datos);
   }, [data]);
 
   //RELOAD
@@ -94,12 +92,12 @@ function Proveedores() {
     getFilter();
     let resultados =
       responseFilter.data === undefined ? [] : responseFilter.data.proveedores;
-    setDataProveedor(resultados);
+    setDataProveedorCopy(resultados);
   }, [ExecuteFilter]);
 
   useEffect(() => {
     if (StateSearch === "") {
-      setDataProveedor(DataProveedorCopy);
+      setDataProveedorCopy(DataProveedorCopy);
     }
   }, [StateSearch, ExecuteFilter]);
 
@@ -123,10 +121,10 @@ function Proveedores() {
       .then((res) => {
         //ELIMINARLO DE LA VISTA
         if (res.data) {
-          const ProveedoresTotatles = DataProveedor.filter(
+          const ProveedoresTotales = DataProveedorCopy.filter(
             (proveedor) => proveedor.id !== idSelected
           );
-          setDataProveedor(ProveedoresTotatles);
+          setDataProveedorCopy(ProveedoresTotales);
           setTextAlert("Eliminado correctamente");
           setIconType("success");
           setshowAlert(true);
@@ -145,7 +143,7 @@ function Proveedores() {
       });
   };
 
-  if (loading) return "Loading...";
+  if (loading || Loading) return "Loading...";
   if (error) return <p align="center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
@@ -200,7 +198,7 @@ function Proveedores() {
                   <th>Comentarios</th>
                   <th>Fecha</th>
                 </tr>
-                {DataProveedor.map((proveedor, index) => {
+                {DataProveedorCopy.map((proveedor, index) => {
                   return proveedor.activo ? (
                     <tr key={proveedor.id}>
                       <td
