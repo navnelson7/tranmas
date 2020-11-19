@@ -185,3 +185,12 @@ export const getEstadoEmpleados = gql `
     }
   } 
 `;
+
+export const getTipoEmpleados = gql `
+    query getTipoEmpleados{
+    tipos_empleados{
+      id
+      tipo_empleado
+    }
+}
+`;

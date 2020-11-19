@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
-
 import ListBoxTipoEmpleados from '../Empleados/ListBoxTipoEmpleado';
+import ListBoxDepartamentos from './ListBoxDepartamentos';
 const Registro = () => {
 
     const [empleado, guardarRegistro] = useState({
@@ -367,24 +367,8 @@ const Registro = () => {
                             </Col>
                         </Row>
                         <Row>
-                           <ListBoxTipoEmpleados changeEstadoEmpleado={onChange} />
-
-                            <Col sm="6">
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="basic -addon1">Departamento</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <FormControl as="select" name="id_departamento" value={id_departamento} onChange={onChange}> 
-                                        <option value="uuid1"></option>
-                                        <option value="uuid2">Administracion</option>
-                                        <option value="uuid3">Contabilidad</option>
-                                        <option value="uuid4">Finanzas</option>
-                                        <option value="uuid5">Almacen</option>
-                                        <option value="uuid6">Taller</option>
-                                        <option value="uuid7">Mantenimiento</option>
-                                    </FormControl>
-                                </InputGroup>
-                            </Col>
+                            <ListBoxTipoEmpleados changeEstadoEmpleado={onChange} />
+                            <ListBoxDepartamentos changeDepartamentos={onChange}/>
                         </Row>
                         <Row>
                             <Col sm={12}>
