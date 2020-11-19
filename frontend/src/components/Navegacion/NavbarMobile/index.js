@@ -6,14 +6,12 @@ import homeIcon from "../iconos/home.svg";
 import loginIcon from "../iconos/login.svg";
 import empleadosIcon from "../iconos/empleados.svg";
 import repuestosIcon from "../iconos/repuesto.svg";
-import proveedorIcon from "../iconos/proveedor.svg";
 
 //icons active
 import homeIconActive from "../iconos-active/home.svg";
 import loginIconActive from "../iconos-active/login.svg";
 import empleadosIconActive from "../iconos-active/empleados.svg";
 import repuestosIconActive from "../iconos-active/repuesto.svg";
-import proveedorIconActive from "../iconos-active/proveedor.svg";
 
 function NavbarMobile() {
   let location = useLocation();

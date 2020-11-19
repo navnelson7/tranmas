@@ -3,6 +3,8 @@ import { Fragment } from "react";
 import styled from "styled-components";
 import Image from "./Image";
 import { v4 as uuid } from "uuid";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 function UnidadesTransporte() {
   const images = [
@@ -23,6 +25,11 @@ function UnidadesTransporte() {
     <Fragment>
       <StyleCards>
         <div className="box-left-cards">
+          <div class="d-flex justify-content-end mr-2">
+            <Link to="/registro-transporte">
+              <Button variant="primary">Nueva Unidad</Button>
+            </Link>
+          </div>
           <div className="row hidden-md-up">
             {images.map((image) => {
               return (
@@ -39,7 +46,7 @@ function UnidadesTransporte() {
                         </div>
                         <div className="box-blue-bottom">CENTRO AMERICA</div>
                       </div>
-                      <br/>
+                      <br />
                     </div>
                   </div>
                 </div>

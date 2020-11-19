@@ -10,10 +10,11 @@ import {
   Col,
   FormControl,
 } from "react-bootstrap";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { getProveedoresById } from "../../../graphql/Queries";
 import { updateProveedorOne } from "../../../graphql/Mutations";
+import ButtonsDesitions from "../../ButtonsDesitions";
 
 import { ToastComponent } from "../../Toast";
 
@@ -70,7 +71,7 @@ function EditarProveedor() {
           }, 2000);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         setTextAlert("Ocurrio un problema");
         setIconType("error");
@@ -261,27 +262,7 @@ function EditarProveedor() {
         </div>
       </Container>
       <br />
-      <StyleBtn>
-        <div>
-          <ul>
-            <li>
-              <Link to="/proveedores">
-                <button className="btn-opcion bg-cancelar">
-                  <strong>Cancelar</strong>
-                </button>
-              </Link>
-              <button
-                className="btn-opcion bg-guardar"
-                onClick={(e) => submitProveedor(e)}
-              >
-                <strong>Guardar</strong>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <br />
-        <br />
-      </StyleBtn>
+    <ButtonsDesitions linkCancel="/proveedores" submitSave={submitProveedor}/>
     </Fragment>
   );
 }

@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import styled from "styled-components";
 import {
   Form,
   Spinner,
@@ -10,10 +9,11 @@ import {
   Col,
   FormControl,
 } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { setProveedorOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
+import ButtonDesitions from "../../ButtonsDesitions";
 
 function RegistroProveedor() {
   const [addProveedor] = useMutation(setProveedorOne);
@@ -48,6 +48,7 @@ function RegistroProveedor() {
     comentarios: "",
     activo: true,
   });
+  
   const changeProveedor = (e) => {
     setnewProveedor({
       ...newProveedor,
@@ -113,7 +114,7 @@ function RegistroProveedor() {
                         aria-label="codigo"
                         aria-describedby="basic -addon1"
                         name="nombre_proveedor"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -129,7 +130,7 @@ function RegistroProveedor() {
                         aria-label="nombre"
                         aria-describedby="basic-addon1"
                         name="contacto_proveedor"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -145,7 +146,7 @@ function RegistroProveedor() {
                         aria-label="cantidad"
                         aria-describedby="basic-addon1"
                         name="nit"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -159,7 +160,7 @@ function RegistroProveedor() {
                         aria-label="precio"
                         aria-describedby="basic-addon1"
                         name="nrc"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -175,7 +176,7 @@ function RegistroProveedor() {
                       <FormControl
                         placeholder="Email Contacto"
                         name="email_contacto"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -190,7 +191,7 @@ function RegistroProveedor() {
                       <FormControl
                         placeholder="Email Empresa"
                         name="email_empresa"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -205,7 +206,7 @@ function RegistroProveedor() {
                       <FormControl
                         placeholder="Teléfono Contacto"
                         name="telefono_contacto"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -220,7 +221,7 @@ function RegistroProveedor() {
                       <FormControl
                         placeholder="Teléfono Empresa"
                         name="telefono_empresa"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -235,7 +236,7 @@ function RegistroProveedor() {
                         as="textarea"
                         aria-label="Comentarios"
                         name="comentarios"
-                        onChange={e => changeProveedor(e)}
+                        onChange={(e) => changeProveedor(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -246,82 +247,12 @@ function RegistroProveedor() {
         </div>
       </Container>
       <br />
-      <StyleBtn>
-        <div>
-          <ul>
-            <li>
-              <Link to="/proveedores">
-                <button className="btn-opcion bg-cancelar">
-                  <strong>Cancelar</strong>
-                </button>
-              </Link>
-              <button
-                className="btn-opcion bg-guardar"
-                onClick={(e) => submitProveedor(e)}
-              >
-                <strong>Guardar</strong>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <br />
-        <br />
-      </StyleBtn>
+      <ButtonDesitions
+        linkCancel={"/proveedores"}
+        submitSave={submitProveedor}
+      />
     </Fragment>
   );
 }
 
 export default RegistroProveedor;
-
-const StyleBtn = styled.div`
-  ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: black;
-  }
-  .btn-opcion {
-    display: inline-block;
-    font-weight: 400;
-    height: 40px;
-    width: 100px;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid transparent;
-    font-size: 1rem;
-    line-height: 1.5;
-    /* BORDER RADIUS */
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  .bg-cancelar {
-    transition: 0.3s;
-    color: black;
-    background: transparent;
-  }
-  .bg-cancelar:hover {
-    transition: 0.3s;
-    color: black;
-    background: #e6ecf0;
-  }
-  .bg-guardar {
-    transition: 0.3s;
-    color: #ffffff;
-    background: #3d50fa;
-  }
-  .bg-guardar:hover {
-    transition: 0.3s;
-    color: #ffffff;
-    background: #1f30cc;
-  }
-`;
