@@ -129,28 +129,6 @@ export const getEmailUsers = gql `
   }
 `;
 
-export const getProveedoresTable = gql `
-  query proveedores($limit: Int, $offset: Int) {
-    proveedores(limit: $limit, offset: $offset, where: {
-      activo: {
-        _eq: true
-      }
-    }) {
-      id
-      nombre_proveedor
-      nit
-      telefono_contacto
-      telefono_empresa
-      contacto_proveedor
-      nrc
-      activo
-      updated_at
-      email_contacto
-      email_empresa
-      comentarios
-    }
-  }
-`;
 
 export const getProveedoresById = gql `
   query proveedores_by_pk($id: uuid!) {

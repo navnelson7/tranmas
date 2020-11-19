@@ -2,24 +2,23 @@ import React, { useContext, useEffect, useState } from "react";
 import { Fragment } from "react";
 import styled from "styled-components";
 import ContextInputSearch from "../../../context/ContextInputSearch";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import FiltroDropdown from "../Filtro";
 import DropdownNotificaciones from "./DropdownNotificaciones";
 
 function NavegacionTop() {
   const { pathname } = useLocation();
+  const {push} = useHistory();
   const {
     StateSearch,
     setStateSearch,
-    setExecuteFilter,
-    ExecuteFilter,
     NombreField,
   } = useContext(ContextInputSearch);
 
   const EnterSearch = (e) => {
     if (e.which === 13) {
       if (pathname === "/proveedores") {
-        setExecuteFilter(!ExecuteFilter);
+        push("/resultados-proveedores");
       }
     }
   };
@@ -38,7 +37,7 @@ function NavegacionTop() {
                   placeholder={NombreField}
                   autoComplete="off"
                   value={StateSearch}
-                  onChange={(e) => setStateSearch(e.target.value.trim())}
+                  onChange={(e) => setStateSearch(e.target.value)}
                   onKeyPress={(e) => EnterSearch(e)}
                 />
               </label>
@@ -97,7 +96,7 @@ function NavegacionTop() {
                     placeholder={NombreField}
                     autoComplete="off"
                     value={StateSearch}
-                    onChange={(e) => setStateSearch(e.target.value.trim())}
+                    onChange={(e) => setStateSearch(e.target.value)}
                     onKeyPress={(e) => EnterSearch(e)}
                   />
                 </label>

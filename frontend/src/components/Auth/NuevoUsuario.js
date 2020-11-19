@@ -19,7 +19,7 @@ import { getEmailUsers } from "../../graphql/Queries";
 
 
 function NuevoUsuario() {
-  const { push } = useHistory();
+  const { push } = useHistory(); 
 
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");

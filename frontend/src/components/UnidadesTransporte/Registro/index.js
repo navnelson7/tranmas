@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import { Form, Button, Spinner } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import editIcon from "./icons/edit.svg";
 import { useMutation } from "@apollo/client";
 import { setTransporteOne } from "../../../graphql/Mutations";
@@ -158,10 +158,7 @@ function Registro() {
                 onChange={(e) => changeTransporte(e)}
               />
               <br />
-
-              <Button variant="primary" onClick={(e) => submitTransporte(e)}>
-                Guardar
-              </Button>
+              desions
             </div>
 
             <div>

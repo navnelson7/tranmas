@@ -1,108 +1,30 @@
-import React, { useState, useEffect, Fragment, useContext } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import styled from "styled-components";
 import rightIcon from "./iconos/right.svg";
 import leftIcon from "./iconos/left.svg";
 import addProveedorIcon from "./iconos/add-proveedor.svg";
 import reloadIcon from "./iconos/refresh.svg";
 import { ToastComponent } from "../Toast";
-import ContextInputSearch from "../../context/ContextInputSearch";
 
-import { useQuery, useMutation, gql, useLazyQuery } from "@apollo/client";
-import { getProveedoresTable } from "../../graphql/Queries";
+import { useSubscription, useMutation } from "@apollo/client";
+import { listenProveedoresTable } from "../../graphql/Suscription";
 import { updateActivoProveedor } from "../../graphql/Mutations";
 
 import { Link, useHistory } from "react-router-dom";
 
 function Proveedores() {
   //CONTEXT
-  const { ExecuteFilter, StateSearch, SelectField } = useContext(
-    ContextInputSearch
-  );
   const { action } = useHistory();
   const [PaginateNumber, setPaginateNumber] = useState(0);
   const [PaginacionPantalla, setPaginacionPantalla] = useState(0);
-  const [DataProveedor, setDataProveedor] = useState([]);
-  const [DataProveedorCopy, setDataProveedorCopy] = useState([]);
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
 
   // GET DATA FROM TABLE
-  const { loading, error, data, refetch } = useQuery(getProveedoresTable, {
+  const { loading, error, data } = useSubscription(listenProveedoresTable, {
     variables: { limit: 10, offset: PaginateNumber },
   });
-  console.log(data);
-  useEffect(() => {
-    let datos = [];
-    datos = data === undefined ? [] : data.proveedores;
-    setDataProveedor(datos);
-    setDataProveedorCopy(datos);
-  }, [data]);
-
-  //RELOAD
-  useEffect(() => {
-    if (action === "PUSH") {
-      refetch();
-    }
-  }, [action]);
-
-  //LAZY QUERIE OF FILTER
-  const GET_FILTER = gql`
-  query($text: String) {
-    proveedores(where: { ${SelectField}: { _similar: $text } }) {
-      id
-      nombre_proveedor
-      nit
-      telefono_contacto
-      telefono_empresa
-      contacto_proveedor
-      nrc
-      activo
-      updated_at
-      email_contacto
-      email_empresa
-      comentarios
-    }
-  }
-  `;
-  const GET_FILTER_DATE = gql`
-    query($text: date) {
-      proveedores(where: { updated_at: { _eq: $text } }) {
-        id
-        nombre_proveedor
-        nit
-        telefono_contacto
-        telefono_empresa
-        contacto_proveedor
-        nrc
-        activo
-        updated_at
-        email_contacto
-        email_empresa
-        comentarios
-      }
-    }
-  `;
-
-  const [getFilter, responseFilter] = useLazyQuery(
-    SelectField === "updated_at" ? GET_FILTER_DATE : GET_FILTER,
-    {
-      variables: { text: StateSearch },
-    }
-  );
-  useEffect(() => {
-    getFilter();
-    let resultados =
-      responseFilter.data === undefined ? [] : responseFilter.data.proveedores;
-    setDataProveedor(resultados);
-  }, [ExecuteFilter]);
-
-  useEffect(() => {
-    if (StateSearch === "") {
-      setDataProveedor(DataProveedorCopy);
-    }
-  }, [StateSearch, ExecuteFilter]);
-
   //PAGINACION
   const retrocederPage = () => {
     if (PaginateNumber <= 0) {
@@ -123,10 +45,6 @@ function Proveedores() {
       .then((res) => {
         //ELIMINARLO DE LA VISTA
         if (res.data) {
-          const ProveedoresTotatles = DataProveedor.filter(
-            (proveedor) => proveedor.id !== idSelected
-          );
-          setDataProveedor(ProveedoresTotatles);
           setTextAlert("Eliminado correctamente");
           setIconType("success");
           setshowAlert(true);
@@ -171,14 +89,6 @@ function Proveedores() {
                   />
                 </div>
               </Link>
-              <div className="box-icons-right" title="Recargar consulta">
-                <img
-                  src={reloadIcon}
-                  alt="Recargar consulta"
-                  className="mt-icons"
-                  onClick={() => refetch()}
-                />
-              </div>
             </div>
           </div>
 
@@ -200,7 +110,7 @@ function Proveedores() {
                   <th>Comentarios</th>
                   <th>Fecha</th>
                 </tr>
-                {DataProveedor.map((proveedor, index) => {
+                {data.proveedores.map((proveedor, index) => {
                   return proveedor.activo ? (
                     <tr key={proveedor.id}>
                       <td
@@ -300,7 +210,7 @@ function Proveedores() {
 
 export default Proveedores;
 
-const StyleTable = styled.div`
+export const StyleTable = styled.div`
   @import "https://fonts.googleapis.com/css?family=Montserrat:300,400,700";
   .shawdow {
     -webkit-box-shadow: 0px 3px 5px -1px rgba(204, 174, 204, 1);
