@@ -6,22 +6,16 @@ import { getProveedores } from '../../graphql/Queries'
 
 const ListBoxProveedores = ({changeProveedor}) => {
 
-    const [proveedores, setProveedores] = useState([{
+    const [proveedores] = useState([{
         id: '',
         nombre_proveedor: ''
     }]);
 
     const {
-        id,
-        nombre_proveedor
+        id
     } = proveedores 
 
     const {data, loading, error} = useQuery(getProveedores);
-    
-    
-    const actualizarProveedores = (data) => {
-        setProveedores(data.proveerdores);
-    }
 
 
     if (loading) return 'Loading...';   if (error) return `Error! ${error.message}`;

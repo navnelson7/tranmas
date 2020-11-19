@@ -6,22 +6,16 @@ import { getMarcas } from '../../graphql/Queries'
 
 const ListMarcas = ({changeMarca}) => {
 
-    const [marcas, setMarcas] = useState([{
+    const [marcas] = useState([{
         id: '',
         marca: ''
     }]);
 
     const {
-        id,
-        marca
+        id
     } = marcas 
 
     const {data, loading, error} = useQuery(getMarcas);
-    
-    
-    const actualizarMarcas = (data) => {
-        setMarcas(data.proveerdores);
-    }
 
 
     if (loading) return 'Loading...';   if (error) return `Error! ${error.message}`;

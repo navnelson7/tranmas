@@ -11,7 +11,7 @@ const Estado = ({estado}) => {
     const [borrado, setActivado] = useState("");
     const [variante,setVariante] = useState("danger");
     const [icono, setIcono] = useState("");
-    const [accion, setAccion] = useState("");
+    //const [accion, setAccion] = useState("");
     const [id, setIdEstado] = useState([]);
     const [deleteEstado] = useMutation(deletEstadosbyId);
 
@@ -29,6 +29,7 @@ const Estado = ({estado}) => {
             setIcono(<FontAwesomeIcon icon={faArrowAltCircleUp}/>)
         }else
             setIcono(<FontAwesomeIcon icon={faTrash}/>)
+            // eslint-disable-next-line
     },[])
 
      const borrandoEstado= (e)=> {

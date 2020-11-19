@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Empleado from "./Empleado";
 
 import { useQuery } from "@apollo/client";
@@ -19,7 +19,7 @@ function ListadoEmpleados() {
       setListadoEmpleados(data.empleados);
     }
     console.log(data);
-  }, [data]);
+  }, [data,loading]);
 
   if (listadoEmpleados.length === 0) return null;
   if (error) return <p align="center">{error.message}</p>;

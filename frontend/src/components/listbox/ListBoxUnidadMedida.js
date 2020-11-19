@@ -6,22 +6,17 @@ import { getUnidadMedida } from '../../graphql/Queries'
 
 const ListBoxUnidadMedida = ({changeMedida}) => {
 
-    const [medidas, setMedidas] = useState([{
+    const [medidas] = useState([{
         id: '',
         unidad_de_medida: ''
     }]);
 
     const {
-        id,
-        unidad_de_medida
+        id
     } = medidas
 
     const {data, loading, error} = useQuery(getUnidadMedida);
-    
-    
-    const actualizarMedidas = (data) => {
-        setMedidas(data.unidades_de_medida);
-    }
+
 
     if (loading) return 'Loading...';   if (error) return `Error! ${error.message}`;
     return (

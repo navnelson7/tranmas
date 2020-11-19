@@ -9,10 +9,9 @@ import Marca from './Marca';
 import {getMarcas} from '../../graphql/Queries'
 
 const ListadoMarcas = () => {
-
     const [listadoMarcas, setListadoMarcas] = useState([]);
 
-    const {data, loading, error} = useQuery(getMarcas);
+    const {data, loading} = useQuery(getMarcas);
 
 
     useEffect(()=> {
@@ -23,6 +22,7 @@ const ListadoMarcas = () => {
             setListadoMarcas(data.marcas);
         }
         console.log(listadoMarcas);
+        // eslint-disable-next-line
     },[data]);
 
 

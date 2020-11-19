@@ -9,7 +9,7 @@ import Estado from './Estado';
 const ListaEstadoRepuestos = () => {
 
     const [estados, setEstados] = useState([]);
-    const {loading, data, error} = useQuery(getEstadoRepuestos);
+    const {loading, data} = useQuery(getEstadoRepuestos);
 
     
 
@@ -21,7 +21,8 @@ const ListaEstadoRepuestos = () => {
             setEstados(data.estado_repuestos_stock);
             console.log(estados);
         }
-    });
+        // eslint-disable-next-line
+    },[]);
 
     return (
         <Fragment>

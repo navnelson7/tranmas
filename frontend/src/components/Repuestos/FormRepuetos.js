@@ -59,15 +59,12 @@ const FormRepuestos = () => {
 
     const {
         codigo_repuesto,
-        id_unidad_medida,
         precio,
         cantidad,
         id_usuario,
-        id_proveedor,
         numero_factura,
         fecha_factura,
         fecha_ingreso,
-        id_marca,
         activo,
         nombre,
         comentarios,

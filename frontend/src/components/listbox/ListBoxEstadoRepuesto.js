@@ -6,22 +6,19 @@ import { getEstadoRepuestos } from '../../graphql/Queries'
 
 const ListBoxEstadoRepuestos = ({changeEstadoRepuesto}) => {
 
-    const [estados, setEstados] = useState([{
+    const [estados] = useState([{
         id: '',
         estado_repuestos: ''
     }]);
 
     const {
-        id,
-        estado_repuestos
+        id
     } = estados
 
     const {data, loading, error} = useQuery(getEstadoRepuestos);
     
     
-    const actualizarEstados = (data) => {
-        setEstados(data.estado_repuestos_stock);
-    }
+   
 
 
     if (loading) return 'Loading...';   if (error) return `Error! ${error.message}`;

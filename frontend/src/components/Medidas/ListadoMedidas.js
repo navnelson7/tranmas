@@ -4,9 +4,9 @@ import { useQuery } from "@apollo/client";
 import { getMedidas } from "../../graphql/Queries";
 
 import Medida from "./Medida";
-import MedidasContext from "../../context/Medidas/medidasContext";
+//import MedidasContext from "../../context/Medidas/medidasContext";
 import medidasReducer from "../../context/Medidas/medidasReducer";
-import { useContext } from "react";
+//import { useContext } from "react";
 import { useReducer } from "react";
 
 import { OBTENER_MEDIDAS } from "../../types";
@@ -14,10 +14,10 @@ import { useEffect } from "react";
 
 const ListadoMedidas = () => {
   const [Loader, setLoader] = useState(false);
-  const { loading, data, error } = useQuery(getMedidas);
+  const { loading, data } = useQuery(getMedidas);
 
-  const medidasContext = useContext(MedidasContext);
-  const { unidades_de_medida } = medidasContext;
+  // const medidasContext = useContext(MedidasContext);
+  // const { unidades_de_medida } = medidasContext;
 
   const [state, dispatch] = useReducer(medidasReducer);
 

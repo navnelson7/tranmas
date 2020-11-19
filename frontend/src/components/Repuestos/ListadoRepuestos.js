@@ -1,5 +1,4 @@
 import React, { Fragment,  useEffect,  useState } from 'react';
-import {Link} from 'react-router-dom';
 import Repuesto from './Repuesto';
 import { Table, Container } from 'react-bootstrap';
 
@@ -12,10 +11,7 @@ const ListadoRepuestos = () => {
 
     const [listadoRepuestos, setListadoRepuestos] = useState([]);
     
-    const { data, loading, error } = useQuery(getRepuestos);
-
-
-
+    const { data, loading} = useQuery(getRepuestos);
 
     useEffect(() =>{
         if(loading){
@@ -25,7 +21,8 @@ const ListadoRepuestos = () => {
             setListadoRepuestos(data.repuestos);
         }
         console.log(listadoRepuestos);
-    })
+        // eslint-disable-next-line
+    },[loading,data,setListadoRepuestos]);
     if (loading) return (<p>cargando</p>)
     return (
         <Fragment>

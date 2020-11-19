@@ -3,7 +3,7 @@ import { InputGroup, FormControl, Col } from 'react-bootstrap';
 import { useQuery } from '@apollo/client'
 import { getEstadoEmpleados } from '../../graphql/Queries';
 const ListBoxTipoEmpleados = ({changeEstadoEmpleado}) => {
-    const [estadosEmpleados, setEstadoEmpleados] = useState([{
+    const [estadosEmpleados] = useState([{
         id: '',
         estados_de_empleados: ''
     }]);
@@ -14,9 +14,6 @@ const ListBoxTipoEmpleados = ({changeEstadoEmpleado}) => {
     } = estadosEmpleados
 
     const { data, loading, error } = useQuery(getEstadoEmpleados);
-    const actualizarEstadoEmpleados = (data) => {
-        setEstadoEmpleados(data.estados_de_empleados);
-    }
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
     console.log(estados_de_empleados)
