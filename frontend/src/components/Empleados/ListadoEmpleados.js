@@ -7,6 +7,11 @@ import { getEmpleados } from "../../graphql/Queries";
 import "bootstrap/dist/css/bootstrap.css";
 import { Container, Table } from "react-bootstrap";
 
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {Button} from 'react-bootstrap';
+import { faUserEdit,faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
+
 function ListadoEmpleados() {
   const [listadoEmpleados, setListadoEmpleados] = useState([]);
   const { loading, data, error } = useQuery(getEmpleados);
@@ -29,6 +34,7 @@ function ListadoEmpleados() {
       <Container>
         <div className="box-left">
           <h1>Listado de Epleados</h1>
+          <Link to={`/registro`} variant="danger"><Button variant="info"><FontAwesomeIcon icon={faUserEdit}/> Nuevo Empleado</Button></Link>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -37,6 +43,7 @@ function ListadoEmpleados() {
                 <th>Apellidos</th>
                 <th>Edad</th>
                 <th>DUI</th>
+                <th>Accion</th>
               </tr>
             </thead>
             <tbody>

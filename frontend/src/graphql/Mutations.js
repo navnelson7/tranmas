@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const setUserOne = gql`
+export const setUserOne = gql `
   mutation insert_users_one(
     $email: String
     $password: String
@@ -23,7 +23,7 @@ export const setUserOne = gql`
   }
 `;
 
-export const setRepuestosOne = gql`
+export const setRepuestosOne = gql `
   mutation addRepuestos(
     $activo: Boolean
     $cantidad: numeric
@@ -67,7 +67,7 @@ export const setRepuestosOne = gql`
   }
 `;
 
-export const setProveedorOne = gql`
+export const setProveedorOne = gql `
   mutation insert_proveedores_one(
     $nombre_proveedor: String
     $activo: Boolean
@@ -104,7 +104,7 @@ export const setProveedorOne = gql`
 `;
 
 //update mutation
-const updateActivoRepuesto = gql`
+const updateActivoRepuesto = gql `
   mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!) {
     update_repuestos(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
       affected_rows
@@ -112,7 +112,7 @@ const updateActivoRepuesto = gql`
   }
 `;
 
-export const updateActivoProveedor = gql`
+export const updateActivoProveedor = gql `
   mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean) {
     update_proveedores_by_pk(
       pk_columns: { id: $id }
@@ -123,7 +123,7 @@ export const updateActivoProveedor = gql`
   }
 `;
 
-export const updateProveedorOne = gql`
+export const updateProveedorOne = gql `
   mutation update_proveedores_by_pk(
     $nombre_proveedor: String
     $activo: Boolean
@@ -163,7 +163,7 @@ export const updateProveedorOne = gql`
   }
 `;
 
-export const setMarcasOne = gql`
+export const setMarcasOne = gql `
   mutation addMarcas($marca: String) {
     insert_marcas_one(object: { marca: $marca }) {
       id
@@ -172,7 +172,7 @@ export const setMarcasOne = gql`
   }
 `;
 
-export const setMedidasOne = gql`
+export const setMedidasOne = gql `
   mutation addMedidas($unidad_de_medida: String) {
     insert_unidades_de_medida_one(
       object: { unidad_de_medida: $unidad_de_medida }
@@ -183,7 +183,7 @@ export const setMedidasOne = gql`
   }
 `;
 
-export const setEstadosOne = gql`
+export const setEstadosOne = gql `
   mutation insert_estado_repuestos_stock_one(
     $estado_repuestos: String
     $activo: Boolean
@@ -203,7 +203,7 @@ export const setEstadosOne = gql`
   }
 `;
 
-export const deletEstadosbyId = gql`
+export const deletEstadosbyId = gql `
   mutation deleteEstadoRepuestos($id: uuid) {
     update_estado_repuestos_stock(
       where: { id: { _eq: $id } }
@@ -219,7 +219,7 @@ export const deletEstadosbyId = gql`
   }
 `;
 
-export const activateEstadosbyId = gql`
+export const activateEstadosbyId = gql `
   mutation deleteEstadoRepuestos($id: uuid) {
     update_estado_repuestos_stock(
       where: { id: { _eq: $id } }
@@ -235,7 +235,7 @@ export const activateEstadosbyId = gql`
   }
 `;
 
-export const updateRepuestoOne = gql`
+export const updateRepuestoOne = gql `
   mutation update_repuestos_by_pk(
     $activo: Boolean
     $cantidad: numeric
@@ -266,7 +266,7 @@ export const updateRepuestoOne = gql`
   }
 `;
 
-export const setTransporteOne = gql`
+export const setTransporteOne = gql `
   mutation(
     $activo: Boolean
     $color: String
@@ -302,4 +302,56 @@ export const setTransporteOne = gql`
       id
     }
   }
+`;
+
+export const setEmpleadosOne = gql `
+    mutation(
+      $codigo_empleado: String
+      $nombres: String
+      $apellidos: String
+      $edad: Int
+      $sexo: bpchar
+      $telefono: String
+      $direccion: String
+      $dui: String
+      $nit: String
+      $afp: String
+      $isss: String
+      $licencia_conducir: String
+      $licencia_arma: String
+      $fecha_ingreso_empresa: date
+      $fecha_nacimiento: date
+      $estado_civil: String
+      $id_tipo_empleado: uuid
+      $id_departamento: uuid
+      $id_estado_empleados: uuid
+      $comentarios: String
+){
+  insert_empleados_one(
+    object:{
+      codigo_empleado: $codigo_empleado
+      nombres: $nombres
+      apellidos: $apellidos
+      edad: $edad
+      sexo: $sexo
+      telefono: $telefono
+      direccion: $direccion
+      dui: $dui
+      nit: $nit
+      afp: $afp
+      isss: $isss
+      licencia_conducir: $licencia_conducir
+      licencia_arma: $licencia_arma
+      fecha_ingreso_empresa: $fecha_ingreso_empresa
+      fecha_nacimiento: $fecha_nacimiento
+      estado_civil: $estado_civil
+      id_tipo_empleado: $id_tipo_empleado
+      id_departamento: $id_departamento
+      id_estado_empleados: $id_estado_empleados
+      comentarios: $comentarios
+    }
+  ){
+    id
+  }
+}
 `;

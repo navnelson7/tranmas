@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
-import ListBoxTipoEmpleados from '../Empleados/ListBoxTipoEmpleado';
+import ListBoxTipoEmpleados from '../Empleados/ListBoxTipoEmpleados';
 import ListBoxDepartamentos from './ListBoxDepartamentos';
+import ListBoxEstadoEmpleado from './ListBoxEstadoEmpleado';
+import {ToastComponent} from "../Toast";
+
+import {useMutation} from '@apollo/client';
+import {setEmpleadosOne} from '../../graphql/Mutations';
 const Registro = () => {
 
+    const [showAlert, setshowAlert] = useState(false);
+    const [IconType, setIconType] = useState("");
+    const [TextAlert, setTextAlert] = useState("");
+    
+    const [addEmpleados] = useMutation(setEmpleadosOne);
+    
+
     const [empleado, guardarRegistro] = useState({
-        id:'',
-        codigo: '',
+        codigo_empleado: '',
         nombres: '',
         apellidos: '',
         edad: '',
@@ -21,18 +32,16 @@ const Registro = () => {
         fecha_nacimiento: '',
         estado_civil: '',
         licencia_conducir: '',
-        licencia_de_arma: '',
+        licencia_arma: '',
         id_tipo_empleado: '',
-        id_estado: '',
+        id_estado_empleados: '',
         id_departamento: '',
         comentarios: '',
-        estado: false
 
     })
 
     const {
-        id,
-        codigo,
+        codigo_empleado,
         nombres,
         apellidos,
         edad,
@@ -47,9 +56,9 @@ const Registro = () => {
         fecha_nacimiento,
         estado_civil,
         licencia_conducir,
-        licencia_de_arma,
+        licencia_arma,
         id_tipo_empleado,
-        id_estado,
+        id_estado_empleados,
         id_departamento,
         comentarios,
     } = empleado;
@@ -64,12 +73,52 @@ const Registro = () => {
    
 
 
-    const onSubmit = e => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        //validar que no haya datos vacios
-
-
-        //
+        if(codigo_empleado.trim()=== "" ||
+            nombres.trim() === "" ||
+            apellidos.trim() === "" ||
+            edad.trim() === "" ||
+            sexo.trim() === "" ||
+            telefono.trim() === "" ||
+            direccion.trim() === "" ||
+            dui.trim() === "" ||
+            nit.trim() === "" ||
+            isss.trim() === "" ||
+            afp.trim() === "" ||
+            fecha_nacimiento.trim() === "" ||
+            fecha_ingreso_empresa.trim() === "" ||
+            estado_civil.trim() === "" ||
+            id_tipo_empleado.trim() === "" ||
+            licencia_conducir.trim() === "" ||
+            licencia_arma.trim() === "" ||
+            id_estado_empleados.trim() === "" ||
+            id_departamento.trim() === "" ||
+            comentarios.trim()=== "" ){
+                setIconType("error");
+                setshowAlert(true);
+                setTextAlert("Debes llenar todos los campos");
+                return
+            }else{
+                addEmpleados({
+                    variables: empleado
+                })
+                .then((res)=>{
+                    if(res.data){
+                        setIconType("success")
+                        setshowAlert(true);
+                        setTextAlert("Registrado correctamente");
+                        setTimeout(()=>{
+                        },2000);
+                    }
+                })
+                .catch((error)=>{
+                    setTextAlert("Ocurrio un problema");
+                    setIconType("error");
+                    setshowAlert(true);
+                    console.log(error);
+                })
+            } 
 
 
         //pasarlo a la accion
@@ -78,7 +127,14 @@ const Registro = () => {
         //reinicar el form
     }
     return ( 
-        <Container>
+        <Fragment>
+            <ToastComponent 
+                showAlert={showAlert}
+                setShowAlert={setshowAlert}
+                iconType={IconType}
+                textAlert={TextAlert}
+            />
+            <Container>
             <div className="box-left">
                 <h1>REGISTRO DE EMPLEADOS</h1>
             <Form>
@@ -92,26 +148,10 @@ const Registro = () => {
                                     </InputGroup.Append>
                                     <FormControl 
                                         placeholder="Codigo de Empleado"
-                                        arial-label="codigo"
+                                        arial-label="codigo_empleado"
                                         arial-describedby="basic-addon1"
-                                        name="codigo"
-                                        value={codigo}
-                                        onChange={onChange}
-                                    />
-                                </InputGroup>
-                            </Col>
-
-                            <Col  sm={6}>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="basic -addon1">Id</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <FormControl 
-                                        placeholder="Id de Sistema"
-                                        aria-label="id"
-                                        aria-describedby="basic-addon1"
-                                        name="id"
-                                        value={id}
+                                        name="codigo_empleado"
+                                        value={codigo_empleado}
                                         onChange={onChange}
                                     />
                                 </InputGroup>
@@ -317,22 +357,7 @@ const Registro = () => {
                                     </FormControl>
                                 </InputGroup>
                             </Col>
-                            <Col sm={6}>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="basic -addon1">Tipo de Empleado</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <FormControl as="select" name="id_tipo_empleado" value={id_tipo_empleado} onChange={onChange}>
-                                        <option value=""> </option>
-                                        <option value="uuid1">Directivo</option>
-                                        <option value="uuid2">Administrador</option>
-                                        <option value="uuid3">Auxiliar</option>
-                                        <option value="uuid4">Motorista</option>
-                                        <option value="uuid5">Vigilante</option>
-                                        <option value="uuid6">Conserge</option>
-                                    </FormControl>
-                                </InputGroup>
-                            </Col>
+                            <ListBoxTipoEmpleados changeTipoEmleado={onChange} />
                         </Row>
                         <Row>
                             <Col sm={6}>
@@ -359,15 +384,15 @@ const Registro = () => {
                                         placeholder="00000000"
                                         aria-label="Licencia de Arma"
                                         aria-describedby="Licencia de Arma"
-                                        name="licencia_de_arma"
-                                        value={licencia_de_arma}
+                                        name="licencia_arma"
+                                        value={licencia_arma}
                                         onChange={onChange}
                                     />
                                 </InputGroup>
                             </Col>
                         </Row>
                         <Row>
-                            <ListBoxTipoEmpleados changeEstadoEmpleado={onChange} />
+                            <ListBoxEstadoEmpleado changeEstadoEmpleado={onChange} />
                             <ListBoxDepartamentos changeDepartamentos={onChange}/>
                         </Row>
                         <Row>
@@ -386,12 +411,13 @@ const Registro = () => {
                                 </InputGroup>
                             </Col>
                         </Row>
-                        <Button varian="Primera" size="lg">Guardar</Button>
+                        <Button varian="Primera" size="lg" onClick={onSubmit}>Guardar</Button>
                     </Card.Body>
                 </Card>
             </Form>
             </div>
         </Container>
+        </Fragment>
      );
 }
  
