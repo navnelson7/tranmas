@@ -1,5 +1,6 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment} from 'react';
 import {Container} from 'react-bootstrap';
+import {Page, Text, View, Document, StyleSheet} from '@react-pdf/renderer';
 const FichaEmpleado = () => {
     return (
         <Fragment>
