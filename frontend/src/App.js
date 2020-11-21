@@ -47,6 +47,10 @@ const ListadoEstadoRepuestos = lazy(() =>
 const FormularioEstadoRepuestos = lazy(() =>
   import("./components/EstadoRepuestos/FormularioEstadoRepuestos")
 );
+
+const FichaEmpleado = lazy(()=>
+  import("./components/Empleados/FichaEmpleado.js")
+);
 function App() {
   return (
     <Fragment>
@@ -94,6 +98,11 @@ function App() {
               path="/listado-empleados"
               component={ListadoEmpleados}
             />
+            <Route exact-path="/fiha-empleado" component={FichaEmpleado}>
+              <Suspense fallback="Cargando....">
+                <FichaEmpleado />
+              </Suspense>
+            </Route>
             <Route exact path="/listado-repuestos">
               <Suspense fallback="Cargando...">
                 <ListadoRepuestos />
