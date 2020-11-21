@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 import ListBoxTipoEmpleados from '../Empleados/ListBoxTipoEmpleados';
 import ListBoxDepartamentos from './ListBoxDepartamentos';
 import ListBoxEstadoEmpleado from './ListBoxEstadoEmpleado';
@@ -412,6 +413,8 @@ const Registro = () => {
                             </Col>
                         </Row>
                         <Button varian="Primera" size="lg" onClick={onSubmit}>Guardar</Button>
+                        <Link to={`/listado-empleados`} variant="warning"><Button variant="warning" size="lg">Cancelar</Button></Link>
+
                     </Card.Body>
                 </Card>
             </Form>
