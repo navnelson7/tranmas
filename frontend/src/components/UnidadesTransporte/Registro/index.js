@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import { Form, Spinner } from "react-bootstrap";
+import { Form, Spinner, InputGroup } from "react-bootstrap";
 import editIcon from "./icons/edit.svg";
 import { useMutation } from "@apollo/client";
 import { setTransporteOne } from "../../../graphql/Mutations";
@@ -86,79 +86,157 @@ function Registro() {
           <div className="grid-form-transporte">
             <div>
               <h5>Especificaciones</h5>
-              <Form.Control
-                type="text"
-                name="modelo"
-                placeholder="Modelo"
-                onChange={(e) => changeTransporte(e)}
-              />
-              <br />
-              <Form.Control
-                type="text"
-                name="marca"
-                placeholder="Marca"
-                onChange={(e) => changeTransporte(e)}
-              />
-              <br />
-              <Form.Control
-                type="text"
-                name="color"
-                placeholder="Color"
-                onChange={(e) => changeTransporte(e)}
-              />
-              <br />
-              <Form.Control
-                type="text"
-                name="color_tapiceria"
-                placeholder="Color de tapiceria"
-                onChange={(e) => changeTransporte(e)}
-              />
-              <br />
-              <h5>Numeraciones</h5>
-              <Form.Control
-                type="number"
-                name="numero_equipo"
-                placeholder="Numero de equipo"
-                onChange={(e) => changeTransporte(e)}
-              />
-              <br />
-              <Form.Control
-                type="number"
-                name="numero_pasajeros"
-                placeholder="Numero de pasajeros"
-                onChange={(e) => changeTransporte(e)}
-              />
-              <br />
-              <Form.Control
-                type="text"
-                name="numero_placa"
-                placeholder="Numero de placa"
-                onChange={(e) => changeTransporte(e)}
-              />
-              <br />
-              <Form.Control
-                type="text"
-                name="numero_tarjeta_circulacion"
-                placeholder="Numero de tarjeta de circulación"
-                onChange={(e) => changeTransporte(e)}
-              />
 
-              <br />
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Modelo
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="text"
+                  name="modelo"
+                  placeholder="Modelo"
+                  onChange={(e) => changeTransporte(e)}
+                />
+
+              </InputGroup>
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Marca
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="text"
+                  name="marca"
+                  placeholder="Marca"
+                  onChange={(e) => changeTransporte(e)}
+                />
+
+              </InputGroup>
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Color
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="text"
+                  name="color"
+                  placeholder="Color"
+                  onChange={(e) => changeTransporte(e)}
+                />
+              </InputGroup>
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Color de tapiceria
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="text"
+                  name="color_tapiceria"
+                  placeholder="Color de tapiceria"
+                  onChange={(e) => changeTransporte(e)}
+                />
+
+              </InputGroup>
+              <h5>Numeraciones</h5>
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Numero de equipo
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="number"
+                  name="numero_equipo"
+                  placeholder="Numero de equipo"
+                  onChange={(e) => changeTransporte(e)}
+                />
+              </InputGroup>
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Numero de pasajeros
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="number"
+                  name="numero_pasajeros"
+                  placeholder="Numero de pasajeros"
+                  onChange={(e) => changeTransporte(e)}
+                />
+              </InputGroup>
+
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Numero de placa
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+
+                <Form.Control
+                  type="text"
+                  name="numero_placa"
+                  placeholder="Numero de placa"
+                  onChange={(e) => changeTransporte(e)}
+                />
+              </InputGroup>
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Numero de tarjeta de circulación
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+
+                <Form.Control
+                  type="text"
+                  name="numero_tarjeta_circulacion"
+                  placeholder="Numero de tarjeta de circulación"
+                  onChange={(e) => changeTransporte(e)}
+                />
+              </InputGroup>
+
               <h5>Series</h5>
-              <Form.Control
-                type="text"
-                name="serie_chasis"
-                placeholder="Serie de chasis"
-                onChange={(e) => changeTransporte(e)}
-              />
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Serie de chasis
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="text"
+                  name="serie_chasis"
+                  placeholder="Serie de chasis"
+                  onChange={(e) => changeTransporte(e)}
+                />
+              </InputGroup>
+
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">
+                    Serie de motor
+                        </InputGroup.Text>
+                </InputGroup.Prepend>
+
+                <Form.Control
+                  type="text"
+                  name="serie_motor"
+                  placeholder="Serie de motor"
+                  onChange={(e) => changeTransporte(e)}
+                />
+              </InputGroup>
               <br />
-              <Form.Control
-                type="text"
-                name="serie_motor"
-                placeholder="Serie de motor"
-                onChange={(e) => changeTransporte(e)}
-              />
-              <br /> 
               <ButtonsDesitions linkCancel="/unidades-transporte" submitSave={submitTransporte} />
             </div>
 
