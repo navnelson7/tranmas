@@ -194,3 +194,28 @@ export const getTipoEmpleados = gql `
     }
 }
 `;
+
+export const getEmpmleadosByCodigo = gql `
+    query getEmpmleadosByCodigo($codigo_empleado: String) {
+    empleados (
+      where: {codigo_empleado:{_eq:$codigo_empleado}}
+    ){
+      codigo_empleado
+      nombres
+      apellidos
+      edad
+      sexo
+      empleado_tipo_empleado{
+        tipo_empleado
+      }
+      departamento_empleado{
+        departamento
+      }
+      dui
+      nit
+      afp
+      licencia_conducir
+      licencia_arma
+    }
+  }
+`;
