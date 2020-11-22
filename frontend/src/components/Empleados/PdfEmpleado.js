@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
+import React from 'react';
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         flexGrow:1
     }
 });
-const PdfEmpleado = () => {
+const PdfEmpleado = ({pdfempleado}) => {
     return ( 
         <Document>
         <Page size="A4" style={styles.page}>

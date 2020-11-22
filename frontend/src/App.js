@@ -109,16 +109,18 @@ function App() {
               path="/listado-empleados"
               component={ListadoEmpleados}
             />
-            <Route exact-path="/fiha-empleado" component={FichaEmpleado}>
+            <Route exact-path="/ficha-empleado" component={FichaEmpleado}>
               <Suspense fallback="Cargando....">
                 <FichaEmpleado />
               </Suspense>
             </Route>
-            <Route exact path="/listado-repuestos">
+
+            <Route exact-path="/listado-repuestos" component={ListadoRepuestos}>
               <Suspense fallback="Cargando...">
                 <ListadoRepuestos />
               </Suspense>
             </Route>
+
             <Route exact path="/formulario-repuestos">
               <Suspense fallback="Cargando...">
                 <FormRepuestos />
