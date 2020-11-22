@@ -14,6 +14,7 @@ import NavegacionTop from "./components/Navegacion/NavegacionTop";
 import UnidadesTransporte from "./components/UnidadesTransporte";
 import RegistroTransporte from "./components/UnidadesTransporte/Registro";
 import ResulFilter from "./components/Proveedores/ResultFilter";
+//import PdfEmpleado from "./components/Empleados/PdfEmpleado";
 
 //IMPORT LAZY IN COMPONENTS
 const EditarRepuestos = lazy(() => import("./components/Repuestos/Editar"));
@@ -51,6 +52,11 @@ const FormularioEstadoRepuestos = lazy(() =>
 const FichaEmpleado = lazy(()=>
   import("./components/Empleados/FichaEmpleado.js")
 );
+
+const PdfEmpleado = lazy(()=>
+  import("./components/Empleados/PdfEmpleado")
+);
+
 function App() {
   return (
     <Fragment>
@@ -146,6 +152,11 @@ function App() {
             <Route exact path="/formulario-estados">
               <Suspense fallback="Cargando...">
                 <FormularioEstadoRepuestos />
+              </Suspense>
+            </Route>
+            <Route exact path="/pdf-empleado">
+              <Suspense>
+                <PdfEmpleado/>
               </Suspense>
             </Route>
           </Switch>

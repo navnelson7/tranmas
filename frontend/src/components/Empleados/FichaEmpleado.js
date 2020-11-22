@@ -1,16 +1,26 @@
 import React, { Fragment} from 'react';
 import {Container} from 'react-bootstrap';
-import {Page, Text, View, Document, StyleSheet} from '@react-pdf/renderer';
+import {Page, Text, View, Document, StyleSheet} from '@react-pdf/dom';
+const styles = StyleSheet.create({
+    page: {
+        flexDirection: 'row',
+        backgroundColor: '#E4E4E4'
+    },
+    section:{
+        margin: 10,
+        padding: 10,
+        flexGrow:1
+    }
+});
 const FichaEmpleado = () => {
     return (
-        <Fragment>
-            <div className="box-left">
-                <Container>
-                    <h2>FICHA DE EMPLEADO TRANMAS SA. de CV.</h2>
-                    
-                </Container>
-            </div>
-        </Fragment>
+        <Document>
+            <Page size="Letter" style={styles.page}>
+                <View style={styles.section}>
+                    <Text>Section</Text>
+                </View>
+            </Page>
+        </Document>
     );
 }
 
