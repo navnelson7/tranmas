@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/client";
 import { setTransporteOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
 import { useHistory } from "react-router-dom";
+import ButtonsDesitions from "../../ButtonsDesitions";
 
 function Registro() {
   const { push } = useHistory();
@@ -157,8 +158,8 @@ function Registro() {
                 placeholder="Serie de motor"
                 onChange={(e) => changeTransporte(e)}
               />
-              <br />
-              desions
+              <br /> 
+              <ButtonsDesitions linkCancel="/unidades-transporte" submitSave={submitTransporte} />
             </div>
 
             <div>

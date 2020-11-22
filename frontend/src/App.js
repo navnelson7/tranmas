@@ -14,6 +14,7 @@ import NavegacionTop from "./components/Navegacion/NavegacionTop";
 import UnidadesTransporte from "./components/UnidadesTransporte";
 import RegistroTransporte from "./components/UnidadesTransporte/Registro";
 import ResulFilter from "./components/Proveedores/ResultFilter";
+import EditarTransporte from "./components/UnidadesTransporte/Editar";
 
 //IMPORT LAZY IN COMPONENTS
 const EditarRepuestos = lazy(() => import("./components/Repuestos/Editar"));
@@ -60,6 +61,11 @@ function App() {
           <Navegacion />
           <Switch>
             <Route exact path="/" component={Login} />
+            <Route
+              exact
+              path="/actualizar-unidad-transporte/:id"
+              component={EditarTransporte}
+            />
             <Route
               exact
               path="/resultados-proveedores"
