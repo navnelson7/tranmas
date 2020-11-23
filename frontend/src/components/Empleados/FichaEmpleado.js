@@ -1,10 +1,11 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {Container} from 'react-bootstrap';
 import { Page, Text, View, Document, StyleSheet,PDFDownloadLink } from '@react-pdf/renderer';
 import PdfEmpleado from './PdfEmpleado';
+import {useParams} from 'react-router-dom';
 
 import {useQuery} from '@apollo/client';
-import { getEmpmleadosByCodigo} from '../../graphql/Queries';
+import { getEmpleadosByCodigo} from '../../graphql/Queries';
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',
@@ -17,7 +18,17 @@ const styles = StyleSheet.create({
     }
 });
 const FichaEmpleado = () => {
-    const {data, loading, error} = useQuery(getEmpmleadosByCodigo);
+
+    const params = useParams();
+    const {data, loading, error} = useQuery(getEmpleadosByCodigo,{
+        variables: {codigo_empleado: params ? params.codigo_empleado:""},
+    });
+
+    useEffect(() => {
+        let datos = {};
+        datos = data === undefined ? {} : data.getEmpleadosByCodigo;
+        console.log(datos);
+      }, [data]);
     return (
         <Container>
             <div className="box-left">

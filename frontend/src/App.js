@@ -21,9 +21,7 @@ const EditarRepuestos = lazy(() => import("./components/Repuestos/Editar"));
 
 const FormRepuestos = lazy(() => import("./components/Repuestos/FormRepuetos"));
 
-const ListadoRepuestos = lazy(() =>
-  import("./components/Repuestos/ListadoRepuestos")
-);
+const ListadoRepuestos = lazy(() => import("./components/Repuestos/ListadoRepuestos"));
 
 const Proveedores = lazy(() => import("./components/Proveedores"));
 const ListadoMarcas = lazy(() => import("./components/Marcas/ListadoMarcas"));
@@ -109,13 +107,13 @@ function App() {
               path="/listado-empleados"
               component={ListadoEmpleados}
             />
-            <Route exact-path="/ficha-empleado" component={FichaEmpleado}>
+            <Route exact path="/ficha-empleado/:codigo_empleado" component={FichaEmpleado}>
               <Suspense fallback="Cargando....">
                 <FichaEmpleado />
               </Suspense>
             </Route>
 
-            <Route exact-path="/listado-repuestos" component={ListadoRepuestos}>
+            <Route exact path="/listado-repuestos" component={ListadoRepuestos}>
               <Suspense fallback="Cargando...">
                 <ListadoRepuestos />
               </Suspense>

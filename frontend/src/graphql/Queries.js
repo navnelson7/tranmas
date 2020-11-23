@@ -195,8 +195,8 @@ export const getTipoEmpleados = gql `
 }
 `;
 
-export const getEmpmleadosByCodigo = gql `
-    query getEmpmleadosByCodigo($codigo_empleado: String) {
+export const getEmpleadosByCodigo = gql `
+    query getEmpleadosByCodigo($codigo_empleado: String) {
     empleados (
       where: {codigo_empleado:{_eq:$codigo_empleado}}
     ){
