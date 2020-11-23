@@ -45,3 +45,24 @@ export const listenUnidadesTranporte = gql`
     }
   }
 `;
+
+export const listenUnidadTransporteById = gql`
+  subscription unidades_de_transporte_by_pk($id: uuid!) {
+    unidades_de_transporte_by_pk(id: $id) {
+      activo
+      numero_pasajeros
+      numero_placa
+      marca
+      id
+      color
+      color_tapiceria
+      modelo
+      numero_equipo
+      numero_placa
+      numero_pasajeros
+      serie_motor
+      serie_chasis
+      numero_tarjeta_circulacion
+    }
+  }
+`;

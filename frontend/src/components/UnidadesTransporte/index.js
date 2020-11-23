@@ -8,27 +8,7 @@ import { useSubscription } from "@apollo/client";
 import { listenUnidadesTranporte } from "../../graphql/Suscription";
 
 function UnidadesTransporte() {
-  const images = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRcwuxoNgk7qb7DKtdhlJTAupHoqKF-yYzFEw&usqp=CAU",
-    "https://image.jimcdn.com/app/cms/image/transf/dimension=1920x400:format=jpg/path/s514ff347883282df/image/i511e15eff51e40a2/version/1497910777/image.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRcwuxoNgk7qb7DKtdhlJTAupHoqKF-yYzFEw&usqp=CAU",
-    "https://www.atodobuschile.cl/galeria/data/media/61/05519-P1340395.jpg",
-    "https://www.dinero.com.sv/media/k2/items/cache/bcbee90ec4b5e1aecab9bf5df69d5235_XL.jpg",
-    "https://cdn-pro.elsalvador.com/wp-content/uploads/2019/01/asalto3.jpg",
-    "https://cdn-pro.elsalvador.com/wp-content/uploads/2017/01/27170244/1434893591038.jpg",
-    "https://cdn.pixabay.com/photo/2020/10/24/03/09/street-5680458_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2020/04/04/17/06/street-5003132_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2020/11/06/15/33/woman-5718089__340.jpg",
-    "https://cdn.pixabay.com/photo/2020/05/20/07/02/gunnera-5195132_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2018/10/04/11/31/river-3723439_960_720.jpg",
-  ];
-  const updated_at =
-    new Date().getFullYear() +
-    "-" +
-    (new Date().getMonth() + 1) +
-    "-" +
-    new Date().getDate();
-  const { data, loading } = useSubscription(listenUnidadesTranporte);
+  const { data, loading, error } = useSubscription(listenUnidadesTranporte);
   if (loading)
     return (
       <div className="box-center">
@@ -37,9 +17,12 @@ function UnidadesTransporte() {
         </div>
       </div>
     );
-
-  console.log(data);
-
+  if (error)
+    return (
+      <div className="box-center">
+        <p>{error.message}</p>
+      </div>
+    );
   return (
     <Fragment>
       <StyleCards>
@@ -61,6 +44,7 @@ function UnidadesTransporte() {
                         }
                         numero_pasajeros={unidad.numero_pasajeros}
                         marca={unidad.marca}
+                        id={unidad.id}
                       />
                       <br />
                       <br />

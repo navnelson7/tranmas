@@ -34,7 +34,18 @@ function EditarProveedor() {
   const [updateProveedor] = useMutation(updateProveedorOne);
   useEffect(() => {
     let datos = {};
-    datos = data === undefined ? {} : data.proveedores_by_pk;
+    datos =
+      data === undefined
+        ? {}
+        : {
+            ...data.proveedores_by_pk,
+            updated_at:
+              new Date().getFullYear() +
+              "-" +
+              (new Date().getMonth() + 1) +
+              "-" +
+              new Date().getDate(),
+          };
     setnewProveedor(datos);
   }, [data]);
 
@@ -47,15 +58,6 @@ function EditarProveedor() {
 
   const submitProveedor = (e) => {
     e.preventDefault();
-    setnewProveedor({
-      ...newProveedor,
-      updated_at:
-        new Date().getFullYear() +
-        "-" +
-        (new Date().getMonth() + 1) +
-        "-" +
-        new Date().getDate(),
-    });
     updateProveedor({
       variables: newProveedor,
     })
@@ -121,7 +123,9 @@ function EditarProveedor() {
                         aria-describedby="basic -addon1"
                         name="nombre_proveedor"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.nombre_proveedor : ''}
+                        value={
+                          newProveedor ? newProveedor.nombre_proveedor : ""
+                        }
                       />
                     </InputGroup>
                   </Col>
@@ -138,7 +142,9 @@ function EditarProveedor() {
                         aria-describedby="basic-addon1"
                         name="contacto_proveedor"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.contacto_proveedor : ''}
+                        value={
+                          newProveedor ? newProveedor.contacto_proveedor : ""
+                        }
                       />
                     </InputGroup>
                   </Col>
@@ -155,7 +161,7 @@ function EditarProveedor() {
                         aria-describedby="basic-addon1"
                         name="nit"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.nit : ''}
+                        value={newProveedor ? newProveedor.nit : ""}
                       />
                     </InputGroup>
                   </Col>
@@ -170,7 +176,7 @@ function EditarProveedor() {
                         aria-describedby="basic-addon1"
                         name="nrc"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.nrc : ''}
+                        value={newProveedor ? newProveedor.nrc : ""}
                       />
                     </InputGroup>
                   </Col>
@@ -187,7 +193,7 @@ function EditarProveedor() {
                         placeholder="Email Contacto"
                         name="email_contacto"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.email_contacto : ''}
+                        value={newProveedor ? newProveedor.email_contacto : ""}
                       />
                     </InputGroup>
                   </Col>
@@ -203,7 +209,7 @@ function EditarProveedor() {
                         placeholder="Email Empresa"
                         name="email_empresa"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.email_empresa : ''}
+                        value={newProveedor ? newProveedor.email_empresa : ""}
                       />
                     </InputGroup>
                   </Col>
@@ -219,7 +225,9 @@ function EditarProveedor() {
                         placeholder="Teléfono Contacto"
                         name="telefono_contacto"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.telefono_contacto : ''}
+                        value={
+                          newProveedor ? newProveedor.telefono_contacto : ""
+                        }
                       />
                     </InputGroup>
                   </Col>
@@ -235,7 +243,9 @@ function EditarProveedor() {
                         placeholder="Teléfono Empresa"
                         name="telefono_empresa"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.telefono_empresa : ''}
+                        value={
+                          newProveedor ? newProveedor.telefono_empresa : ""
+                        }
                       />
                     </InputGroup>
                   </Col>
@@ -251,7 +261,7 @@ function EditarProveedor() {
                         aria-label="Comentarios"
                         name="comentarios"
                         onChange={(e) => changeProveedor(e)}
-                        value={newProveedor ? newProveedor.comentarios : ''}
+                        value={newProveedor ? newProveedor.comentarios : ""}
                       />
                     </InputGroup>
                   </Col>
@@ -262,7 +272,10 @@ function EditarProveedor() {
         </div>
       </Container>
       <br />
-    <ButtonsDesitions linkCancel="/proveedores" submitSave={submitProveedor}/>
+      <ButtonsDesitions
+        linkCancel="/proveedores"
+        submitSave={submitProveedor}
+      />
     </Fragment>
   );
 }

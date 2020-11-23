@@ -14,7 +14,6 @@ import { Link, useHistory } from "react-router-dom";
 
 function Proveedores() {
   //CONTEXT
-  const { action } = useHistory();
   const [PaginateNumber, setPaginateNumber] = useState(0);
   const [PaginacionPantalla, setPaginacionPantalla] = useState(0);
   const [showAlert, setshowAlert] = useState(false);

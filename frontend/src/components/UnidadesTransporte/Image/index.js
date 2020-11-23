@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect, Fragment } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ObserverImages } from "../../../functions/ObserverImages";
 import editIcon from "../icons/edit.svg";
 
-export default function Image({ src, marca, numero_pasajeros }) {
+export default function Image({ src, marca, numero_pasajeros, id }) {
   const [showImage, setShowImage] = useState(false);
   const placeHolderRef = useRef(null);
 
@@ -19,7 +20,9 @@ export default function Image({ src, marca, numero_pasajeros }) {
             <div className="banner-imagen">
               <div className="center-box">
                 <div className="box-rounded-pencil">
-                  <img src={editIcon} alt="" className="icon-edit" />
+                  <Link to={`/actualizar-unidad-transporte/${id}`}>
+                    <img src={editIcon} alt="" className="icon-edit" />
+                  </Link>
                 </div>
               </div>
               <h4>
