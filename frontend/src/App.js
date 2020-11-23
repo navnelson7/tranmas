@@ -159,8 +159,8 @@ function App() {
                 <FormularioEstadoRepuestos />
               </Suspense>
             </Route>
-            <Route exact path="/pdf-empleado">
-              <Suspense>
+            <Route exact path="/pdf-empleado" component={PdfEmpleado}>
+              <Suspense fallback="Cargando...">
                 <PdfEmpleado/>
               </Suspense>
             </Route>

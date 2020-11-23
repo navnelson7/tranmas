@@ -1,5 +1,10 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import {useParams} from 'react-router-dom';
+
+import {useQuery} from '@apollo/client';
+import { getEmpleadosByCodigo} from '../../graphql/Queries';
+import { Container } from 'react-bootstrap';
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',
@@ -11,19 +16,21 @@ const styles = StyleSheet.create({
         flexGrow:1
     }
 });
-const PdfEmpleado = ({pdfempleado}) => {
+const PdfEmpleado = () => {
+    
     return ( 
-        <Document>
-        <Page size="A4" style={styles.page}>
-        <View style={styles.section}>
-            <Text>Section #1</Text>
-        </View>
-        <View style={styles.section}>
-            <Text>Section #2</Text>
-        </View>
-        </Page>
-        </Document>
-     );
+       
+            <Document>
+                <Page size="A4" style={styles.page}>
+                    <View style={styles.section}>
+                        <Text>Section #1</Text>
+                    </View>
+                    <View style={styles.section}>
+                        <Text>Section #2</Text>
+                    </View>
+                </Page>
+            </Document>     
+    );
 }
  
 export default PdfEmpleado;
