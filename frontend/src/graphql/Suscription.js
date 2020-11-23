@@ -11,14 +11,13 @@ export const listenNotification = gql`
   }
 `;
 
-
-export const listenProveedoresTable = gql `
-subscription proveedores($limit: Int, $offset: Int) {
-    proveedores(limit: $limit, offset: $offset, where: {
-      activo: {
-        _eq: true
-      }
-    }) {
+export const listenProveedoresTable = gql`
+  subscription proveedores($limit: Int, $offset: Int) {
+    proveedores(
+      limit: $limit
+      offset: $offset
+      where: { activo: { _eq: true } }
+    ) {
       id
       nombre_proveedor
       nit
@@ -31,6 +30,39 @@ subscription proveedores($limit: Int, $offset: Int) {
       email_contacto
       email_empresa
       comentarios
+    }
+  }
+`;
+
+export const listenUnidadesTranporte = gql`
+  subscription {
+    unidades_de_transporte(where: { activo: { _eq: true } }) {
+      activo
+      numero_pasajeros
+      numero_placa
+      marca
+      id
+    }
+  }
+`;
+
+export const listenUnidadTransporteById = gql`
+  subscription unidades_de_transporte_by_pk($id: uuid!) {
+    unidades_de_transporte_by_pk(id: $id) {
+      activo
+      numero_pasajeros
+      numero_placa
+      marca
+      id
+      color
+      color_tapiceria
+      modelo
+      numero_equipo
+      numero_placa
+      numero_pasajeros
+      serie_motor
+      serie_chasis
+      numero_tarjeta_circulacion
     }
   }
 `;
