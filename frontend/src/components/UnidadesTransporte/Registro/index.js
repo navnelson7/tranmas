@@ -262,7 +262,7 @@ function Registro() {
                 <div className="img-bus">
                   <div className="banner-imagen txt-editar">
                     <input
-                      className="display-input-file"
+                      className="d-none"
                       ref={refFile}
                       type="file"
                       onChange={(e) => changeImage(e)}
@@ -280,6 +280,7 @@ function Registro() {
                         </p>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -297,9 +298,6 @@ function Registro() {
 export default Registro;
 
 const StyleRegitroUnidades = styled.div`
-  .display-input-file {
-    display: none;
-  }
   .center-txt {
     text-align: center;
   }
