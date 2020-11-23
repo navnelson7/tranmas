@@ -2,9 +2,10 @@ import React from "react";
 import { Fragment } from "react";
 import styled from "styled-components";
 import Image from "./Image";
-import { v4 as uuid } from "uuid";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { useSubscription } from "@apollo/client";
+import { listenUnidadesTranporte } from "../../graphql/Suscription";
 
 function UnidadesTransporte() {
   const images = [
@@ -21,28 +22,52 @@ function UnidadesTransporte() {
     "https://cdn.pixabay.com/photo/2020/05/20/07/02/gunnera-5195132_960_720.jpg",
     "https://cdn.pixabay.com/photo/2018/10/04/11/31/river-3723439_960_720.jpg",
   ];
+  const updated_at =
+    new Date().getFullYear() +
+    "-" +
+    (new Date().getMonth() + 1) +
+    "-" +
+    new Date().getDate();
+  const { data, loading } = useSubscription(listenUnidadesTranporte);
+  if (loading)
+    return (
+      <div className="box-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+
+  console.log(data);
+
   return (
     <Fragment>
       <StyleCards>
         <div className="box-left-cards">
-          <div class="d-flex justify-content-end mr-2">
+          <div className="d-flex justify-content-end mr-2">
             <Link to="/registro-transporte">
               <Button variant="primary">Nueva Unidad</Button>
             </Link>
           </div>
           <div className="row hidden-md-up">
-            {images.map((image) => {
+            {data.unidades_de_transporte.map((unidad) => {
               return (
-                <div className="col-md-4" key={uuid()}>
+                <div className="col-md-4" key={unidad.id}>
                   <div className="card mt-3">
                     <div className="card-block">
-                      <Image src={image} />
+                      <Image
+                        src={
+                          "https://cdn.pixabay.com/photo/2020/05/20/07/02/gunnera-5195132_960_720.jpg"
+                        }
+                        numero_pasajeros={unidad.numero_pasajeros}
+                        marca={unidad.marca}
+                      />
                       <br />
                       <br />
                       <div className="box-placa">
                         <div className="box-blue-top">EL SALVADOR</div>
                         <div className="box-white">
-                          <strong>P 246 182</strong>
+                          <strong>{unidad.numero_placa}</strong>
                         </div>
                         <div className="box-blue-bottom">CENTRO AMERICA</div>
                       </div>

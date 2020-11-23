@@ -11,14 +11,13 @@ export const listenNotification = gql`
   }
 `;
 
-
-export const listenProveedoresTable = gql `
-subscription proveedores($limit: Int, $offset: Int) {
-    proveedores(limit: $limit, offset: $offset, where: {
-      activo: {
-        _eq: true
-      }
-    }) {
+export const listenProveedoresTable = gql`
+  subscription proveedores($limit: Int, $offset: Int) {
+    proveedores(
+      limit: $limit
+      offset: $offset
+      where: { activo: { _eq: true } }
+    ) {
       id
       nombre_proveedor
       nit
@@ -31,6 +30,18 @@ subscription proveedores($limit: Int, $offset: Int) {
       email_contacto
       email_empresa
       comentarios
+    }
+  }
+`;
+
+export const listenUnidadesTranporte = gql`
+  subscription {
+    unidades_de_transporte(where: { activo: { _eq: true } }) {
+      activo
+      numero_pasajeros
+      numero_placa
+      marca
+      id
     }
   }
 `;
