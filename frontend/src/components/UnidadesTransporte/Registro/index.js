@@ -1,16 +1,15 @@
 import React, { Fragment, useRef, useState } from "react";
 import styled from "styled-components";
-import { Form, Spinner, InputGroup } from "react-bootstrap";
-import editIcon from "./icons/edit.svg";
+import { Form, InputGroup } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { setTransporteOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
 import { useHistory } from "react-router-dom";
 import ButtonsDesitions from "../../ButtonsDesitions";
+import ImageSelected from "./ImageSelected";
 
 function Registro() {
   const { push } = useHistory();
-
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
@@ -45,20 +44,7 @@ function Registro() {
       [e.target.name]: e.target.value,
     });
   };
-  const refFile = useRef(null);
-  const [newImageChange, setnewImageChange] = useState(null);
-  const [Imageprevious, setImageprevious] = useState(null);
-
-  const changeImage = (e) => {
-    setnewImageChange(e.target.files[0]);
-    //convierto la imagen en url para poder mostrarla en la interfaz
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = (e) => {
-      e.preventDefault();
-      setImageprevious(e.target.result); // le damos el binario de la imagen para mostrarla en pantalla
-    };
-  };
+  
 
   const submitTransporte = (e) => {
     e.preventDefault();
@@ -86,7 +72,15 @@ function Registro() {
         setshowAlert(true);
       });
   };
-  if (Loading) return <Spinner />;
+
+  if (Loading)
+    return (
+      <div className="box-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   return (
     <Fragment>
       <ToastComponent
@@ -95,13 +89,7 @@ function Registro() {
         iconType={IconType}
         textAlert={TextAlert}
       />
-      <StyleRegitroUnidades
-        src={
-          Imageprevious === null
-            ? "https://i.blogs.es/0b13f1/tmb-bus-electric/840_560.jpg"
-            : Imageprevious
-        }
-      >
+      <StyleRegitroUnidades>
         <div className="box-left-container">
           <div className="grid-form-transporte">
             <div>
@@ -254,37 +242,10 @@ function Registro() {
             </div>
 
             <div>
-              <h5 className="center-txt">
-                <strong>Fotografia de bus</strong>
-              </h5>
-
-              <div className="box-center-image">
-                <div className="img-bus">
-                  <div className="banner-imagen txt-editar">
-                    <input
-                      className="d-none"
-                      ref={refFile}
-                      type="file"
-                      onChange={(e) => changeImage(e)}
-                    />
-                    <div
-                      className="grid-box-editar"
-                      onClick={() => refFile.current.click()}
-                    >
-                      <div>
-                        <img src={editIcon} alt="" />
-                      </div>
-                      <div>
-                        <p className="mt-txt">
-                          <a>Editar</a>
-                        </p>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
+            <ImageSelected/>
             </div>
+
+
             <br />
             <br />
             <br />
@@ -300,15 +261,6 @@ export default Registro;
 const StyleRegitroUnidades = styled.div`
   .center-txt {
     text-align: center;
-  }
-  .img-bus {
-    height: 200px;
-    width: 200px;
-    background-image: url(${(props) => props.src});
-    border-radius: 50%;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
   }
   .box-center-image {
     display: flex;
@@ -335,27 +287,6 @@ const StyleRegitroUnidades = styled.div`
     }
   }
 
-  .banner-imagen {
-    top: 160px;
-    position: relative;
-    width: 45%;
-    cursor: pointer;
-    border-radius: 10%;
-    height: 30px;
-    background: white;
-    font-size: 14px;
-    border: 1.5px solid #e1e4e8;
-  }
-  .grid-box-editar {
-    display: grid;
-    grid-template-columns: 40% 60%;
-  }
-  .mt-txt {
-    margin-top: 5px;
-  }
-  .txt-editar {
-    color: black;
-  }
 
   //GRID FORM TRANSPORTE
 
