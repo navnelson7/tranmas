@@ -1,16 +1,15 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import styled from "styled-components";
-import { Form, Spinner, InputGroup } from "react-bootstrap";
-import editIcon from "./icons/edit.svg";
+import { Form, InputGroup } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { setTransporteOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
 import { useHistory } from "react-router-dom";
 import ButtonsDesitions from "../../ButtonsDesitions";
+import ImageSelected from "./ImageSelected";
 
 function Registro() {
   const { push } = useHistory();
-
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
@@ -45,6 +44,7 @@ function Registro() {
       [e.target.name]: e.target.value,
     });
   };
+  
 
   const submitTransporte = (e) => {
     e.preventDefault();
@@ -72,7 +72,15 @@ function Registro() {
         setshowAlert(true);
       });
   };
-  if (Loading) return <Spinner />;
+
+  if (Loading)
+    return (
+      <div className="box-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   return (
     <Fragment>
       <ToastComponent
@@ -89,9 +97,7 @@ function Registro() {
 
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">
-                    Modelo
-                        </InputGroup.Text>
+                  <InputGroup.Text id="basic-addon1">Modelo</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="text"
@@ -99,14 +105,11 @@ function Registro() {
                   placeholder="Modelo"
                   onChange={(e) => changeTransporte(e)}
                 />
-
               </InputGroup>
 
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">
-                    Marca
-                        </InputGroup.Text>
+                  <InputGroup.Text id="basic-addon1">Marca</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="text"
@@ -114,14 +117,11 @@ function Registro() {
                   placeholder="Marca"
                   onChange={(e) => changeTransporte(e)}
                 />
-
               </InputGroup>
 
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">
-                    Color
-                        </InputGroup.Text>
+                  <InputGroup.Text id="basic-addon1">Color</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="text"
@@ -135,7 +135,7 @@ function Registro() {
                 <InputGroup.Prepend>
                   <InputGroup.Text id="basic-addon1">
                     Color de tapiceria
-                        </InputGroup.Text>
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="text"
@@ -143,7 +143,6 @@ function Registro() {
                   placeholder="Color de tapiceria"
                   onChange={(e) => changeTransporte(e)}
                 />
-
               </InputGroup>
               <h5>Numeraciones</h5>
 
@@ -151,7 +150,7 @@ function Registro() {
                 <InputGroup.Prepend>
                   <InputGroup.Text id="basic-addon1">
                     Numero de equipo
-                        </InputGroup.Text>
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="number"
@@ -165,7 +164,7 @@ function Registro() {
                 <InputGroup.Prepend>
                   <InputGroup.Text id="basic-addon1">
                     Numero de pasajeros
-                        </InputGroup.Text>
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="number"
@@ -175,12 +174,11 @@ function Registro() {
                 />
               </InputGroup>
 
-
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
                   <InputGroup.Text id="basic-addon1">
                     Numero de placa
-                        </InputGroup.Text>
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
 
                 <Form.Control
@@ -195,7 +193,7 @@ function Registro() {
                 <InputGroup.Prepend>
                   <InputGroup.Text id="basic-addon1">
                     Numero de tarjeta de circulación
-                        </InputGroup.Text>
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
 
                 <Form.Control
@@ -212,7 +210,7 @@ function Registro() {
                 <InputGroup.Prepend>
                   <InputGroup.Text id="basic-addon1">
                     Serie de chasis
-                        </InputGroup.Text>
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="text"
@@ -226,7 +224,7 @@ function Registro() {
                 <InputGroup.Prepend>
                   <InputGroup.Text id="basic-addon1">
                     Serie de motor
-                        </InputGroup.Text>
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
 
                 <Form.Control
@@ -237,31 +235,17 @@ function Registro() {
                 />
               </InputGroup>
               <br />
-              <ButtonsDesitions linkCancel="/unidades-transporte" submitSave={submitTransporte} />
+              <ButtonsDesitions
+                linkCancel="/unidades-transporte"
+                submitSave={submitTransporte}
+              />
             </div>
 
             <div>
-              <h5 className="center-txt">
-                <strong>Fotografia de bus</strong>
-              </h5>
-
-              <div className="box-center-image">
-                <div className="img-bus">
-                  <div className="banner-imagen txt-editar">
-                    <div className="grid-box-editar">
-                      <div>
-                        <img src={editIcon} alt="" />
-                      </div>
-                      <div>
-                        <p className="mt-txt">
-                          <a>Editar</a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <ImageSelected/>
             </div>
+
+
             <br />
             <br />
             <br />
@@ -278,16 +262,6 @@ const StyleRegitroUnidades = styled.div`
   .center-txt {
     text-align: center;
   }
-  .img-bus {
-    height: 200px;
-    width: 200px;
-    background-image: url("https://i.blogs.es/0b13f1/tmb-bus-electric/840_560.jpg");
-    border-radius: 50%;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
-  }
-
   .box-center-image {
     display: flex;
     justify-content: center;
@@ -313,27 +287,6 @@ const StyleRegitroUnidades = styled.div`
     }
   }
 
-  .banner-imagen {
-    top: 160px;
-    position: relative;
-    width: 45%;
-    cursor: pointer;
-    border-radius: 10%;
-    height: 30px;
-    background: white;
-    font-size: 14px;
-    border: 1.5px solid #e1e4e8;
-  }
-  .grid-box-editar {
-    display: grid;
-    grid-template-columns: 40% 60%;
-  }
-  .mt-txt {
-    margin-top: 5px;
-  }
-  .txt-editar {
-    color: black;
-  }
 
   //GRID FORM TRANSPORTE
 

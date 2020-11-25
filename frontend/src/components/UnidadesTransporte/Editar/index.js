@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Form, InputGroup, FormControl } from "react-bootstrap";
 import editIcon from "../icons/edit.svg";
@@ -55,6 +55,21 @@ function EditarTransporte() {
     });
   };
 
+  const refFile = useRef(null);
+  const [newImageChange, setnewImageChange] = useState(null);
+  const [Imageprevious, setImageprevious] = useState(null);
+
+  const changeImage = (e) => {
+    setnewImageChange(e.target.files[0]);
+    //convierto la imagen en url para poder mostrarla en la interfaz
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = (e) => {
+      e.preventDefault();
+      setImageprevious(e.target.result); // le damos el binario de la imagen para mostrarla en pantalla
+    };
+  };
+
   const submitTransporte = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -104,7 +119,13 @@ function EditarTransporte() {
         iconType={IconType}
         textAlert={TextAlert}
       />
-      <StyleRegitroUnidades>
+      <StyleRegitroUnidades
+        src={
+          Imageprevious === null
+            ? "https://i.blogs.es/0b13f1/tmb-bus-electric/840_560.jpg"
+            : Imageprevious
+        }
+      >
         <div className="box-left-container">
           <div className="grid-form-transporte">
             <div>
@@ -281,7 +302,16 @@ function EditarTransporte() {
                 <div className="img-bus">
                   <div className="banner-imagen txt-editar">
                     <div className="grid-box-editar">
-                      <div>
+                      <input
+                        className="d-none"
+                        ref={refFile}
+                        type="file"
+                        onChange={(e) => changeImage(e)}
+                      />
+                      <div
+                        className="grid-box-editar"
+                        onClick={() => refFile.current.click()}
+                      >
                         <img src={editIcon} alt="" />
                       </div>
                       <div>
@@ -313,7 +343,7 @@ const StyleRegitroUnidades = styled.div`
   .img-bus {
     height: 200px;
     width: 200px;
-    background-image: url("https://i.blogs.es/0b13f1/tmb-bus-electric/840_560.jpg");
+    background-image: url(${(props) => props.src});
     border-radius: 50%;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
