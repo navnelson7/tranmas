@@ -151,7 +151,7 @@ function EditarRepuestos() {
         <div>
           <ul>
             <li>
-              <Link to="/proveedores">
+              <Link to="/listado-repuestos">
                 <button className="btn-opcion bg-cancelar">
                   <strong>Cancelar</strong>
                 </button>
