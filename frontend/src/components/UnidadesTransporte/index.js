@@ -39,9 +39,7 @@ function UnidadesTransporte() {
                   <div className="card mt-3">
                     <div className="card-block">
                       <Image
-                        src={
-                          "https://cdn.pixabay.com/photo/2020/05/20/07/02/gunnera-5195132_960_720.jpg"
-                        }
+                        src={`${process.env.REACT_APP_BACKEND_FLASK}images/${unidad.image}`}
                         numero_pasajeros={unidad.numero_pasajeros}
                         marca={unidad.marca}
                         id={unidad.id}

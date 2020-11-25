@@ -42,6 +42,7 @@ export const listenUnidadesTranporte = gql`
       numero_placa
       marca
       id
+      image
     }
   }
 `;

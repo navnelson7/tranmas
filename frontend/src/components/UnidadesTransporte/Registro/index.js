@@ -44,6 +44,13 @@ function Registro() {
       [e.target.name]: e.target.value,
     });
   };
+
+  const setImageUrl = (filename)=> {
+    setUnidadTransporte({
+      ...UnidadTransporte,
+      image: filename,
+    });
+  }
   
 
   const submitTransporte = (e) => {
@@ -242,7 +249,7 @@ function Registro() {
             </div>
 
             <div>
-            <ImageSelected/>
+            <ImageSelected setImageUrl={setImageUrl}/>
             </div>
 
 

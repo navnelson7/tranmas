@@ -281,6 +281,7 @@ export const setTransporteOne = gql`
     $serie_motor: String
     $updated_at: date
     $created_at: date
+    $image: String
   ) {
     insert_unidades_de_transporte_one(
       object: {
@@ -297,6 +298,7 @@ export const setTransporteOne = gql`
         serie_motor: $serie_motor
         updated_at: $updated_at
         created_at: $created_at
+        image: $image
       }
     ) {
       id

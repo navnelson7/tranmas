@@ -5,8 +5,8 @@ import saveIcon from "../icons/save.svg";
 import axios from "axios"
 
 
-function ImageSelected() {
-    const refFile = useRef(null);
+function ImageSelected({setImageUrl}) {
+  const refFile = useRef(null);
   const [newImageChange, setnewImageChange] = useState(null);
   const [Imageprevious, setImageprevious] = useState(null);
   const [Progress, setProgress] = useState(0);
@@ -42,7 +42,8 @@ function ImageSelected() {
             }
         }
     );
-    console.log(res);
+    const urlImage = res.data.filename
+    setImageUrl(urlImage)    
   }
     return (
         <Fragment>
