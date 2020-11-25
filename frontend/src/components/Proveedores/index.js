@@ -1,16 +1,15 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import styled from "styled-components";
 import rightIcon from "./iconos/right.svg";
 import leftIcon from "./iconos/left.svg";
 import addProveedorIcon from "./iconos/add-proveedor.svg";
-import reloadIcon from "./iconos/refresh.svg";
 import { ToastComponent } from "../Toast";
 
 import { useSubscription, useMutation } from "@apollo/client";
 import { listenProveedoresTable } from "../../graphql/Suscription";
 import { updateActivoProveedor } from "../../graphql/Mutations";
 
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Proveedores() {
   //CONTEXT

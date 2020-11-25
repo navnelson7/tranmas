@@ -67,7 +67,7 @@ const StyleImage = styled.div`
     height: 50px;
     width: 50px;
     background: transparent;
-    margin-top: 15%;
+    margin-top: 12%;
     border-radius: 50px;
     text-align: center;
     cursor: pointer;

@@ -7,6 +7,8 @@ import { ToastComponent } from "../../Toast";
 import { useHistory } from "react-router-dom";
 import ButtonsDesitions from "../../ButtonsDesitions";
 import ImageSelected from "./ImageSelected";
+import axios from "axios";
+import { useEffect } from "react";
 
 function Registro() {
   const { push } = useHistory();
@@ -45,16 +47,51 @@ function Registro() {
     });
   };
 
-  const setImageUrl = (filename)=> {
-    setUnidadTransporte({
-      ...UnidadTransporte,
-      image: filename,
-    });
-  }
-  
+  const [newImageChange, setnewImageChange] = useState(null);
+  const [Progress, setProgress] = useState(0);
+  const [ExecuteSave, setExecuteSave] = useState(false);
+  const [ImagenUrlGetting, setImagenUrlGetting] = useState(false);
 
-  const submitTransporte = (e) => {
+  const uploadImage = async (e) => {
     e.preventDefault();
+    // create formData object
+    const formData = new FormData();
+    formData.append("file", newImageChange);
+
+    // Send to cloudianry
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_FLASK}upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress(e) {
+          let progress = Math.round((e.loaded * 100.0) / e.total);
+          setProgress(progress);
+          if (progress === 100) {
+            setExecuteSave(true);
+          }
+        },
+      })
+      .then((res) => {
+        const urlImage = res.data.filename;
+        setUnidadTransporte({
+          ...UnidadTransporte,
+          image: urlImage,
+        });
+        setImagenUrlGetting(true);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    if (ExecuteSave && ImagenUrlGetting) {
+      console.log("si se ejecuto");
+      console.log(newImageChange);
+      submitTransporte();
+    }
+  }, [ExecuteSave, ImagenUrlGetting]);
+
+  const submitTransporte = () => {
     setLoading(true);
     addTransporte({
       variables: UnidadTransporte,
@@ -244,14 +281,17 @@ function Registro() {
               <br />
               <ButtonsDesitions
                 linkCancel="/unidades-transporte"
-                submitSave={submitTransporte}
+                submitSave={uploadImage}
               />
             </div>
 
             <div>
-            <ImageSelected setImageUrl={setImageUrl}/>
+              <ImageSelected
+                newImageChange={newImageChange}
+                setnewImageChange={setnewImageChange}
+                Progress={Progress}
+              />
             </div>
-
 
             <br />
             <br />
@@ -293,7 +333,6 @@ const StyleRegitroUnidades = styled.div`
       margin-top: 2%;
     }
   }
-
 
   //GRID FORM TRANSPORTE
 
