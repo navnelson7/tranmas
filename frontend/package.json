@@ -29,6 +29,7 @@
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.3",
+        "react-webcam": "^5.2.2",
         "styled-components": "^5.2.1",
         "subscriptions-transport-ws": "^0.9.18",
         "uuid": "^8.3.1"
