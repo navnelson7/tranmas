@@ -1,14 +1,21 @@
 import React, { Fragment, useState } from 'react';
-import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button} from 'react-bootstrap';
+import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button, Modal} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import ListBoxTipoEmpleados from '../Empleados/ListBoxTipoEmpleados';
 import ListBoxDepartamentos from './ListBoxDepartamentos';
 import ListBoxEstadoEmpleado from './ListBoxEstadoEmpleado';
+import CapturaFotoEmpleado from './CapturaFotoEmpleado';
 import {ToastComponent} from "../Toast";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faCamera } from '@fortawesome/free-solid-svg-icons'
 
 import {useMutation} from '@apollo/client';
 import {setEmpleadosOne} from '../../graphql/Mutations';
-const Registro = () => {
+const Registro = (imageSrc) => {
+
+    const [show, setShow]= useState(false);
+    const handleClose = () => setShow(false);
+    const handelShow = () => setShow(true);
 
     const [showAlert, setshowAlert] = useState(false);
     const [IconType, setIconType] = useState("");
@@ -156,6 +163,12 @@ const Registro = () => {
                                         onChange={onChange}
                                     />
                                 </InputGroup>
+                                <img src={imageSrc} alt="Foto empleado"></img>
+                            </Col>
+                            <Col sm={6}>
+                                <Col sm={12}>
+                                    <Button onClick={handelShow}><FontAwesomeIcon icon={faCamera}/></Button>
+                                </Col>
                             </Col>
                         </Row>
                         <Row>
@@ -419,6 +432,16 @@ const Registro = () => {
                 </Card>
             </Form>
             </div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Capturadore de Imganes Tranmas</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <img src={imageSrc} alt=""/>
+                    <CapturaFotoEmpleado />
+                </Modal.Body>
+            </Modal>
+            
         </Container>
         </Fragment>
      );

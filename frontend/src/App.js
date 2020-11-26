@@ -54,6 +54,9 @@ const FichaEmpleado = lazy(()=>
 const PdfEmpleado = lazy(()=>
   import("./components/Empleados/PdfEmpleado")
 );
+const CapturaFotoEmpleado = lazy(()=>
+  import("./components/Empleados/CapturaFotoEmpleado")
+);
 
 function App() {
   return (
@@ -162,6 +165,11 @@ function App() {
             <Route exact path="/pdf-empleado" component={PdfEmpleado}>
               <Suspense fallback="Cargando...">
                 <PdfEmpleado/>
+              </Suspense>
+            </Route>
+            <Route exact path="/captura-foto-empleado" component={CapturaFotoEmpleado}>
+              <Suspense fallback="Cargando....">
+                <CapturaFotoEmpleado/>
               </Suspense>
             </Route>
           </Switch>
