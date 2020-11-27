@@ -11,8 +11,9 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons'
 
 import {useMutation} from '@apollo/client';
 import {setEmpleadosOne} from '../../graphql/Mutations';
-const Registro = (imageSrc) => {
+const Registro = () => {
 
+    const [image,setImage] = useState();
     const [show, setShow]= useState(false);
     const handleClose = () => setShow(false);
     const handelShow = () => setShow(true);
@@ -149,7 +150,7 @@ const Registro = (imageSrc) => {
                 <Card>
                     <Card.Body>
                         <Row>
-                            <Col sm={6}>
+                            <Col sm={4}>
                                 <InputGroup className="mb-3">
                                     <InputGroup.Append>
                                         <InputGroup.Text id="basic -addon1">Codigo</InputGroup.Text>
@@ -163,12 +164,12 @@ const Registro = (imageSrc) => {
                                         onChange={onChange}
                                     />
                                 </InputGroup>
-                                <img src={imageSrc} alt="Foto empleado"></img>
                             </Col>
-                            <Col sm={6}>
-                                <Col sm={12}>
-                                    <Button onClick={handelShow}><FontAwesomeIcon icon={faCamera}/></Button>
-                                </Col>
+                            <Col sm={2}>
+                                <Button onClick={handelShow}><FontAwesomeIcon icon={faCamera}/></Button>
+                            </Col>
+                            <Col sm = {6}>
+                                <img src={image} alt="Foto empleado"></img>
                             </Col>
                         </Row>
                         <Row>
@@ -437,8 +438,9 @@ const Registro = (imageSrc) => {
                     <Modal.Title>Capturadore de Imganes Tranmas</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <img src={imageSrc} alt=""/>
-                    <CapturaFotoEmpleado />
+                    <CapturaFotoEmpleado 
+                        setImage= {setImage}
+                    />
                 </Modal.Body>
             </Modal>
             
