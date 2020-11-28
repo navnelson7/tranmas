@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button, Modal} from 'react-bootstrap';
+import React, { Fragment, useState, useEffect } from 'react';
+import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button, Modal, Image} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import ListBoxTipoEmpleados from '../Empleados/ListBoxTipoEmpleados';
 import ListBoxDepartamentos from './ListBoxDepartamentos';
@@ -13,7 +13,7 @@ import {useMutation} from '@apollo/client';
 import {setEmpleadosOne} from '../../graphql/Mutations';
 const Registro = () => {
 
-    const [image,setImage] = useState();
+    const [image,setImage] = useState("https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg ");
     const [show, setShow]= useState(false);
     const handleClose = () => setShow(false);
     const handelShow = () => setShow(true);
@@ -21,7 +21,7 @@ const Registro = () => {
     const [showAlert, setshowAlert] = useState(false);
     const [IconType, setIconType] = useState("");
     const [TextAlert, setTextAlert] = useState("");
-    
+     
     const [addEmpleados] = useMutation(setEmpleadosOne);
     
 
@@ -46,7 +46,7 @@ const Registro = () => {
         id_estado_empleados: '',
         id_departamento: '',
         comentarios: '',
-
+        picture: image
     })
 
     const {
@@ -70,16 +70,16 @@ const Registro = () => {
         id_estado_empleados,
         id_departamento,
         comentarios,
+        picture,
     } = empleado;
 
     const onChange = e => {
         guardarRegistro({
             ...empleado,
-            [e.target.name] : e.target.value 
+            [e.target.name] : e.target.value,
+            picture:image
         })
     }
-
-   
 
 
     const onSubmit = (e) => {
@@ -139,14 +139,25 @@ const Registro = () => {
         <Fragment>
             <ToastComponent 
                 showAlert={showAlert}
-                setShowAlert={setshowAlert}
+                setShowAlert={setshowAlert}picture
                 iconType={IconType}
                 textAlert={TextAlert}
             />
             <Container>
+
             <div className="box-left">
                 <h1>REGISTRO DE EMPLEADOS</h1>
+                <Image src={image} alt="Foto empleado" rounded responsive></Image> 
+               
             <Form>
+            <InputGroup className="mb-3">
+                    <InputGroup.Append></InputGroup.Append>
+                    <FormControl
+                        value={picture}
+                        onChange={onChange}
+                        hidden
+                    />
+                </InputGroup>
                 <Card>
                     <Card.Body>
                         <Row>
@@ -167,9 +178,6 @@ const Registro = () => {
                             </Col>
                             <Col sm={2}>
                                 <Button onClick={handelShow}><FontAwesomeIcon icon={faCamera}/></Button>
-                            </Col>
-                            <Col sm = {6}>
-                                <img src={image} alt="Foto empleado"></img>
                             </Col>
                         </Row>
                         <Row>
@@ -431,6 +439,7 @@ const Registro = () => {
 
                     </Card.Body>
                 </Card>
+
             </Form>
             </div>
             <Modal show={show} onHide={handleClose}>
@@ -440,10 +449,10 @@ const Registro = () => {
                 <Modal.Body>
                     <CapturaFotoEmpleado 
                         setImage= {setImage}
+                        image= {image}
                     />
                 </Modal.Body>
             </Modal>
-            
         </Container>
         </Fragment>
      );

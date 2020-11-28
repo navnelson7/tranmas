@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import {Button, Image} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faPrint } from '@fortawesome/free-solid-svg-icons'
 
@@ -12,6 +12,9 @@ const Empleado = ({empleado}) => {
                 <td>{empleado.apellidos}</td>
                 <td>{empleado.edad}</td>
                 <td>{empleado.dui}</td>
+                <td>
+                    <Image src={empleado.picture} alt="Foto empleado" rounded responsive></Image> 
+                </td>
                 <td>
                 <Link to={`/actualizar-empleado/${empleado.id}`} variant="danger" value={empleado.id}><Button variant="info" value={empleado.id} ><FontAwesomeIcon icon={faEdit}/></Button></Link>
                 <Button variant="danger" value={empleado.id}  ><FontAwesomeIcon icon={faTrash}/></Button>

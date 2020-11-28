@@ -19,6 +19,7 @@ export const getEmpmleados = gql `
       afp
       licencia_conducir
       licencia_arma
+      picture
     }
   }
 `;
@@ -216,6 +217,7 @@ export const getEmpleadosByCodigo = gql `
       afp
       licencia_conducir
       licencia_arma
+      picture
     }
   }
 `;

@@ -1,11 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Webcam from 'react-webcam';
-const CapturaFotoEmpleado = ({setImage}) => {
+const CapturaFotoEmpleado = ({setImage,image}) => {
     const videoConstraints = {
-        width: 1280,
-        height: 720,
+        width: 720, // 1280
+        height: 560,//720
         facingMode: "user"
     };
     const webcamRef = React.useRef(null);
