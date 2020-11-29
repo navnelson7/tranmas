@@ -89,7 +89,7 @@ const StyleImageSelected = styled.div`
   .banner-imagen {
     top: 160px;
     position: relative;
-    width: 45%;
+    width: 52%;
     cursor: pointer;
     border-radius: 10%;
     height: 30px;
@@ -99,7 +99,7 @@ const StyleImageSelected = styled.div`
   }
   .grid-box-editar {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: auto auto;
   }
   .mt-txt {
     margin-top: 5px;

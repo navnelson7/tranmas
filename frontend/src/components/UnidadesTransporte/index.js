@@ -1,68 +1,120 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "./Image";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { useSubscription } from "@apollo/client";
-import { listenUnidadesTranporte } from "../../graphql/Suscription";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import axios from "axios";
 
 function UnidadesTransporte() {
-  const { data, loading, error } = useSubscription(listenUnidadesTranporte);
-  if (loading)
-    return (
-      <div className="box-center">
-        <div className="spinner-border text-primary" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    );
-  if (error)
-    return (
-      <div className="box-center">
-        <p>{error.message}</p>
-      </div>
-    );
+  const [Element, setElement] = useState(null);
+  const [Data, setData] = useState([]);
+  const [Loading, setLoading] = useState(false);
+  const [pageNumber, setpageNumber] = useState(0);
+  const [Error, setError] = useState(false);
+  const [showReference, setshowReference] = useState(true);
+
+  const load = () => {
+    setTimeout(() => {
+      setpageNumber(pageNumber + 10);
+    }, 300);
+  };
+  useInfiniteScroll({ element: Element, fetch: load });
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchGraphQL = async () => {
+      try {
+        const result = await fetch("http://localhost:8080/v1/graphql", {
+          method: "POST",
+          body: JSON.stringify({
+            query: `
+        query unnamedQuery1 {
+          unidades_de_transporte(where: {activo: {_eq: true}}, offset: ${pageNumber}, limit: 10) {
+            activo
+            numero_pasajeros
+            numero_placa
+            marca
+            id
+            image
+          }
+        }
+      `,
+          }),
+        });
+        const res = await result.json();
+        if (res.data.unidades_de_transporte.length > 0) {
+          // GUARDANDO UNIDADES
+          setData((prevUnidades) => {
+            return [
+              ...new Set([
+                ...prevUnidades,
+                ...res.data.unidades_de_transporte.map((b) => b),
+              ]),
+            ];
+          });
+        } else {
+          setshowReference(false);
+        }
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    fetchGraphQL();
+  }, [pageNumber]);
+
   return (
     <Fragment>
       <StyleCards>
         <div className="box-left-cards">
-          <div className="d-flex justify-content-end mr-2">
-            <Link to="/registro-transporte">
-              <Button variant="primary">Nueva Unidad</Button>
-            </Link>
-          </div>
-          <div className="row hidden-md-up">
-            {data.unidades_de_transporte.map((unidad) => {
-              return (
-                <div className="col-md-4" key={unidad.id}>
-                  <div className="card mt-3">
-                    <div className="card-block">
-                      <Image
-                        src={`${process.env.REACT_APP_BACKEND_FLASK}images/${unidad.image}`}
-                        numero_pasajeros={unidad.numero_pasajeros}
-                        marca={unidad.marca}
-                        id={unidad.id}
-                      />
-                      <br />
-                      <br />
-                      <div className="box-placa">
-                        <div className="box-blue-top">EL SALVADOR</div>
-                        <div className="box-white">
-                          <strong>{unidad.numero_placa}</strong>
+          <div className="container-viewport">
+            <div className="d-flex justify-content-end mr-2">
+              <Link to="/registro-transporte">
+                <Button variant="primary">Nueva Unidad</Button>
+              </Link>
+            </div>
+            <div className="row hidden-md-up">
+              {Data.map((unidad) => {
+                return (
+                  <div className="col-md-4" key={unidad.id}>
+                    <div className="card mt-3">
+                      <div className="card-block">
+                        <Image
+                          src={`${process.env.REACT_APP_BACKEND_FLASK}images/${unidad.image}`}
+                          numero_pasajeros={unidad.numero_pasajeros}
+                          marca={unidad.marca}
+                          id={unidad.id}
+                        />
+                        <br />
+                        <br />
+                        <div className="box-placa">
+                          <div className="box-blue-top">EL SALVADOR</div>
+                          <div className="box-white">
+                            <strong>{unidad.numero_placa}</strong>
+                          </div>
+                          <div className="box-blue-bottom">CENTRO AMERICA</div>
                         </div>
-                        <div className="box-blue-bottom">CENTRO AMERICA</div>
+                        <br />
                       </div>
-                      <br />
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            {Loading && <li>Cargando</li>}
+            {!Loading && showReference ? (
+              <p ref={setElement} align="center">
+                Cargando...
+              </p>
+            ) : null}
           </div>
-          <br />
         </div>
       </StyleCards>
+      <br />
+      <br />
+      <br />
+      <br />
     </Fragment>
   );
 }
@@ -74,6 +126,11 @@ const StyleCards = styled.div`
     margin-left: 18%;
     margin-top: 2%;
     overflow-x: hidden;
+  }
+
+  .container-viewport {
+    min-height: 120vh;
+    height: 100%;
   }
 
   .box-image {
@@ -134,5 +191,11 @@ const StyleCards = styled.div`
       margin-left: 15%;
       margin-top: 2%;
     }
+  }
+
+  li {
+    padding: 1rem;
+    margin: 1rem;
+    min-height: 100px;
   }
 `;

@@ -1,17 +1,9 @@
-export default function useInfiniteScroll({elementObserver,fetch}){
-  const [loading, setloading] = useState(false);
+import { useRef, useEffect } from "react";
 
-  const load = () => {
-    setloading(true);
-    setTimeout(() => {
-      fetch()
-      setloading(false);
-    }, 300);
-  };
+export const useInfiniteScroll = ({ element, fetch }) => {
+  const loader = useRef(fetch);
 
-  const loader = React.useRef(load);
-
-  const observer = React.useRef(
+  const observer = useRef(
     new IntersectionObserver(
       (entries) => {
         const first = entries[0];
@@ -19,30 +11,25 @@ export default function useInfiniteScroll({elementObserver,fetch}){
           loader.current();
         }
       },
-      { threshold: 1 }
+      { threshold: 0.5 }
     )
   );
-  //REFRESH TO REFERENCE
-  React.useEffect(() => {
-    loader.current = load;
-  }, [load]);
 
-  React.useEffect(() => {
-    const currentElement = elementObserver;
+  useEffect(() => {
+    loader.current = fetch;
+  }, [fetch]);
+
+  useEffect(() => {
+    const currentElement = element;
     const currentObserver = observer.current;
 
     if (currentElement) {
       currentObserver.observe(currentElement);
     }
-
     return () => {
       if (currentElement) {
         currentObserver.unobserve(currentElement);
       }
     };
   }, [element]);
-
-  return {
-      loading
-  }
-}
+};

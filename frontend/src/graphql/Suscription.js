@@ -35,8 +35,12 @@ export const listenProveedoresTable = gql`
 `;
 
 export const listenUnidadesTranporte = gql`
-  subscription {
-    unidades_de_transporte(where: { activo: { _eq: true } }) {
+  query($paginateNumber: Int) {
+    unidades_de_transporte(
+      where: { activo: { _eq: true } }
+      offset: $paginateNumber
+      limit: 10
+    ) {
       activo
       numero_pasajeros
       numero_placa
