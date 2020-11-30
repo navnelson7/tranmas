@@ -17,15 +17,29 @@ def create_folder():
     if os.path.exists(os.getcwd() + "/images") != True:
         os.makedirs(os.getcwd() + "/images")
 
+
+@app.errorhandler(400)
+def not_found(error=str):
+    response = jsonify({
+        "message": error,
+        "status": 400
+        })
+    response.status_code = 400
+    return response
+        
 @app.route('/upload', methods=["POST"])
 def upload_image():
     if request.method == 'POST':
-        file = request.files['file']
+        # SI EL USUARIO NO MANDA LA IMAGEN
+        if 'file' not in request.files:
+            print('jjee')
+            return not_found(error="Image not found")
+
+        file = request.files['file']       
+
         if file.filename == '':
-             return jsonify({
-                "message": "Select a file",
-                "upload": False
-            })
+            return not_found(error="Select a file")
+
         filename = secure_filename(file.filename)
         filename_finally = ""
         try:
@@ -51,6 +65,7 @@ def upload_image():
         return jsonify({
             "message": "success",
             "upload": True,
+            "status": 200,
             "filename": filename_finally
         })
 
