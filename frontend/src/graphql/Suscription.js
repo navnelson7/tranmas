@@ -68,6 +68,7 @@ export const listenUnidadTransporteById = gql`
       serie_motor
       serie_chasis
       numero_tarjeta_circulacion
+      image
     }
   }
 `;

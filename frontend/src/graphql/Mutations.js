@@ -377,13 +377,14 @@ export const updateUnidadOne = gql `
     $serie_motor: String
     $updated_at: date
     $__typename: String
+    $image: String
     ) {
     update_unidades_de_transporte_by_pk(
       pk_columns: { id: $id }
       _set: { 
         numero_pasajeros: $numero_pasajeros
         numero_placa: $numero_placa
-        marca: $numero_placa
+        marca: $marca
         color: $color
         color_tapiceria: $color_tapiceria
         modelo: $modelo
@@ -392,6 +393,7 @@ export const updateUnidadOne = gql `
         serie_chasis: $serie_chasis
         numero_tarjeta_circulacion: $numero_tarjeta_circulacion
         updated_at: $updated_at
+        image: $image
       }
     ) {
       activo

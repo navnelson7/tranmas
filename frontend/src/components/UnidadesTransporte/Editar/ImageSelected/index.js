@@ -1,11 +1,19 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import styled from "styled-components";
-import editIcon from "../icons/edit.svg";
-import tranmasImage from "../icons/tranmas.png";
+import tranmasImage from "../../Registro/icons/tranmas.png";
+import editIcon from "../../icons/edit.svg";
 
-function ImageSelected({ setnewImageChange, Progress }) {
+function ImageSelected({
+  Progress,
+  setnewImageChange,
+  setImagePrevious,
+  ImagePrevious,
+  newImage,
+}) {
+  const [Loading, setLoading] = useState(false);
+  const [ImageShow, setImageShow] = useState(null);
+
   const refFile = useRef(null);
-  const [Imageprevious, setImageprevious] = useState(null);
   const changeImage = (e) => {
     setnewImageChange(e.target.files[0]);
     //convierto la imagen en url para poder mostrarla en la interfaz
@@ -14,14 +22,20 @@ function ImageSelected({ setnewImageChange, Progress }) {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (e) => {
         e.preventDefault();
-        setImageprevious(e.target.result); // le damos el binario de la imagen para mostrarla en pantalla
+        setImagePrevious(e.target.result); // le damos el binario de la imagen para mostrarla en pantalla
       };
     }
   };
+
+  if (Loading) return "Cargando...";
   return (
     <Fragment>
       <StyleImageSelected
-        src={Imageprevious === null ? tranmasImage : Imageprevious}
+        src={
+          newImage === null
+            ? process.env.REACT_APP_BACKEND_FLASK + "images/" + ImagePrevious
+            : newImage
+        }
       >
         <h5 className="center-txt">
           <strong>Fotografia de bus</strong>
@@ -49,7 +63,7 @@ function ImageSelected({ setnewImageChange, Progress }) {
                     </div>
                     <div>
                       <p className="mt-txt">
-                        <a>Seleccionar</a>
+                        <a>Editar</a>
                       </p>
                     </div>
                   </Fragment>

@@ -16,6 +16,7 @@ function Registro() {
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
+  const [Error, setError] = useState("");
   const [UnidadTransporte, setUnidadTransporte] = useState({
     activo: true,
     updated_at:
@@ -58,34 +59,48 @@ function Registro() {
     const formData = new FormData();
     formData.append("file", newImageChange);
 
-    // Send to cloudianry
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_FLASK}upload`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress(e) {
-          let progress = Math.round((e.loaded * 100.0) / e.total);
-          setProgress(progress);
-          if (progress === 100) {
-            setExecuteSave(true);
+    if (newImageChange === null) {
+      setLoading(false);
+      setTextAlert("Selecciona una imagen");
+      setIconType("error");
+      setshowAlert(true);
+    } else {
+      // Send to cloudianry
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_FLASK}upload`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress(e) {
+            let progress = Math.round((e.loaded * 100.0) / e.total);
+            setProgress(progress);
+            if (progress === 100) {
+              setExecuteSave(true);
+            }
+          },
+        })
+        .then((res) => {
+          const urlImage = res.data.filename;
+          setUnidadTransporte({
+            ...UnidadTransporte,
+            image: urlImage,
+          });
+          console.log(res);
+          setImagenUrlGetting(true);
+        })
+        .catch(function (error) {
+          if (error.response.data.message === "Image not found") {
+            setLoading(false);
+            setTextAlert("Selecciona una imagen");
+            setIconType("error");
+            setshowAlert(true);
           }
-        },
-      })
-      .then((res) => {
-        const urlImage = res.data.filename;
-        setUnidadTransporte({
-          ...UnidadTransporte,
-          image: urlImage,
         });
-        setImagenUrlGetting(true);
-      })
-      .catch((err) => console.log(err));
+    }
   };
 
   useEffect(() => {
     if (ExecuteSave && ImagenUrlGetting) {
-      console.log("si se ejecuto");
       console.log(newImageChange);
       submitTransporte();
     }
@@ -108,8 +123,7 @@ function Registro() {
           }, 2000);
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         setLoading(false);
         setTextAlert("Ocurrio un problema");
         setIconType("error");
@@ -287,7 +301,6 @@ function Registro() {
 
             <div>
               <ImageSelected
-                newImageChange={newImageChange}
                 setnewImageChange={setnewImageChange}
                 Progress={Progress}
               />

@@ -4,7 +4,6 @@ import rightIcon from "./iconos/right.svg";
 import leftIcon from "./iconos/left.svg";
 import addProveedorIcon from "./iconos/add-proveedor.svg";
 import { ToastComponent } from "../Toast";
-
 import { useSubscription, useMutation } from "@apollo/client";
 import { listenProveedoresTable } from "../../graphql/Suscription";
 import { updateActivoProveedor } from "../../graphql/Mutations";

@@ -4,7 +4,6 @@ import Image from "./Image";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
-import axios from "axios";
 
 function UnidadesTransporte() {
   const [Element, setElement] = useState(null);
@@ -25,7 +24,7 @@ function UnidadesTransporte() {
     setLoading(true);
     const fetchGraphQL = async () => {
       try {
-        const result = await fetch("http://localhost:8080/v1/graphql", {
+        const result = await fetch(process.env.REACT_APP_BACKEND_URL, {
           method: "POST",
           body: JSON.stringify({
             query: `
