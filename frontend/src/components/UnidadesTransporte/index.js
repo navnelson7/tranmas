@@ -62,7 +62,12 @@ function UnidadesTransporte() {
     };
     fetchGraphQL();
   }, [pageNumber]);
-
+  if (Error)
+  return (
+    <div className="box-center">
+      <p>{Error}</p>
+    </div>
+  );
   return (
     <Fragment>
       <StyleCards>

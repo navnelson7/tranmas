@@ -1,6 +1,5 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef } from "react";
 import styled from "styled-components";
-import tranmasImage from "../../Registro/icons/tranmas.png";
 import editIcon from "../../icons/edit.svg";
 
 function ImageSelected({
@@ -10,9 +9,6 @@ function ImageSelected({
   ImagePrevious,
   newImage,
 }) {
-  const [Loading, setLoading] = useState(false);
-  const [ImageShow, setImageShow] = useState(null);
-
   const refFile = useRef(null);
   const changeImage = (e) => {
     setnewImageChange(e.target.files[0]);
@@ -26,8 +22,6 @@ function ImageSelected({
       };
     }
   };
-
-  if (Loading) return "Cargando...";
   return (
     <Fragment>
       <StyleImageSelected

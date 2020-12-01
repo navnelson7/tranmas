@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext} from "react";
 import { Fragment } from "react";
 import styled from "styled-components";
 import ContextInputSearch from "../../../context/ContextInputSearch";
 import { useLocation, useHistory } from "react-router-dom";
 import FiltroDropdown from "../Filtro";
-import DropdownNotificaciones from "./DropdownNotificaciones";
 
 function NavegacionTop() {
   const { pathname } = useLocation();
@@ -47,20 +46,6 @@ function NavegacionTop() {
             </div>
             <StyleDropdown>
               <div className="flex-icons--nav-mobile">
-                <div className="container-dropdown" style={{ float: "right" }}>
-                  <a href="#" className="btn">
-                    <span
-                      className="material-icons"
-                      style={{
-                        fontSize: "24px",
-                        color: "#ffffff",
-                      }}
-                    >
-                      notifications
-                    </span>
-                    <DropdownNotificaciones />
-                  </a>
-                </div>
                 <div className="container-dropdown" style={{ float: "right" }}>
                   <a href="#" className="btn">
                     <img
@@ -113,26 +98,6 @@ function NavegacionTop() {
             <StyleDropdown>
               <div className="flex-icons-right">
                 <div className="grid-icons-right">
-                  <div className="box-icons-right">
-                    <div
-                      className="container-dropdown"
-                      style={{ float: "right" }}
-                    >
-                      <a href="#" className="btn">
-                        <span
-                          className="material-icons"
-                          style={{
-                            fontSize: "24px",
-                            color: "#ffffff",
-                            marginTop: "4px",
-                          }}
-                        >
-                          notifications
-                        </span>
-                        <DropdownNotificaciones />
-                      </a>
-                    </div>
-                  </div>
                   <div
                     className="container-dropdown"
                     style={{ float: "right" }}
