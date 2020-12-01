@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Form, InputGroup, FormControl } from "react-bootstrap";
-import editIcon from "../icons/edit.svg";
 import { useMutation } from "@apollo/client";
 import { updateUnidadOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
@@ -9,6 +8,8 @@ import { useHistory, useParams } from "react-router-dom";
 import ButtonsDesitions from "../../ButtonsDesitions";
 import { useSubscription } from "@apollo/client";
 import { listenUnidadTransporteById } from "../../../graphql/Suscription";
+import ImageSelected from "./ImageSelected";
+import axios from "axios";
 
 function EditarTransporte() {
   const { push } = useHistory();
@@ -17,6 +18,7 @@ function EditarTransporte() {
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
+
   const { data, loading, error } = useSubscription(listenUnidadTransporteById, {
     variables: { id: params.id },
   });
@@ -54,24 +56,68 @@ function EditarTransporte() {
       [e.target.name]: e.target.value,
     });
   };
-
-  const refFile = useRef(null);
   const [newImageChange, setnewImageChange] = useState(null);
-  const [Imageprevious, setImageprevious] = useState(null);
 
-  const changeImage = (e) => {
-    setnewImageChange(e.target.files[0]);
-    //convierto la imagen en url para poder mostrarla en la interfaz
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = (e) => {
-      e.preventDefault();
-      setImageprevious(e.target.result); // le damos el binario de la imagen para mostrarla en pantalla
-    };
+  const [ImagePrevious, setImagePrevious] = useState(null);
+  const [Progress, setProgress] = useState(0);
+  const [ExecuteSave, setExecuteSave] = useState(false);
+  const [ImagenUrlGetting, setImagenUrlGetting] = useState(false);
+
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    // create formData object
+    const formData = new FormData();
+    formData.append("file", newImageChange);
+    formData.append("previousFile", data.unidades_de_transporte_by_pk.image);
+
+    if (newImageChange === null) {
+      setLoading(false);
+      setTextAlert("Selecciona una imagen");
+      setIconType("error");
+      setshowAlert(true);
+    } else {
+      // Send to cloudianry
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_FLASK}update`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress(e) {
+            let progress = Math.round((e.loaded * 100.0) / e.total);
+            setProgress(progress);
+            if (progress === 100) {
+              setExecuteSave(true);
+            }
+          },
+        })
+        .then((res) => {
+          const urlImage = res.data.filename;
+          setUnidadTransporte({
+            ...UnidadTransporte,
+            image: urlImage,
+          });
+          console.log(res);
+          setImagenUrlGetting(true);
+        })
+        .catch(function (error) {
+          if (error.response.data.message === "Image not found") {
+            setLoading(false);
+            setTextAlert("Selecciona una imagen");
+            setIconType("error");
+            setshowAlert(true);
+          }
+        });
+    }
   };
 
-  const submitTransporte = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (ExecuteSave && ImagenUrlGetting) {
+      console.log(newImageChange);
+      submitTransporte();
+    }
+  }, [ExecuteSave, ImagenUrlGetting]);
+
+  const submitTransporte = () => {
     setLoading(true);
     console.log("lo que mande -->", UnidadTransporte);
     addTransporte({
@@ -97,6 +143,7 @@ function EditarTransporte() {
         setshowAlert(true);
       });
   };
+
   if (loading || Loading)
     return (
       <div className="box-center">
@@ -105,12 +152,14 @@ function EditarTransporte() {
         </div>
       </div>
     );
+
   if (error)
     return (
       <div className="box-center">
         <p>{error.message}</p>
       </div>
     );
+
   return (
     <Fragment>
       <ToastComponent
@@ -121,9 +170,7 @@ function EditarTransporte() {
       />
       <StyleRegitroUnidades
         src={
-          Imageprevious === null
-            ? "https://i.blogs.es/0b13f1/tmb-bus-electric/840_560.jpg"
-            : Imageprevious
+          "https://www.sustainable-bus.com/wp-content/uploads/2019/12/scania-bus4.jpg"
         }
       >
         <div className="box-left-container">
@@ -289,40 +336,18 @@ function EditarTransporte() {
               <br />
               <ButtonsDesitions
                 linkCancel="/unidades-transporte"
-                submitSave={submitTransporte}
+                submitSave={uploadImage}
               />
             </div>
 
             <div>
-              <h5 className="center-txt">
-                <strong>Fotografia de bus</strong>
-              </h5>
-
-              <div className="box-center-image">
-                <div className="img-bus">
-                  <div className="banner-imagen txt-editar">
-                    <div className="grid-box-editar">
-                      <input
-                        className="d-none"
-                        ref={refFile}
-                        type="file"
-                        onChange={(e) => changeImage(e)}
-                      />
-                      <div
-                        className="grid-box-editar"
-                        onClick={() => refFile.current.click()}
-                      >
-                        <img src={editIcon} alt="" />
-                      </div>
-                      <div>
-                        <p className="mt-txt">
-                          <a>Editar</a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ImageSelected
+                Progress={Progress}
+                setImagePrevious={setImagePrevious}
+                newImage={ImagePrevious}
+                ImagePrevious={data.unidades_de_transporte_by_pk.image}
+                setnewImageChange={setnewImageChange}
+              />
             </div>
             <br />
             <br />
@@ -340,16 +365,6 @@ const StyleRegitroUnidades = styled.div`
   .center-txt {
     text-align: center;
   }
-  .img-bus {
-    height: 200px;
-    width: 200px;
-    background-image: url(${(props) => props.src});
-    border-radius: 50%;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
-  }
-
   .box-center-image {
     display: flex;
     justify-content: center;
@@ -373,28 +388,6 @@ const StyleRegitroUnidades = styled.div`
       margin-left: 15%;
       margin-top: 2%;
     }
-  }
-
-  .banner-imagen {
-    top: 160px;
-    position: relative;
-    width: 45%;
-    cursor: pointer;
-    border-radius: 10%;
-    height: 30px;
-    background: white;
-    font-size: 14px;
-    border: 1.5px solid #e1e4e8;
-  }
-  .grid-box-editar {
-    display: grid;
-    grid-template-columns: 40% 60%;
-  }
-  .mt-txt {
-    margin-top: 5px;
-  }
-  .txt-editar {
-    color: black;
   }
 
   //GRID FORM TRANSPORTE
