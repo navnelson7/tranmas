@@ -335,7 +335,6 @@ function EditarTransporte() {
               </InputGroup>
               <br />
               <ButtonsDesitions
-                linkCancel="/unidades-transporte"
                 submitSave={uploadImage}
               />
             </div>

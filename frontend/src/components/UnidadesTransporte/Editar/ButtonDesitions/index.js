@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
  
-function ButtonDesitions({linkCancel, submitSave}) {
+function ButtonDesitions({submitSave}) {
   return (
     <Fragment>
       <StyleBtn>
@@ -14,7 +14,7 @@ function ButtonDesitions({linkCancel, submitSave}) {
               >
                 <strong>Eliminar</strong>
               </button>
-              <Link to={linkCancel}>
+              <Link to="/unidades-transporte">
                 <button className="btn-opcion bg-cancelar">
                   <strong>Cancelar</strong>
                 </button>

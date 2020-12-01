@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ObserverImages } from "../../../functions/ObserverImages";
+import { ObserverImages } from "../../../../functions/ObserverImages";
 
 export default function Image({ src, marca, numero_pasajeros, id }) {
   const [showImage, setShowImage] = useState(false);

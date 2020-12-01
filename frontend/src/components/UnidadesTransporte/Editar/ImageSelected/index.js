@@ -57,7 +57,7 @@ function ImageSelected({
                     </div>
                     <div>
                       <p className="mt-txt">
-                        <a>Editar</a>
+                        Editar
                       </p>
                     </div>
                   </Fragment>
