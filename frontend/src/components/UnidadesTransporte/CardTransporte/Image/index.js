@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ObserverImages } from "../../../functions/ObserverImages";
-import editIcon from "../icons/edit.svg";
+import { ObserverImages } from "../../../../functions/ObserverImages";
 
 export default function Image({ src, marca, numero_pasajeros, id }) {
   const [showImage, setShowImage] = useState(false);
@@ -21,8 +20,8 @@ export default function Image({ src, marca, numero_pasajeros, id }) {
               <div className="center-box">
                 <div className="box-rounded-pencil">
                   <Link to={`/actualizar-unidad-transporte/${id}`}>
-                    <img src={editIcon} alt="" className="icon-edit" />
-                  </Link>
+                    <svg className="icon-edit" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/></svg>
+                  </Link> 
                 </div>
               </div>
               <h4>
@@ -71,6 +70,7 @@ const StyleImage = styled.div`
     border-radius: 50px;
     text-align: center;
     cursor: pointer;
+    fill: transparent;
   }
   .icon-edit {
     margin-top: 10px;
@@ -79,5 +79,6 @@ const StyleImage = styled.div`
     color: white;
     transition: 0.3s;
     background: white;
+    fill: black;
   }
 `;

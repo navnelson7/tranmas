@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 import styled from "styled-components";
-import Image from "./Image";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import CardTransporte from "./CardTransporte";
 
 function UnidadesTransporte() {
   const [Element, setElement] = useState(null);
@@ -62,7 +62,12 @@ function UnidadesTransporte() {
     };
     fetchGraphQL();
   }, [pageNumber]);
-
+  if (Error)
+  return (
+    <div className="box-center">
+      <p>{Error}</p>
+    </div>
+  );
   return (
     <Fragment>
       <StyleCards>
@@ -76,28 +81,7 @@ function UnidadesTransporte() {
             <div className="row hidden-md-up">
               {Data.map((unidad) => {
                 return (
-                  <div className="col-md-4" key={unidad.id}>
-                    <div className="card mt-3">
-                      <div className="card-block">
-                        <Image
-                          src={`${process.env.REACT_APP_BACKEND_FLASK}images/${unidad.image}`}
-                          numero_pasajeros={unidad.numero_pasajeros}
-                          marca={unidad.marca}
-                          id={unidad.id}
-                        />
-                        <br />
-                        <br />
-                        <div className="box-placa">
-                          <div className="box-blue-top">EL SALVADOR</div>
-                          <div className="box-white">
-                            <strong>{unidad.numero_placa}</strong>
-                          </div>
-                          <div className="box-blue-bottom">CENTRO AMERICA</div>
-                        </div>
-                        <br />
-                      </div>
-                    </div>
-                  </div>
+                  <CardTransporte unidad={unidad}/>
                 );
               })}
             </div>

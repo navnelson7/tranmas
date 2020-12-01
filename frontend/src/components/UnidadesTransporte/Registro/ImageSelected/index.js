@@ -48,9 +48,7 @@ function ImageSelected({ setnewImageChange, Progress }) {
                       <img src={editIcon} alt="" />
                     </div>
                     <div>
-                      <p className="mt-txt">
-                        <a>Seleccionar</a>
-                      </p>
+                      <p className="mt-txt">Seleccionar</p>
                     </div>
                   </Fragment>
                 )}

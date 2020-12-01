@@ -1,11 +1,11 @@
-import React, { Fragment, useState, useEffect, useRef } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Form, InputGroup, FormControl } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { updateUnidadOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
 import { useHistory, useParams } from "react-router-dom";
-import ButtonsDesitions from "../../ButtonsDesitions";
+import ButtonsDesitions from "./ButtonDesitions";
 import { useSubscription } from "@apollo/client";
 import { listenUnidadTransporteById } from "../../../graphql/Suscription";
 import ImageSelected from "./ImageSelected";
@@ -112,9 +112,9 @@ function EditarTransporte() {
 
   useEffect(() => {
     if (ExecuteSave && ImagenUrlGetting) {
-      console.log(newImageChange);
       submitTransporte();
     }
+    // eslint-disable-next-line
   }, [ExecuteSave, ImagenUrlGetting]);
 
   const submitTransporte = () => {
@@ -335,7 +335,6 @@ function EditarTransporte() {
               </InputGroup>
               <br />
               <ButtonsDesitions
-                linkCancel="/unidades-transporte"
                 submitSave={uploadImage}
               />
             </div>

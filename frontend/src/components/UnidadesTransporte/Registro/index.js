@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { Form, InputGroup } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
@@ -16,7 +16,6 @@ function Registro() {
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
-  const [Error, setError] = useState("");
   const [UnidadTransporte, setUnidadTransporte] = useState({
     activo: true,
     updated_at:
@@ -101,9 +100,9 @@ function Registro() {
 
   useEffect(() => {
     if (ExecuteSave && ImagenUrlGetting) {
-      console.log(newImageChange);
       submitTransporte();
     }
+    // eslint-disable-next-line
   }, [ExecuteSave, ImagenUrlGetting]);
 
   const submitTransporte = () => {

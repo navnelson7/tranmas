@@ -2,26 +2,42 @@ import React, { Fragment, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Login from "./components/Auth/Login";
-import NuevoUsuario from "./components/Auth/NuevoUsuario";
-import Registro from "./components/Empleados/Registro";
-import ListadoEmpleados from "./components/Empleados/ListadoEmpleados";
-import NuevoProveedor from "./components/Proveedores/Registro";
-import EditarProveedor from "./components/Proveedores/Editar";
 import { SearchContextProvider } from "./context/ContextInputSearch";
 
 import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
-import UnidadesTransporte from "./components/UnidadesTransporte";
-import RegistroTransporte from "./components/UnidadesTransporte/Registro";
-import ResulFilter from "./components/Proveedores/ResultFilter";
-import EditarTransporte from "./components/UnidadesTransporte/Editar";
 
 //IMPORT LAZY IN COMPONENTS
+const NuevoUsuario = lazy(() => import("./components/Auth/NuevoUsuario"));
+
+const Registro = lazy(() => import("./components/Empleados/Registro"));
+
+const NuevoProveedor = lazy(() => import("./components/Proveedores/Registro"));
+
+const EditarProveedor = lazy(() => import("./components/Proveedores/Editar"));
+const ListadoEmpleados = lazy(() =>
+  import("./components/Empleados/ListadoEmpleados")
+);
+const RegistroTransporte = lazy(() =>
+  import("./components/UnidadesTransporte/Registro")
+);
+const ResultFilter = lazy(() =>
+  import("./components/Proveedores/ResultFilter")
+);
+const EditarTransporte = lazy(() =>
+  import("./components/UnidadesTransporte/Editar")
+);
+const UnidadesTransporte = lazy(() =>
+  import("./components/UnidadesTransporte")
+);
+
 const EditarRepuestos = lazy(() => import("./components/Repuestos/Editar"));
 
 const FormRepuestos = lazy(() => import("./components/Repuestos/FormRepuetos"));
 
-const ListadoRepuestos = lazy(() => import("./components/Repuestos/ListadoRepuestos"));
+const ListadoRepuestos = lazy(() =>
+  import("./components/Repuestos/ListadoRepuestos")
+);
 
 const Proveedores = lazy(() => import("./components/Proveedores"));
 const ListadoMarcas = lazy(() => import("./components/Marcas/ListadoMarcas"));
@@ -47,14 +63,12 @@ const FormularioEstadoRepuestos = lazy(() =>
   import("./components/EstadoRepuestos/FormularioEstadoRepuestos")
 );
 
-const FichaEmpleado = lazy(()=>
+const FichaEmpleado = lazy(() =>
   import("./components/Empleados/FichaEmpleado.js")
 );
 
-const PdfEmpleado = lazy(()=>
-  import("./components/Empleados/PdfEmpleado")
-);
-const CapturaFotoEmpleado = lazy(()=>
+const PdfEmpleado = lazy(() => import("./components/Empleados/PdfEmpleado"));
+const CapturaFotoEmpleado = lazy(() =>
   import("./components/Empleados/CapturaFotoEmpleado")
 );
 
@@ -66,51 +80,71 @@ function App() {
           <NavegacionTop />
           <Navegacion />
           <Switch>
-            <Route exact path="/" component={Login} />
-            <Route
-              exact
-              path="/actualizar-unidad-transporte/:id"
-              component={EditarTransporte}
-            />
-            <Route
-              exact
-              path="/resultados-proveedores"
-              component={ResulFilter}
-            />
-            <Route
-              exact
-              path="/registro-transporte"
-              component={RegistroTransporte}
-            />
-            <Route
-              exact
-              path="/unidades-transporte"
-              component={UnidadesTransporte}
-            />
+            <Route exact path="/" component={Login} >
+            <Suspense fallback="Cargando....">
+                <EditarTransporte />
+              </Suspense>
+              </Route>
+            <Route exact path="/actualizar-unidad-transporte/:id">
+              <Suspense fallback="Cargando....">
+                <EditarTransporte />
+              </Suspense>
+            </Route>
+            <Route exact path="/resultados-proveedores">
+              <Suspense fallback="Cargando....">
+                <ResultFilter />
+              </Suspense>
+            </Route>
+            <Route exact path="/registro-transporte">
+              <Suspense fallback="Cargando....">
+                <RegistroTransporte />
+              </Suspense>
+            </Route>
+            <Route exact path="/unidades-transporte">
+              <Suspense fallback="Cargando....">
+                <UnidadesTransporte />
+              </Suspense>
+            </Route>
             <Route exact path="/actualizar-repuestos/:id">
               <Suspense fallback="Cargando....">
                 <EditarRepuestos />
               </Suspense>
             </Route>
-            <Route
-              exact
-              path="/actualizar-proveedor/:id"
-              component={EditarProveedor}
-            />
-            <Route exact path="/nuevo-proveedor" component={NuevoProveedor} />
+            <Route exact path="/actualizar-proveedor/:id">
+              <Suspense fallback="Cargando....">
+                <EditarProveedor />
+              </Suspense>
+            </Route>
+            <Route exact path="/nuevo-proveedor">
+              <Suspense fallback="Cargando....">
+                <NuevoProveedor />
+              </Suspense>
+            </Route>
             <Route exact path="/proveedores">
               <Suspense fallback="Cargando....">
                 <Proveedores />
               </Suspense>
             </Route>
-            <Route exact path="/nuevo-usuario" component={NuevoUsuario} />
-            <Route exact path="/registro" component={Registro} />
+            <Route exact path="/nuevo-usuario">
+              <Suspense fallback="Cargando....">
+                <NuevoUsuario />
+              </Suspense>
+            </Route>
+            <Route exact path="/registro">
+              <Suspense fallback="Cargando....">
+                <Registro />
+              </Suspense>
+            </Route>
+            <Route exact path="/listado-empleados">
+              <Suspense fallback="Cargando....">
+                <ListadoEmpleados />
+              </Suspense>
+            </Route>
             <Route
               exact
-              path="/listado-empleados"
-              component={ListadoEmpleados}
-            />
-            <Route exact path="/ficha-empleado/:codigo_empleado" component={FichaEmpleado}>
+              path="/ficha-empleado/:codigo_empleado"
+              component={FichaEmpleado}
+            >
               <Suspense fallback="Cargando....">
                 <FichaEmpleado />
               </Suspense>
@@ -164,12 +198,16 @@ function App() {
             </Route>
             <Route exact path="/pdf-empleado" component={PdfEmpleado}>
               <Suspense fallback="Cargando...">
-                <PdfEmpleado/>
+                <PdfEmpleado />
               </Suspense>
             </Route>
-            <Route exact path="/captura-foto-empleado" component={CapturaFotoEmpleado}>
+            <Route
+              exact
+              path="/captura-foto-empleado"
+              component={CapturaFotoEmpleado}
+            >
               <Suspense fallback="Cargando....">
-                <CapturaFotoEmpleado/>
+                <CapturaFotoEmpleado />
               </Suspense>
             </Route>
           </Switch>
