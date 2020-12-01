@@ -110,14 +110,23 @@ export const getRoles = gql `
 export const getEmpleados = gql `
   query {
     empleados {
-      activo
-      id
-      apellidos
-      nit
-      nombres
       codigo_empleado
+      nombres
+      apellidos
       edad
+      sexo
+      empleado_tipo_empleado{
+        tipo_empleado
+      }
+      departamento_empleado{
+        departamento
+      }
       dui
+      nit
+      afp
+      licencia_conducir
+      licencia_arma
+      picture
     }
   }
 `;
