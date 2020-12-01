@@ -3,6 +3,7 @@ import { gql } from "apollo-boost";
 export const getEmpmleados = gql `
     query getEmpleados {
     empleados {
+      id
       codigo_empleado
       nombres
       apellidos
