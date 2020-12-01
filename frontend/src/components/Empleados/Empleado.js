@@ -12,7 +12,6 @@ const Empleado = ({empleado}) => {
                 <td>{empleado.apellidos}</td>
                 <td>{empleado.edad}</td>
                 <td>{empleado.dui}</td>
-                <td>{empleado.id}</td>
                 <td>
                 <Link to={`/actualizar-empleado/${empleado.id}`} variant="danger" value={empleado.id}><Button variant="info" value={empleado.id} ><FontAwesomeIcon icon={faEdit}/></Button></Link>
                 <Button variant="danger" value={empleado.id}  ><FontAwesomeIcon icon={faTrash}/></Button>
