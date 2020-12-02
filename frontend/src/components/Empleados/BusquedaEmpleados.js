@@ -16,6 +16,7 @@ const BusquedaEmpleados = ({id_empleado,onChange}) => {
                                 aria-describedby="basic-addon1"
                                 value={id_empleado}
                                 onChange={onChange}
+                                name="id_empleado"
                             />
                         </InputGroup>
                     </Form>

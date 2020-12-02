@@ -19,7 +19,7 @@ const RegistroFaltas = () => {
         <Fragment>
             <div className="box-left">
                 <Container>
-                    <BusquedaEmpleados value={id_empleado} onChange={onChange} />
+                    <BusquedaEmpleados  value={id_empleado} onChange={onChange} />
                 </Container>
             </div>
         </Fragment>
