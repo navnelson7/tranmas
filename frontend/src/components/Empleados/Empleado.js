@@ -13,9 +13,6 @@ const Empleado = ({empleado}) => {
                 <td>{empleado.edad}</td>
                 <td>{empleado.dui}</td>
                 <td>
-                    <Image src={empleado.picture} alt="Foto empleado" rounded responsive></Image> 
-                </td>
-                <td>
                 <Link to={`/actualizar-empleado/${empleado.id}`} variant="danger" value={empleado.id}><Button variant="info" value={empleado.id} ><FontAwesomeIcon icon={faEdit}/></Button></Link>
                 <Button variant="danger" value={empleado.id}  ><FontAwesomeIcon icon={faTrash}/></Button>
                 <Link to={`/ficha-empleado/${empleado.codigo_empleado}`} variant="success" value={empleado.codigo_empleado}><Button variant="success" value={empleado.codigo_empleado}><FontAwesomeIcon icon={faPrint}/></Button></Link>
