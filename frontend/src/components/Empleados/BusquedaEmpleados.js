@@ -1,19 +1,21 @@
-import React,{Fragment, useState} from 'react';
+import React,{Fragment} from 'react';
 import { Form, Container, InputGroup, FormControl} from 'react-bootstrap';
-const BusquedaEmpleados = () => {
-    const [codigo, setCodigo] = useState()
+const BusquedaEmpleados = ({id_empleado,onChange}) => {
     return (
         <Fragment>
             <Container>
                 <div className="box-lef">
                     <Form>
                         <InputGroup className="mb-3">
-                            <InputGroup.Append>Codigo Empleado</InputGroup.Append>
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>Codigo Empleado</InputGroup.Text>
+                            </InputGroup.Prepend>
                             <FormControl
                                 placeholder="Codigo Empleado"
                                 aria-label="codigo_empleado"
                                 aria-describedby="basic-addon1"
-                                value={codigo}
+                                value={id_empleado}
+                                onChange={onChange}
                             />
                         </InputGroup>
                     </Form>

@@ -72,6 +72,10 @@ const CapturaFotoEmpleado = lazy(() =>
   import("./components/Empleados/CapturaFotoEmpleado")
 );
 
+const RegistroFaltas = lazy(()=>
+  import("./components/Empleados/RegistroFaltas")
+);
+
 function App() {
   return (
     <Fragment>
@@ -208,6 +212,11 @@ function App() {
             >
               <Suspense fallback="Cargando....">
                 <CapturaFotoEmpleado />
+              </Suspense>
+            </Route>
+            <Route exact path="/registro-faltas" component={RegistroFaltas}>
+              <Suspense fallback="Cargando...">
+                <RegistroFaltas/>
               </Suspense>
             </Route>
           </Switch>
