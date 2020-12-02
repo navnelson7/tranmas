@@ -69,7 +69,7 @@ def get_images(filename):
 
 
 
-
+# REMOVE IMAGES
 @api_images.route('/update', methods=["POST"])
 def update_image():
     if request.method == 'POST':
@@ -114,3 +114,23 @@ def update_image():
             "status": 200,
             "filename": filename_finally
         })
+
+#REMOVE IMAGES
+@api_images.route('/delete', methods=['POST'])
+def remove_images():
+    filename = request.form['filename']
+    
+    #VERIFICAMOS SI ES UN ARCHIVO
+    if os.path.isfile(os.path.join(PATH_IMAGE, filename)) == False:
+        return not_found(error="File not Found")
+    else:
+        try:
+            os.remove(os.path.join(PATH_IMAGE, filename))
+        except OSError:
+            return jsonify({
+                "message": "Error, file does not exist",
+                })
+        return jsonify({
+            "message": "success",
+            "status": 200,
+            })
