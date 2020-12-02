@@ -84,7 +84,6 @@ function Registro() {
             ...UnidadTransporte,
             image: urlImage,
           });
-          console.log(res);
           setImagenUrlGetting(true);
         })
         .catch(function (error) {

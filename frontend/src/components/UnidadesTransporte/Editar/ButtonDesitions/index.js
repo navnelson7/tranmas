@@ -1,16 +1,77 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
- 
-function ButtonDesitions({submitSave}) {
+import axios from "axios";
+import { useMutation } from "@apollo/client";
+import { deleteTransporte } from "../../../../graphql/Mutations";
+import { useHistory } from "react-router-dom";
+
+function ButtonDesitions({
+  submitSave,
+  filename,
+  idTransporte,
+  setLoading,
+  setIconType,
+  setTextAlert,
+  setshowAlert,
+}) {
+  const { push } = useHistory();
+  const [updateTransporte] = useMutation(deleteTransporte);
+  const [ExecuteDeleteTransporte, setExecuteDeleteTransporte] = useState(false);
+
+  const deleteImage = (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("filename", filename);
+    axios
+      .post(process.env.REACT_APP_BACKEND_FLASK + "delete", formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(() => {
+        setExecuteDeleteTransporte(true);
+      })
+      .catch(() => {
+        setExecuteDeleteTransporte(true);
+      });
+  };
+
+  useEffect(() => {
+    if (ExecuteDeleteTransporte) {
+      updateTransporte({
+        variables: {
+          id: idTransporte,
+        },
+      })
+        .then(() => {
+          setLoading(false);
+          setIconType("success");
+          setTextAlert("Eliminado correctamente");
+          setshowAlert(true);
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push("/unidades-transporte");
+          }, 2000);
+        })
+        .catch((error) => {
+          setLoading(false);
+          setIconType("success");
+          setTextAlert(error.message);
+          setshowAlert(true);
+        });
+    }
+    // eslint-disable-next-line
+  }, [ExecuteDeleteTransporte]);
   return (
     <Fragment>
       <StyleBtn>
         <div>
           <ul>
             <li>
-            <button
+              <button
                 className="btn-opcion bg-eliminar"
+                onClick={(e) => deleteImage(e)}
               >
                 <strong>Eliminar</strong>
               </button>
@@ -88,7 +149,6 @@ const StyleBtn = styled.div`
     color: #ffffff;
     background: #1f30cc;
   }
-
 
   .bg-eliminar {
     transition: 0.3s;

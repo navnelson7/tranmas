@@ -6,8 +6,8 @@ import { updateUnidadOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
 import { useHistory, useParams } from "react-router-dom";
 import ButtonsDesitions from "./ButtonDesitions";
-import { useSubscription } from "@apollo/client";
-import { listenUnidadTransporteById } from "../../../graphql/Suscription";
+import { useQuery } from "@apollo/client";
+import { queryUnidadTransporteById } from "../../../graphql/Queries";
 import ImageSelected from "./ImageSelected";
 import axios from "axios";
 
@@ -19,7 +19,7 @@ function EditarTransporte() {
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
 
-  const { data, loading, error } = useSubscription(listenUnidadTransporteById, {
+  const { data, loading, error } = useQuery(queryUnidadTransporteById, {
     variables: { id: params.id },
   });
 
@@ -96,7 +96,6 @@ function EditarTransporte() {
             ...UnidadTransporte,
             image: urlImage,
           });
-          console.log(res);
           setImagenUrlGetting(true);
         })
         .catch(function (error) {
@@ -127,8 +126,8 @@ function EditarTransporte() {
         if (res.data) {
           setLoading(false);
           setIconType("success");
-          setshowAlert(true);
           setTextAlert("Registrado correctamente");
+          setshowAlert(true);
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
             push("/unidades-transporte");
@@ -335,7 +334,13 @@ function EditarTransporte() {
               </InputGroup>
               <br />
               <ButtonsDesitions
-                submitSave={uploadImage}
+                submitSave={uploadImage} 
+                filename={data.unidades_de_transporte_by_pk.image}
+                idTransporte={data.unidades_de_transporte_by_pk.id}
+                setLoading={setLoading}
+                setIconType={setIconType}
+                setTextAlert={setTextAlert}
+                setshowAlert={setshowAlert}
               />
             </div>
 
@@ -346,6 +351,7 @@ function EditarTransporte() {
                 newImage={ImagePrevious}
                 ImagePrevious={data.unidades_de_transporte_by_pk.image}
                 setnewImageChange={setnewImageChange}
+                idTransporte={data.unidades_de_transporte_by_pk.id}
               />
             </div>
             <br />

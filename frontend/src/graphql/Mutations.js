@@ -400,3 +400,12 @@ export const updateUnidadOne = gql `
     }
   }
 `;
+
+
+export const deleteTransporte = gql`
+mutation delete_unidades_de_transporte_by_pk($id: uuid!){
+  delete_unidades_de_transporte_by_pk(id: $id){
+    id
+  }
+}
+`
