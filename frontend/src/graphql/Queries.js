@@ -128,6 +128,7 @@ export const getEmpleados = gql `
       licencia_conducir
       licencia_arma
       picture
+      id
     }
   }
 `;
