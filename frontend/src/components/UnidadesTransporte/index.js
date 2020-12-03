@@ -33,9 +33,11 @@ function UnidadesTransporte() {
             activo
             numero_pasajeros
             numero_placa
-            marca
             id
             image
+            marca_transporte{
+              marca
+            }
           }
         }
       `,

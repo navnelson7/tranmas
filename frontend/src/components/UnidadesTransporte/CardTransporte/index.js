@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { Card } from "react-bootstrap";
 import Image from "./Image";
 
 function CardTransporte({ unidad }) {
@@ -11,7 +10,7 @@ function CardTransporte({ unidad }) {
             <Image
               src={`${process.env.REACT_APP_BACKEND_FLASK}images/${unidad.image}`}
               numero_pasajeros={unidad.numero_pasajeros}
-              marca={unidad.marca}
+              marca={unidad.marca_transporte.marca}
               id={unidad.id}
             />
             <br />

@@ -10,6 +10,8 @@ import { useQuery } from "@apollo/client";
 import { queryUnidadTransporteById } from "../../../graphql/Queries";
 import ImageSelected from "./ImageSelected";
 import axios from "axios";
+import ListMarcas from "../../listbox/ListBoxMarcas";
+import { getMarcaTransporteById } from "../../../graphql/Queries";
 
 function EditarTransporte() {
   const { push } = useHistory();
@@ -19,10 +21,13 @@ function EditarTransporte() {
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
 
-  const { data, loading, error } = useQuery(queryUnidadTransporteById, {
+  const responseMarcaTransporte = useQuery(getMarcaTransporteById, {
     variables: { id: params.id },
   });
 
+  const { data, loading, error } = useQuery(queryUnidadTransporteById, {
+    variables: { id: params.id },
+  });
   const [UnidadTransporte, setUnidadTransporte] = useState({});
 
   useEffect(() => {
@@ -71,10 +76,8 @@ function EditarTransporte() {
     formData.append("previousFile", data.unidades_de_transporte_by_pk.image);
 
     if (newImageChange === null) {
-      setLoading(false);
-      setTextAlert("Selecciona una imagen");
-      setIconType("error");
-      setshowAlert(true);
+      setExecuteSave(true);
+      setImagenUrlGetting(true);
     } else {
       // Send to cloudianry
       axios
@@ -118,7 +121,6 @@ function EditarTransporte() {
 
   const submitTransporte = () => {
     setLoading(true);
-    console.log("lo que mande -->", UnidadTransporte);
     addTransporte({
       variables: UnidadTransporte,
     })
@@ -143,7 +145,7 @@ function EditarTransporte() {
       });
   };
 
-  if (loading || Loading)
+  if (loading || Loading || responseMarcaTransporte.loading)
     return (
       <div className="box-center">
         <div className="spinner-border text-primary" role="status">
@@ -151,7 +153,7 @@ function EditarTransporte() {
         </div>
       </div>
     );
-
+    console.log(responseMarcaTransporte.data.unidades_de_transporte_by_pk.marca_transporte.marca);
   if (error)
     return (
       <div className="box-center">
@@ -189,19 +191,10 @@ function EditarTransporte() {
                 />
               </InputGroup>
               <br />
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">Marca</InputGroup.Text>
-                </InputGroup.Prepend>
-
-                <Form.Control
-                  type="text"
-                  name="marca"
-                  placeholder="Marca"
-                  onChange={(e) => changeTransporte(e)}
-                  value={UnidadTransporte.marca}
-                />
-              </InputGroup>
+              <ListMarcas
+                changeMarca={changeTransporte}
+                marcaSeleccionada={responseMarcaTransporte.data.unidades_de_transporte_by_pk.marca_transporte.marca}
+              />
               <br />
 
               <InputGroup className="mb-3">
@@ -334,7 +327,7 @@ function EditarTransporte() {
               </InputGroup>
               <br />
               <ButtonsDesitions
-                submitSave={uploadImage} 
+                submitSave={uploadImage}
                 filename={data.unidades_de_transporte_by_pk.image}
                 idTransporte={data.unidades_de_transporte_by_pk.id}
                 setLoading={setLoading}

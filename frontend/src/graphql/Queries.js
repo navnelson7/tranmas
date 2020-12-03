@@ -1,7 +1,7 @@
 import { gql } from "apollo-boost";
 
-export const getEmpmleados = gql `
-    query getEmpleados {
+export const getEmpmleados = gql`
+  query getEmpleados {
     empleados {
       id
       codigo_empleado
@@ -9,10 +9,10 @@ export const getEmpmleados = gql `
       apellidos
       edad
       sexo
-      empleado_tipo_empleado{
+      empleado_tipo_empleado {
         tipo_empleado
       }
-      departamento_empleado{
+      departamento_empleado {
         departamento
       }
       dui
@@ -25,7 +25,7 @@ export const getEmpmleados = gql `
   }
 `;
 
-export const getRepuestos = gql `
+export const getRepuestos = gql`
   query allrepuestos {
     repuestos {
       id
@@ -53,7 +53,7 @@ export const getRepuestos = gql `
   }
 `;
 
-export const getDepartamentos = gql `
+export const getDepartamentos = gql`
   query getDepartamentos {
     departamentos {
       id
@@ -62,7 +62,7 @@ export const getDepartamentos = gql `
   }
 `;
 
-export const getEstadoRepuestos = gql `
+export const getEstadoRepuestos = gql`
   query getEstadoRepuestos {
     estado_repuestos_stock {
       id
@@ -72,7 +72,7 @@ export const getEstadoRepuestos = gql `
   }
 `;
 
-export const getProveedores = gql `
+export const getProveedores = gql`
   query getProveedores {
     proveedores {
       id
@@ -81,7 +81,7 @@ export const getProveedores = gql `
   }
 `;
 
-export const getUnidadMedida = gql `
+export const getUnidadMedida = gql`
   query getUnidadesMedida {
     unidades_de_medida {
       id
@@ -90,7 +90,7 @@ export const getUnidadMedida = gql `
   }
 `;
 
-export const getMarcas = gql `
+export const getMarcas = gql`
   query getMarcas {
     marcas {
       id
@@ -99,7 +99,7 @@ export const getMarcas = gql `
   }
 `;
 
-export const getRoles = gql `
+export const getRoles = gql`
   query {
     roles {
       id
@@ -108,7 +108,7 @@ export const getRoles = gql `
   }
 `;
 
-export const getEmpleados = gql `
+export const getEmpleados = gql`
   query {
     empleados {
       codigo_empleado
@@ -116,10 +116,10 @@ export const getEmpleados = gql `
       apellidos
       edad
       sexo
-      empleado_tipo_empleado{
+      empleado_tipo_empleado {
         tipo_empleado
       }
-      departamento_empleado{
+      departamento_empleado {
         departamento
       }
       dui
@@ -133,7 +133,7 @@ export const getEmpleados = gql `
   }
 `;
 
-export const getEmailUsers = gql `
+export const getEmailUsers = gql`
   query {
     users {
       email
@@ -141,8 +141,7 @@ export const getEmailUsers = gql `
   }
 `;
 
-
-export const getProveedoresById = gql `
+export const getProveedoresById = gql`
   query proveedores_by_pk($id: uuid!) {
     proveedores_by_pk(id: $id) {
       id
@@ -162,65 +161,62 @@ export const getProveedoresById = gql `
   }
 `;
 
-export const getMedidas = gql `
-    query getMedidas{
-    unidades_de_medida{
+export const getMedidas = gql`
+  query getMedidas {
+    unidades_de_medida {
       id
       unidad_de_medida
     }
   }
 `;
 
-
-export const getRepuestosById = gql `
-query repuestos_by_pk($id: uuid!){
-  repuestos_by_pk(id: $id){
-    id
-    activo
-    cantidad
-    codigo_repuesto
-    fecha_factura
-    fecha_ingreso
-    nombre
-    numero_factura
-    precio
-    updated_at
+export const getRepuestosById = gql`
+  query repuestos_by_pk($id: uuid!) {
+    repuestos_by_pk(id: $id) {
+      id
+      activo
+      cantidad
+      codigo_repuesto
+      fecha_factura
+      fecha_ingreso
+      nombre
+      numero_factura
+      precio
+      updated_at
+    }
   }
-}
 `;
 
-export const getEstadoEmpleados = gql `
-  query getEstadoEmpleados{
-    estados_de_empleados{
+export const getEstadoEmpleados = gql`
+  query getEstadoEmpleados {
+    estados_de_empleados {
       id
       estado_empleado
     }
-  } 
+  }
 `;
 
-export const getTipoEmpleados = gql `
-    query getTipoEmpleados{
-    tipos_empleados{
+export const getTipoEmpleados = gql`
+  query getTipoEmpleados {
+    tipos_empleados {
       id
       tipo_empleado
     }
-}
+  }
 `;
 
-export const getEmpleadosByCodigo = gql `
-    query getEmpleadosByCodigo($codigo_empleado: String) {
-    empleados (
-      where: {codigo_empleado:{_eq:$codigo_empleado}}
-    ){
+export const getEmpleadosByCodigo = gql`
+  query getEmpleadosByCodigo($codigo_empleado: String) {
+    empleados(where: { codigo_empleado: { _eq: $codigo_empleado } }) {
       codigo_empleado
       nombres
       apellidos
       edad
       sexo
-      empleado_tipo_empleado{
+      empleado_tipo_empleado {
         tipo_empleado
       }
-      departamento_empleado{
+      departamento_empleado {
         departamento
       }
       dui
@@ -233,14 +229,12 @@ export const getEmpleadosByCodigo = gql `
   }
 `;
 
-
 export const queryUnidadTransporteById = gql`
   query unidades_de_transporte_by_pk($id: uuid!) {
     unidades_de_transporte_by_pk(id: $id) {
       activo
       numero_pasajeros
       numero_placa
-      marca
       id
       color
       color_tapiceria
@@ -252,6 +246,17 @@ export const queryUnidadTransporteById = gql`
       serie_chasis
       numero_tarjeta_circulacion
       image
+      id_marca
+    }
+  }
+`;
+
+export const getMarcaTransporteById = gql`
+  query unidades_de_transporte_by_pk($id: uuid!) {
+    unidades_de_transporte_by_pk(id: $id) {
+      marca_transporte {
+        marca
+      }
     }
   }
 `;
