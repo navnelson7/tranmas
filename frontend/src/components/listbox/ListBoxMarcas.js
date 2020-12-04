@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InputGroup, FormControl, Col } from "react-bootstrap";
+import { InputGroup, FormControl } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { getMarcas } from "../../graphql/Queries";
 

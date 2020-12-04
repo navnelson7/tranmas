@@ -153,7 +153,6 @@ function EditarTransporte() {
         </div>
       </div>
     );
-    console.log(responseMarcaTransporte.data.unidades_de_transporte_by_pk.marca_transporte.marca);
   if (error)
     return (
       <div className="box-center">

@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import ButtonFuel from "./ButtonFuel";
 import Image from "./Image";
 
 function CardTransporte({ unidad }) {
@@ -13,8 +14,8 @@ function CardTransporte({ unidad }) {
               marca={unidad.marca_transporte.marca}
               id={unidad.id}
             />
-            <br />
-            <br />
+            <ButtonFuel />
+            <br/>
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
               <div className="box-white">

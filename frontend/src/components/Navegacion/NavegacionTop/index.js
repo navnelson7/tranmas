@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { Fragment } from "react";
 import styled from "styled-components";
 import ContextInputSearch from "../../../context/ContextInputSearch";
@@ -7,12 +7,10 @@ import FiltroDropdown from "../Filtro";
 
 function NavegacionTop() {
   const { pathname } = useLocation();
-  const {push} = useHistory();
-  const {
-    StateSearch,
-    setStateSearch,
-    NombreField,
-  } = useContext(ContextInputSearch);
+  const { push } = useHistory();
+  const { StateSearch, setStateSearch, NombreField } = useContext(
+    ContextInputSearch
+  );
 
   const EnterSearch = (e) => {
     if (e.which === 13) {
@@ -47,7 +45,7 @@ function NavegacionTop() {
             <StyleDropdown>
               <div className="flex-icons--nav-mobile">
                 <div className="container-dropdown" style={{ float: "right" }}>
-                  <a href="#" className="btn">
+                  <span className="btn">
                     <img
                       className="img-nav-user-mobile"
                       src="https://yt3.ggpht.com/a/default-user=s88-rj"
@@ -58,7 +56,7 @@ function NavegacionTop() {
                     <div className="dropdown scroll-container">
                       <span>Cerrar Sesión</span>
                     </div>
-                  </a>
+                  </span>
                 </div>
               </div>
             </StyleDropdown>
