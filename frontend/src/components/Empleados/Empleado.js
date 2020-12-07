@@ -15,7 +15,7 @@ const Empleado = ({empleado}) => {
                 <td>
                 <Link to={`/actualizar-empleado/${empleado.id}`} variant="danger" value={empleado.id}><Button variant="info" value={empleado.id} ><FontAwesomeIcon icon={faEdit}/></Button></Link>
                 <Button variant="danger" value={empleado.id}  ><FontAwesomeIcon icon={faTrash}/></Button>
-                <Link to={`/ficha-empleado/${empleado.codigo_empleado}`} variant="success" value={empleado.codigo_empleado}><Button variant="success" value={empleado.codigo_empleado}><FontAwesomeIcon icon={faPrint}/></Button></Link>
+                <Link to={`/ficha-empleado/${empleado.id}`} variant="success" value={empleado.id}><Button variant="success" value={empleado.codigo_empleado}><FontAwesomeIcon icon={faPrint}/></Button></Link>
                 </td>
         </Fragment>
     );
