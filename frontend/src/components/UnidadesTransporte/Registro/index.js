@@ -9,6 +9,7 @@ import ButtonsDesitions from "../../ButtonsDesitions";
 import ImageSelected from "./ImageSelected";
 import axios from "axios";
 import { useEffect } from "react";
+import ListMarcas from "../../listbox/ListBoxMarcas";
 
 function Registro() {
   const { push } = useHistory();
@@ -84,7 +85,6 @@ function Registro() {
             ...UnidadTransporte,
             image: urlImage,
           });
-          console.log(res);
           setImagenUrlGetting(true);
         })
         .catch(function (error) {
@@ -122,7 +122,8 @@ function Registro() {
           }, 2000);
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         setLoading(false);
         setTextAlert("Ocurrio un problema");
         setIconType("error");
@@ -164,17 +165,7 @@ function Registro() {
                 />
               </InputGroup>
 
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">Marca</InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control
-                  type="text"
-                  name="marca"
-                  placeholder="Marca"
-                  onChange={(e) => changeTransporte(e)}
-                />
-              </InputGroup>
+              <ListMarcas changeMarca={changeTransporte} />
 
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>

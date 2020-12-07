@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Card } from "react-bootstrap";
+import ButtonFuel from "./ButtonFuel";
 import Image from "./Image";
 
 function CardTransporte({ unidad }) {
@@ -11,11 +11,11 @@ function CardTransporte({ unidad }) {
             <Image
               src={`${process.env.REACT_APP_BACKEND_FLASK}images/${unidad.image}`}
               numero_pasajeros={unidad.numero_pasajeros}
-              marca={unidad.marca}
+              marca={unidad.marca_transporte.marca}
               id={unidad.id}
             />
-            <br />
-            <br />
+            <ButtonFuel />
+            <br/>
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
               <div className="box-white">
