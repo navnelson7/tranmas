@@ -10,8 +10,8 @@ import { useQuery } from "@apollo/client";
 import { queryUnidadTransporteById } from "../../../graphql/Queries";
 import ImageSelected from "./ImageSelected";
 import axios from "axios";
-import ListMarcas from "../../listbox/ListBoxMarcas";
 import { getMarcaTransporteById } from "../../../graphql/Queries";
+import ListBoxMarcasTransporte from "../../listbox/ListBoxUnidadesTransporte";
 
 function EditarTransporte() {
   const { push } = useHistory();
@@ -120,6 +120,7 @@ function EditarTransporte() {
   }, [ExecuteSave, ImagenUrlGetting]);
 
   const submitTransporte = () => {
+    console.log("Lo que le mando -->", UnidadTransporte);
     setLoading(true);
     addTransporte({
       variables: UnidadTransporte,
@@ -190,9 +191,12 @@ function EditarTransporte() {
                 />
               </InputGroup>
               <br />
-              <ListMarcas
+              <ListBoxMarcasTransporte
                 changeMarca={changeTransporte}
-                marcaSeleccionada={responseMarcaTransporte.data.unidades_de_transporte_by_pk.marca_transporte.marca}
+                marcaSeleccionada={
+                  responseMarcaTransporte.data.unidades_de_transporte_by_pk
+                    .marca_transporte.marca
+                }
               />
               <br />
 

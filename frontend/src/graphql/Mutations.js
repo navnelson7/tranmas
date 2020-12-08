@@ -408,3 +408,11 @@ export const deleteTransporte = gql`
     }
   }
 `;
+
+export const saveMarcaTransporte = gql`
+  mutation insert_marca_transporte_one($marca: String){
+    insert_marca_transporte_one(object: { marca: $marca }) {
+      id
+    }
+  }
+`;
