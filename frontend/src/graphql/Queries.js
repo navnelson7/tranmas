@@ -99,6 +99,15 @@ export const getMarcas = gql`
   }
 `;
 
+export const getMarcasTransporte = gql`
+  query {
+    marca_transporte {
+      id
+      marca
+    }
+  }
+`;
+
 export const getRoles = gql`
   query {
     roles {
@@ -251,6 +260,7 @@ export const queryUnidadTransporteById = gql`
   }
 `;
 
+//ELIMINAR<
 export const getMarcaTransporteById = gql`
   query unidades_de_transporte_by_pk($id: uuid!) {
     unidades_de_transporte_by_pk(id: $id) {

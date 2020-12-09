@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import { Form, InputGroup } from "react-bootstrap";
+import { Form, InputGroup, Col, Row } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { setTransporteOne } from "../../../graphql/Mutations";
 import { ToastComponent } from "../../Toast";
@@ -9,7 +9,9 @@ import ButtonsDesitions from "../../ButtonsDesitions";
 import ImageSelected from "./ImageSelected";
 import axios from "axios";
 import { useEffect } from "react";
-import ListMarcas from "../../listbox/ListBoxMarcas";
+import ListBoxMarcasTransporte from "../../listbox/ListBoxUnidadesTransporte";
+import NuevaMarca from "./NuevaMarca";
+import NuevoCombustible from "./NuevoCombustible";
 
 function Registro() {
   const { push } = useHistory();
@@ -165,7 +167,14 @@ function Registro() {
                 />
               </InputGroup>
 
-              <ListMarcas changeMarca={changeTransporte} />
+              <Row>
+                <Col sm={6}>
+                  <ListBoxMarcasTransporte changeMarca={changeTransporte} />
+                </Col>
+                <Col sm={6}>
+                  <NuevaMarca UnidadTransporte={UnidadTransporte} setUnidadTransporte={setUnidadTransporte} />
+                </Col>
+              </Row>
 
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
@@ -283,6 +292,8 @@ function Registro() {
                 />
               </InputGroup>
               <br />
+              <h5>Combustible</h5>
+              <NuevoCombustible />
               <ButtonsDesitions
                 linkCancel="/unidades-transporte"
                 submitSave={uploadImage}
@@ -354,7 +365,7 @@ const StyleRegitroUnidades = styled.div`
       grid-template-columns: 60% 40%;
     }
     .box-left-container {
-      margin-left: 18.5%;
+      margin-left: 20%;
       margin-top: 2%;
       overflow-x: hidden;
     }

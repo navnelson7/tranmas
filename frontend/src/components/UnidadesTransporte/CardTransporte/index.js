@@ -14,8 +14,8 @@ function CardTransporte({ unidad }) {
               marca={unidad.marca_transporte.marca}
               id={unidad.id}
             />
-            <ButtonFuel />
-            <br/>
+            <ButtonFuel id={unidad.id} />
+            <br />
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
               <div className="box-white">

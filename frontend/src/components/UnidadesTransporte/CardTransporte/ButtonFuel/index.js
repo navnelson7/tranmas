@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function ButtonFuel() {
+function ButtonFuel({ id }) {
   return (
     <Fragment>
-      <div>
-        <StyleLoaderEspera>
+      <StyleLoaderEspera>
+        <Link to={`/registro-combustible/${id}`} className="cursor-pointer">
           <div className="center-loader">
             <div className="flip-box">
               <div className="flip-box-inner">
@@ -39,8 +40,8 @@ function ButtonFuel() {
               </div>
             </div>
           </div>
-        </StyleLoaderEspera>
-      </div>
+        </Link>
+      </StyleLoaderEspera>
     </Fragment>
   );
 }
@@ -48,6 +49,9 @@ function ButtonFuel() {
 export default ButtonFuel;
 
 const StyleLoaderEspera = styled.div`
+  .cursor-pointer {
+    cursor: pointer;
+  }
   .relative-txt {
     position: relative;
     top: 44%;
