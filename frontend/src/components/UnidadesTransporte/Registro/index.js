@@ -11,6 +11,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import ListBoxMarcasTransporte from "../../listbox/ListBoxUnidadesTransporte";
 import NuevaMarca from "./NuevaMarca";
+import NuevoCombustible from "./NuevoCombustible";
 
 function Registro() {
   const { push } = useHistory();
@@ -291,6 +292,8 @@ function Registro() {
                 />
               </InputGroup>
               <br />
+              <h5>Combustible</h5>
+              <NuevoCombustible />
               <ButtonsDesitions
                 linkCancel="/unidades-transporte"
                 submitSave={uploadImage}
@@ -362,7 +365,7 @@ const StyleRegitroUnidades = styled.div`
       grid-template-columns: 60% 40%;
     }
     .box-left-container {
-      margin-left: 18.5%;
+      margin-left: 20%;
       margin-top: 2%;
       overflow-x: hidden;
     }
