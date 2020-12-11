@@ -32,6 +32,7 @@ function NuevaMarca({
 
   useEffect(() => {
     submitTransporte();
+    // eslint-disable-next-line
   }, [executeNewMarca]);
 
   return (

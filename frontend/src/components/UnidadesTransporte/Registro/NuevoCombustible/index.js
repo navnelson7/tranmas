@@ -1,8 +1,23 @@
-import React, {Fragment} from 'react'
-import {InputGroup,FormControl } from "react-bootstrap";
+import React, { Fragment, useState } from 'react'
+import { InputGroup, FormControl } from "react-bootstrap";
+import ListBoxMotorista from '../../../listbox/ListBoxMotorista';
 
+function NuevoCombustible({ setCombustible, Combustible }) {
 
-function NuevoCombustible() {
+    const changeCombustible = (e) => {
+        e.preventDefault()
+        if (e.target.name === "kilometraje_actual" && e.target.name === "galones_servidos") {
+            setCombustible({
+                ...Combustible,
+                [e.target.name]: parseInt(e.target.value)
+            })
+        } else {
+            setCombustible({
+                ...Combustible,
+                [e.target.name]: e.target.value
+            })
+        }
+    }
     return (
         <Fragment>
             <InputGroup className="mb-3">
@@ -14,6 +29,7 @@ function NuevoCombustible() {
                 <FormControl
                     placeholder="Galones servidos"
                     name="galones_servidos"
+                    onChange={e => changeCombustible(e)}
                 />
             </InputGroup>
 
@@ -24,25 +40,15 @@ function NuevoCombustible() {
                         </InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
+                    type="number"
                     placeholder="Kilometraje actual"
                     aria-label="nombre"
                     aria-describedby="basic-addon1"
                     name="kilometraje_actual"
+                    onChange={e => changeCombustible(e)}
                 />
             </InputGroup>
-
-            <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                    <InputGroup.Text id="basic-addon1">
-                        Motorista
-                        </InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl as="select" name="id_empleado_motorista">
-                    <option>Selecciona un motorista</option>
-                    <option value="test">test</option>
-                </FormControl>
-            </InputGroup>
-
+            <ListBoxMotorista changeCombustible={changeCombustible} />
 
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
@@ -53,6 +59,7 @@ function NuevoCombustible() {
                 <FormControl
                     placeholder="Comentarios"
                     name="comentarios"
+                    onChange={e => changeCombustible(e)}
                 />
             </InputGroup>
         </Fragment>
