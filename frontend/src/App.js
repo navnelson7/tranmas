@@ -7,6 +7,7 @@ import { SearchContextProvider } from "./context/ContextInputSearch";
 import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
 import RegistroCombustible from "./components/UnidadesTransporte/Combustible/Registro";
+import EditarCombustible from "./components/UnidadesTransporte/Combustible/EditarCombustible";
 
 //IMPORT LAZY IN COMPONENTS
 const NuevoUsuario = lazy(() => import("./components/Auth/NuevoUsuario"));
@@ -89,6 +90,9 @@ function App() {
               <Suspense fallback="Cargando....">
                 <EditarTransporte />
               </Suspense>
+            </Route>
+            <Route exact path="/editar-combustible/:id">
+              <EditarCombustible />
             </Route>
             <Route exact path="/registro-combustible/:id">
               <RegistroCombustible />

@@ -2,11 +2,11 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function ButtonFuel({ id }) {
+function ButtonFuel({ id, id_combustible, registro_combustible }) {
   return (
     <Fragment>
       <StyleLoaderEspera>
-        <Link to={`/registro-combustible/${id}`} className="cursor-pointer">
+        <Link to={id_combustible === null ? `/registro-combustible/${id}` : `/editar-combustible/${id}`} className="cursor-pointer">
           <div className="center-loader">
             <div className="flip-box">
               <div className="flip-box-inner">
@@ -19,7 +19,7 @@ function ButtonFuel({ id }) {
                       focusable="false"
                       data-prefix="fas"
                       data-icon="gas-pump"
-                      class="svg-inline--fa fa-gas-pump fa-w-16"
+                      className="svg-inline--fa fa-gas-pump fa-w-16"
                       role="img"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
@@ -33,7 +33,7 @@ function ButtonFuel({ id }) {
                 </div>
                 <div className="flip-box-back">
                   <p align="center" className="mt-icon">
-                    <strong className="number-porcentaje">4</strong>
+  <strong className="number-porcentaje">{registro_combustible === null ? 0 : registro_combustible.galones_servidos}</strong>
                     <span className="gal-txt">gal</span>
                   </p>
                 </div>

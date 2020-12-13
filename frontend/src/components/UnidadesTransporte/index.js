@@ -35,8 +35,12 @@ function UnidadesTransporte() {
             numero_placa
             id
             image
+            id_combustible
             marca_transporte{
               marca
+            }
+            registro_combustible{
+              galones_servidos
             }
           }
         }
@@ -65,11 +69,11 @@ function UnidadesTransporte() {
     fetchGraphQL();
   }, [pageNumber]);
   if (Error)
-  return (
-    <div className="box-center">
-      <p>{Error}</p>
-    </div>
-  );
+    return (
+      <div className="box-center">
+        <p>{Error}</p>
+      </div>
+    );
   return (
     <Fragment>
       <StyleCards>
@@ -83,7 +87,7 @@ function UnidadesTransporte() {
             <div className="row hidden-md-up">
               {Data.map((unidad) => {
                 return (
-                  <CardTransporte unidad={unidad}/>
+                  <CardTransporte unidad={unidad} key={unidad.id} />
                 );
               })}
             </div>

@@ -11,8 +11,6 @@ import axios from "axios";
 import { useEffect } from "react";
 import ListBoxMarcasTransporte from "../../listbox/ListBoxUnidadesTransporte";
 import NuevaMarca from "./NuevaMarca";
-import NuevoCombustible from "./NuevoCombustible";
-
 function Registro() {
   const { push } = useHistory();
   const [showAlert, setshowAlert] = useState(false);
@@ -33,6 +31,15 @@ function Registro() {
       (new Date().getMonth() + 1) +
       "-" +
       new Date().getDate(),
+    color: "",
+    color_tapiceria: "",
+    modelo: "",
+    numero_equipo: 0,
+    numero_pasajeros: 0,
+    numero_placa: "",
+    numero_tarjeta_circulacion: "",
+    serie_motor: "",
+    serie_chasis: ""
   });
 
   const [addTransporte] = useMutation(setTransporteOne);
@@ -100,12 +107,14 @@ function Registro() {
     }
   };
 
+
   useEffect(() => {
     if (ExecuteSave && ImagenUrlGetting) {
       submitTransporte();
     }
     // eslint-disable-next-line
   }, [ExecuteSave, ImagenUrlGetting]);
+
 
   const submitTransporte = () => {
     setLoading(true);
@@ -125,9 +134,8 @@ function Registro() {
         }
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
-        setTextAlert("Ocurrio un problema");
+        setTextAlert(error.message);
         setIconType("error");
         setshowAlert(true);
       });
@@ -163,6 +171,8 @@ function Registro() {
                   type="text"
                   name="modelo"
                   placeholder="Modelo"
+                  required
+                  value={UnidadTransporte.modelo}
                   onChange={(e) => changeTransporte(e)}
                 />
               </InputGroup>
@@ -184,6 +194,8 @@ function Registro() {
                   type="text"
                   name="color"
                   placeholder="Color"
+                  required
+                  value={UnidadTransporte.color}
                   onChange={(e) => changeTransporte(e)}
                 />
               </InputGroup>
@@ -198,6 +210,8 @@ function Registro() {
                   type="text"
                   name="color_tapiceria"
                   placeholder="Color de tapiceria"
+                  required
+                  value={UnidadTransporte.color_tapiceria}
                   onChange={(e) => changeTransporte(e)}
                 />
               </InputGroup>
@@ -212,6 +226,8 @@ function Registro() {
                 <Form.Control
                   type="number"
                   name="numero_equipo"
+                  required
+                  value={UnidadTransporte.numero_equipo}
                   placeholder="Numero de equipo"
                   onChange={(e) => changeTransporte(e)}
                 />
@@ -226,6 +242,8 @@ function Registro() {
                 <Form.Control
                   type="number"
                   name="numero_pasajeros"
+                  required
+                  value={UnidadTransporte.numero_pasajeros}
                   placeholder="Numero de pasajeros"
                   onChange={(e) => changeTransporte(e)}
                 />
@@ -242,6 +260,8 @@ function Registro() {
                   type="text"
                   name="numero_placa"
                   placeholder="Numero de placa"
+                  required
+                  value={UnidadTransporte.numero_placa}
                   onChange={(e) => changeTransporte(e)}
                 />
               </InputGroup>
@@ -257,6 +277,8 @@ function Registro() {
                   type="text"
                   name="numero_tarjeta_circulacion"
                   placeholder="Numero de tarjeta de circulación"
+                  required
+                  value={UnidadTransporte.numero_tarjeta_circulacion}
                   onChange={(e) => changeTransporte(e)}
                 />
               </InputGroup>
@@ -273,6 +295,8 @@ function Registro() {
                   type="text"
                   name="serie_chasis"
                   placeholder="Serie de chasis"
+                  required
+                  value={UnidadTransporte.serie_chasis}
                   onChange={(e) => changeTransporte(e)}
                 />
               </InputGroup>
@@ -288,12 +312,12 @@ function Registro() {
                   type="text"
                   name="serie_motor"
                   placeholder="Serie de motor"
+                  required
+                  value={UnidadTransporte.serie_motor}
                   onChange={(e) => changeTransporte(e)}
                 />
               </InputGroup>
               <br />
-              <h5>Combustible</h5>
-              <NuevoCombustible />
               <ButtonsDesitions
                 linkCancel="/unidades-transporte"
                 submitSave={uploadImage}
