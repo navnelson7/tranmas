@@ -13,7 +13,6 @@ function RegistroCombustible() {
   const { push } = useHistory();
 
   //ALERTA
-  const [Loading, setLoading] = useState(false);
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
@@ -60,7 +59,6 @@ function RegistroCombustible() {
       }
     })
       .catch(error => {
-        setLoading(false);
         setTextAlert(error.message);
         setIconType("error");
         setshowAlert(true);
@@ -68,7 +66,6 @@ function RegistroCombustible() {
   }
 
   useEffect(() => {
-    setLoading(true)
     updateUnidadTransporte({
       variables: {
         id: id,
@@ -77,7 +74,6 @@ function RegistroCombustible() {
     })
       .then(res => {
         if (res.data) {
-          setLoading(false);
           setIconType("success");
           setshowAlert(true);
           setTextAlert("Registrado correctamente");
@@ -89,7 +85,6 @@ function RegistroCombustible() {
       })
       .catch(error => {
         if (error.message !== `invalid input syntax for type uuid: ""`) {
-          setLoading(false);
           setTextAlert(error.message);
           setIconType("error");
           setshowAlert(true);
@@ -97,15 +92,6 @@ function RegistroCombustible() {
       })
       // eslint-disable-next-line
   }, [ExecuteUpdateUnidadTransporte])
-
-  if (Loading)
-    return (
-      <div className="box-center">
-        <div className="spinner-border text-primary" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    );
   return (
     <Fragment>
       <ToastComponent
