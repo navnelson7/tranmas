@@ -61,6 +61,8 @@ function Registro() {
   const [Progress, setProgress] = useState(0);
   const [ExecuteSave, setExecuteSave] = useState(false);
   const [ImagenUrlGetting, setImagenUrlGetting] = useState(false);
+  const [Marca, setMarca] = useState("");
+
 
   const uploadImage = async (e) => {
     e.preventDefault();
@@ -178,11 +180,11 @@ function Registro() {
               </InputGroup>
 
               <Row>
-                <Col sm={6}>
+                <Col sm={5}>
                   <ListBoxMarcasTransporte changeMarca={changeTransporte} />
                 </Col>
-                <Col sm={6}>
-                  <NuevaMarca UnidadTransporte={UnidadTransporte} setUnidadTransporte={setUnidadTransporte} />
+                <Col sm={7}>
+                  <NuevaMarca UnidadTransporte={UnidadTransporte} setMarca={setMarca} Marca={Marca} setUnidadTransporte={setUnidadTransporte} />
                 </Col>
               </Row>
 

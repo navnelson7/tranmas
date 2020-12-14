@@ -99,15 +99,6 @@ export const getMarcas = gql`
   }
 `;
 
-export const getMarcasTransporte = gql`
-  query {
-    marca_transporte {
-      id
-      marca
-    }
-  }
-`;
-
 export const getRoles = gql`
   query {
     roles {
