@@ -23,9 +23,6 @@ const ListadoEmpleados = lazy(() =>
 const RegistroTransporte = lazy(() =>
   import("./components/UnidadesTransporte/Registro")
 );
-const ResultFilter = lazy(() =>
-  import("./components/Proveedores/ResultFilter")
-);
 const EditarTransporte = lazy(() =>
   import("./components/UnidadesTransporte/Editar")
 );
@@ -41,7 +38,6 @@ const ListadoRepuestos = lazy(() =>
   import("./components/Repuestos/ListadoRepuestos")
 );
 
-const Proveedores = lazy(() => import("./components/Proveedores"));
 const ListadoMarcas = lazy(() => import("./components/Marcas/ListadoMarcas"));
 const FormularioMarcas = lazy(() =>
   import("./components/Marcas/FormularioMarcas")
@@ -100,11 +96,6 @@ function App() {
             <Route exact path="/actualizar-unidad-transporte/:id">
               <Suspense fallback="Cargando....">
                 <EditarTransporte />
-              </Suspense>
-            </Route>
-            <Route exact path="/resultados-proveedores">
-              <Suspense fallback="Cargando....">
-                <ResultFilter />
               </Suspense>
             </Route>
             <Route exact path="/registro-transporte">

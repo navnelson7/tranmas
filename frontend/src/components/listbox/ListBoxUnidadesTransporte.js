@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { InputGroup, FormControl } from "react-bootstrap";
-import { useQuery } from "@apollo/client";
-import { getMarcasTransporte } from "../../graphql/Queries";
+import { useSubscription } from "@apollo/client";
+import { listenMarcasTransporte } from "../../graphql/Suscription";
 
 const ListBoxMarcasTransporte = ({ changeMarca, marcaSeleccionada="" }) => {
   const [marcas] = useState([
@@ -13,7 +13,7 @@ const ListBoxMarcasTransporte = ({ changeMarca, marcaSeleccionada="" }) => {
 
   const { id } = marcas;
 
-  const { data, loading, error } = useQuery(getMarcasTransporte);
+  const { data, loading, error } = useSubscription(listenMarcasTransporte);
 
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;

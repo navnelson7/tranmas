@@ -50,3 +50,13 @@ export const listenUnidadesTranporte = gql`
     }
   }
 `;
+
+
+export const listenMarcasTransporte = gql`
+  subscription {
+    marca_transporte {
+      id
+      marca
+    }
+  }
+`;
