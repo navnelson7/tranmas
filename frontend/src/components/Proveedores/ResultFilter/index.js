@@ -6,7 +6,8 @@ import { StyleTable } from "../index";
 import { Link } from "react-router-dom";
 import { ToastComponent } from "../../Toast";
 import { updateActivoProveedor } from "../../../graphql/Mutations";
-import { Spinner } from "react-bootstrap";
+import leftIcon from "../iconos/left.svg";
+import rightIcon from "../iconos/right.svg";
 
 function ResultFilter() {
   const [showAlert, setshowAlert] = useState(false);
@@ -15,12 +16,16 @@ function ResultFilter() {
   const [Proveedores, setProveedores] = useState([]);
   const { StateSearch, SelectField } = useContext(ContextInputSearch);
 
+  //STATES OF PAGINATE
+  const [PaginateNumber, setPaginateNumber] = useState(0);
+  const [PaginacionPantalla, setPaginacionPantalla] = useState(0);
+
   //LAZY QUERIE OF FILTER
   const GET_FILTER = gql`
-  subscription($text: String) {
+  subscription($text: String, $limit: Int, $offset: Int) {
     proveedores(where: { ${SelectField}: { _similar: $text }, activo: {
       _eq: true
-    } }) {
+    } }, limit: $limit, offset: $offset) {
       id
       nombre_proveedor
       nit
@@ -37,7 +42,7 @@ function ResultFilter() {
   }
   `;
   const GET_FILTER_DATE = gql`
-  subscription($text: date) {
+    subscription($text: date) {
       proveedores(where: { updated_at: { _eq: $text } }) {
         id
         nombre_proveedor
@@ -55,14 +60,25 @@ function ResultFilter() {
     }
   `;
 
-  const { data, loading } = useSubscription(
+  const { data, loading, error } = useSubscription(
     SelectField === "updated_at" ? GET_FILTER_DATE : GET_FILTER,
     {
-      variables: { text: StateSearch },
+      variables: { text: StateSearch, limit: 20, offset: PaginateNumber },
     }
   );
   //EDITAR
   const [updateProveedor] = useMutation(updateActivoProveedor);
+
+  //PAGINACION
+  const retrocederPage = () => {
+    if (PaginateNumber === 0) {
+      setPaginacionPantalla(0);
+      setPaginateNumber(0);
+    } else {
+      setPaginacionPantalla(PaginacionPantalla - 1);
+      setPaginateNumber(PaginateNumber - 10);
+    }
+  };
 
   const updateProveedorSubmit = (e, idSelected) => {
     e.preventDefault();
@@ -92,7 +108,15 @@ function ResultFilter() {
       });
   };
 
-  if (loading) return <Spinner />;
+  if (loading)
+    return (
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
       <ToastComponent
@@ -184,6 +208,31 @@ function ResultFilter() {
                 })}
               </tbody>
             </table>
+          </div>
+        </div>
+        <div className="flex-icons-right">
+          <div className="grid-icons-right">
+            <div>
+              {/* EN REALIDAD LA PAGINACION EMPIEZA DE CERO PERO PARA EL USUARIO EMPEZARA DE 1 */}
+              <p className="txt-page">Pagina {PaginacionPantalla + 1}</p>
+            </div>
+            <div
+              className="box-icons-right"
+              title="Atras"
+              onClick={() => retrocederPage()}
+            >
+              <img src={leftIcon} alt="Atras" className="mt-icons" />
+            </div>
+            <div
+              className="box-icons-right"
+              title="Adelante"
+              onClick={() => {
+                setPaginateNumber(PaginateNumber + 10);
+                setPaginacionPantalla(PaginacionPantalla + 1);
+              }}
+            >
+              <img src={rightIcon} alt="Adelante" className="mt-icons" />
+            </div>
           </div>
         </div>
         <br />
