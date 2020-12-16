@@ -1,20 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './rules.css';
-import App from './App';
+import React, { lazy, Suspense } from "react";
+import ReactDOM from "react-dom";
+import "./rules.css";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./graphql/ApolloClient";
+import * as serviceWorker from "./serviceWorker";
+import Loader from "./components/Loader";
 
-import {ApolloProvider} from '@apollo/client';
-import { client } from './graphql/ApolloClient';
-
-import * as serviceWorker from './serviceWorker';
+const App = lazy(() => import("./App"));
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <Suspense fallback={<Loader />}>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </Suspense>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
