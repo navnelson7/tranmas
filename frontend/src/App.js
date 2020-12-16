@@ -8,7 +8,6 @@ import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
 import RegistroCombustible from "./components/UnidadesTransporte/Combustible/Registro";
 import EditarCombustible from "./components/UnidadesTransporte/Combustible/EditarCombustible";
-import Loader from "./components/Loader";
 
 //IMPORT LAZY IN COMPONENTS
 const NuevoUsuario = lazy(() => import("./components/Auth/NuevoUsuario"));
@@ -39,7 +38,6 @@ const ListadoRepuestos = lazy(() =>
   import("./components/Repuestos/ListadoRepuestos")
 );
 
-const Proveedores = lazy(() => import("./components/Proveedores"));
 const ListadoMarcas = lazy(() => import("./components/Marcas/ListadoMarcas"));
 const FormularioMarcas = lazy(() =>
   import("./components/Marcas/FormularioMarcas")
@@ -88,9 +86,6 @@ function App() {
               <Suspense fallback="Cargando....">
                 <EditarTransporte />
               </Suspense>
-            </Route>
-            <Route exact path="/loader">
-              <Loader />
             </Route>
             <Route exact path="/editar-combustible/:id">
               <EditarCombustible />
