@@ -74,6 +74,10 @@ const RegistroFaltas = lazy(() =>
   import("./components/Empleados/RegistroFaltas")
 );
 
+const Proveedores = lazy(()=>
+  import("./components/Proveedores/Proveedor")
+);
+
 function App() {
   return (
     <Fragment>
