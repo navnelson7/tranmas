@@ -1,7 +1,22 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import BusquedaEmpleados from './BusquedaEmpleados';
+import {useQuery} from "@apollo/client";
+import {getEmpleados} from "../../graphql/Queries";
 const RegistroFaltas = () => {
+
+    const [listadoEmpleados,setListadoEmpleados] = useState([]);
+    const {loading, data, error} = useQuery(getEmpleados);
+    useEffect(()=>{
+        if(loading){
+            return;
+        }
+        if(data){
+            setListadoEmpleados(data.empleados);
+        }
+        console.log(data);
+    },[data, loading]);
+
     const [codigo, setCodigo] = useState({
         id_empleado:''
     })

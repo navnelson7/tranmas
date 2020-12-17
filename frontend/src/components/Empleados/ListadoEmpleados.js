@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom';
 function ListadoEmpleados() {
   const [listadoEmpleados, setListadoEmpleados] = useState([]);
   const { loading, data, error } = useQuery(getEmpleados);
-  console.log(data);
   useEffect(() => {
     if (loading) {
       return;
