@@ -6,7 +6,7 @@ import {getEmpleados} from "../../graphql/Queries";
 const RegistroFaltas = () => {
 
     const [listadoEmpleados,setListadoEmpleados] = useState([]);
-    const {loading, data, error} = useQuery(getEmpleados);
+    const {loading, data} = useQuery(getEmpleados);
     useEffect(()=>{
         if(loading){
             return;
@@ -17,24 +17,44 @@ const RegistroFaltas = () => {
         console.log(data);
     },[data, loading]);
 
-    const [codigo, setCodigo] = useState({
-        id_empleado:''
+    const [state, setState] = useState({
+        codigo:''
     })
-    const {
-        id_empleado
-    } = codigo
 
-    const onChange = e =>{
-        setCodigo({
+    const {
+        codigo,
+    } =  state
+    
+    const [encontrados, guardarEncontrados] = useState();
+
+    const onChange = async e =>{
+        e.persist();
+        await setState({
             ...codigo,
             [e.target.name] : e.target.value
         })
+        console.log(codigo);
+        filtrarEmpleado();
+    }
+
+    const filtrarEmpleado = () =>{
+        var search = listadoEmpleados.filter(item =>{
+            if(item.codigo_empleado.includes(codigo)){
+                return item;
+            }
+        });
+        if(codigo === 0){
+            guardarEncontrados(search);
+        }else{
+            guardarEncontrados(search);
+        }
+        console.log("Search", search);
     }
     return ( 
         <Fragment>
             <div className="box-left">
                 <Container>
-                    <BusquedaEmpleados  value={id_empleado} onChange={onChange} />
+                    <BusquedaEmpleados  value={codigo} onChange={onChange} />
                 </Container>
             </div>
         </Fragment>
