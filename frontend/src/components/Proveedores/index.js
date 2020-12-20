@@ -4,17 +4,7 @@ import addProveedorIcon from "./iconos/add-proveedor.svg";
 import { ToastComponent } from "../Toast";
 import { Link } from "react-router-dom";
 import InputSearch from "./InputSearch";
-
-const SpinnerLazy = () => {
-  return (
-    <div className="center-box mt-5">
-      <div className="spinner-border text-primary" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
-  );
-};
-
+import { SpinnerLazy } from "../Loader/SpinerLazy";
 //IMPORT LAZY
 const Proveedor = lazy(() => import("./Proveedor"));
 const ResultFilter = lazy(() => import("./ResultFilter"));
@@ -73,7 +63,6 @@ function Proveedores() {
 export default Proveedores;
 
 export const StyleTable = styled.div`
-  @import "https://fonts.googleapis.com/css?family=Montserrat:300,400,700";
   .shawdow {
     -webkit-box-shadow: 0px 3px 5px -1px rgba(204, 174, 204, 1);
     -moz-box-shadow: 0px 3px 5px -1px rgba(204, 174, 204, 1);

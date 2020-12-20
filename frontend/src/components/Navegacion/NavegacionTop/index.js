@@ -127,16 +127,12 @@ const StyleNavTop = styled.div`
       justify-content: flex-end;
       align-items: flex-end;
     }
-    .grid-icons-right {
-      display: grid;
-      grid-template-columns: auto auto auto;
-    }
     .box-icons-right {
       margin-right: 10px;
       margin-left: 10px;
-      height: 32px;
-      width: 32px;
-      border-radius: 50px;
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
     }
   }
 `;

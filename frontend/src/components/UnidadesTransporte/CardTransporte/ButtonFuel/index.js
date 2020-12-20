@@ -1,12 +1,43 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { listenCombustibleByUnidadId } from "../../../../graphql/Suscription";
+import { useSubscription } from "@apollo/client";
+import { SpinnerLazy } from "../../../Loader/SpinnerLazy";
 
-function ButtonFuel({ id, id_combustible, registro_combustible }) {
+function ButtonFuel({ id }) {
+  console.log("id -->", id);
+  const { push } = useHistory();
+  const { loading, data } = useSubscription(listenCombustibleByUnidadId, {
+    variables: {
+      fecha:
+        new Date().getFullYear() +
+        "-" +
+        (new Date().getMonth() + 1) +
+        "-" +
+        new Date().getDate(),
+      id_unidad_transporte: id,
+    },
+  });
+
+  console.log(data);
+
+  const routerDesition = () => {
+    console.log(data);
+    if (data.registro_combustible.length === 0) {
+      push(`/registro-combustible/${id}`);
+    } else {
+      const galones = data.registro_combustible.map((combustible) => {
+        return combustible.galones_servidos;
+      });
+      push(`/editar-combustible/${galones}`);
+    }
+  };
+  if (loading) return <SpinnerLazy />;
   return (
     <Fragment>
       <StyleLoaderEspera>
-        <Link to={id_combustible === null ? `/registro-combustible/${id}` : `/editar-combustible/${id}`} className="cursor-pointer">
+        <div className="cursor-pointer" onClick={() => routerDesition()}>
           <div className="center-loader">
             <div className="flip-box">
               <div className="flip-box-inner">
@@ -32,15 +63,34 @@ function ButtonFuel({ id, id_combustible, registro_combustible }) {
                   </div>
                 </div>
                 <div className="flip-box-back">
-                  <p align="center" className="mt-icon">
-  <strong className="number-porcentaje">{registro_combustible === null ? 0 : registro_combustible.galones_servidos}</strong>
-                    <span className="gal-txt">gal</span>
-                  </p>
+                  {data !== undefined &&
+                    data.registro_combustible.map((combustible) => {
+                      return (
+                        <p
+                          align="center"
+                          className="mt-icon"
+                          key={combustible.id}
+                        >
+                          <strong className="number-porcentaje">
+                            {combustible.galones_servidos}
+                          </strong>
+                          <span className="gal-txt">gal</span>
+                        </p>
+                      );
+                    })}
+                  {data.registro_combustible.length === 0 && (
+                    <p align="center" className="mt-icon">
+                      <strong className="number-porcentaje">
+                        0
+                      </strong>
+                      <span className="gal-txt">gal</span>
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       </StyleLoaderEspera>
     </Fragment>
   );

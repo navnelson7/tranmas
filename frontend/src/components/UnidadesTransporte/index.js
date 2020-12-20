@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import CardTransporte from "./CardTransporte";
+import { SpinnerLazy } from "../Loader/SpinnerLazy";
 
 function UnidadesTransporte() {
   const [Element, setElement] = useState(null);
@@ -35,12 +36,9 @@ function UnidadesTransporte() {
             numero_placa
             id
             image
-            id_combustible
-            marca_transporte{
+            id_marca
+            marca_transporte {
               marca
-            }
-            registro_combustible{
-              galones_servidos
             }
           }
         }
@@ -86,12 +84,10 @@ function UnidadesTransporte() {
             </div>
             <div className="row hidden-md-up">
               {Data.map((unidad) => {
-                return (
-                  <CardTransporte unidad={unidad} key={unidad.id} />
-                );
+                return <CardTransporte unidad={unidad} key={unidad.id} />;
               })}
             </div>
-            {Loading && <li>Cargando</li>}
+            {Loading && <SpinnerLazy/>}
             {!Loading && showReference ? (
               <p ref={setElement} align="center">
                 Cargando...

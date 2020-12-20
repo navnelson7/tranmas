@@ -8,6 +8,7 @@ import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
 import RegistroCombustible from "./components/UnidadesTransporte/Combustible/Registro";
 import EditarCombustible from "./components/UnidadesTransporte/Combustible/EditarCombustible";
+import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 
 //IMPORT LAZY IN COMPONENTS
 const NuevoUsuario = lazy(() => import("./components/Auth/NuevoUsuario"));
@@ -108,7 +109,7 @@ function App() {
               </Suspense>
             </Route>
             <Route exact path="/unidades-transporte">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<SpinnerLazy/>}>
                 <UnidadesTransporte />
               </Suspense>
             </Route>
