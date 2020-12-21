@@ -6,7 +6,6 @@ import { useSubscription } from "@apollo/client";
 import { SpinnerLazy } from "../../../Loader/SpinnerLazy";
 
 function ButtonFuel({ id }) {
-  console.log("id -->", id);
   const { push } = useHistory();
   const { loading, data } = useSubscription(listenCombustibleByUnidadId, {
     variables: {
@@ -20,17 +19,14 @@ function ButtonFuel({ id }) {
     },
   });
 
-  console.log(data);
-
   const routerDesition = () => {
-    console.log(data);
     if (data.registro_combustible.length === 0) {
       push(`/registro-combustible/${id}`);
     } else {
-      const galones = data.registro_combustible.map((combustible) => {
-        return combustible.galones_servidos;
+      const idCombustible = data.registro_combustible.map((combustible) => {
+        return combustible.id;
       });
-      push(`/editar-combustible/${galones}`);
+      push(`/editar-combustible/${idCombustible}`);
     }
   };
   if (loading) return <SpinnerLazy />;
@@ -80,9 +76,7 @@ function ButtonFuel({ id }) {
                     })}
                   {data.registro_combustible.length === 0 && (
                     <p align="center" className="mt-icon">
-                      <strong className="number-porcentaje">
-                        0
-                      </strong>
+                      <strong className="number-porcentaje">0</strong>
                       <span className="gal-txt">gal</span>
                     </p>
                   )}

@@ -263,21 +263,18 @@ export const getMarcaTransporteById = gql`
 `;
 
 export const registroCombustibleById = gql`
-  subscription unidades_de_transporte_by_pk($id: uuid!) {
-    unidades_de_transporte_by_pk(id: $id) {
-      registro_combustible {
-        comentarios
-        id
-        id_empleado_motorista
-        galones_servidos
-        kilometraje_actual
-        empleado {
-          id
-          nombres
-          apellidos
-        }
+  subscription registro_combustible_by_pk($id: uuid!){
+    registro_combustible_by_pk(id: $id) {
+      comentarios
+      id_empleado_motorista
+      empleado_motorista {
+        nombres
+        apellidos
       }
+      fecha
+      id
+      kilometraje_actual
+      galones_servidos
     }
   }
 `;
-

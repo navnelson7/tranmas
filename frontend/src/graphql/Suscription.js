@@ -63,7 +63,7 @@ export const listenMarcasTransporte = gql`
 export const listenMotoristasListBox = gql`
   subscription {
     empleados(
-      where: { tipo_empleado: { tipo_empleado: { _eq: "Bodeguero" } } }
+      where: { tipo_empleado: { tipo_empleado: { _eq: "Motorista" } } }
     ) {
       id
       nombres
