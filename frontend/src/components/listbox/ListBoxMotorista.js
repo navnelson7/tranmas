@@ -1,10 +1,10 @@
 import React from "react";
 import { InputGroup, FormControl } from "react-bootstrap";
-import { useQuery } from "@apollo/client";
-import { getEmpleadosListBox } from "../../graphql/Queries";
+import { useSubscription } from "@apollo/client";
+import { listenMotoristasListBox } from "../../graphql/Suscription";
 
 const ListBoxMotorista = ({ changeCombustible, motoristaSeleccionado = "" }) => {
-    const { data, loading, error } = useQuery(getEmpleadosListBox);
+    const { data, loading, error } = useSubscription(listenMotoristasListBox); 
 
     if (loading) return "Loading...";
     if (error) return `Error! ${error.message}`;

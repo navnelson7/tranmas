@@ -51,12 +51,38 @@ export const listenUnidadesTranporte = gql`
   }
 `;
 
-
 export const listenMarcasTransporte = gql`
   subscription {
     marca_transporte {
       id
       marca
+    }
+  }
+`;
+
+export const listenMotoristasListBox = gql`
+  subscription {
+    empleados(
+      where: { tipo_empleado: { tipo_empleado: { _eq: "Motorista" } } }
+    ) {
+      id
+      nombres
+      apellidos
+    }
+  }
+`;
+
+
+export const listenCombustibleByUnidadId = gql`
+  subscription($fecha: date, $id_unidad_transporte: uuid) {
+    registro_combustible(
+      where: {
+        fecha: { _eq: $fecha }
+        id_unidad_transporte: { _eq: $id_unidad_transporte }
+      }
+    ) {
+      id
+      galones_servidos
     }
   }
 `;

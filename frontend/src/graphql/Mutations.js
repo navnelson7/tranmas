@@ -417,43 +417,6 @@ export const saveMarcaTransporte = gql`
   }
 `;
 
-export const saveRegistroCombustible = gql`
-  mutation insert_registro_combustible_one(
-    $comentarios: String
-    $fecha: date
-    $galones_servidos: numeric
-    $id_empleado_motorista: uuid
-    $id_usuario: uuid
-    $kilometraje_actual: numeric
-  ) {
-    insert_registro_combustible_one(
-      object: {
-        comentarios: $comentarios
-        fecha: $fecha
-        id_empleado_motorista: $id_empleado_motorista
-        id_usuario: $id_usuario
-        galones_servidos: $galones_servidos
-        kilometraje_actual: $kilometraje_actual
-      }
-    ) {
-      id
-    }
-  }
-`;
-
-export const updateUnidadTransporteByIdCombustible = gql`
-  mutation update_unidades_de_transporte_by_pk(
-    $id: uuid!
-    $id_combustible: uuid
-  ) {
-    update_unidades_de_transporte_by_pk(
-      pk_columns: { id: $id }
-      _set: { id_combustible: $id_combustible }
-    ) {
-      id
-    }
-  }
-`;
 export const updateRegistroCombustibleById = gql`
   mutation update_registro_combustible_by_pk(
     $comentarios: String
@@ -483,6 +446,32 @@ export const updateNuevaMarcaTransporteById = gql`
     update_marca_transporte_by_pk(
       pk_columns: { id: $id }
       _set: { marca: $marca }
+    ) {
+      id
+    }
+  }
+`;
+
+export const saveRegistroCombustibleDaily = gql`
+  mutation insert_registro_combustible_one(
+    $comentarios: String
+    $fecha: date
+    $galones_servidos: numeric
+    $id_empleado_motorista: uuid
+    $id_unidad_transporte: uuid
+    $id_usuario: uuid
+    $kilometraje_actual: numeric
+    ){
+    insert_registro_combustible_one(
+      object: {
+        comentarios: $comentarios
+        galones_servidos: $galones_servidos
+        id_empleado_motorista: $id_empleado_motorista
+        id_unidad_transporte: $id_unidad_transporte
+        fecha: $fecha
+        id_usuario: $id_usuario
+        kilometraje_actual: $kilometraje_actual
+      }
     ) {
       id
     }
