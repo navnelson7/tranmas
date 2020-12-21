@@ -142,6 +142,9 @@ function EditarCombustible() {
                       changeCombustible={changeCombustible}
                       motoristaSeleccionado={
                         data.registro_combustible_by_pk.empleado_motorista
+                          .nombres +
+                        " " +
+                        data.registro_combustible_by_pk.empleado_motorista
                           .apellidos
                       }
                     />
