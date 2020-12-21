@@ -5,7 +5,11 @@ import {useQuery} from "@apollo/client";
 import {getEmpleados} from "../../graphql/Queries";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
+import FormularioFaltas from "../Empleados/FormularioFaltas";
 const RegistroFaltas = () => {
+
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
+    
 
     const [listadoEmpleados,setListadoEmpleados] = useState([]);
     const {loading, data} = useQuery(getEmpleados);
@@ -52,6 +56,10 @@ const RegistroFaltas = () => {
         }
         console.log("encontrados", encontrados);
     }
+
+    const agregarFalta = () => {
+        setMostrarFormulario(true)
+    }
     return ( 
         <Fragment>
             <div className="box-left">
@@ -77,12 +85,19 @@ const RegistroFaltas = () => {
                                         <td>{encontrado.codigo_empleado}</td>
                                         <td>{encontrado.nombres}</td>
                                         <td>{encontrado.apellidos}</td>
-                                        <td><Button variant="danger">Agregar Falta <FontAwesomeIcon icon={faExclamationCircle}/></Button></td>
+                                        <td><Button variant="danger" onClick={agregarFalta}>Agregar Falta <FontAwesomeIcon icon={faExclamationCircle}/></Button></td>
                                     </tr>
                                 ))
                             )}
                         </tbody>
                     </Table>
+                    {
+                        mostrarFormulario === true ? (
+                            <FormularioFaltas />
+                        ): (
+                            console.log("nad para mostrar")
+                        )
+                    }
                 </Container>
             </div>
         </Fragment>
