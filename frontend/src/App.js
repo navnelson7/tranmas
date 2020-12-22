@@ -76,7 +76,7 @@ const RegistroFaltas = lazy(() =>
 );
 
 const Proveedores = lazy(()=>
-  import("./components/Proveedores/Proveedor")
+  import("./components/Proveedores/index")
 );
 
 function App() {
