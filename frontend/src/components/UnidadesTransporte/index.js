@@ -72,6 +72,14 @@ function UnidadesTransporte() {
         <p>{Error}</p>
       </div>
     );
+  if (Loading)
+    return (
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   return (
     <Fragment>
       <StyleCards>
@@ -87,7 +95,7 @@ function UnidadesTransporte() {
                 return <CardTransporte unidad={unidad} key={unidad.id} />;
               })}
             </div>
-            {Loading && <SpinnerLazy/>}
+            {Loading && <SpinnerLazy />}
             {!Loading && showReference ? (
               <p ref={setElement} align="center">
                 Cargando...
