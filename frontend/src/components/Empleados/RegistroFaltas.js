@@ -85,7 +85,7 @@ const RegistroFaltas = () => {
                                         <td>{encontrado.codigo_empleado}</td>
                                         <td>{encontrado.nombres}</td>
                                         <td>{encontrado.apellidos}</td>
-                                        <td><Button variant="danger" onClick={agregarFalta}>Agregar Falta <FontAwesomeIcon icon={faExclamationCircle}/></Button></td>
+                                        <td><Button variant="danger" onClick={agregarFalta} value={encontrado.id}>Agregar Falta <FontAwesomeIcon icon={faExclamationCircle}/></Button></td>
                                     </tr>
                                 ))
                             )}
