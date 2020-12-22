@@ -78,7 +78,7 @@ const StyleImage = styled.div`
   .banner-imagen:hover .box-rounded-pencil {
     color: white;
     transition: 0.3s;
-    background: white;
+    background: white; 
     fill: black;
   }
 `;

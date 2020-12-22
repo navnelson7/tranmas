@@ -30,6 +30,8 @@ function RegistroCombustible() {
     id_empleado_motorista: "",
     kilometraje_actual: 0,
     id_unidad_transporte: id,
+    mes: ("11").toString(),
+    year: new Date().getFullYear().toString(),
   });
   const changeCombustible = (e) => {
     if (

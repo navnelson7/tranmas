@@ -461,7 +461,9 @@ export const saveRegistroCombustibleDaily = gql`
     $id_unidad_transporte: uuid
     $id_usuario: uuid
     $kilometraje_actual: numeric
-    ){
+    $year: String
+    $mes: String
+  ) {
     insert_registro_combustible_one(
       object: {
         comentarios: $comentarios
@@ -471,6 +473,8 @@ export const saveRegistroCombustibleDaily = gql`
         fecha: $fecha
         id_usuario: $id_usuario
         kilometraje_actual: $kilometraje_actual
+        year: $year
+        mes: $mes
       }
     ) {
       id

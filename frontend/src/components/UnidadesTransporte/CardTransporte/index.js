@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
+import styled from "styled-components";
 import ButtonFuel from "./ButtonFuel";
+import ButtonGraphic from "./ButtonGraphic";
 import Image from "./Image";
 
 function CardTransporte({ unidad }) {
@@ -14,7 +16,14 @@ function CardTransporte({ unidad }) {
               marca={unidad.marca_transporte.marca}
               id={unidad.id}
             />
-            <ButtonFuel id={unidad.id} />
+            <StyleGridCircle>
+              <div className="grid-circle-card">
+                <div>
+                  <ButtonFuel id={unidad.id} />
+                </div>
+                <ButtonGraphic />
+              </div>
+            </StyleGridCircle>
             <br />
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
@@ -30,6 +39,12 @@ function CardTransporte({ unidad }) {
     </Fragment>
   );
 }
+const StyleGridCircle = styled.div`
+  .grid-circle-card {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+`;
 
 export default React.memo(CardTransporte, (prevProps, nextProps) => {
   return prevProps.id === nextProps.id;
