@@ -1,20 +1,30 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Bar } from "@reactchartjs/react-chart.js";
 import styled from "styled-components";
 import { useQuery } from "@apollo/client";
 import { queryStatistic } from "../query";
 import { useParams } from "react-router";
-import { Table, Row, Col } from "react-bootstrap";
+import { Table, Row, Col, DropdownButton, Dropdown } from "react-bootstrap";
 
 function Chart() {
   const { id } = useParams();
   const [Year, setYear] = useState(new Date().getFullYear().toString());
+  const [YearsState, setYearsState] = useState([]);
+
   const { loading, error, data } = useQuery(queryStatistic, {
     variables: {
       id_unidad_transporte: id,
       year: Year,
     },
   });
+  useEffect(() => {
+    var year = 2020;
+    let años = [];
+    for (var i = year; i <= 3000; i++) {
+      años.push(i);
+    }
+    setYearsState(años);
+  }, []);
   const datos = {
     labels: [
       "Enero",
@@ -91,6 +101,15 @@ function Chart() {
   console.log(data);
   return (
     <Fragment>
+      <div className="d-flex justify-content-end mr-2">
+        <DropdownButton id="dropdown-basic-button" title={Year}>
+          {YearsState.map((año) => {
+            return (
+              <Dropdown.Item key={año} onClick={() => setYear(año.toString())}>{año}</Dropdown.Item>
+            );
+          })}
+        </DropdownButton>
+      </div>
       <StyleChart>
         <div className="container-chart">
           <Bar height="100%" data={datos} options={options} />
