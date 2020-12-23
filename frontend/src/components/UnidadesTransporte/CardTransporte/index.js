@@ -21,7 +21,7 @@ function CardTransporte({ unidad }) {
                 <div>
                   <ButtonFuel id={unidad.id} />
                 </div>
-                <ButtonGraphic />
+                <ButtonGraphic idUnidadTransporte={unidad.id} />
               </div>
             </StyleGridCircle>
             <br />

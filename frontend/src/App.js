@@ -9,6 +9,7 @@ import NavegacionTop from "./components/Navegacion/NavegacionTop";
 import RegistroCombustible from "./components/UnidadesTransporte/Combustible/Registro";
 import EditarCombustible from "./components/UnidadesTransporte/Combustible/EditarCombustible";
 import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
+import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible/statistic";
 
 //IMPORT LAZY IN COMPONENTS
 const NuevoUsuario = lazy(() => import("./components/Auth/NuevoUsuario"));
@@ -94,6 +95,9 @@ function App() {
             </Route>
             <Route exact path="/editar-combustible/:id">
               <EditarCombustible />
+            </Route>
+            <Route exact path="/estadisticas/combustible/:id">
+              <EstadisticasCombustible />
             </Route>
             <Route exact path="/registro-combustible/:id">
               <RegistroCombustible />
