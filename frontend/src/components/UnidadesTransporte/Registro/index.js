@@ -39,7 +39,7 @@ function Registro() {
     numero_placa: "",
     numero_tarjeta_circulacion: "",
     serie_motor: "",
-    serie_chasis: ""
+    serie_chasis: "",
   });
 
   const [addTransporte] = useMutation(setTransporteOne);
@@ -62,7 +62,6 @@ function Registro() {
   const [ExecuteSave, setExecuteSave] = useState(false);
   const [ImagenUrlGetting, setImagenUrlGetting] = useState(false);
   const [Marca, setMarca] = useState("");
-
 
   const uploadImage = async (e) => {
     e.preventDefault();
@@ -99,16 +98,17 @@ function Registro() {
           setImagenUrlGetting(true);
         })
         .catch(function (error) {
-          if (error.response.data.message === "Image not found") {
-            setLoading(false);
-            setTextAlert("Selecciona una imagen");
-            setIconType("error");
-            setshowAlert(true);
+          if (error !== undefined) {
+            if (error.response.data.message === "Image not found") {
+              setLoading(false);
+              setTextAlert("Selecciona una imagen");
+              setIconType("error");
+              setshowAlert(true);
+            }
           }
         });
     }
   };
-
 
   useEffect(() => {
     if (ExecuteSave && ImagenUrlGetting) {
@@ -116,7 +116,6 @@ function Registro() {
     }
     // eslint-disable-next-line
   }, [ExecuteSave, ImagenUrlGetting]);
-
 
   const submitTransporte = () => {
     setLoading(true);
@@ -153,6 +152,7 @@ function Registro() {
     );
   return (
     <Fragment>
+      <br/>
       <ToastComponent
         showAlert={showAlert}
         setShowAlert={setshowAlert}
@@ -184,7 +184,12 @@ function Registro() {
                   <ListBoxMarcasTransporte changeMarca={changeTransporte} />
                 </Col>
                 <Col sm={7}>
-                  <NuevaMarca UnidadTransporte={UnidadTransporte} setMarca={setMarca} Marca={Marca} setUnidadTransporte={setUnidadTransporte} />
+                  <NuevaMarca
+                    UnidadTransporte={UnidadTransporte}
+                    setMarca={setMarca}
+                    Marca={Marca}
+                    setUnidadTransporte={setUnidadTransporte}
+                  />
                 </Col>
               </Row>
 
