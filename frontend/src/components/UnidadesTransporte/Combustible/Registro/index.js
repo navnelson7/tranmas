@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 import { Form, InputGroup, Card, Row, Col, FormControl } from "react-bootstrap";
@@ -30,7 +30,7 @@ function RegistroCombustible() {
     id_empleado_motorista: "",
     kilometraje_actual: 0,
     id_unidad_transporte: id,
-    mes: ("11").toString(),
+    mes: (new Date().getMonth() + 1).toString(),
     year: new Date().getFullYear().toString(),
   });
   const changeCombustible = (e) => {

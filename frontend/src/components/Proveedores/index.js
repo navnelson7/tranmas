@@ -1,12 +1,13 @@
-import React, { useState, Fragment, lazy } from "react";
+import React, { useState, Fragment, lazy, Suspense } from "react";
 import styled from "styled-components";
 import addProveedorIcon from "./iconos/add-proveedor.svg";
 import { ToastComponent } from "../Toast";
 import { Link } from "react-router-dom";
 import InputSearch from "./InputSearch";
-import Proveedor from "./Proveedor";
-import ResultFilter from "./ResultFilter";
 //IMPORT LAZY
+const Proveedor = lazy(() => import("./Proveedor"));
+const ResultFilter = lazy(() => import("./ResultFilter"));
+
 function Proveedores() {
   const [EnterSearch, setEnterSearch] = useState(false);
   const [showAlert, setshowAlert] = useState(false);
@@ -38,13 +39,33 @@ function Proveedores() {
           </div>
         </div>
         {EnterSearch ? (
-          <ResultFilter />
+          <Suspense
+            fallback={
+              <div className="center-box mt-5">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </div>
+            }
+          >
+            <ResultFilter />
+          </Suspense>
         ) : (
-          <Proveedor
-            setshowAlert={setshowAlert}
-            setTextAlert={setTextAlert}
-            setIconType={setIconType}
-          />
+          <Suspense
+            fallback={
+              <div className="center-box mt-5">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </div>
+            }
+          >
+            <Proveedor
+              setshowAlert={setshowAlert}
+              setTextAlert={setTextAlert}
+              setIconType={setIconType}
+            />
+          </Suspense>
         )}
         <br />
         <br />
