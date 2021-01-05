@@ -102,11 +102,13 @@ function EditarTransporte() {
           setImagenUrlGetting(true);
         })
         .catch(function (error) {
-          if (error.response.data.message === "Image not found") {
-            setLoading(false);
-            setTextAlert("Selecciona una imagen");
-            setIconType("error");
-            setshowAlert(true);
+          if (error !== undefined || error !== null) {
+            if (error.response.data.message === "Image not found") {
+              setLoading(false);
+              setTextAlert("Selecciona una imagen");
+              setIconType("error");
+              setshowAlert(true);
+            }
           }
         });
     }

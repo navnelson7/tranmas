@@ -98,7 +98,7 @@ function Registro() {
           setImagenUrlGetting(true);
         })
         .catch(function (error) {
-          if (error !== undefined) {
+          if (error !== undefined || error !== null) {
             if (error.response.data.message === "Image not found") {
               setLoading(false);
               setTextAlert("Selecciona una imagen");
