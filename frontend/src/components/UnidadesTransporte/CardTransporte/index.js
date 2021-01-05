@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import ButtonFuel from "./ButtonFuel";
 import ButtonGraphic from "./ButtonGraphic";
+import ButtonReparaciones from "./ButtonReparaciones";
 import Image from "./Image";
 
 function CardTransporte({ unidad }) {
@@ -22,6 +23,7 @@ function CardTransporte({ unidad }) {
                   <ButtonFuel id={unidad.id} />
                 </div>
                 <ButtonGraphic idUnidadTransporte={unidad.id} />
+                <ButtonReparaciones idUnidadTransporte={unidad.id} />
               </div>
             </StyleGridCircle>
             <br />
@@ -42,7 +44,7 @@ function CardTransporte({ unidad }) {
 const StyleGridCircle = styled.div`
   .grid-circle-card {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 33.33% 33.33% 33.33%;
   }
 `;
 
