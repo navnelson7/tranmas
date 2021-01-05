@@ -9,7 +9,7 @@ import { Container, Table } from "react-bootstrap";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {Button} from 'react-bootstrap';
-import { faUserEdit,faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 
 function ListadoEmpleados() {
