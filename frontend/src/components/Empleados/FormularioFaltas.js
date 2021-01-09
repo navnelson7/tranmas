@@ -6,7 +6,7 @@ import {Form, InputGroup, FormControl, Col, Row, Button} from 'react-bootstrap'
 const FormularioFaltas = (encontrado) => {
     return ( 
         <Fragment>  
-        
+
             <Form>
                 <Row>
                     <Col sm={6}>
@@ -45,7 +45,7 @@ const FormularioFaltas = (encontrado) => {
                         </InputGroup>
                     </Col>
                 </Row>
-                <Button variant="danger"  value={encontrado.id}>Agregar Falta <FontAwesomeIcon icon={faAddressCard}/></Button>
+                <Button variant="danger"  value={encontrado.id}>Guardar Falta <FontAwesomeIcon icon={faAddressCard}/></Button>
             </Form>
             
         </Fragment>

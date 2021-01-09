@@ -95,7 +95,7 @@ const RegistroFaltas = () => {
                         mostrarFormulario === true ? (
                             <FormularioFaltas />
                         ): (
-                            console.log("nad para mostrar")
+                            console.log("nada para mostrar")
                         )
                     }
                 </Container>
