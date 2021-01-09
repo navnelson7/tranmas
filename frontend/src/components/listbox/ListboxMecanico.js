@@ -1,26 +1,26 @@
 import React from "react";
 import { InputGroup, FormControl } from "react-bootstrap";
 import { useSubscription } from "@apollo/client";
-import { listenMotoristasListBox } from "../../graphql/Suscription";
+import { listenMecanicoListBox } from "../../graphql/Suscription";
 
-const ListBoxMotorista = ({ changeMotorista, motoristaSeleccionado = "" }) => {
-  const { data, loading, error } = useSubscription(listenMotoristasListBox);
+const ListBoxMecanico = ({ changeMecanico, motoristaSeleccionado = "" }) => {
+  const { data, loading, error } = useSubscription(listenMecanicoListBox);
 
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
   return (
     <InputGroup className="mb-3">
       <InputGroup.Prepend>
-        <InputGroup.Text id="basic-addon1">Motorista</InputGroup.Text>
+        <InputGroup.Text id="basic-addon1">Mecánico</InputGroup.Text>
       </InputGroup.Prepend>
       <FormControl
         as="select"
-        name="id_empleado_motorista"
-        onChange={changeMotorista}
+        name="id_empleado_mecanico"
+        onChange={changeMecanico}
       >
         <option>
           {motoristaSeleccionado === ""
-            ? "Seleccione un motorista"
+            ? "Seleccione un mecánico"
             : motoristaSeleccionado}
         </option>
         {data.empleados.lenght === 0 ? (
@@ -36,4 +36,4 @@ const ListBoxMotorista = ({ changeMotorista, motoristaSeleccionado = "" }) => {
     </InputGroup>
   );
 };
-export default ListBoxMotorista;
+export default ListBoxMecanico;

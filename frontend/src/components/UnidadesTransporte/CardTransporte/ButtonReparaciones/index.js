@@ -1,12 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function ButtonReparaciones({ idUnidadTransporte }) {
-  return (
+  return ( 
     <Fragment>
       <StyleLoaderEspera>
-        <Link to={`/jaja/${idUnidadTransporte}`}>
+        <Link to={`/registro-taller/${idUnidadTransporte}`}>
           <div className="cursor-pointer">
             <div className="center-loader">
               <div className="flip-box">

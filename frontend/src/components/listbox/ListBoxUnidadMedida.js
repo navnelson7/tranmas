@@ -18,7 +18,8 @@ const ListBoxUnidadMedida = ({changeMedida}) => {
     const {data, loading, error} = useQuery(getUnidadMedida);
 
 
-    if (loading) return 'Loading...';   if (error) return `Error! ${error.message}`;
+    if (loading) return 'Loading...';   
+    if (error) return `Error! ${error.message}`;
     return (
         <Col sm={4}>
             <InputGroup className="mb-3">

@@ -72,6 +72,17 @@ export const listenMotoristasListBox = gql`
   }
 `;
 
+export const listenMecanicoListBox = gql`
+  subscription {
+    empleados(
+      where: { tipo_empleado: { tipo_empleado: { _eq: "Mecanico" } } }
+    ) {
+      id
+      nombres
+      apellidos
+    }
+  }
+`;
 
 export const listenCombustibleByUnidadId = gql`
   subscription($fecha: date, $id_unidad_transporte: uuid) {
@@ -83,6 +94,22 @@ export const listenCombustibleByUnidadId = gql`
     ) {
       id
       galones_servidos
+    }
+  }
+`;
+
+export const listenKilomatrajeMax = gql`
+  subscription registro_combustible_aggregate($id: uuid!){
+    registro_combustible_aggregate(
+      where: {
+        id_unidad_transporte: { _eq: $id }
+      }
+    ) {
+      aggregate {
+        max {
+          kilometraje_actual
+        }
+      }
     }
   }
 `;
