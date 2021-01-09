@@ -12,6 +12,10 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible/statistic";
 
 //IMPORT LAZY IN COMPONENTS
+const RegistroTaller = lazy(() =>
+  import("./components/UnidadesTransporte/Taller/RegistroTaller")
+);
+
 const NuevoUsuario = lazy(() => import("./components/Auth/NuevoUsuario"));
 
 const Registro = lazy(() => import("./components/Empleados/Registro"));
@@ -76,9 +80,7 @@ const RegistroFaltas = lazy(() =>
   import("./components/Empleados/RegistroFaltas")
 );
 
-const Proveedores = lazy(()=>
-  import("./components/Proveedores/index")
-);
+const Proveedores = lazy(() => import("./components/Proveedores/index"));
 
 function App() {
   return (
@@ -102,6 +104,12 @@ function App() {
             <Route exact path="/registro-combustible/:id">
               <RegistroCombustible />
             </Route>
+
+            <Route exact path="/registro-taller/:id">
+              <Suspense fallback="Cargando....">
+                <RegistroTaller />
+              </Suspense>
+            </Route>
             <Route exact path="/actualizar-unidad-transporte/:id">
               <Suspense fallback="Cargando....">
                 <EditarTransporte />
@@ -113,7 +121,7 @@ function App() {
               </Suspense>
             </Route>
             <Route exact path="/unidades-transporte">
-              <Suspense fallback={<SpinnerLazy/>}>
+              <Suspense fallback={<SpinnerLazy />}>
                 <UnidadesTransporte />
               </Suspense>
             </Route>

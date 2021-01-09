@@ -126,7 +126,7 @@ function RegistroCombustible() {
                         name="kilometraje_actual"
                         type="number"
                         onChange={(e) => changeCombustible(e)}
-                        value={NuevoCombustible.kilo}
+                        value={NuevoCombustible.kilometraje_actual}
                       />
                     </InputGroup>
                   </Col>

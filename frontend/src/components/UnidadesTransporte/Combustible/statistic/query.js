@@ -216,8 +216,8 @@ export const queryStatistic = gql`
     }
     combustible12: registro_combustible_aggregate(
       where: {
-        mes: { _eq: "12" }
-        year: { _eq: "2020" }
+        mes: { _eq: "11" }
+        year: { _eq: $year }
         id_unidad_transporte: { _eq: "863a3112-32dd-45e3-a80f-fd26f5315524" }
       }
     ) {

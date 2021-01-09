@@ -109,7 +109,7 @@ function Registro() {
         });
     }
   };
-
+  // ESPERA SI LA IMAGEN YA SE SUBIO Y SE OBTUVO LA URL PARA GUARDARLA EN EL TRANSPORTE
   useEffect(() => {
     if (ExecuteSave && ImagenUrlGetting) {
       submitTransporte();
