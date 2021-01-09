@@ -32,6 +32,8 @@ const RegistroFaltas = () => {
     } =  state
     
     const [encontrados, guardarEncontrados] = useState([]);
+    const [Id, setId] = useState("");
+    const [Nombre, setNombre] = useState("");
 
     const onChange = async e =>{
         e.persist();
@@ -85,7 +87,12 @@ const RegistroFaltas = () => {
                                         <td>{encontrado.codigo_empleado}</td>
                                         <td>{encontrado.nombres}</td>
                                         <td>{encontrado.apellidos}</td>
-                                        <td><Button variant="danger" onClick={agregarFalta} value={encontrado.id}>Agregar Falta <FontAwesomeIcon icon={faExclamationCircle}/></Button></td>
+                                        <td><Button variant="danger" onClick={() => {
+                                            agregarFalta();
+                                            setId(encontrado.id);
+                                            setNombre(encontrado.nombres);
+                                            }
+                                            } value={encontrado.id} name="id">Agregar Falta <FontAwesomeIcon icon={faExclamationCircle}/></Button></td>
                                     </tr>
                                 ))
                             )}
@@ -93,7 +100,10 @@ const RegistroFaltas = () => {
                     </Table>
                     {
                         mostrarFormulario === true ? (
-                            <FormularioFaltas />
+                            <FormularioFaltas  
+                                Id={Id}
+                                Nombre={Nombre}
+                            />
                         ): (
                             console.log("nada para mostrar")
                         )

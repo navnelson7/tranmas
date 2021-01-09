@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import {Container,Card, Form, FormControl, InputGroup, Row, Col, Button, Modal, Image} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import ListBoxTipoEmpleados from '../Empleados/ListBoxTipoEmpleados';
