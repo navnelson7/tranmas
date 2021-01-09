@@ -17,6 +17,13 @@ const FormularioFaltas = ({Id,Nombre}) => {
         id_tipo_falta
     } = falta;
 
+    const onChange = e => {
+        setFalta({
+            ...falta,
+            [e.target.name] : e.target.value,
+        })
+    }
+
     return ( 
         <Fragment>  
             <h1>Agregar detalle de Falta a: {Nombre}</h1>
@@ -42,7 +49,9 @@ const FormularioFaltas = ({Id,Nombre}) => {
                             </InputGroup.Prepend>
                             <FormControl 
                                 as="textarea"
-                                name="descripcion"
+                                name="descripcion_de_falta"
+                                value={descripcion_de_falta}
+                                onChange={onChange}
                             />
                         </InputGroup>
                     </Col>
