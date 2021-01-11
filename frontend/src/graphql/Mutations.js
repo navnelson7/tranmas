@@ -481,3 +481,11 @@ export const saveRegistroCombustibleDaily = gql`
     }
   }
 `;
+
+export const setEstadoTaller = gql`
+  mutation insert_estado_en_taller_one($activo: Boolean, $estado: String) {
+    insert_estado_en_taller_one(object: { activo: $activo, estado: $estado }) {
+      id
+    }
+  }
+`;

@@ -133,7 +133,7 @@ function RegistroCombustible() {
                 </Row>
                 <Row>
                   <Col sm={6}>
-                    <ListBoxMotorista changeCombustible={changeCombustible} />
+                    <ListBoxMotorista changeMotorista={changeCombustible} />
                   </Col>
 
                   <Col sm={6}>

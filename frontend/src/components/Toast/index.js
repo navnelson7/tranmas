@@ -1,27 +1,101 @@
-import React from "react";
-import { Toast } from "react-bootstrap";
+import React, { useEffect , Fragment} from "react";
 import IconValidate from "./IconValidate";
 import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
 
 export function ToastComponent({
   showAlert,
-  setShowAlert,
   iconType,
   textAlert,
 }) {
-  const toggleShowA = () => setShowAlert(!showAlert);
+  useEffect(() => {
+    if (showAlert) {
+      const showAlertFunction = () => {
+        let x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function () {
+          if (x.className !== null) {
+            x.className = x.className.replace("show", "");
+          }
+        }, 3000);
+      };
+      showAlertFunction();
+    }
+  }, [showAlert]);
   return (
-    <div className="float-right">
-      <Toast show={showAlert} onClose={toggleShowA}>
-        <Toast.Header>
-          <IconValidate extension={iconType} key={uuidv4()} />
-          <strong className="mr-auto text-danger">
-            {iconType === "error" && "Error"}
-            {iconType === "success" && "Excelente"}
-          </strong>
-        </Toast.Header>
-        <Toast.Body>{textAlert ? textAlert : ""}</Toast.Body>
-      </Toast>
-    </div>
+    <Fragment>
+      <StyleToast>
+        <div className="center-snackbar">
+          <div id="snackbar">{textAlert}</div>
+        </div>
+      </StyleToast>
+    </Fragment>
   );
 }
+const StyleToast = styled.div`
+  .center-snackbar {
+    display: flex;
+    justify-content: center;
+  }
+  #snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #3f37c9;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    bottom: 160px;
+    font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+  #snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  @-webkit-keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 160px;
+      opacity: 1;
+    }
+  }
+  @keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 160px;
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadeout {
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+  @keyframes fadeout {
+    from {
+      bottom: 160px;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+`;

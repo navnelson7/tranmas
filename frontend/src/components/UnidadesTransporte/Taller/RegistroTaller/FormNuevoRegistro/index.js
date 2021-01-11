@@ -14,6 +14,7 @@ function FormNuevoRegistro() {
   const [RegistroTaller, setRegistroTaller] = useState({
     kilometraje: 0,
   });
+  const [ExecuteEstadoTaller, setExecuteEstadoTaller] = useState(false);
   const { data, loading, error } = useSubscription(listenKilomatrajeMax, {
     variables: { id: id },
   });
@@ -30,12 +31,15 @@ function FormNuevoRegistro() {
     });
     // eslint-disable-next-line
   }, [data]);
-
   const changeTaller = (e) => {
     setRegistroTaller({
       ...RegistroTaller,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const executeSaveEstadoTaller = () => {
+    setExecuteEstadoTaller(true);
   };
   if (loading)
     return (
@@ -89,7 +93,7 @@ function FormNuevoRegistro() {
                 </Row>
                 <h5>Estado en taller</h5>
                 <Row>
-                  <EstadoTaller />
+                  <EstadoTaller ExecuteEstadoTaller={ExecuteEstadoTaller} />
                 </Row>
 
                 <h5>Empleados</h5>
@@ -106,7 +110,10 @@ function FormNuevoRegistro() {
           </Form>
         </div>
       </StyleRegistroTaller>
-      <ButtonDesitions linkCancel={"/unidades-transporte"} />
+      <ButtonDesitions
+        linkCancel={"/unidades-transporte"}
+        submitSave={executeSaveEstadoTaller}
+      />
     </Fragment>
   );
 }

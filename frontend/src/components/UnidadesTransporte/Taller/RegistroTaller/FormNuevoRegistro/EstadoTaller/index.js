@@ -1,8 +1,10 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { InputGroup, Col, FormControl } from "react-bootstrap";
 import styled from "styled-components";
+import { setEstadoTaller } from "../../../../../../graphql/Mutations";
+import { useMutation } from "@apollo/client";
 
-function EstadoTaller() {
+function EstadoTaller({ ExecuteEstadoTaller }) {
   const [EstadoEnTaller, setEstadoEnTaller] = useState({
     estado: "Reparación",
     activo: true,
@@ -13,6 +15,26 @@ function EstadoTaller() {
       [e.target.name]: e.target.value,
     });
   };
+
+  const [addEstadoTaller] = useMutation(setEstadoTaller);
+
+  useEffect(() => {
+    if (ExecuteEstadoTaller) {
+      addEstadoTaller({
+        variables: EstadoEnTaller,
+      })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data);
+            console.log("success");
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+    // eslint-disable-next-line
+  }, [ExecuteEstadoTaller]);
   return (
     <Fragment>
       <Col sm={6}>
