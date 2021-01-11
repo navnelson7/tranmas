@@ -1,6 +1,10 @@
 import React, { Fragment,  useEffect,  useState } from 'react';
 import Repuesto from './Repuesto';
 import { Table, Container } from 'react-bootstrap';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {Button} from 'react-bootstrap';
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
 
 
 
@@ -29,6 +33,8 @@ const ListadoRepuestos = () => {
             <Container>
                 <div className="box-left">
                     <h1>LISTADO DE REPUESTO</h1>
+                    <Link to={`/formulario-repuestos`} variant="danger"><Button variant="info"><FontAwesomeIcon icon={faUserEdit}/> Nuevo Repuesto</Button></Link>
+
                     <Table striped bordered hover responsive>
                         <thead>
                             <tr>
