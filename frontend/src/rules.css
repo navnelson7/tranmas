@@ -59,3 +59,26 @@ label {
   align-items: center;
   justify-content: center;
 }
+
+/* SCROLL BODY */
+.scroll-body {
+  overflow: scroll;
+  height: 100%;
+  width: auto;
+  overflow-x: hidden;
+}
+.scroll-body::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+.scroll-body::-webkit-scrollbar-track {
+  background:#d4dadf;
+}
+/* Handle */
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #d0d8dd;
+}
+/* Handle on hover */
+.scroll-body::-webkit-scrollbar-thumb:hover {
+  background: #5a189a;
+}
