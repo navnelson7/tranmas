@@ -41,6 +41,7 @@ services:
     build: ./backend-python
     volumes: 
       - ./images:/code/images
+      - ./imagenes-accidentes/:/code/imagenes-accidentes
     ports:
     - "5000:5000"
 

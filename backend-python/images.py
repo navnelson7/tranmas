@@ -3,7 +3,6 @@ from werkzeug.utils import secure_filename
 import os
 from PIL import Image
 import typing
-from flask_cors import CORS
 from bson.objectid import ObjectId
 
 api_images = Blueprint('api_images', __name__)
