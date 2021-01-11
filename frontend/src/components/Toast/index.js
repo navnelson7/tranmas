@@ -1,12 +1,11 @@
 import React, { useEffect , Fragment} from "react";
-import IconValidate from "./IconValidate";
-import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 
 export function ToastComponent({
   showAlert,
   iconType,
   textAlert,
+  setShowAlert
 }) {
   useEffect(() => {
     if (showAlert) {
@@ -18,13 +17,14 @@ export function ToastComponent({
             x.className = x.className.replace("show", "");
           }
         }, 3000);
+        setShowAlert(false)
       };
       showAlertFunction();
     }
   }, [showAlert]);
   return (
     <Fragment>
-      <StyleToast>
+      <StyleToast background={ iconType === "success" ? "#93b342" : iconType === "error" ? "#ef233c" : "#3f37c9"}>
         <div className="center-snackbar">
           <div id="snackbar">{textAlert}</div>
         </div>
@@ -40,7 +40,7 @@ const StyleToast = styled.div`
   #snackbar {
     visibility: hidden;
     min-width: 250px;
-    background-color: #3f37c9;
+    background-color: ${({background})=> background};
     color: white;
     text-align: center;
     border-radius: 2px;

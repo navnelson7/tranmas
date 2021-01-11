@@ -49,30 +49,38 @@ function RegistroCombustible() {
       });
     }
   };
-  const submitCombustible = (e) => {
-    e.preventDefault();
+  const submitCombustible = () => {
     setLoading(true);
-    addCombustible({
-      variables: NuevoCombustible,
-    })
-      .then((res) => {
-        if (res.data) {
-          setLoading(false);
-          setIconType("success");
-          setshowAlert(true);
-          setTextAlert("Registrado correctamente");
-          setTimeout(() => {
-            //si todo va bien lo redirecciona al inicio
-            push("/unidades-transporte");
-          }, 2000);
-        }
+    // SI EL USUARIO NO SELECCIONA AL MOTORISTA
+    if (NuevoCombustible.id_empleado_motorista === "" || NuevoCombustible.id_empleado_motorista === "Seleccione un motorista") {
+      setLoading(false);
+      setTextAlert("Selecciona un motorista");
+      setIconType("error");
+      setshowAlert(true);
+    }
+    else{
+      addCombustible({
+        variables: NuevoCombustible,
       })
-      .catch((error) => {
-        setLoading(false);
-        setTextAlert(error.message);
-        setIconType("error");
-        setshowAlert(true);
-      });
+        .then((res) => {
+          if (res.data) {
+            setLoading(false);
+            setIconType("success");
+            setshowAlert(true);
+            setTextAlert("Registrado correctamente");
+            setTimeout(() => {
+              //si todo va bien lo redirecciona al inicio
+              push("/unidades-transporte");
+            }, 2000);
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setTextAlert(error.message);
+          setIconType("error");
+          setshowAlert(true);
+        });
+    }
   };
   if (Loading)
     return (
