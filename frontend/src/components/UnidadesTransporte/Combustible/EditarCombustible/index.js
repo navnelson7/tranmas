@@ -136,16 +136,22 @@ function EditarCombustible() {
                     </InputGroup>
                   </Col>
                 </Row>
-                <Row> 
+                <Row>
                   <Col sm={6}>
                     <ListBoxMotorista
                       changeMotorista={changeCombustible}
                       motoristaSeleccionado={
-                        data.registro_combustible_by_pk.empleado_motorista
-                          .nombres +
-                        " " +
-                        data.registro_combustible_by_pk.empleado_motorista
-                          .apellidos
+                        data.registro_combustible_by_pk.empleado_motorista ===
+                        null
+                          ? ""
+                          : data.registro_combustible_by_pk.empleado_motorista +
+                              " " +
+                              data.registro_combustible_by_pk
+                                .empleado_motorista ===
+                            null
+                          ? ""
+                          : data.registro_combustible_by_pk.empleado_motorista
+                              .apellidos
                       }
                     />
                   </Col>

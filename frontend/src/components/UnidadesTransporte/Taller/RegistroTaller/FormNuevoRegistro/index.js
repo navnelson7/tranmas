@@ -3,21 +3,38 @@ import { Form, InputGroup, Card, Row, Col, FormControl } from "react-bootstrap";
 import styled from "styled-components";
 import ButtonDesitions from "../../../../ButtonsDesitions";
 import EstadoTaller from "./EstadoTaller";
-import { useSubscription } from "@apollo/client";
+import { useSubscription, useMutation } from "@apollo/client";
 import { useParams } from "react-router";
 import { listenKilomatrajeMax } from "../../../../../graphql/Suscription";
+import { setRegistroTallerOne } from "../../../../../graphql/Mutations";
 import ListBoxMotorista from "../../../../listbox/ListBoxMotorista";
 import ListBoxMecanico from "../../../../listbox/ListboxMecanico";
+import { ToastComponent } from "../../../../Toast";
 
 function FormNuevoRegistro() {
   const { id } = useParams();
+  //ALERT
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
+  const [TextAlert, setTextAlert] = useState("");
+  const [Loading, setLoading] = useState(false);
+
   const [RegistroTaller, setRegistroTaller] = useState({
     kilometraje: 0,
+    id_empleado_mecanico: "",
+    id_empleado_motorista: "",
+    id_estado: "",
+    comentarios: "",
+    id_unidad_transporte: id,
   });
   const [ExecuteEstadoTaller, setExecuteEstadoTaller] = useState(false);
+  const [ExecuteRegistroTaller, setExecuteRegistroTaller] = useState(false);
   const { data, loading, error } = useSubscription(listenKilomatrajeMax, {
     variables: { id: id },
   });
+
+  const [addRegistroTaller] = useMutation(setRegistroTallerOne);
+
   useEffect(() => {
     let kilometrajeData = 0;
     kilometrajeData =
@@ -31,16 +48,71 @@ function FormNuevoRegistro() {
     });
     // eslint-disable-next-line
   }, [data]);
+
   const changeTaller = (e) => {
-    setRegistroTaller({
-      ...RegistroTaller,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "kilometraje") {
+      setRegistroTaller({
+        ...RegistroTaller,
+        [e.target.name]: parseInt(e.target.value),
+      });
+    } else {
+      setRegistroTaller({
+        ...RegistroTaller,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const executeSaveEstadoTaller = () => {
-    setExecuteEstadoTaller(true);
+    if (RegistroTaller.id_empleado_mecanico === "") {
+      setLoading(false);
+      setTextAlert("Selecciona un empleado mecanico");
+      setIconType("error");
+      setshowAlert(true);
+    }
+    if (RegistroTaller.id_empleado_motorista === "") {
+      setLoading(false);
+      setTextAlert("Selecciona un empleado motorista");
+      setIconType("error");
+      setshowAlert(true);
+    } else {
+      setExecuteEstadoTaller(true);
+    }
   };
+
+  useEffect(() => {
+    if (ExecuteRegistroTaller) {
+      addRegistroTaller({
+        variables: RegistroTaller,
+      })
+        .then((res) => {
+          if (res.data) {
+            setLoading(false);
+            setIconType("success");
+            setTextAlert("Registrado correctamente");
+            setshowAlert(true);
+            setExecuteRegistroTaller(false);
+            setRegistroTaller({
+              kilometraje: 0,
+              id_empleado_mecanico: "",
+              id_empleado_motorista: "",
+              id_estado: "",
+              comentarios: "",
+              id_unidad_transporte: id,
+            });
+          }
+        })
+        .catch((error) => {
+          if (error !== null || error !== undefined) {
+            setTextAlert(error.message);
+            setIconType("error");
+            setLoading(false);
+            setshowAlert(true);
+          }
+        });
+    }
+  }, [ExecuteRegistroTaller]);
+
   if (loading)
     return (
       <div className="center-box mt-5">
@@ -52,6 +124,12 @@ function FormNuevoRegistro() {
   if (error) return `Error! ${error.message}`;
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
       <StyleRegistroTaller>
         <div className="container-form">
           <h2>Formulario para registro de taller</h2>
@@ -86,6 +164,7 @@ function FormNuevoRegistro() {
                       <FormControl
                         placeholder="Comentarios"
                         name="comentarios"
+                        value={RegistroTaller.comentarios}
                         onChange={(e) => changeTaller(e)}
                       />
                     </InputGroup>
@@ -93,7 +172,17 @@ function FormNuevoRegistro() {
                 </Row>
                 <h5>Estado en taller</h5>
                 <Row>
-                  <EstadoTaller ExecuteEstadoTaller={ExecuteEstadoTaller} />
+                  <EstadoTaller
+                    RegistroTaller={RegistroTaller}
+                    setRegistroTaller={setRegistroTaller}
+                    ExecuteEstadoTaller={ExecuteEstadoTaller}
+                    setExecuteRegistroTaller={setExecuteRegistroTaller}
+                    //ALERTS
+                    setLoading={setLoading}
+                    setshowAlert={setshowAlert}
+                    setIconType={setIconType}
+                    setTextAlert={setTextAlert}
+                  />
                 </Row>
 
                 <h5>Empleados</h5>
