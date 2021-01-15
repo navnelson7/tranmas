@@ -4,7 +4,16 @@ import styled from "styled-components";
 import { setEstadoTaller } from "../../../../../../graphql/Mutations";
 import { useMutation } from "@apollo/client";
 
-function EstadoTaller({ ExecuteEstadoTaller }) {
+function EstadoTaller({
+  RegistroTaller,
+  setRegistroTaller,
+  ExecuteEstadoTaller,
+  setTextAlert,
+  setLoading,
+  setIconType,
+  setshowAlert,
+  setExecuteRegistroTaller,
+}) {
   const [EstadoEnTaller, setEstadoEnTaller] = useState({
     estado: "Reparación",
     activo: true,
@@ -25,12 +34,20 @@ function EstadoTaller({ ExecuteEstadoTaller }) {
       })
         .then((res) => {
           if (res.data) {
-            console.log(res.data);
-            console.log("success");
+            setRegistroTaller({
+              ...RegistroTaller,
+              id_estado: res.data.insert_estado_en_taller_one.id,
+            });
+            setExecuteRegistroTaller(true);
           }
         })
         .catch((error) => {
-          console.log(error.message);
+          if (error !== null || error !== undefined) {
+            setTextAlert(error.message);
+            setIconType("error");
+            setLoading(false);
+            setshowAlert(true);
+          }
         });
     }
     // eslint-disable-next-line

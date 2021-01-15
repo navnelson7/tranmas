@@ -489,3 +489,27 @@ export const setEstadoTaller = gql`
     }
   }
 `;
+
+export const setRegistroTallerOne = gql`
+  mutation insert_registro_taller_one(
+    $id_empleado_mecanico: uuid
+    $id_empleado_motorista: uuid
+    $id_estado: uuid
+    $id_unidad_transporte: uuid
+    $kilometraje: Int
+    $comentarios: String
+    ){
+    insert_registro_taller_one(
+      object: {
+        kilometraje: $kilometraje
+        id_empleado_mecanico: $id_empleado_mecanico
+        id_empleado_motorista: $id_empleado_motorista
+        id_estado: $id_estado
+        comentarios: $comentarios
+        id_unidad_transporte: $id_unidad_transporte
+      }
+    ) {
+      id
+    }
+  }
+`;

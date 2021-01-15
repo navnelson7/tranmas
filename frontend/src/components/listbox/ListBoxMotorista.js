@@ -6,7 +6,7 @@ import { listenMotoristasListBox } from "../../graphql/Suscription";
 const ListBoxMotorista = ({ changeMotorista, motoristaSeleccionado = "" }) => {
   const { data, loading, error } = useSubscription(listenMotoristasListBox);
 
-  if (loading) return "Loading...";
+  if (loading) return "Cargando...";
   if (error) return `Error! ${error.message}`;
   return (
     <InputGroup className="mb-3">

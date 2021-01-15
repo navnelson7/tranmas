@@ -61,7 +61,9 @@ function UnidadesTransporte() {
         }
         setLoading(false);
       } catch (error) {
-        setError(error);
+        if (error !== null || error !== undefined) {
+          setError(error);
+        }
       }
     };
     fetchGraphQL();

@@ -99,16 +99,44 @@ export const listenCombustibleByUnidadId = gql`
 `;
 
 export const listenKilomatrajeMax = gql`
-  subscription registro_combustible_aggregate($id: uuid!){
+  subscription registro_combustible_aggregate($id: uuid!) {
     registro_combustible_aggregate(
-      where: {
-        id_unidad_transporte: { _eq: $id }
-      }
+      where: { id_unidad_transporte: { _eq: $id } }
     ) {
       aggregate {
         max {
           kilometraje_actual
         }
+      }
+    }
+  }
+`;
+
+export const listenRegistrosTaller = gql`
+  subscription registro_taller($id_unidad_transporte: uuid!) {
+    registro_taller(
+      where: { id_unidad_transporte: { _eq: $id_unidad_transporte } }
+    ) {
+      id
+      fecha
+      comentarios
+      kilometraje
+      estado_taller {
+        estado
+      }
+    }
+  }
+`;
+
+export const listenDetallesTaller = gql`
+  subscription detalle_trabajo_taller($id_registro_taller: uuid!) {
+    detalle_trabajo_taller(
+      where: { id_registro_taller: { _eq: $id_registro_taller } }
+    ) {
+      cantidad
+      comentarios
+      repuesto {
+        nombre
       }
     }
   }
