@@ -22,6 +22,8 @@ const FormularioFaltas = ({Id,Nombre}) => {
             ...falta,
             [e.target.name] : e.target.value,
         })
+        console.log(falta);
+
     }
 
     return ( 
