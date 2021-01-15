@@ -64,20 +64,25 @@ function FormNuevoRegistro() {
   };
 
   const executeSaveEstadoTaller = () => {
-    if (RegistroTaller.id_empleado_mecanico === "") {
+    if (
+      RegistroTaller.id_empleado_mecanico === "" ||
+      RegistroTaller.id_empleado_mecanico === "Seleccione un motorista"
+    ) {
       setLoading(false);
       setTextAlert("Selecciona un empleado mecanico");
       setIconType("error");
       setshowAlert(true);
     }
-    if (RegistroTaller.id_empleado_motorista === "") {
+    if (
+      RegistroTaller.id_empleado_motorista === "" ||
+      RegistroTaller.id_empleado_motorista === "Seleccione un motorista"
+    ) {
       setLoading(false);
       setTextAlert("Selecciona un empleado motorista");
       setIconType("error");
       setshowAlert(true);
-    } else {
-      setExecuteEstadoTaller(true);
     }
+    setExecuteEstadoTaller(true);
   };
 
   useEffect(() => {
@@ -93,13 +98,13 @@ function FormNuevoRegistro() {
             setshowAlert(true);
             setExecuteRegistroTaller(false);
             setRegistroTaller({
+              ...RegistroTaller,
               kilometraje: 0,
-              id_empleado_mecanico: "",
-              id_empleado_motorista: "",
               id_estado: "",
               comentarios: "",
               id_unidad_transporte: id,
             });
+            setExecuteEstadoTaller(false);
           }
         })
         .catch((error) => {

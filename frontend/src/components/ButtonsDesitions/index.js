@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
- 
-function ButtonDesitions({linkCancel, submitSave}) {
+
+function ButtonDesitions({ linkCancel, submitSave }) {
   return (
     <Fragment>
       <StyleBtn>
@@ -23,8 +23,6 @@ function ButtonDesitions({linkCancel, submitSave}) {
             </li>
           </ul>
         </div>
-        <br />
-        <br />
       </StyleBtn>
     </Fragment>
   );
