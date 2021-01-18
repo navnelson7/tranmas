@@ -21,7 +21,7 @@ const ListBoxTipoFaltas = ({changeFalta, faltaSeleccionada=""}) => {
     return (
         <InputGroup className="mb-3">
             <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1">Falta</InputGroup.Text>
+                <InputGroup.Text id="basic-addon1">Tipo de Falta</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl 
                 as="select"
@@ -35,10 +35,10 @@ const ListBoxTipoFaltas = ({changeFalta, faltaSeleccionada=""}) => {
                         : faltaSeleccionada
                     }
                 </option>
-                {data.faltas.length === 0 ? (
+                {data.tipos_de_faltas.length === 0 ? (
                     <option id="">No hay data</option>
                 ): (
-                    data.faltas.map((falta)=>(
+                    data.tipos_de_faltas.map((falta)=>(
                         <option key={falta.id} value={falta.id}>
                             {falta.falta}
                         </option>

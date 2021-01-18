@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ListBoxTipoFalta from '../listbox/ListBoxTipoFalta'
 import { Fragment } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAddressCard} from "@fortawesome/free-solid-svg-icons";
@@ -33,15 +34,7 @@ const FormularioFaltas = ({Id,Nombre}) => {
             <Form>
                 <Row>
                     <Col sm={12}>
-                        <InputGroup className="mb-3">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text id="basic addon1">Tipo de Falta</InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <FormControl as="select" name="tipo_de_falta">
-                                <option value=""></option>
-                                <option value="1">Llegada Tardia</option>
-                            </FormControl>
-                        </InputGroup>
+                        <ListBoxTipoFalta />
                     </Col>
                 </Row>
                 <Row>
