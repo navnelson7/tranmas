@@ -278,3 +278,12 @@ export const registroCombustibleById = gql `
     }
   }
 `;
+
+export const getTipoFaltas = gql `
+  query getTipoFaltas {
+    tipos_de_faltas{
+      id
+      falta
+    }
+  }
+`;

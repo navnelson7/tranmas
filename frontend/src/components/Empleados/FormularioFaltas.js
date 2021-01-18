@@ -21,6 +21,7 @@ const FormularioFaltas = ({Id,Nombre}) => {
         setFalta({
             ...falta,
             [e.target.name] : e.target.value,
+            id_empleado:Id
         })
         console.log(falta);
 
