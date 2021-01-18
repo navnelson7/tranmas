@@ -25,7 +25,7 @@ const ListBoxTipoFaltas = ({changeFalta, faltaSeleccionada=""}) => {
             </InputGroup.Prepend>
             <FormControl 
                 as="select"
-                name="id_falta"
+                name="id_tipo_falta"
                 value={id}
                 onChange={changeFalta}
             >

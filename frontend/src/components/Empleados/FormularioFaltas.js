@@ -34,7 +34,7 @@ const FormularioFaltas = ({Id,Nombre}) => {
             <Form>
                 <Row>
                     <Col sm={12}>
-                        <ListBoxTipoFalta />
+                        <ListBoxTipoFalta changeFalta={onChange} />
                     </Col>
                 </Row>
                 <Row>
