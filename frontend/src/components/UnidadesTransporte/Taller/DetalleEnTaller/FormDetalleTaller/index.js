@@ -3,7 +3,11 @@ import { Fragment } from "react";
 import { Form, InputGroup, Card, Row, Col, FormControl } from "react-bootstrap";
 import ListBoxRepuestos from "../../../../listbox/ListBoxRepuestos";
 
-function FormDetalleEnTaller({ changeTaller, stateDetalleTaller }) {
+function FormDetalleEnTaller({
+  changeTaller,
+  stateDetalleTaller,
+  repuestoSelected,
+}) {
   return (
     <Fragment>
       <Form>
@@ -23,17 +27,17 @@ function FormDetalleEnTaller({ changeTaller, stateDetalleTaller }) {
                     type="number"
                     onChange={(e) => changeTaller(e)}
                     autoComplete="off"
-                    value={stateDetalleTaller.cantidad}
+                    value={
+                      stateDetalleTaller === null
+                        ? ""
+                        : stateDetalleTaller.cantidad
+                    }
                   />
                 </InputGroup>
               </Col>
               <Col sm={6}>
                 <ListBoxRepuestos
-                  respuestoSeleccionado={
-                    stateDetalleTaller.repuesto === undefined
-                      ? ""
-                      : stateDetalleTaller.repuesto.nombre
-                  }
+                  respuestoSeleccionado={repuestoSelected}
                   changeRepuesto={changeTaller}
                 />
               </Col>
@@ -52,7 +56,11 @@ function FormDetalleEnTaller({ changeTaller, stateDetalleTaller }) {
                     name="comentarios"
                     onChange={(e) => changeTaller(e)}
                     autoComplete="off"
-                    value={stateDetalleTaller.comentarios}
+                    value={
+                      stateDetalleTaller === null
+                        ? ""
+                        : stateDetalleTaller.comentarios
+                    }
                   />
                 </InputGroup>
               </Col>

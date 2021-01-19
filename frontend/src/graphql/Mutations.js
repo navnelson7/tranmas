@@ -560,3 +560,11 @@ export const updateDetalleTrabajoTaller = gql`
     }
   }
 `;
+
+export const deleteDetalleEnTaller = gql`
+  mutation delete_detalle_trabajo_taller_by_pk($id: uuid!) {
+    delete_detalle_trabajo_taller_by_pk(id: $id) {
+      id
+    }
+  }
+`;
