@@ -1,10 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ListBoxTipoFalta from '../listbox/ListBoxTipoFalta'
 import { Fragment } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAddressCard} from "@fortawesome/free-solid-svg-icons";
 import {Form, InputGroup, FormControl, Col, Row, Button} from 'react-bootstrap'
+import {ToastComponent} from "../Toast";
+
+import {useMutation} from "@apollo/client";
+import {setFaltaOne} from '../../graphql/Mutations';
+
 const FormularioFaltas = ({Id,Nombre}) => {
+
+    const [showAlert, setshowAlert] = useState(false);
+    const [IconType, setIconType] = useState("");
+    const [TextAlert, setTextAlert] = useState("");
+
+     const [addFalta] = useMutation(setFaltaOne);
 
     const [falta, setFalta] = useState({
         id_empleado: '',
@@ -24,12 +35,42 @@ const FormularioFaltas = ({Id,Nombre}) => {
             [e.target.name] : e.target.value,
             id_empleado:Id
         })
-        console.log(falta);
+    }
 
+    const onSubmit = (e) =>{
+        console.log("entrando")
+        e.preventDefault();
+        if(id_empleado.trim() === "" ||
+            descripcion_de_falta.trim() === "" ||
+            id_tipo_falta.trim() === ""){
+                setIconType("error")
+                setshowAlert("true");
+                setTextAlert("Debes llenar todos los campos");
+                return 
+            }else{
+                addFalta({
+                    variables:falta
+                })
+                .then((res) => {
+                    if(res.data){
+                        setIconType("success")
+                        setshowAlert(true);
+                        setTextAlert("Registrado correctamente")
+                        setTimeout(() => {
+                        }, 2000);
+                    }
+                })
+            }
     }
 
     return ( 
         <Fragment>  
+            <ToastComponent
+                showAlert={showAlert}
+                setShowAlert={setshowAlert}
+                iconType={IconType}
+                textAlert={TextAlert}
+            />
             <h1>Agregar detalle de Falta a: {Nombre}</h1>
             <Form>
                 <Row>
@@ -52,7 +93,7 @@ const FormularioFaltas = ({Id,Nombre}) => {
                         </InputGroup>
                     </Col>
                 </Row>
-                <Button variant="danger"  value={Id}>Guardar Falta <FontAwesomeIcon icon={faAddressCard}/></Button>
+                <Button variant="danger"  value={Id} onClick={onSubmit}>Guardar Falta <FontAwesomeIcon icon={faAddressCard} /></Button>
             </Form>
             
         </Fragment>
