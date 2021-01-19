@@ -12,6 +12,12 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible/statistic";
 
 //IMPORT LAZY IN COMPONENTS
+const EditarDetalleEnTaller = lazy(() =>
+  import("./components/UnidadesTransporte/Taller/DetalleEnTaller/Editar")
+);
+const RegistroDetalleEnTaller = lazy(() =>
+  import("./components/UnidadesTransporte/Taller/DetalleEnTaller/Registro")
+);
 const RegistroTaller = lazy(() =>
   import("./components/UnidadesTransporte/Taller/RegistroTaller")
 );
@@ -95,17 +101,27 @@ function App() {
                 <EditarTransporte />
               </Suspense>
             </Route>
-            <Route exact path="/editar-combustible/:id">
+            <Route exact path="/editar/combustible/:id">
               <EditarCombustible />
             </Route>
             <Route exact path="/estadisticas/combustible/:id">
               <EstadisticasCombustible />
             </Route>
-            <Route exact path="/registro-combustible/:id">
+            <Route exact path="/registro/combustible/:id">
               <RegistroCombustible />
             </Route>
+            <Route exact path="/editar/detalle/taller/:id">
+              <Suspense fallback="Cargando....">
+                <EditarDetalleEnTaller />
+              </Suspense>
+            </Route>
+            <Route exact path="/registro/detalle/taller/:id">
+              <Suspense fallback="Cargando....">
+                <RegistroDetalleEnTaller />
+              </Suspense>
+            </Route>
 
-            <Route exact path="/registro-taller/:id">
+            <Route exact path="/registro/taller/:id">
               <Suspense fallback="Cargando....">
                 <RegistroTaller />
               </Suspense>

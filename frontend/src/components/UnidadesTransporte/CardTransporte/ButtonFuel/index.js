@@ -21,12 +21,12 @@ function ButtonFuel({ id }) {
 
   const routerDesition = () => {
     if (data.registro_combustible.length === 0) {
-      push(`/registro-combustible/${id}`);
+      push(`/registro/combustible/${id}`);
     } else {
       const idCombustible = data.registro_combustible.map((combustible) => {
         return combustible.id;
       });
-      push(`/editar-combustible/${idCombustible}`);
+      push(`/editar/combustible/${idCombustible}`);
     }
   };
   if (loading) return <SpinnerLazy />;

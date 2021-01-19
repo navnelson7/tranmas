@@ -72,6 +72,15 @@ export const listenMotoristasListBox = gql`
   }
 `;
 
+export const listenRepuestosListbox = gql`
+  subscription {
+    repuestos(where: { activo: { _eq: true }, cantidad: { _gt: 0 } }) {
+      nombre
+      id
+    }
+  }
+`;
+
 export const listenMecanicoListBox = gql`
   subscription {
     empleados(
@@ -133,6 +142,19 @@ export const listenDetallesTaller = gql`
     detalle_trabajo_taller(
       where: { id_registro_taller: { _eq: $id_registro_taller } }
     ) {
+      id
+      cantidad
+      comentarios
+      repuesto {
+        nombre
+      }
+    }
+  }
+`;
+
+export const listenDetalleTallerUpdate = gql`
+  subscription detalle_trabajo_taller_by_pk($id: uuid!) {
+    detalle_trabajo_taller_by_pk(id: $id) {
       cantidad
       comentarios
       repuesto {

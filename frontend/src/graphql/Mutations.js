@@ -498,7 +498,7 @@ export const setRegistroTallerOne = gql`
     $id_unidad_transporte: uuid
     $kilometraje: Int
     $comentarios: String
-    ){
+  ) {
     insert_registro_taller_one(
       object: {
         kilometraje: $kilometraje
@@ -508,6 +508,53 @@ export const setRegistroTallerOne = gql`
         comentarios: $comentarios
         id_unidad_transporte: $id_unidad_transporte
       }
+    ) {
+      id
+    }
+  }
+`;
+
+export const updateCantidadRepuesto = gql`
+  mutation update_repuestos_by_pk($id: uuid!, $cantidad: numeric) {
+    update_repuestos_by_pk(
+      pk_columns: { id: $id }
+      _inc: { cantidad: $cantidad }
+    ) {
+      id
+    }
+  }
+`;
+
+export const insertDetalleTaller = gql`
+  mutation insert_detalle_trabajo_taller_one(
+    $cantidad: numeric!
+    $comentarios: String!
+    $id_registro_taller: uuid!
+    $id_repuesto: uuid!
+  ) {
+    insert_detalle_trabajo_taller_one(
+      object: {
+        cantidad: $cantidad
+        comentarios: $comentarios
+        id_repuesto: $id_repuesto
+        id_registro_taller: $id_registro_taller
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const updateDetalleTrabajoTaller = gql`
+  mutation update_detalle_trabajo_taller_by_pk(
+    $id: uuid!
+    $cantidad: numeric
+    $comentarios: String
+    $__typename: String
+  ) {
+    update_detalle_trabajo_taller_by_pk(
+      pk_columns: { id: $id }
+      _set: { cantidad: $cantidad, comentarios: $comentarios }
     ) {
       id
     }
