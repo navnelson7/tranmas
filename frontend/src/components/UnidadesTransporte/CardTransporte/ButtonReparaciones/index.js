@@ -6,7 +6,7 @@ function ButtonReparaciones({ idUnidadTransporte }) {
   return ( 
     <Fragment>
       <StyleLoaderEspera>
-        <Link to={`/registro-taller/${idUnidadTransporte}`}>
+        <Link to={`/registro/taller/${idUnidadTransporte}`}>
           <div className="cursor-pointer">
             <div className="center-loader">
               <div className="flip-box">

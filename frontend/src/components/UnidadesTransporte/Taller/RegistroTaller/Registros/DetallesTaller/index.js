@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { useSubscription } from "@apollo/client";
 import { listenDetallesTaller } from "../../../../../../graphql/Suscription";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function DetallesTaller({ idRegistroTaller }) {
   const { loading, data, error } = useSubscription(listenDetallesTaller, {
@@ -52,16 +53,18 @@ function DetallesTaller({ idRegistroTaller }) {
           </div>
           <div>
             <StyleButton>
-              <button className="btn-opcion bg-guardar">
-                <strong>Agregar detalle</strong>
-              </button>
+              <Link to={`/registro/detalle/taller/${idRegistroTaller}`}>
+                <button className="btn-opcion bg-guardar">
+                  <strong>Agregar detalle</strong>
+                </button>
+              </Link>
             </StyleButton>
           </div>
         </Fragment>
       ) : (
         data.detalle_trabajo_taller.map((registro) => {
           return (
-            <Fragment>
+            <Fragment key={registro.id}>
               <div>
                 <svg
                   className="mt-line-curve"
@@ -95,16 +98,18 @@ function DetallesTaller({ idRegistroTaller }) {
                 </svg>
               </div>
               <div>
-                <div className="card-detalle-taller">
-                  <p className="mt-txt-card">
-                    <strong>{registro.repuesto.nombre} </strong>
-                  </p>
-                  <p className="mt-txt-card">{registro.comentarios}</p>
-                  <p className="mt-txt-card">
-                    {registro.cantidad}
-                    {registro.cantidad < 2 ? "respuesto" : "respuestos"}
-                  </p>
-                </div>
+                <Link to={`/editar/detalle/taller/${registro.id}`}>
+                  <div className="card-detalle-taller">
+                    <p className="mt-txt-card">
+                      <strong>{registro.repuesto.nombre} </strong>
+                    </p>
+                    <p className="mt-txt-card">{registro.comentarios}</p>
+                    <p className="mt-txt-card">
+                      {registro.cantidad}{" "}
+                      {registro.cantidad < 2 ? "respuesto" : "respuestos"}
+                    </p>
+                  </div>
+                </Link>
               </div>
             </Fragment>
           );

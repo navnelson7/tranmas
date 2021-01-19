@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const setUserOne = gql`
+export const setUserOne = gql `
   mutation insert_users_one(
     $email: String
     $password: String
@@ -23,7 +23,7 @@ export const setUserOne = gql`
   }
 `;
 
-export const setRepuestosOne = gql`
+export const setRepuestosOne = gql `
   mutation addRepuestos(
     $activo: Boolean
     $cantidad: numeric
@@ -67,7 +67,7 @@ export const setRepuestosOne = gql`
   }
 `;
 
-export const setProveedorOne = gql`
+export const setProveedorOne = gql `
   mutation insert_proveedores_one(
     $nombre_proveedor: String
     $activo: Boolean
@@ -104,7 +104,7 @@ export const setProveedorOne = gql`
 `;
 
 //update mutation
-const updateActivoRepuesto = gql`
+const updateActivoRepuesto = gql `
   mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!) {
     update_repuestos(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
       affected_rows
@@ -112,7 +112,7 @@ const updateActivoRepuesto = gql`
   }
 `;
 
-export const updateActivoProveedor = gql`
+export const updateActivoProveedor = gql `
   mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean) {
     update_proveedores_by_pk(
       pk_columns: { id: $id }
@@ -123,7 +123,7 @@ export const updateActivoProveedor = gql`
   }
 `;
 
-export const updateProveedorOne = gql`
+export const updateProveedorOne = gql `
   mutation update_proveedores_by_pk(
     $nombre_proveedor: String
     $activo: Boolean
@@ -163,7 +163,7 @@ export const updateProveedorOne = gql`
   }
 `;
 
-export const setMarcasOne = gql`
+export const setMarcasOne = gql `
   mutation addMarcas($marca: String) {
     insert_marcas_one(object: { marca: $marca }) {
       id
@@ -172,7 +172,7 @@ export const setMarcasOne = gql`
   }
 `;
 
-export const setMedidasOne = gql`
+export const setMedidasOne = gql `
   mutation addMedidas($unidad_de_medida: String) {
     insert_unidades_de_medida_one(
       object: { unidad_de_medida: $unidad_de_medida }
@@ -183,7 +183,7 @@ export const setMedidasOne = gql`
   }
 `;
 
-export const setEstadosOne = gql`
+export const setEstadosOne = gql `
   mutation insert_estado_repuestos_stock_one(
     $estado_repuestos: String
     $activo: Boolean
@@ -203,7 +203,7 @@ export const setEstadosOne = gql`
   }
 `;
 
-export const deletEstadosbyId = gql`
+export const deletEstadosbyId = gql `
   mutation deleteEstadoRepuestos($id: uuid) {
     update_estado_repuestos_stock(
       where: { id: { _eq: $id } }
@@ -219,7 +219,7 @@ export const deletEstadosbyId = gql`
   }
 `;
 
-export const activateEstadosbyId = gql`
+export const activateEstadosbyId = gql `
   mutation deleteEstadoRepuestos($id: uuid) {
     update_estado_repuestos_stock(
       where: { id: { _eq: $id } }
@@ -235,7 +235,7 @@ export const activateEstadosbyId = gql`
   }
 `;
 
-export const updateRepuestoOne = gql`
+export const updateRepuestoOne = gql `
   mutation update_repuestos_by_pk(
     $activo: Boolean
     $cantidad: numeric
@@ -266,7 +266,7 @@ export const updateRepuestoOne = gql`
   }
 `;
 
-export const setTransporteOne = gql`
+export const setTransporteOne = gql `
   mutation(
     $activo: Boolean
     $color: String
@@ -306,7 +306,7 @@ export const setTransporteOne = gql`
   }
 `;
 
-export const setEmpleadosOne = gql`
+export const setEmpleadosOne = gql `
   mutation(
     $codigo_empleado: String
     $nombres: String
@@ -360,7 +360,7 @@ export const setEmpleadosOne = gql`
   }
 `;
 
-export const updateUnidadOne = gql`
+export const updateUnidadOne = gql `
   mutation update_unidades_de_transporte_by_pk(
     $id: uuid!
     $activo: Boolean
@@ -401,7 +401,7 @@ export const updateUnidadOne = gql`
   }
 `;
 
-export const deleteTransporte = gql`
+export const deleteTransporte = gql `
   mutation delete_unidades_de_transporte_by_pk($id: uuid!) {
     delete_unidades_de_transporte_by_pk(id: $id) {
       id
@@ -409,7 +409,7 @@ export const deleteTransporte = gql`
   }
 `;
 
-export const saveMarcaTransporte = gql`
+export const saveMarcaTransporte = gql `
   mutation insert_marca_transporte_one($marca: String) {
     insert_marca_transporte_one(object: { marca: $marca }) {
       id
@@ -417,7 +417,7 @@ export const saveMarcaTransporte = gql`
   }
 `;
 
-export const updateRegistroCombustibleById = gql`
+export const updateRegistroCombustibleById = gql `
   mutation update_registro_combustible_by_pk(
     $comentarios: String
     $fecha: date
@@ -441,7 +441,7 @@ export const updateRegistroCombustibleById = gql`
   }
 `;
 
-export const updateNuevaMarcaTransporteById = gql`
+export const updateNuevaMarcaTransporteById = gql `
   mutation update_marca_transporte_by_pk($id: uuid!, $marca: String) {
     update_marca_transporte_by_pk(
       pk_columns: { id: $id }
@@ -452,7 +452,7 @@ export const updateNuevaMarcaTransporteById = gql`
   }
 `;
 
-export const saveRegistroCombustibleDaily = gql`
+export const saveRegistroCombustibleDaily = gql `
   mutation insert_registro_combustible_one(
     $comentarios: String
     $fecha: date
@@ -482,7 +482,7 @@ export const saveRegistroCombustibleDaily = gql`
   }
 `;
 
-export const setEstadoTaller = gql`
+export const setEstadoTaller = gql `
   mutation insert_estado_en_taller_one($activo: Boolean, $estado: String) {
     insert_estado_en_taller_one(object: { activo: $activo, estado: $estado }) {
       id
@@ -490,7 +490,7 @@ export const setEstadoTaller = gql`
   }
 `;
 
-export const setRegistroTallerOne = gql`
+export const setRegistroTallerOne = gql `
   mutation insert_registro_taller_one(
     $id_empleado_mecanico: uuid
     $id_empleado_motorista: uuid
@@ -498,7 +498,7 @@ export const setRegistroTallerOne = gql`
     $id_unidad_transporte: uuid
     $kilometraje: Int
     $comentarios: String
-    ){
+  ) {
     insert_registro_taller_one(
       object: {
         kilometraje: $kilometraje
@@ -513,3 +513,68 @@ export const setRegistroTallerOne = gql`
     }
   }
 `;
+
+export const updateCantidadRepuesto = gql `
+  mutation update_repuestos_by_pk($id: uuid!, $cantidad: numeric) {
+    update_repuestos_by_pk(
+      pk_columns: { id: $id }
+      _inc: { cantidad: $cantidad }
+    ) {
+      id
+    }
+  }
+`;
+
+export const insertDetalleTaller = gql `
+  mutation insert_detalle_trabajo_taller_one(
+    $cantidad: numeric!
+    $comentarios: String!
+    $id_registro_taller: uuid!
+    $id_repuesto: uuid!
+  ) {
+    insert_detalle_trabajo_taller_one(
+      object: {
+        cantidad: $cantidad
+        comentarios: $comentarios
+        id_repuesto: $id_repuesto
+        id_registro_taller: $id_registro_taller
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const updateDetalleTrabajoTaller = gql `
+  mutation update_detalle_trabajo_taller_by_pk(
+    $id: uuid!
+    $cantidad: numeric
+    $comentarios: String
+    $__typename: String
+  ) {
+    update_detalle_trabajo_taller_by_pk(
+      pk_columns: { id: $id }
+      _set: { cantidad: $cantidad, comentarios: $comentarios }
+    ) {
+      id
+    }
+  }
+`;
+
+export const setFaltaOne = gql `
+  mutation insert_faltas_motoristas_one(
+    $id_empleado: uuid
+    $descripcion_de_falta: String
+    $id_tipo_falta: uuid
+  ){
+    insert_faltas_motoristas_one(
+      object:{
+        id_empleado: $id_empleado
+        descripcion_de_falta: $descripcion_de_falta
+        id_tipo_falta: $id_tipo_falta
+      }
+    ){
+      id
+    }
+  }
+`

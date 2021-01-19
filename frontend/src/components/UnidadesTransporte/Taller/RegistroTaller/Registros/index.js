@@ -46,62 +46,6 @@ function Registros() {
               </div>
             );
           })}
-          {/* <div className="grid-line-time">
-            <div>
-              <p className="time-circle">Hace 6 horas</p>
-            </div>
-            <div>
-              <div className="vl" />
-              <div className="circle" />
-              <div className="vl" />
-            </div>
-            <div>
-              <div className="card-registro-taller">
-                <p className="mt-txt-card">
-                  <strong>Reparacion de frenos</strong>
-                </p>
-                <p className="mt-txt-card">50km actual</p>
-                <p className="mt-txt-card">En prueba</p>
-              </div>
-            </div>
-            <div>
-              <svg
-                className="mt-line-curve"
-                viewBox="-1 -1 62 42"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <linearGradient
-                    id="orange-to-pink"
-                    x1={0}
-                    x2={0}
-                    y1={0}
-                    y2={1}
-                  >
-                    <stop offset="0%" stopColor="#DA1B60" />
-                    <stop offset="100%" stopColor="#ff8a00" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="
-                  M 0,0 
-                  L 35,0
-                  Q 40,0
-                    40,5
-                  L 40,35
-                  Q 40,40
-                    45,40
-                  L 60,40
-                "
-                />
-              </svg>
-            </div>
-            <div>
-              <button className="btn-opcion bg-guardar">
-                <strong>Agregar detalle</strong>
-              </button>
-            </div>
-          </div> */}
           <br />
           <br />
           <br />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ListBoxTipoFalta from '../listbox/ListBoxTipoFalta'
 import { Fragment } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -7,7 +7,7 @@ import {Form, InputGroup, FormControl, Col, Row, Button} from 'react-bootstrap'
 import {ToastComponent} from "../Toast";
 
 import {useMutation} from "@apollo/client";
-import {setFatlaOne} from '../../graphql/Mutations';
+import {setFaltaOne} from '../../graphql/Mutations';
 
 const FormularioFaltas = ({Id,Nombre}) => {
 
@@ -38,7 +38,8 @@ const FormularioFaltas = ({Id,Nombre}) => {
     }
 
     const onSubmit = (e) =>{
-        e.prevetDefault();
+        console.log("entrando")
+        e.preventDefault();
         if(id_empleado.trim() === "" ||
             descripcion_de_falta.trim() === "" ||
             id_tipo_falta.trim() === ""){
@@ -92,7 +93,7 @@ const FormularioFaltas = ({Id,Nombre}) => {
                         </InputGroup>
                     </Col>
                 </Row>
-                <Button variant="danger"  value={Id}>Guardar Falta <FontAwesomeIcon icon={faAddressCard} onSubmit={onSubmit}/></Button>
+                <Button variant="danger"  value={Id} onClick={onSubmit}>Guardar Falta <FontAwesomeIcon icon={faAddressCard} /></Button>
             </Form>
             
         </Fragment>
