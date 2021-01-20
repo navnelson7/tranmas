@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 const Falta = ({falta}) => {
     return ( 
         <Fragment>
-            <td>101</td>
+            <td>{falta.id}</td>
         </Fragment>
      );
 }
