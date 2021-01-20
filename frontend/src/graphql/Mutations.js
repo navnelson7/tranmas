@@ -561,6 +561,13 @@ export const updateDetalleTrabajoTaller = gql `
   }
 `;
 
+export const deleteDetalleEnTaller = gql`
+  mutation delete_detalle_trabajo_taller_by_pk($id: uuid!) {
+    delete_detalle_trabajo_taller_by_pk(id: $id) {
+      id
+    }
+  }
+`;
 export const setFaltaOne = gql `
   mutation insert_faltas_motoristas_one(
     $id_empleado: uuid

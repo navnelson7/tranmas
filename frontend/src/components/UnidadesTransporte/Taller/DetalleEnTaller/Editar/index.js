@@ -1,15 +1,19 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import ButtonDesitions from "../../../../ButtonsDesitions";
+import { useHistory, useParams } from "react-router-dom";
 import FormDetalleEnTaller from "../FormDetalleTaller";
 import { useSubscription, useMutation } from "@apollo/client";
 import { ToastComponent } from "../../../../Toast";
 import { StyleRegistroTaller } from "../Registro";
 import { listenDetalleTallerUpdate } from "../../../../../graphql/Suscription";
-import { updateDetalleTrabajoTaller } from "../../../../../graphql/Mutations";
+import {
+  updateDetalleTrabajoTaller,
+  deleteDetalleEnTaller,
+} from "../../../../../graphql/Mutations";
+import ButtonDesitionsWithDelete from "../../../../ButtonsDesitions/ButtonDesitionsWithDelete";
 
 function EditarDetalleEnTaller() {
   const { id } = useParams();
+  const {push} = useHistory();
 
   //ALERT
   const [showAlert, setshowAlert] = useState(false);
@@ -17,7 +21,7 @@ function EditarDetalleEnTaller() {
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
 
-  const { data, loading } = useSubscription(listenDetalleTallerUpdate, {
+  const { data, loading, error } = useSubscription(listenDetalleTallerUpdate, {
     variables: {
       id: id,
     },
@@ -78,6 +82,33 @@ function EditarDetalleEnTaller() {
         }
       });
   };
+  const [deleteDetalleTallerById] = useMutation(deleteDetalleEnTaller);
+
+  const deleteDetalle = () => {
+    deleteDetalleTallerById({
+      variables: { id },
+    })
+      .then((res) => {
+        if (res.data) {
+          setLoading(false);
+          setIconType("success");
+          setTextAlert("Eliminado correctamente");
+          setshowAlert(true);
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push("/unidades-transporte");
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        if (error !== null || error !== undefined) {
+          setTextAlert(error.message);
+          setIconType("error");
+          setLoading(false);
+          setshowAlert(true);
+        }
+      });
+  };
 
   if (Loading || loading)
     return (
@@ -88,6 +119,7 @@ function EditarDetalleEnTaller() {
       </div>
     );
 
+  if (error) return <p className="center">Error! ${error.message}</p>;
   return (
     <Fragment>
       <ToastComponent
@@ -102,12 +134,18 @@ function EditarDetalleEnTaller() {
           <FormDetalleEnTaller
             stateDetalleTaller={NuevoDetallerTaller}
             changeTaller={changeTaller}
+            repuestoSelected={
+              data.detalle_trabajo_taller_by_pk === null
+                ? ""
+                : data.detalle_trabajo_taller_by_pk.repuesto.nombre
+            }
           />
         </div>
       </StyleRegistroTaller>
-      <ButtonDesitions
+      <ButtonDesitionsWithDelete
         linkCancel={"/unidades-transporte"}
         submitSave={updateDetalle}
+        submitDelete={deleteDetalle}
       />
     </Fragment>
   );
