@@ -6,6 +6,7 @@ import {getEmpleados} from "../../graphql/Queries";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 import FormularioFaltas from "../Empleados/FormularioFaltas";
+import TablaListaFaltas from "../tablas/TablaListaFaltas";
 const RegistroFaltas = () => {
 
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -100,12 +101,15 @@ const RegistroFaltas = () => {
                     </Table>
                     {
                         mostrarFormulario === true ? (
-                            <FormularioFaltas  
+                            <Fragment>
+                                <FormularioFaltas  
                                 Id={Id}
                                 Nombre={Nombre}
                             />
+                            <TablaListaFaltas />
+                            </Fragment>
                         ): (
-                            console.log("nada para mostrar")
+                            <h1>Espacio para formulario</h1>
                         )
                     }
                 </Container>
