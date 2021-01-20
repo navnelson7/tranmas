@@ -109,7 +109,7 @@ const RegistroFaltas = () => {
                             <TablaListaFaltas />
                             </Fragment>
                         ): (
-                            <h1>Espacio para formulario</h1>
+                            <h1>Sin datos que mostrar</h1>
                         )
                     }
                 </Container>
