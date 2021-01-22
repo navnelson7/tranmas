@@ -66,7 +66,7 @@ export default Registros;
 const StyleLineOfTime = styled.div`
   .vl {
     border-left: 6px solid #f72585;
-    height: 100px;
+    height: 105px;
     margin-left: 21px;
   }
   .circle {
@@ -78,6 +78,31 @@ const StyleLineOfTime = styled.div`
     transition: all 0.3s ease 0s;
   }
 
+  .vl-detalle {
+    border-left: 6px solid #f72585;
+    height: 50px;
+    margin-left: 120px;
+  }
+  .circle-detalle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+    border: 4px solid #f72585;
+    transition: all 0.3s ease 0s;
+    margin-left: 100px;
+  }
+  .mostrar-mas{
+    position: relative;
+    top: 5%;
+    background: white;
+    text-align: center;
+    color: #1B95E0;
+    cursor: pointer;
+  }
+  .mostrar-mas:hover{
+    background: #F6F8F9;
+  }
   .time-circle {
     font-size: 15px;
     text-align: center;
@@ -98,6 +123,12 @@ const StyleLineOfTime = styled.div`
   .mt-txt-card {
     margin-top: 5px;
   }
+  .line-horizontal {
+    border: 3px solid #f72585;
+    border-radius: 5px;
+    margin-top: 155px;
+
+  }
   /* CUANDO LE DEN HOVER AL GRID  */
   .grid-line-time:hover .card-registro-taller {
     transition: all 0.3s ease 0s;
@@ -114,7 +145,7 @@ const StyleLineOfTime = styled.div`
     border: 4px solid #4361ee;
   }
 
-  .grid-line-time:hover .vl {
+  .grid-line-time:hover .vl{
     border-left: 6px solid #4361ee;
     margin-left: 21px;
   }
@@ -123,6 +154,11 @@ const StyleLineOfTime = styled.div`
     transition: all 0.3s ease 0s;
     font-weight: 900;
   }
+
+  .grid-line-time:hover .line-horizontal{
+    border: 3px solid #4361ee;
+  }
+  
   /* MEDIA QUERIES OF LINE TIME */
 
   @media (max-width: 1024px) {
@@ -141,7 +177,7 @@ const StyleLineOfTime = styled.div`
   @media (min-width: 1024px) {
     .grid-line-time {
       display: grid;
-      grid-template-columns: 10% 7% 250px 150px 250px;
+      grid-template-columns: 10% 7% 250px 150px 250px 250px;
     }
     .card-registro-taller {
       width: 250px;
@@ -173,7 +209,6 @@ const StyleLineOfTime = styled.div`
 
   .card-detalle-taller {
     position: relative;
-    top: 80px;
     min-height: 100px;
     height: auto;
     background: rgb(255, 255, 255);
@@ -182,6 +217,10 @@ const StyleLineOfTime = styled.div`
     transition: all 0.3s ease 0s;
     padding: 10px;
     text-align: center;
+  }
+
+  .card-detalle-top {
+    top: 80px;
   }
 
   .grid-line-time:hover .card-detalle-taller {

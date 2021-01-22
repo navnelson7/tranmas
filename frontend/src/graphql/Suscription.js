@@ -141,6 +141,8 @@ export const listenDetallesTaller = gql`
   subscription detalle_trabajo_taller($id_registro_taller: uuid!) {
     detalle_trabajo_taller(
       where: { id_registro_taller: { _eq: $id_registro_taller } }
+      order_by: { id: asc }
+      limit: 1
     ) {
       id
       cantidad
@@ -184,6 +186,21 @@ export const listenRegistroTallerById = gql`
         activo
         estado
         id
+      }
+    }
+  }
+`;
+
+export const listenDetalleTrabajoExcludeId = gql`
+  subscription detalle_trabajo_taller($id: uuid!, $id_registro_taller: uuid!) {
+    detalle_trabajo_taller(
+      where: { id: { _neq: $id }, id_registro_taller: { _eq: $id_registro_taller } }
+    ) {
+      id
+      cantidad
+      comentarios
+      repuesto {
+        nombre
       }
     }
   }

@@ -1,9 +1,10 @@
 import React from "react";
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 import { useSubscription } from "@apollo/client";
 import { listenDetallesTaller } from "../../../../../../graphql/Suscription";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import CardsDetalles from "./CardsDetalles";
 
 function DetallesTaller({ idRegistroTaller }) {
   const { loading, data, error } = useSubscription(listenDetallesTaller, {
@@ -62,29 +63,21 @@ function DetallesTaller({ idRegistroTaller }) {
           </div>
         </Fragment>
       ) : (
-        data.detalle_trabajo_taller.map((registro) => {
-          return (
-            <Fragment key={registro.id}>
-              <div>
-                <svg
-                  className="mt-line-curve"
-                  viewBox="-1 -1 62 42"
-                  preserveAspectRatio="none"
-                >
-                  <defs>
-                    <linearGradient
-                      id="orange-to-pink"
-                      x1={0}
-                      x2={0}
-                      y1={0}
-                      y2={1}
-                    >
-                      <stop offset="0%" stopColor="#DA1B60" />
-                      <stop offset="100%" stopColor="#ff8a00" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="
+        <Fragment>
+          <div>
+            <svg
+              className="mt-line-curve"
+              viewBox="-1 -1 62 42"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id="orange-to-pink" x1={0} x2={0} y1={0} y2={1}>
+                  <stop offset="0%" stopColor="#DA1B60" />
+                  <stop offset="100%" stopColor="#ff8a00" />
+                </linearGradient>
+              </defs>
+              <path
+                d="
                   M 0,0 
                   L 35,0
                   Q 40,0
@@ -94,26 +87,37 @@ function DetallesTaller({ idRegistroTaller }) {
                     45,40
                   L 60,40
                 "
-                  />
-                </svg>
+              />
+            </svg>
+          </div>
+          <div>
+            {data.detalle_trabajo_taller.map((registro) => {
+              return (
+                <CardsDetalles
+                  idRegistroTaller={idRegistroTaller}
+                  key={registro.id}
+                  registro={registro}
+                />
+              );
+            })}
+          </div>
+          <div>
+            <StyleButton>
+              <div className="grid-agregar-detalle">
+                <div>
+                  <hr class="line-horizontal" />
+                </div>
+                <div>
+                  <Link to={`/registro/detalle/taller/${idRegistroTaller}`}>
+                    <button className="btn-opcion bg-guardar">
+                      <strong>Agregar detalle</strong>
+                    </button>
+                  </Link>
+                </div>
               </div>
-              <div>
-                <Link to={`/editar/detalle/taller/${registro.id}`}>
-                  <div className="card-detalle-taller">
-                    <p className="mt-txt-card">
-                      <strong>{registro.repuesto.nombre} </strong>
-                    </p>
-                    <p className="mt-txt-card">{registro.comentarios}</p>
-                    <p className="mt-txt-card">
-                      {registro.cantidad}{" "}
-                      {registro.cantidad < 2 ? "respuesto" : "respuestos"}
-                    </p>
-                  </div>
-                </Link>
-              </div>
-            </Fragment>
-          );
-        })
+            </StyleButton>
+          </div>
+        </Fragment>
       )}
     </Fragment>
   );
@@ -148,5 +152,10 @@ const StyleButton = styled.div`
     transition: 0.3s;
     color: #ffffff;
     background: #3d50fa;
+  }
+
+  .grid-agregar-detalle{
+    display: grid;
+    grid-template-columns: auto auto;
   }
 `;
