@@ -118,7 +118,7 @@ function FormNuevoRegistro() {
     }
   }, [ExecuteRegistroTaller]);
 
-  if (loading)
+  if (loading || Loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">

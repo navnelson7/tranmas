@@ -5,6 +5,7 @@ import { useSubscription } from "@apollo/client";
 import { listenRegistrosTaller } from "../../../../../graphql/Suscription";
 import { useParams } from "react-router";
 import DetallesTaller from "./DetallesTaller";
+import { Link } from "react-router-dom";
 
 function Registros() {
   const { id } = useParams();
@@ -32,15 +33,20 @@ function Registros() {
                   <div className="vl" />
                 </div>
                 <div>
-                  <div className="card-registro-taller">
-                    <p className="mt-txt-card">
-                      <strong>{registro.comentarios}</strong>
-                    </p>
-                    <p className="mt-txt-card">{registro.kilometraje}</p>
-                    <p className="mt-txt-card">
-                      en {registro.estado_taller.estado}
-                    </p>
-                  </div>
+                  <Link
+                    to={`/editar/registro/taller/${registro.id}`}
+                    key={registro.id}
+                  >
+                    <div className="card-registro-taller">
+                      <p className="mt-txt-card">
+                        <strong>{registro.comentarios}</strong>
+                      </p>
+                      <p className="mt-txt-card">{registro.kilometraje}</p>
+                      <p className="mt-txt-card">
+                        en {registro.estado_taller.estado}
+                      </p>
+                    </div>
+                  </Link>
                 </div>
                 <DetallesTaller idRegistroTaller={registro.id} />
               </div>

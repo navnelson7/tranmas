@@ -122,7 +122,6 @@ function EditarTransporte() {
   }, [ExecuteSave, ImagenUrlGetting]);
 
   const submitTransporte = () => {
-    console.log("Lo que le mando -->", UnidadTransporte);
     setLoading(true);
     addTransporte({
       variables: UnidadTransporte,

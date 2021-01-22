@@ -80,7 +80,7 @@ function EstadoTaller({
             <label className="switch">
               <input
                 type="checkbox"
-                name="plantilla"
+                name="estado"
                 defaultChecked={true}
                 onChange={(e) => setEstadoEnTaller(e)}
               />
@@ -95,7 +95,7 @@ function EstadoTaller({
 
 export default EstadoTaller;
 
-const StyleSwitch = styled.div`
+export const StyleSwitch = styled.div`
   .grid-toggle {
     display: grid;
     grid-template-columns: 15% auto;

@@ -163,3 +163,28 @@ export const listenDetalleTallerUpdate = gql`
     }
   }
 `;
+
+export const listenRegistroTallerById = gql`
+  query registro_taller_by_pk($id: uuid!) {
+    registro_taller_by_pk(id: $id) {
+      kilometraje
+      comentarios
+      id_empleado_mecanico
+      id_empleado_motorista
+      id_estado
+      empleado_mecanico {
+        nombres
+        apellidos
+      }
+      empleado_motorista {
+        nombres
+        apellidos
+      }
+      estado_taller {
+        activo
+        estado
+        id
+      }
+    }
+  }
+`;
