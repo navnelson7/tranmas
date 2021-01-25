@@ -4,7 +4,7 @@ import Falta from '../Empleados/Falta';
 
 import {useQuery} from '@apollo/client';
 import {getFaltaPorIdEmpleado} from '../../graphql/Queries';
-const TablaListaFaltas = () => {
+const TablaListaFaltas = ({Id}) => {
     const [listadoFaltas, setListadoFaltas] = useState([]);
     const {data, loading} = useQuery(getFaltaPorIdEmpleado);
     useEffect(() =>{

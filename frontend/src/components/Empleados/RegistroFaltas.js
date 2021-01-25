@@ -106,7 +106,9 @@ const RegistroFaltas = () => {
                                 Id={Id}
                                 Nombre={Nombre}
                             />
-                            <TablaListaFaltas />
+                            <TablaListaFaltas 
+                                Id={Id}
+                            />
                             </Fragment>
                         ): (
                             <h1>Sin datos que mostrar</h1>
