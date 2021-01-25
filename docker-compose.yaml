@@ -38,6 +38,7 @@ services:
 
   webflask:
     container_name: webflask
+    restart: unless-stopped
     build: ./backend-python
     volumes: 
       - ./images:/code/images
