@@ -116,7 +116,7 @@ function FormNuevoRegistro() {
           }
         });
     }
-  }, [ExecuteRegistroTaller]);
+  }, [ExecuteRegistroTaller, id]);
 
   if (loading || Loading)
     return (

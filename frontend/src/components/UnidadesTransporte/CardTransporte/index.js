@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
+import ButtonAccidentes from "./ButtonAccidentes";
 import ButtonFuel from "./ButtonFuel";
 import ButtonGraphic from "./ButtonGraphic";
 import ButtonReparaciones from "./ButtonReparaciones";
@@ -18,12 +19,11 @@ function CardTransporte({ unidad }) {
               id={unidad.id}
             />
             <StyleGridCircle>
-              <div className="grid-circle-card">
-                <div>
-                  <ButtonFuel id={unidad.id} />
-                </div>
+              <div className="grid-circle-card scroll-cards">
+                <ButtonFuel id={unidad.id} />
                 <ButtonGraphic idUnidadTransporte={unidad.id} />
                 <ButtonReparaciones idUnidadTransporte={unidad.id} />
+                <ButtonAccidentes idUnidadTransporte={unidad.id}/>
               </div>
             </StyleGridCircle>
             <br />
@@ -44,7 +44,31 @@ function CardTransporte({ unidad }) {
 const StyleGridCircle = styled.div`
   .grid-circle-card {
     display: grid;
-    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-column-gap: 10%;
+    margin-left: 5px;
+  }
+  /* SCROLL CARDS */
+  .scroll-cards {
+    overflow: scroll;
+    height: 100%;
+    width: auto;
+    overflow-y: hidden;
+  }
+  .scroll-cards::-webkit-scrollbar {
+    height: 10px;
+  }
+  /* Track */
+  .scroll-cards::-webkit-scrollbar-track {
+    background: #eaeaea;
+  }
+  /* Handle */
+  .scroll-cards::-webkit-scrollbar-thumb {
+    background: #eaeaea;
+  }
+  /* Handle on hover */
+  .scroll-cards::-webkit-scrollbar-thumb:hover {
+    background: #f20089;
   }
 `;
 

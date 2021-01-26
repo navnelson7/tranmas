@@ -21,6 +21,7 @@ function Registros() {
     <Fragment>
       <StyleLineOfTime>
         <div className="container-form scroll-line-time">
+          {data === undefined && null}
           {data.registro_taller.map((registro) => {
             return (
               <div className="grid-line-time" key={registro.id}>
@@ -92,16 +93,16 @@ const StyleLineOfTime = styled.div`
     transition: all 0.3s ease 0s;
     margin-left: 100px;
   }
-  .mostrar-mas{
+  .mostrar-mas {
     position: relative;
     top: 5%;
     background: white;
     text-align: center;
-    color: #1B95E0;
+    color: #1b95e0;
     cursor: pointer;
   }
-  .mostrar-mas:hover{
-    background: #F6F8F9;
+  .mostrar-mas:hover {
+    background: #f6f8f9;
   }
   .time-circle {
     font-size: 15px;
@@ -127,7 +128,6 @@ const StyleLineOfTime = styled.div`
     border: 3px solid #f72585;
     border-radius: 5px;
     margin-top: 155px;
-
   }
   /* CUANDO LE DEN HOVER AL GRID  */
   .grid-line-time:hover .card-registro-taller {
@@ -145,7 +145,7 @@ const StyleLineOfTime = styled.div`
     border: 4px solid #4361ee;
   }
 
-  .grid-line-time:hover .vl{
+  .grid-line-time:hover .vl {
     border-left: 6px solid #4361ee;
     margin-left: 21px;
   }
@@ -155,10 +155,10 @@ const StyleLineOfTime = styled.div`
     font-weight: 900;
   }
 
-  .grid-line-time:hover .line-horizontal{
+  .grid-line-time:hover .line-horizontal {
     border: 3px solid #4361ee;
   }
-  
+
   /* MEDIA QUERIES OF LINE TIME */
 
   @media (max-width: 1024px) {

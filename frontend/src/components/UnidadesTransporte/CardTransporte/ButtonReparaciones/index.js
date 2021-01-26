@@ -1,12 +1,11 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-
+import { StyleLoaderEspera } from "../ButtonGraphic";
 function ButtonReparaciones({ idUnidadTransporte }) {
   return ( 
     <Fragment>
       <StyleLoaderEspera>
-        <Link to={`/registro/taller/${idUnidadTransporte}`}>
+        <Link title="Reparaciones" to={`/registro/taller/${idUnidadTransporte}`}>
           <div className="cursor-pointer">
             <div className="center-loader">
               <div className="flip-box">
@@ -42,44 +41,3 @@ function ButtonReparaciones({ idUnidadTransporte }) {
 }
 
 export default ButtonReparaciones;
-
-const StyleLoaderEspera = styled.div`
-  .cursor-pointer {
-    cursor: pointer;
-  }
-  .relative-txt {
-    position: relative;
-    top: 35%;
-  }
-  /* LOADER */
-  .center-loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  /*FLIP BOX*/
-  .flip-box {
-    background-color: transparent;
-    width: 100px;
-    height: 100px;
-  }
-  .flip-box-inner {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.8s;
-  }
-  .flip-box-front {
-    position: absolute;
-    color: rgb(0, 0, 0);
-    width: 100px;
-    height: 100px;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 50%;
-    -webkit-box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
-    background: white;
-  }
-`;

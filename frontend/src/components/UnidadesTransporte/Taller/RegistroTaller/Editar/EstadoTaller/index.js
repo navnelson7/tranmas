@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { InputGroup, Col, FormControl } from "react-bootstrap";
 import { StyleSwitch } from "../../FormNuevoRegistro/EstadoTaller";
 function EstadoTaller({ changeTaller, RegistroTaller }) {

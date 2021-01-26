@@ -6,7 +6,7 @@ function ButtonGraphic({ idUnidadTransporte }) {
   return (
     <Fragment>
       <StyleLoaderEspera>
-        <Link to={`/estadisticas/combustible/${idUnidadTransporte}`}>
+        <Link title="Analiticas" to={`/estadisticas/combustible/${idUnidadTransporte}`}>
           <div className="cursor-pointer">
             <div className="center-loader">
               <div className="flip-box">
@@ -43,7 +43,7 @@ function ButtonGraphic({ idUnidadTransporte }) {
 
 export default ButtonGraphic;
 
-const StyleLoaderEspera = styled.div`
+export const StyleLoaderEspera = styled.div`
   .cursor-pointer {
     cursor: pointer;
   }
@@ -57,17 +57,23 @@ const StyleLoaderEspera = styled.div`
     justify-content: center;
     align-items: center;
   }
+  .mt-icon {
+    margin-top: 1.3em;
+  }
   /*FLIP BOX*/
   .flip-box {
     background-color: transparent;
     width: 100px;
     height: 100px;
+    perspective: 1000px;
   }
   .flip-box-inner {
+    position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
     transition: transform 0.8s;
+    transform-style: preserve-3d;
   }
   .flip-box-front {
     position: absolute;
@@ -81,5 +87,12 @@ const StyleLoaderEspera = styled.div`
     -moz-box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
     background: white;
+  }
+  .number-porcentaje {
+    font-size: 40px;
+  }
+  .gal-txt {
+    font-size: 20px;
+    margin-left: 1px;
   }
 `;

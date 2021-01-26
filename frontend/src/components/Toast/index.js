@@ -21,6 +21,7 @@ export function ToastComponent({
       };
       showAlertFunction();
     }
+    // eslint-disable-next-line
   }, [showAlert]);
   return (
     <Fragment>
