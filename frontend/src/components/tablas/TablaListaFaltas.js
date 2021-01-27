@@ -6,13 +6,17 @@ import {useQuery} from '@apollo/client';
 import {getFaltaPorIdEmpleado} from '../../graphql/Queries';
 const TablaListaFaltas = ({Id}) => {
     const [listadoFaltas, setListadoFaltas] = useState([]);
-    const {data, loading} = useQuery(getFaltaPorIdEmpleado);
+    const {data, loading} = useQuery(getFaltaPorIdEmpleado,{
+        variables: {
+            id_empleado:Id,
+        },
+    });
     useEffect(() =>{
         if(loading){
             return
         }
         if(data){
-            setListadoFaltas(data);
+            setListadoFaltas(data.faltas_motoristas);
         }
         console.log(data)
         //eslint-disable-next-line

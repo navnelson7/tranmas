@@ -292,12 +292,15 @@ export const getFaltaPorIdEmpleado = gql `
   query getFaltaPorIdEmpleado($id_empleado: uuid!){
   faltas_motoristas(where: { id_empleado: { _eq: $id_empleado } }){
     empleado_que_cometio_falta{
+      codigo_empleado
       nombres
+      apellidos
     }
     tipo_de_falta_cometida{
       falta
     }
     descripcion_de_falta
+    id
   }
 }
 `;
