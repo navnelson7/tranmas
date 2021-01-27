@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import {Link} from 'react-router-dom';
-import {Button, Image} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faPrint } from '@fortawesome/free-solid-svg-icons'
 
