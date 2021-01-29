@@ -34,6 +34,7 @@ function ListadoEmpleados() {
         <div className="box-left">
           <h1>Listado de Epleados</h1>
           <Link to={`/registro`} variant="danger"><Button variant="info"><FontAwesomeIcon icon={faUserEdit}/> Nuevo Empleado</Button></Link>
+          <Link to={`/registro-faltas`} variant="danger"><Button variant="info"><FontAwesomeIcon icon={faUserEdit}/> Registro Falta</Button></Link>
           <Table striped bordered hover>
             <thead>
               <tr>
