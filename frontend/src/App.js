@@ -107,7 +107,7 @@ function App() {
                 <EditarTransporte />
               </Suspense>
             </Route>
-            <Route exact path="/registro/accidente">
+            <Route exact path="/registro/accidente/:id">
               <FormNuevoAccidente />
             </Route>
             <Route exact path="/accidentes/:id">

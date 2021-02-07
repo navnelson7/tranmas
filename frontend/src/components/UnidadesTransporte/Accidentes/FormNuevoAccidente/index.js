@@ -1,9 +1,53 @@
-import React, { Fragment } from "react";
-import { Form, InputGroup, Col, Row } from "react-bootstrap";
+import React, { Fragment, useState } from "react";
+import { Form, InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 import Upload from "../Upload";
+import { useMutation } from "@apollo/client";
+import { insertNewAccidentes } from "../../../../graphql/Mutations";
+import { useParams } from "react-router";
+
 function Registro() {
+  const { id } = useParams();
+  const [setNewAccidente] = useMutation(insertNewAccidentes);
+  const [newAccidente, setnewAccidente] = useState({
+    descripcion_accidente: "",
+    id_unidad_transporte: id,
+    fecha:
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate(),
+    id_empleado_motorista: "",
+    registro_fotos: "[]",
+  });
+
+  const changeAccidente = (e) => {
+    setnewAccidente({
+      ...newAccidente,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const submitAccidente = () => {
+    if (
+      newAccidente.descripcion_accidente === "" ||
+      newAccidente.id_empleado_motorista === ""
+    ) {
+    } else {
+      setNewAccidente({
+        variables: newAccidente,
+      })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
   return (
     <Fragment>
       <StyleRegitroUnidades>
@@ -14,16 +58,23 @@ function Registro() {
 
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">Modelo</InputGroup.Text>
+                  <InputGroup.Text id="basic-addon1">
+                    Descripción
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="text"
-                  name="comentarios"
-                  placeholder="Comentarios"
+                  name="descripcion_accidente"
+                  placeholder="Descripción"
                   required
+                  value={newAccidente.descripcion_accidente}
+                  onChange={changeAccidente}
                 />
               </InputGroup>
-              <ListBoxMotorista />
+              <ListBoxMotorista changeMotorista={changeAccidente} />
+              <div className="center">
+                <button onClick={submitAccidente}>Click</button>
+              </div>
             </div>
 
             <div>

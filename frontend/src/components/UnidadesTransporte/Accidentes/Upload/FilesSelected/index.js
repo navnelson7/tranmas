@@ -5,6 +5,7 @@ import axios, { CancelToken, isCancel } from "axios";
 import { v4 as uuid } from "uuid";
 import imageIcon from "./image.svg";
 import SpinnerLoad from "../SpinnerLoad";
+import { formatBytes } from "../../../../../functions/formatBytes";
 
 function FilesSelected({ AboutFiles, Files, setAboutFiles }) {
   const [Loader, setLoader] = useState(null);
@@ -64,7 +65,7 @@ function FilesSelected({ AboutFiles, Files, setAboutFiles }) {
           MessageCancel={MessageCancel}
           setLoader={setLoader}
           Loader={Loader}
-          setAboutFiles={setAboutFiles}// prop para al darle regresar borra las imagenes seleccionadas
+          setAboutFiles={setAboutFiles} // prop para al darle regresar borra las imagenes seleccionadas
           cancelUpload={cancelUpload}
         />
       ) : (
@@ -79,7 +80,7 @@ function FilesSelected({ AboutFiles, Files, setAboutFiles }) {
                       <img src={imageIcon} alt="" />
                     </div>
                     <div>{file.name}</div>
-                    <div>{file.size}</div>
+                    <div>{formatBytes(file.size)}</div>
                     <div>
                       <svg
                         aria-hidden="true"
