@@ -63,6 +63,10 @@ const FormularioFaltas = ({Id,Nombre}) => {
             }
     }
 
+    const eliminarFalta = (e) =>{
+        console.log("funciona el boton")
+    }
+
     return ( 
         <Fragment>  
             <ToastComponent
