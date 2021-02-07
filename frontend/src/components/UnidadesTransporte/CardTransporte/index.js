@@ -11,7 +11,7 @@ function CardTransporte({ unidad }) {
     <Fragment>
       <div className="col-md-4" key={unidad.id}>
         <div className="card mt-3">
-          <div className="card-block">
+          <div className="card-block stilo">
             <Image
               src={`${process.env.REACT_APP_BACKEND_FLASK}images/${unidad.image}`}
               numero_pasajeros={unidad.numero_pasajeros}

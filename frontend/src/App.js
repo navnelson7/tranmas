@@ -11,6 +11,7 @@ import EditarCombustible from "./components/UnidadesTransporte/Combustible/Edita
 import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible/statistic";
 import FormNuevoAccidente from "./components/UnidadesTransporte/Accidentes/FormNuevoAccidente";
+import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 
 //IMPORT LAZY IN COMPONENTS
 const EditarRegistroEnTaller = lazy(() =>
@@ -107,6 +108,8 @@ function App() {
             </Route>
             <Route exact path="/registro/accidente">
               <FormNuevoAccidente />
+            <Route exact path="/accidentes/:id">
+              <Accidentes />
             </Route>
             <Route exact path="/editar/combustible/:id">
               <EditarCombustible />

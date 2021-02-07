@@ -21,6 +21,8 @@ const TablaListaFaltas = ({Id}) => {
         console.log(data)
         //eslint-disable-next-line
     },[loading,data]);
+
+    
     return (
         <Fragment>
             <br/>
