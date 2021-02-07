@@ -10,7 +10,7 @@ function Registro() {
         <div className="box-left-container">
           <div className="grid-form-transporte">
             <div>
-              <h5>Especificaciones</h5>
+              <h5 className="center-box">Información del accidente</h5>
 
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
@@ -23,17 +23,12 @@ function Registro() {
                   required
                 />
               </InputGroup>
-              <Row>
-                <Col sm={5}>
-                  <ListBoxMotorista />
-                </Col>
-                <Col sm={7}>
-                  jaja
-                </Col>
-              </Row>
+              <ListBoxMotorista />
             </div>
 
-            <div><Upload/></div>
+            <div>
+              <Upload />
+            </div>
 
             <br />
             <br />

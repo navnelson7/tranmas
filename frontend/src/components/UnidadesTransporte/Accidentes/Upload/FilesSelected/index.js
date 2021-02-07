@@ -1,10 +1,10 @@
 import React, { Fragment, useRef, useState } from "react";
 import styled from "styled-components";
-//import IconExtension from "../../Home/Ficheros/IconExtension";
 import { Link } from "react-router-dom";
 import axios, { CancelToken, isCancel } from "axios";
 import { v4 as uuid } from "uuid";
-//import SpinnerLoad from "../../SpinnerLoad";
+import imageIcon from "./image.svg";
+import SpinnerLoad from "../SpinnerLoad";
 
 function FilesSelected({ AboutFiles, Files, setAboutFiles }) {
   const [Loader, setLoader] = useState(null);
@@ -16,12 +16,11 @@ function FilesSelected({ AboutFiles, Files, setAboutFiles }) {
     const formdata = new FormData();
     AboutFiles.forEach((file) => {
       formdata.append("files", Files, file.name);
-      formdata.append("path", "/");
     });
     axios
       .request({
         method: "POST",
-        url: process.env.REACT_APP_BACKEND_URI + "/upload",
+        url: process.env.REACT_APP_BACKEND_FLASK + "upload/mutiple/accidentes",
         data: formdata,
         cancelToken: new CancelToken(
           (cancel) => (cancelFileUpload.current = cancel)
@@ -60,23 +59,24 @@ function FilesSelected({ AboutFiles, Files, setAboutFiles }) {
   return (
     <Fragment>
       {Loader !== null ? (
-        // <SpinnerLoad
-        //   setMessageCancel={setMessageCancel}
-        //   MessageCancel={MessageCancel}
-        //   setLoader={setLoader}
-        //   Loader={Loader}
-        //   cancelUpload={cancelUpload}
-        // />
-        <div>Loader</div>
+        <SpinnerLoad
+          setMessageCancel={setMessageCancel}
+          MessageCancel={MessageCancel}
+          setLoader={setLoader}
+          Loader={Loader}
+          setAboutFiles={setAboutFiles}// prop para al darle regresar borra las imagenes seleccionadas
+          cancelUpload={cancelUpload}
+        />
       ) : (
         <StyleFicheros>
           <div className="container-files scroll-container">
+            <h5 className="center-box">Imágenes seleccionadas</h5>
             <div className="grid-double">
               {AboutFiles.map((file, index) => {
                 return (
                   <div className="grid-file" key={uuid()}>
                     <div>
-                      {/* <IconExtension extension={file.name.split(".")[1]} /> */}
+                      <img src={imageIcon} alt="" />
                     </div>
                     <div>{file.name}</div>
                     <div>{file.size}</div>
@@ -134,7 +134,6 @@ const StyleFicheros = styled.div`
   .container-files {
     width: 100%;
     height: auto;
-    margin-top: 5%;
   }
 
   .grid-file {

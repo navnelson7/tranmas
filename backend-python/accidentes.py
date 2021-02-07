@@ -15,12 +15,12 @@ def upload_image():
             try:
                 working_directory = os.getcwd()
                 file.save(working_directory + PATH_IMAGE + filename)
-            except FileNotFoundError :
+            except FileNotFoundError : 
                 return jsonify({
                 "message": "Error, folder does not exist",
                 "upload": False,
             })
         return jsonify({
                 "message": "success",
-                "upload": False,
+                "upload": True,
             })

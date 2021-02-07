@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Button, Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 function Accidentes() {
   return (
@@ -8,7 +9,9 @@ function Accidentes() {
         <div className="box-left-cards">
           <div className="container-viewport">
             <div className="d-flex justify-content-end mr-2">
+              <Link to="/registro/accidente">
               <Button variant="primary">Nueva Unidad</Button>
+              </Link>
             </div>
             <div className="row hidden-md-up">
               <div className="col-md-4">

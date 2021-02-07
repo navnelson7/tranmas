@@ -5,7 +5,7 @@ function ButtonAccidentes({ idUnidadTransporte }) {
   return (
     <Fragment>
       <StyleLoaderEspera>
-        <Link title="Accidentes" to={`/estadisticas/combustible/${idUnidadTransporte}`}>
+        <Link title="Accidentes" to={`/accidentes/${idUnidadTransporte}`}>
           <div className="cursor-pointer">
             <div className="center-loader">
               <div className="flip-box">
