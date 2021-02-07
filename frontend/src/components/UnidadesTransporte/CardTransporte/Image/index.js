@@ -60,7 +60,7 @@ const StyleImage = styled.div`
   .banner-imagen:hover {
     color: white;
     transition: 0.3s;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 98, 255, 0.5);
   }
   .box-rounded-pencil {
     height: 50px;
