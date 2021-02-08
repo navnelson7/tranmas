@@ -7,7 +7,14 @@ import imageIcon from "./image.svg";
 import SpinnerLoad from "../SpinnerLoad";
 import { formatBytes } from "../../../../../functions/formatBytes";
 
-function FilesSelected({ AboutFiles, Files, setAboutFiles }) {
+function FilesSelected({
+  AboutFiles,
+  Files,
+  setAboutFiles,
+  newAccidente,
+  setnewAccidente,
+  setExecuteSaveAccidente
+}) {
   const [Loader, setLoader] = useState(null);
   const cancelFileUpload = useRef(null);
   const [MessageCancel, setMessageCancel] = useState("");
@@ -36,13 +43,20 @@ function FilesSelected({ AboutFiles, Files, setAboutFiles }) {
           (cancel) => (cancelFileUpload.current = cancel)
         ),
       })
-      .then((data) => console.log(data))
+      .then((response) => {
+        setnewAccidente({
+          ...newAccidente,
+          registro_fotos: JSON.stringify(response.data.images),
+        });
+        setExecuteSaveAccidente(true)
+      })
       .catch((err) => {
         if (isCancel(err)) {
           setMessageCancel(err.message);
         }
       });
-  };
+  }; 
+
   const deleteFile = (e, indexFile) => {
     e.preventDefault();
     const ArchivosResultantes = AboutFiles.filter((_, index) => {

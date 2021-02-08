@@ -1,15 +1,24 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 import Upload from "../Upload";
 import { useMutation } from "@apollo/client";
 import { insertNewAccidentes } from "../../../../graphql/Mutations";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { ToastComponent } from "../../../Toast";
 
 function Registro() {
   const { id } = useParams();
+  const { push } = useHistory();
+  //ALERT
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
+  const [TextAlert, setTextAlert] = useState("");
+  const [Loading, setLoading] = useState(false);
+
   const [setNewAccidente] = useMutation(insertNewAccidentes);
+  const [ExecuteSaveAccidente, setExecuteSaveAccidente] = useState(false);
   const [newAccidente, setnewAccidente] = useState({
     descripcion_accidente: "",
     id_unidad_transporte: id,
@@ -40,7 +49,14 @@ function Registro() {
       })
         .then((res) => {
           if (res.data) {
-            console.log(res.data);
+            setLoading(false);
+            setIconType("success");
+            setshowAlert(true);
+            setTextAlert("Registrado correctamente");
+            setTimeout(() => {
+              //si todo va bien lo redirecciona al inicio
+              push(`/accidentes/${id}`);
+            }, 2000);
           }
         })
         .catch((error) => {
@@ -48,19 +64,29 @@ function Registro() {
         });
     }
   };
+
+  useEffect(() => {
+    if (ExecuteSaveAccidente) {
+      submitAccidente();
+      setExecuteSaveAccidente(false);
+    }
+  }, [ExecuteSaveAccidente]);
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
       <StyleRegitroUnidades>
         <div className="box-left-container">
           <div className="grid-form-transporte">
             <div>
               <h5 className="center-box">Información del accidente</h5>
-
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">
-                    Descripción
-                  </InputGroup.Text>
+                  <InputGroup.Text>Descripción</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                   type="text"
@@ -72,13 +98,14 @@ function Registro() {
                 />
               </InputGroup>
               <ListBoxMotorista changeMotorista={changeAccidente} />
-              <div className="center">
-                <button onClick={submitAccidente}>Click</button>
-              </div>
             </div>
 
             <div>
-              <Upload />
+              <Upload
+                newAccidente={newAccidente}
+                setnewAccidente={setnewAccidente}
+                setExecuteSaveAccidente={setExecuteSaveAccidente}
+              />
             </div>
 
             <br />

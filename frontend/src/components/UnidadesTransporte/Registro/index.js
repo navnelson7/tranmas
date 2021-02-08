@@ -132,7 +132,7 @@ function Registro() {
             //si todo va bien lo redirecciona al inicio
             push("/unidades-transporte");
           }, 2000);
-        }
+        } 
       })
       .catch((error) => {
         setLoading(false);

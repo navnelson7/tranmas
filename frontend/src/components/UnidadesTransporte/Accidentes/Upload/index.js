@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import FilesSelected from "./FilesSelected";
 import SelectFiles from "./SelectFiles";
 
-function Upload() {
+function Upload({ newAccidente, setnewAccidente, setExecuteSaveAccidente }) {
   const [Files, setFiles] = useState(null);
   const [AboutFiles, setAboutFiles] = useState([]);
   const changeFiles = (e) => {
@@ -19,6 +19,7 @@ function Upload() {
     }
     setAboutFiles(filesDescription);
   };
+
   return (
     <Fragment>
       {Files === null || AboutFiles.length === 0 ? (
@@ -28,6 +29,9 @@ function Upload() {
           Files={Files}
           setAboutFiles={setAboutFiles}
           AboutFiles={AboutFiles}
+          newAccidente={newAccidente}
+          setnewAccidente={setnewAccidente}
+          setExecuteSaveAccidente={setExecuteSaveAccidente}
         />
       )}
     </Fragment>
