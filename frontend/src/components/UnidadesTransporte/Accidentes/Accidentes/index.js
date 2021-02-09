@@ -2,8 +2,32 @@ import React, { Fragment } from "react";
 import { Button, Carousel } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useSubscription } from "@apollo/client";
+import { listenAccidentes } from "../../../../graphql/Suscription";
+import CardAccidente from "./CardAccidente";
+
 function Accidentes() {
   const { id } = useParams();
+  const { data, loading, error } = useSubscription(listenAccidentes, {
+    variables: {
+      id_unidad_transporte: id,
+    },
+  });
+
+  if (error)
+    return (
+      <div className="box-center">
+        <p>{error.message}</p>
+      </div>
+    );
+  if (loading)
+    return (
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   return (
     <Fragment>
       <StyleCards>
@@ -15,35 +39,9 @@ function Accidentes() {
               </Link>
             </div>
             <div className="row hidden-md-up">
-              <div className="col-md-4">
-                <div className="card mt-3">
-                  <div className="card-block">
-                    <Carousel>
-                      <Carousel.Item>
-                        <img
-                          className="d-block w-100"
-                          src="https://miro.medium.com/max/1600/1*2X22CjejXcLSWPeMpZIa0Q.jpeg"
-                          alt="First slide"
-                        />
-                      </Carousel.Item>
-                      <Carousel.Item>
-                        <img
-                          className="d-block w-100"
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDM_tJpMrd0dTwm3Ce7wmP7u2wIeWSwn3VRg&usqp=CAU"
-                          alt="Third slide"
-                        />
-                      </Carousel.Item>
-                      <Carousel.Item>
-                        <img
-                          className="d-block w-100"
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRennfeb6-49pTxEJg7O_vrgWCrUsu8EzxVg&usqp=CAU"
-                          alt="Third slide"
-                        />
-                      </Carousel.Item>
-                    </Carousel>
-                  </div>
-                </div>
-              </div>
+              {data.accidentes.map((accidente) => {
+                return <CardAccidente key={accidente.id} accidente={accidente} />;
+              })}
             </div>
           </div>
         </div>

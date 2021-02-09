@@ -194,7 +194,10 @@ export const listenRegistroTallerById = gql`
 export const listenDetalleTrabajoExcludeId = gql`
   subscription detalle_trabajo_taller($id: uuid!, $id_registro_taller: uuid!) {
     detalle_trabajo_taller(
-      where: { id: { _neq: $id }, id_registro_taller: { _eq: $id_registro_taller } }
+      where: {
+        id: { _neq: $id }
+        id_registro_taller: { _eq: $id_registro_taller }
+      }
     ) {
       id
       cantidad
@@ -202,6 +205,23 @@ export const listenDetalleTrabajoExcludeId = gql`
       repuesto {
         nombre
       }
+    }
+  }
+`;
+
+export const listenAccidentes = gql`
+  subscription accidentes($id_unidad_transporte: uuid!) {
+    accidentes(
+      where: { id_unidad_transporte: { _eq: $id_unidad_transporte } }
+    ) {
+      descripcion_accidente
+      id
+      registro_fotos
+      empleado_motorista {
+        nombres
+        apellidos
+      }
+      fecha
     }
   }
 `;
