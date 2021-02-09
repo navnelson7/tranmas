@@ -64,7 +64,7 @@ def upload_image():
 @api_images.route('/images/<string:filename>')
 def get_images(filename):
     image_name = str(filename)
-    return send_from_directory(directory=os.path.join(PATH_IMAGE), filename=image_name, as_attachment=False, )
+    return send_from_directory(directory=os.path.join(PATH_IMAGE), filename=image_name, as_attachment=False)
 
 
 
