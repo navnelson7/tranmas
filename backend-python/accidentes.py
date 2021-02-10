@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from bson.objectid import ObjectId
@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 api_accidente = Blueprint('api_accidente', __name__)
 
 PATH_IMAGE = "/imagenes-accidentes/"
-
+PATH_IMAGE_ACCIDENTE = "./imagenes-accidentes"
 
 @api_accidente.route('/upload/mutiple/accidentes', methods=["POST"])
 def upload_image():
@@ -32,3 +32,8 @@ def upload_image():
             "upload": True,
             "images": array_images
         })
+
+@api_accidente.route('/imagenes/accidentes/<string:filename>')
+def get_images_accidentes(filename):
+    image_name = str(filename)
+    return send_from_directory(directory=os.path.join(PATH_IMAGE_ACCIDENTE), filename=image_name, as_attachment=False)
