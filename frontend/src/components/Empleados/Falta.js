@@ -11,7 +11,8 @@ const Falta = ({falta,eliminarFalta}) => {
             <td>{falta.empleado_que_cometio_falta.nombres} {falta.empleado_que_cometio_falta.apellidos}</td>
             <td>{falta.tipo_de_falta_cometida.falta}</td>
             <td>{falta.descripcion_de_falta}</td>
-            <td><Button variant="danger" onClick={()=> eliminarFalta(falta.id)}><FontAwesomeIcon  icon={faTrash}/></Button></td>
+            {/* <td><Button variant="danger" onClick={()=> eliminarFalta(falta.id)}><FontAwesomeIcon  icon={faTrash}/></Button></td> */}
+            <td><Button variant="danger" onClick={eliminarFalta}><FontAwesomeIcon  icon={faTrash}/></Button></td>
         </Fragment>
      );
 }

@@ -22,6 +22,9 @@ const TablaListaFaltas = ({Id}) => {
         //eslint-disable-next-line
     },[loading,data]);
 
+    const eliminarFalta = (e) => {
+        
+    }
     
     return (
         <Fragment>
@@ -42,6 +45,7 @@ const TablaListaFaltas = ({Id}) => {
                         <tr key={falta.id}>
                             <Falta 
                                 falta={falta}
+                                eliminarFalta={eliminarFalta}
                             />
                         </tr>
                     ))
