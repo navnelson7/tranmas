@@ -5,7 +5,7 @@ import Falta from '../Empleados/Falta';
 import {useQuery} from '@apollo/client';
 import {getFaltaPorIdEmpleado} from '../../graphql/Queries';
 import {deleteFalta} from '../../graphql/Mutations'
-const TablaListaFaltas = ({Id,id}) => {
+const TablaListaFaltas = ({Id}) => {
     const [listadoFaltas, setListadoFaltas] = useState([]);
     const {data, loading} = useQuery(getFaltaPorIdEmpleado,{
         variables: {
@@ -13,7 +13,7 @@ const TablaListaFaltas = ({Id,id}) => {
         },
     });
     useEffect(() =>{
-        if(loading){
+        if(loading){ 
             return
         }
         if(data){
@@ -23,8 +23,8 @@ const TablaListaFaltas = ({Id,id}) => {
         //eslint-disable-next-line
     },[loading,data]);
 
-    const eliminarFalta = (e) => {
-        console.log(id);
+    const eliminarFalta = (idParam) => {
+        console.log(idParam); 
     }
     
     return (
