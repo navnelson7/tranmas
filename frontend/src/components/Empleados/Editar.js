@@ -6,7 +6,7 @@ import {
   FormControl,
   InputGroup,
   Row,
-  Col,
+  Col, 
   Button,
   Modal,
   Image,
@@ -22,7 +22,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useMutation, useQuery } from "@apollo/client";
 import { EmpleadoByid } from "../../graphql/Queries";
 import { updateEmpledoById } from "../../graphql/Mutations";
-import { useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 const EditarEmpleado = () => {
   const { id } = useParams();
@@ -79,7 +79,7 @@ const EditarEmpleado = () => {
   useEffect(() => {
     let empleadoOne = {};
     empleadoOne = data === undefined ? {} : data.empleados_by_pk;
-    //setEmpleado(empleadoOne);
+    setEmpleado(empleadoOne);
   }, [data]);
 
   const onChange = (e) => {
@@ -112,7 +112,7 @@ const EditarEmpleado = () => {
         setshowAlert(true);
       });
   };
-  /*if (loading || Loading)
+  if (loading || Loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -120,7 +120,7 @@ const EditarEmpleado = () => {
         </div>
       </div>
     );
-  if (error) return <p align="center">{`Error! ${error.message}`}</p>;*/
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
       <ToastComponent
@@ -478,9 +478,11 @@ const EditarEmpleado = () => {
                 >
                   Guardar
                 </Button>
+                <Link to="/listado-empleados">
                 <Button variant="warning" size="lg">
                   Cancelar
                 </Button>
+                </Link>
               </Card.Body>
             </Card>
           </Form>
