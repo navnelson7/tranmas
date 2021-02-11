@@ -4,6 +4,7 @@ import Falta from '../Empleados/Falta';
 
 import {useQuery} from '@apollo/client';
 import {getFaltaPorIdEmpleado} from '../../graphql/Queries';
+import {deleteFalta} from '../../graphql/Mutations'
 const TablaListaFaltas = ({Id}) => {
     const [listadoFaltas, setListadoFaltas] = useState([]);
     const {data, loading} = useQuery(getFaltaPorIdEmpleado,{
@@ -23,7 +24,7 @@ const TablaListaFaltas = ({Id}) => {
     },[loading,data]);
 
     const eliminarFalta = (e) => {
-        
+        console.log();
     }
     
     return (
