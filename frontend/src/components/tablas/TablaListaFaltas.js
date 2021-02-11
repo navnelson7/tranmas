@@ -47,7 +47,7 @@ const TablaListaFaltas = ({Id,id}) => {
                             <Falta 
                                 falta={falta}
                                 eliminarFalta={eliminarFalta}
-                                id={Id}
+                                id={falta.id}
                             />
                         </tr>
                     ))
