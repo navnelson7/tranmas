@@ -24,7 +24,7 @@ import { EmpleadoByid } from "../../graphql/Queries";
 import { updateEmpledoById } from "../../graphql/Mutations";
 import { useHistory, useParams } from "react-router-dom";
 
-const Registro = () => {
+const EditarEmpleado = () => {
   const { id } = useParams();
   const { push } = useHistory();
 
@@ -42,12 +42,17 @@ const Registro = () => {
   const [image, setImage] = useState(
     "https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg"
   );
-
+  
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handelShow = () => setShow(true);
-
+  useEffect(()=> {
+    setEmpleado({
+      ...Empleado,
+      picture: image,
+    });
+  }, [image])
   const [Empleado, setEmpleado] = useState({
     codigo_empleado: "",
     nombres: "",
@@ -74,7 +79,7 @@ const Registro = () => {
   useEffect(() => {
     let empleadoOne = {};
     empleadoOne = data === undefined ? {} : data.empleados_by_pk;
-    setEmpleado(empleadoOne);
+    //setEmpleado(empleadoOne);
   }, [data]);
 
   const onChange = (e) => {
@@ -107,7 +112,7 @@ const Registro = () => {
         setshowAlert(true);
       });
   };
-  if (loading || Loading)
+  /*if (loading || Loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -115,7 +120,7 @@ const Registro = () => {
         </div>
       </div>
     );
-  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;*/
   return (
     <Fragment>
       <ToastComponent
@@ -489,4 +494,4 @@ const Registro = () => {
   );
 };
 
-export default Registro;
+export default EditarEmpleado;
