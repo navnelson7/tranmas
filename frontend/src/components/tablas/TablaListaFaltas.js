@@ -24,7 +24,7 @@ const TablaListaFaltas = ({Id}) => {
     },[loading,data]);
 
     const eliminarFalta = (e) => {
-        console.log();
+        console.log("que pedo");
     }
     
     return (
@@ -46,7 +46,7 @@ const TablaListaFaltas = ({Id}) => {
                         <tr key={falta.id}>
                             <Falta 
                                 falta={falta}
-                                eliminarFalta={eliminarFalta}
+                                eliminarFalta={eliminarFalta(Id)}
                             />
                         </tr>
                     ))
