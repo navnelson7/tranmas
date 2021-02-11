@@ -42,17 +42,17 @@ const EditarEmpleado = () => {
   const [image, setImage] = useState(
     "https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg"
   );
-  
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handelShow = () => setShow(true);
-  useEffect(()=> {
+  useEffect(() => {
     setEmpleado({
       ...Empleado,
       picture: image,
     });
-  }, [image])
+  }, [image]);
   const [Empleado, setEmpleado] = useState({
     codigo_empleado: "",
     nombres: "",
@@ -142,7 +142,11 @@ const EditarEmpleado = () => {
           <Form>
             <InputGroup className="mb-3">
               <InputGroup.Append></InputGroup.Append>
-              <FormControl value={Empleado.picture} onChange={onChange} hidden />
+              <FormControl
+                value={Empleado.picture}
+                onChange={onChange}
+                hidden
+              />
             </InputGroup>
             <Card>
               <Card.Body>
