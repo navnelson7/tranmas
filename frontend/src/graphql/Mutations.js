@@ -326,7 +326,6 @@ export const setEmpleadosOne = gql`
     $estado_civil: String
     $id_tipo_empleado: uuid
     $id_departamento: uuid
-    $id_estado_empleados: uuid
     $comentarios: String
     $picture: String
   ) {
@@ -656,6 +655,63 @@ export const insertNewAccidentes = gql`
         fecha: $fecha
         registro_fotos: $registro_fotos
       }
+    ) {
+      id
+    }
+  }
+`;
+
+export const updateEmpledoById = gql`
+  mutation update_empleados_by_pk( 
+  $codigo_empleado: String,
+  $activo: Boolean
+  $afp: String
+  $apellidos: String
+  $comentarios: String
+  $direccion: String
+  $dui: String
+  $edad: Int
+  $estado_civil: String
+  $fecha_ingreso_empresa: date
+  $fecha_nacimiento: date
+  $id: uuid!
+  $id_departamento: uuid
+  $id_estado_empleado: uuid
+  $id_tipo_empleado: uuid
+  $isss: String
+  $licencia_arma: String
+  $licencia_conducir: String
+  $nit: String
+  $nombres: String
+  $picture: String
+  $sexo: bpchar
+  $telefono: String
+  $__typename: String
+  ){
+    update_empleados_by_pk(
+      _set: {
+        codigo_empleado: $codigo_empleado
+        nombres: $nombres
+        apellidos: $apellidos
+        edad: $edad
+        sexo: $sexo
+        telefono: $telefono
+        direccion: $direccion
+        dui: $dui
+        nit: $nit
+        afp: $afp
+        isss: $isss
+        fecha_ingreso_empresa: $fecha_ingreso_empresa
+        fecha_nacimiento: $fecha_nacimiento
+        estado_civil: $estado_civil
+        licencia_conducir: $licencia_conducir
+        licencia_arma: $licencia_arma
+        id_tipo_empleado: $id_tipo_empleado
+        id_departamento: $id_departamento
+        comentarios: $comentarios
+        picture: $picture
+      }
+      pk_columns: { id: $id }
     ) {
       id
     }

@@ -13,7 +13,7 @@ function FilesSelected({
   setAboutFiles,
   newAccidente,
   setnewAccidente,
-  setExecuteSaveAccidente
+  setExecuteSaveAccidente,
 }) {
   const [Loader, setLoader] = useState(null);
   const cancelFileUpload = useRef(null);
@@ -39,23 +39,20 @@ function FilesSelected({
           );
           setLoader(percentCompleted);
         },
-        cancelToken: new CancelToken(
-          (cancel) => (cancelFileUpload.current = cancel)
-        ),
       })
       .then((response) => {
         setnewAccidente({
           ...newAccidente,
           registro_fotos: JSON.stringify(response.data.images),
         });
-        setExecuteSaveAccidente(true)
+        setExecuteSaveAccidente(true);
       })
       .catch((err) => {
         if (isCancel(err)) {
           setMessageCancel(err.message);
         }
       });
-  }; 
+  };
 
   const deleteFile = (e, indexFile) => {
     e.preventDefault();

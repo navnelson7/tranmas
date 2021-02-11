@@ -165,7 +165,7 @@ function EditarTransporte() {
   return (
     <Fragment>
       <ToastComponent
-        showAlert={showAlert}
+        showAlert={showAlert} 
         setShowAlert={setshowAlert}
         iconType={IconType}
         textAlert={TextAlert}

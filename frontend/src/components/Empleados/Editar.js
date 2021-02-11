@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import {
   Container,
   Card,
@@ -11,7 +11,6 @@ import {
   Modal,
   Image,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import ListBoxTipoEmpleados from "../Empleados/ListBoxTipoEmpleados";
 import ListBoxDepartamentos from "./ListBoxDepartamentos";
 import ListBoxEstadoEmpleado from "./ListBoxEstadoEmpleado";
@@ -20,24 +19,36 @@ import { ToastComponent } from "../Toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
-import { useMutation } from "@apollo/client";
-import { setEmpleadosOne } from "../../graphql/Mutations";
-import Empleado from "./Empleado";
+import { useMutation, useQuery } from "@apollo/client";
+import { EmpleadoByid } from "../../graphql/Queries";
+import { updateEmpledoById } from "../../graphql/Mutations";
+import { useHistory, useParams } from "react-router-dom";
+
 const Registro = () => {
-  const [image, setImage] = useState(
-    "https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg "
-  );
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handelShow = () => setShow(true);
+  const { id } = useParams();
+  const { push } = useHistory();
 
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
+  const [Loading, setLoading] = useState(false);
 
-  const [addEmpleados] = useMutation(setEmpleadosOne);
+  const { data, loading, error } = useQuery(EmpleadoByid, {
+    variables: {
+      id,
+    },
+  });
+  const [setUpdatedEmpleado] = useMutation(updateEmpledoById);
+  const [image, setImage] = useState(
+    "https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg"
+  );
 
-  const [empleado, guardarRegistro] = useState({
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handelShow = () => setShow(true);
+
+  const [Empleado, setEmpleado] = useState({
     codigo_empleado: "",
     nombres: "",
     apellidos: "",
@@ -55,116 +66,80 @@ const Registro = () => {
     licencia_conducir: "",
     licencia_arma: "",
     id_tipo_empleado: "",
-    id_estado_empleados: "",
     id_departamento: "",
     comentarios: "",
     picture: image,
   });
 
-  const {
-    codigo_empleado,
-    nombres,
-    apellidos,
-    edad,
-    sexo,
-    telefono,
-    direccion,
-    dui,
-    nit,
-    afp,
-    isss,
-    fecha_ingreso_empresa,
-    fecha_nacimiento,
-    estado_civil,
-    licencia_conducir,
-    licencia_arma,
-    id_tipo_empleado,
-    id_estado_empleados,
-    id_departamento,
-    comentarios,
-    picture,
-  } = Empleado;
+  useEffect(() => {
+    let empleadoOne = {};
+    empleadoOne = data === undefined ? {} : data.empleados_by_pk;
+    setEmpleado(empleadoOne);
+  }, [data]);
 
   const onChange = (e) => {
-    guardarRegistro({
-      ...empleado,
+    setEmpleado({
+      ...Empleado,
       [e.target.name]: e.target.value,
-      picture: image,
     });
   };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (
-      codigo_empleado.trim() === "" ||
-      nombres.trim() === "" ||
-      apellidos.trim() === "" ||
-      edad.trim() === "" ||
-      sexo.trim() === "" ||
-      telefono.trim() === "" ||
-      direccion.trim() === "" ||
-      dui.trim() === "" ||
-      nit.trim() === "" ||
-      isss.trim() === "" ||
-      afp.trim() === "" ||
-      fecha_nacimiento.trim() === "" ||
-      fecha_ingreso_empresa.trim() === "" ||
-      estado_civil.trim() === "" ||
-      id_tipo_empleado.trim() === "" ||
-      licencia_conducir.trim() === "" ||
-      licencia_arma.trim() === "" ||
-      id_estado_empleados.trim() === "" ||
-      id_departamento.trim() === "" ||
-      comentarios.trim() === ""
-    ) {
-      setIconType("error");
-      setshowAlert(true);
-      setTextAlert("Debes llenar todos los campos");
-      return;
-    } else {
-      addEmpleados({
-        variables: empleado,
-      })
-        .then((res) => {
-          if (res.data) {
-            setIconType("success");
-            setshowAlert(true);
-            setTextAlert("Registrado correctamente");
-            setTimeout(() => {}, 2000);
-          }
-        })
-        .catch((error) => {
-          setTextAlert("Ocurrio un problema");
-          setIconType("error");
+  const updateEmpleado = () => {
+    setUpdatedEmpleado({
+      variables: Empleado,
+    })
+      .then((res) => {
+        if (res.data) {
+          setLoading(false);
+          setIconType("success");
+          setTextAlert("Registrado correctamente");
           setshowAlert(true);
-          console.log(error);
-        });
-    }
-
-    //pasarlo a la accion
-
-    //reinicar el form
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push("/listado-empleados");
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        setTextAlert(error.message);
+        setIconType("error");
+        setshowAlert(true);
+      });
   };
+  if (loading || Loading)
+    return (
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
       <ToastComponent
         showAlert={showAlert}
         setShowAlert={setshowAlert}
-        picture
         iconType={IconType}
         textAlert={TextAlert}
       />
       <Container>
         <div className="box-left">
           <h1>REGISTRO DE EMPLEADOS</h1>
-          <Image src={image} alt="Foto empleado" rounded responsive="true"></Image>
+          <Image
+            src={Empleado.picture == null ? image : Empleado.picture}
+            alt="Foto empleado"
+            rounded
+            responsive="true"
+          ></Image>
 
           <Form>
             <InputGroup className="mb-3">
               <InputGroup.Append></InputGroup.Append>
-              <FormControl value={picture} onChange={onChange} hidden />
+              <FormControl value={Empleado.picture} onChange={onChange} hidden />
             </InputGroup>
-            <Card> 
+            <Card>
               <Card.Body>
                 <Row>
                   <Col sm={4}>
@@ -179,8 +154,12 @@ const Registro = () => {
                         arial-label="codigo_empleado"
                         arial-describedby="basic-addon1"
                         name="codigo_empleado"
-                        value={codigo_empleado}
-                        onChange={onChange}
+                        value={
+                          Empleado.codigo_empleado
+                            ? Empleado.codigo_empleado
+                            : ""
+                        }
+                        onChange={(e) => onChange(e)}
                       />
                     </InputGroup>
                   </Col>
@@ -199,8 +178,8 @@ const Registro = () => {
                       <FormControl
                         placeholder="nombres"
                         name="nombres"
-                        value={nombres}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.nombres ? Empleado.nombres : ""}
                       />
                     </InputGroup>
                   </Col>
@@ -212,8 +191,8 @@ const Registro = () => {
                       <FormControl
                         placeholder="Apellidos"
                         name="apellidos"
-                        value={apellidos}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.apellidos ? Empleado.apellidos : ""}
                       />
                     </InputGroup>
                   </Col>
@@ -231,8 +210,8 @@ const Registro = () => {
                         aria-label="Edad"
                         aria-describedby="basic-addon1"
                         name="edad"
-                        value={edad}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.edad ? Empleado.edad : ""}
                       />
                     </InputGroup>
                   </Col>
@@ -244,10 +223,16 @@ const Registro = () => {
                       <FormControl
                         as="select"
                         name="sexo"
-                        value={sexo}
-                        onChange={onChange}
+                        value={Empleado.sexo}
+                        onChange={(e) => onChange(e)}
                       >
-                        <option value="null"> </option>
+                        <option value="null">
+                          {Empleado.sexo === "M"
+                            ? "Masculino"
+                            : Empleado.sexo == "F"
+                            ? "Femenino"
+                            : "Selecciona un sexo"}
+                        </option>
                         <option value="F">Femenino</option>
                         <option value="M">Masculino</option>
                       </FormControl>
@@ -265,8 +250,8 @@ const Registro = () => {
                         aria-label="Telefono"
                         aria-describedby="basic -addon1"
                         name="telefono"
-                        value={telefono}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.telefono}
                       />
                     </InputGroup>
                   </Col>
@@ -284,8 +269,8 @@ const Registro = () => {
                         aria-label="Direccion"
                         aria-describedby="basic -addon1"
                         name="direccion"
-                        value={direccion}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.direccion}
                       />
                     </InputGroup>
                   </Col>
@@ -303,8 +288,8 @@ const Registro = () => {
                         aria-label="DUI"
                         aria-describedby="DUI"
                         name="dui"
-                        value={dui}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.dui}
                       />
                     </InputGroup>
                   </Col>
@@ -320,8 +305,8 @@ const Registro = () => {
                         aria-label="NIT"
                         aria-describedby="NIT"
                         name="nit"
-                        value={nit}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.nit}
                       />
                     </InputGroup>
                   </Col>
@@ -339,8 +324,8 @@ const Registro = () => {
                         aria-label="ISSS"
                         aria-describedby="ISSS"
                         name="isss"
-                        value={isss}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.isss}
                       />
                     </InputGroup>
                   </Col>
@@ -356,8 +341,8 @@ const Registro = () => {
                         aria-label="AFP"
                         aria-describedby="AFP"
                         name="afp"
-                        value={afp}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.afp}
                       />
                     </InputGroup>
                   </Col>
@@ -375,8 +360,8 @@ const Registro = () => {
                         aria-describedby="Nacimiento"
                         type="date"
                         name="fecha_nacimiento"
-                        value={fecha_nacimiento}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.fecha_nacimiento}
                       />
                     </InputGroup>
                   </Col>
@@ -392,8 +377,8 @@ const Registro = () => {
                         aria-describedby="Ingreso"
                         type="date"
                         name="fecha_ingreso_empresa"
-                        value={fecha_ingreso_empresa}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.fecha_ingreso_empresa}
                       />
                     </InputGroup>
                   </Col>
@@ -409,8 +394,7 @@ const Registro = () => {
                       <FormControl
                         as="select"
                         name="estado_civil"
-                        value={estado_civil}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
                       >
                         <option value=""></option>
                         <option value="Soltero">Soltero</option>
@@ -435,8 +419,8 @@ const Registro = () => {
                         aria-label="Licencia de Conducir"
                         aria-describedby="Licencia de Conducir"
                         name="licencia_conducir"
-                        value={licencia_conducir}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.licencia_conducir}
                       />
                     </InputGroup>
                   </Col>
@@ -452,8 +436,8 @@ const Registro = () => {
                         aria-label="Licencia de Arma"
                         aria-describedby="Licencia de Arma"
                         name="licencia_arma"
-                        value={licencia_arma}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.licencia_arma}
                       />
                     </InputGroup>
                   </Col>
@@ -472,27 +456,29 @@ const Registro = () => {
                         as="textarea"
                         aria-label="Comentarios"
                         name="comentarios"
-                        value={comentarios}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e)}
+                        value={Empleado.comentarios}
                       />
                     </InputGroup>
                   </Col>
                 </Row>
-                <Button varian="Primera" size="lg" onClick={onSubmit}>
+                <Button
+                  varian="Primera"
+                  size="lg"
+                  onClick={() => updateEmpleado()}
+                >
                   Guardar
                 </Button>
-                <Link to={`/listado-empleados`} variant="warning">
-                  <Button variant="warning" size="lg">
-                    Cancelar
-                  </Button>
-                </Link>
+                <Button variant="warning" size="lg">
+                  Cancelar
+                </Button>
               </Card.Body>
             </Card>
           </Form>
         </div>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Capturadore de Imganes Tranmas</Modal.Title>
+            <Modal.Title>Capturador de Imganes Tranmas</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <CapturaFotoEmpleado setImage={setImage} image={image} />
