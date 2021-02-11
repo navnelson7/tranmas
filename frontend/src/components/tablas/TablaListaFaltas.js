@@ -5,7 +5,7 @@ import Falta from '../Empleados/Falta';
 import {useQuery} from '@apollo/client';
 import {getFaltaPorIdEmpleado} from '../../graphql/Queries';
 import {deleteFalta} from '../../graphql/Mutations'
-const TablaListaFaltas = ({Id}) => {
+const TablaListaFaltas = ({Id,id}) => {
     const [listadoFaltas, setListadoFaltas] = useState([]);
     const {data, loading} = useQuery(getFaltaPorIdEmpleado,{
         variables: {
@@ -24,7 +24,7 @@ const TablaListaFaltas = ({Id}) => {
     },[loading,data]);
 
     const eliminarFalta = (e) => {
-        console.log("que pedo");
+        console.log(id);
     }
     
     return (
@@ -46,7 +46,8 @@ const TablaListaFaltas = ({Id}) => {
                         <tr key={falta.id}>
                             <Falta 
                                 falta={falta}
-                                eliminarFalta={eliminarFalta(Id)}
+                                eliminarFalta={eliminarFalta}
+                                id={Id}
                             />
                         </tr>
                     ))
