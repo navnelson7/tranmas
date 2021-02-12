@@ -47,6 +47,7 @@ const EditarEmpleado = () => {
 
   const handleClose = () => setShow(false);
   const handelShow = () => setShow(true);
+  //EJECUTANDO EFECTO HASTA QUE CAMBIE IMAGEN
   useEffect(() => {
     setEmpleado({
       ...Empleado,
