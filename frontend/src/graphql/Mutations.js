@@ -676,7 +676,6 @@ export const updateEmpledoById = gql`
   $fecha_nacimiento: date
   $id: uuid!
   $id_departamento: uuid
-  $id_estado_empleado: uuid
   $id_tipo_empleado: uuid
   $isss: String
   $licencia_arma: String
