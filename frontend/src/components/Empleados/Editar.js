@@ -82,7 +82,7 @@ const EditarEmpleado = () => {
     empleadoOne = data === undefined ? {} : data.empleados_by_pk;
     setEmpleado(empleadoOne);
   }, [data]);
-
+ 
   const onChange = (e) => {
     setEmpleado({
       ...Empleado,

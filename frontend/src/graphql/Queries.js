@@ -328,7 +328,6 @@ export const EmpleadoByid = gql`
       id_departamento
       comentarios
       picture
-      id_estado_empleado
       id
     }
   }
