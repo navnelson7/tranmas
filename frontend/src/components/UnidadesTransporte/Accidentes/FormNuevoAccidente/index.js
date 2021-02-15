@@ -71,6 +71,16 @@ function Registro() {
       setExecuteSaveAccidente(false);
     }
   }, [ExecuteSaveAccidente]);
+
+  if (Loading)
+    return (
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+
   return (
     <Fragment>
       <ToastComponent
