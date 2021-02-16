@@ -72,6 +72,7 @@ const EditarEmpleado = () => {
     licencia_conducir: "",
     licencia_arma: "",
     id_tipo_empleado: "",
+    id_estado_empleados: "",
     id_departamento: "",
     comentarios: "",
     picture: image,
