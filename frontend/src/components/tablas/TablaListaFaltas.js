@@ -23,7 +23,7 @@ const TablaListaFaltas = ({Id,id}) => {
         //eslint-disable-next-line
     },[loading,data]);
 
-    const eliminarFalta = (e) => {
+    const eliminarFalta = (id) => {
         console.log(id);
     }
     
