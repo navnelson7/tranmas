@@ -15,6 +15,9 @@ import FormNuevoAccidente from "./components/UnidadesTransporte/Accidentes/FormN
 import EditarEmpleado from "./components/Empleados/Editar";
 
 //IMPORT LAZY IN COMPONENTS
+const EditarAccidente = lazy(() =>
+  import("./components/UnidadesTransporte/Accidentes/Editar")
+);
 const EditarRegistroEnTaller = lazy(() =>
   import("./components/UnidadesTransporte/Taller/RegistroTaller/Editar")
 );
@@ -125,7 +128,11 @@ function App() {
             <Route exact path="/registro/combustible/:id">
               <RegistroCombustible />
             </Route>
-
+            <Route exact path="/editar/registro/accidente/:id">
+              <Suspense fallback="Cargando....">
+                <EditarAccidente />
+              </Suspense>
+            </Route>
             <Route exact path="/editar/registro/taller/:id">
               <Suspense fallback="Cargando....">
                 <EditarRegistroEnTaller />

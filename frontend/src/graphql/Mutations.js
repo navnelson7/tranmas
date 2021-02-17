@@ -662,31 +662,31 @@ export const insertNewAccidentes = gql`
 `;
 
 export const updateEmpledoById = gql`
-  mutation update_empleados_by_pk( 
-  $codigo_empleado: String,
-  $activo: Boolean
-  $afp: String
-  $apellidos: String
-  $comentarios: String
-  $direccion: String
-  $dui: String
-  $edad: Int
-  $estado_civil: String
-  $fecha_ingreso_empresa: date
-  $fecha_nacimiento: date
-  $id: uuid!
-  $id_departamento: uuid
-  $id_tipo_empleado: uuid
-  $isss: String
-  $licencia_arma: String
-  $licencia_conducir: String
-  $nit: String
-  $nombres: String
-  $picture: String
-  $sexo: bpchar
-  $telefono: String
-  $__typename: String
-  ){
+  mutation update_empleados_by_pk(
+    $codigo_empleado: String
+    $activo: Boolean
+    $afp: String
+    $apellidos: String
+    $comentarios: String
+    $direccion: String
+    $dui: String
+    $edad: Int
+    $estado_civil: String
+    $fecha_ingreso_empresa: date
+    $fecha_nacimiento: date
+    $id: uuid!
+    $id_departamento: uuid
+    $id_tipo_empleado: uuid
+    $isss: String
+    $licencia_arma: String
+    $licencia_conducir: String
+    $nit: String
+    $nombres: String
+    $picture: String
+    $sexo: bpchar
+    $telefono: String
+    $__typename: String
+  ) {
     update_empleados_by_pk(
       _set: {
         codigo_empleado: $codigo_empleado
@@ -711,6 +711,22 @@ export const updateEmpledoById = gql`
         picture: $picture
       }
       pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
+
+export const updateAccidente = gql`
+  mutation update_accidentes_by_pk($id: uuid!, $registro_fotos: String, $id_empleado_motorista: uuid!, $fecha: date, $descripcion_accidente: String){
+    update_accidentes_by_pk(
+      pk_columns: { id: $id }
+      _set: {
+        descripcion_accidente: $descripcion_accidente
+        registro_fotos: $registro_fotos
+        id_empleado_motorista: $id_empleado_motorista
+        fecha: $fecha
+      }
     ) {
       id
     }
