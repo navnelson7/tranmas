@@ -632,8 +632,8 @@ export const updateRegistroTallerOne = gql `
 `;
 
 export const deleteFalta = gql `
-  mutation delete_falta_motorista_by_pk($id: uuid!) {
-    delete_falta_motorista_by_pk(id: $id) {
+  mutation delete_faltas_motoristas_by_pk($id: uuid!) {
+    delete_faltas_motoristas_by_pk(id: $id) {
       id
     }
   }

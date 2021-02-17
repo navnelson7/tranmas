@@ -20,9 +20,8 @@ const TablaListaFaltas = ({Id,id}) => {
         if(data){
             setListadoFaltas(data.faltas_motoristas);
         }
-        console.log(data)
         //eslint-disable-next-line
-    },[loading,data]);
+    },[loading,data,listadoFaltas]);
 
     const eliminarFalta = (id) => {
         deleteFal({
