@@ -7,10 +7,11 @@ from images import api_images
 from accidentes import api_accidente
 
 app = Flask(__name__)
-CORS(app)
+
 app.config["CLIENT_IMAGES"] = "./images"  # files folder
 app.register_blueprint(api_images)
 app.register_blueprint(api_accidente)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 #MIDDLEWARE QUE CREA EL FOLDER IMAGES SI NO EXISTE
 @app.before_first_request

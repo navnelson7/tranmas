@@ -2,7 +2,8 @@ from flask import Blueprint, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from bson.objectid import ObjectId
-
+from flask_cors import cross_origin
+ 
 
 api_accidente = Blueprint('api_accidente', __name__)
 
@@ -10,6 +11,7 @@ PATH_IMAGE = "/imagenes-accidentes/"
 PATH_IMAGE_ACCIDENTE = "./imagenes-accidentes"
 
 @api_accidente.route('/upload/mutiple/accidentes', methods=["POST"])
+@cross_origin()
 def upload_image():
     if request.method == 'POST':
         files = request.files.getlist("files")

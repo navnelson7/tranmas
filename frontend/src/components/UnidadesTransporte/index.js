@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import CardTransporte from "./CardTransporte";
-import { SpinnerLazy } from "../Loader/SpinnerLazy";
 
 function UnidadesTransporte() {
   const [Element, setElement] = useState(null);
@@ -97,7 +96,7 @@ function UnidadesTransporte() {
                 return <CardTransporte unidad={unidad} key={unidad.id} />;
               })}
             </div>
-            {Loading && <SpinnerLazy />}
+            {Loading && <p>Cargando...</p>}
             {!Loading && showReference ? (
               <p ref={setElement} align="center">
                 Cargando...

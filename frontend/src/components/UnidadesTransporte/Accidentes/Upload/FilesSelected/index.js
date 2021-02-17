@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios, { CancelToken, isCancel } from "axios";
@@ -18,6 +18,7 @@ function FilesSelected({
   const [Loader, setLoader] = useState(null);
   const cancelFileUpload = useRef(null);
   const [MessageCancel, setMessageCancel] = useState("");
+
   const submitUpload = (e) => {
     e.preventDefault();
     // create formData object
@@ -41,9 +42,17 @@ function FilesSelected({
         },
       })
       .then((response) => {
+        // console.log([
+        //   newAccidente.registro_fotos.map((b) => b),
+        //   response.data.images.map((b) => b),
+        // ]);
+        let imagenesAntiguas = JSON.parse(newAccidente.registro_fotos);
+        response.data.images.map((imagenNueva) => {
+          imagenesAntiguas.push(imagenNueva);
+        });
         setnewAccidente({
           ...newAccidente,
-          registro_fotos: JSON.stringify(response.data.images),
+          registro_fotos: JSON.stringify([]),
         });
         setExecuteSaveAccidente(true);
       })

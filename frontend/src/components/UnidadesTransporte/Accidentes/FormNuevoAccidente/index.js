@@ -17,7 +17,7 @@ function Registro() {
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
 
-  const [setNewAccidente] = useMutation(insertNewAccidentes);
+  const [setNewAccidenteMutation] = useMutation(insertNewAccidentes);
   const [ExecuteSaveAccidente, setExecuteSaveAccidente] = useState(false);
   const [newAccidente, setnewAccidente] = useState({
     descripcion_accidente: "",
@@ -44,7 +44,7 @@ function Registro() {
       newAccidente.id_empleado_motorista === ""
     ) {
     } else {
-      setNewAccidente({
+      setNewAccidenteMutation({
         variables: newAccidente,
       })
         .then((res) => {
@@ -60,7 +60,10 @@ function Registro() {
           }
         })
         .catch((error) => {
-          console.log(error);
+          setLoading(false);
+          setIconType("error");
+          setshowAlert(true);
+          setTextAlert(error.message);
         });
     }
   };
@@ -70,7 +73,17 @@ function Registro() {
       submitAccidente();
       setExecuteSaveAccidente(false);
     }
-  }, [ExecuteSaveAccidente]);
+  }, [ExecuteSaveAccidente, submitAccidente]);
+
+  if (Loading)
+    return (
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+
   return (
     <Fragment>
       <ToastComponent
@@ -120,7 +133,7 @@ function Registro() {
 
 export default Registro;
 
-const StyleRegitroUnidades = styled.div`
+export const StyleRegitroUnidades = styled.div`
   .center-txt {
     text-align: center;
   }
