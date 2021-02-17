@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Table, Container} from 'react-bootstrap';
 import Falta from '../Empleados/Falta';
 
-import {useQuery} from '@apollo/client';
+import {useMutation, useQuery} from '@apollo/client';
 import {getFaltaPorIdEmpleado} from '../../graphql/Queries';
 import {deleteFalta} from '../../graphql/Mutations'
 const TablaListaFaltas = ({Id,id}) => {
@@ -12,6 +12,7 @@ const TablaListaFaltas = ({Id,id}) => {
             id_empleado:Id,
         },
     });
+    const [deleteFal] = useMutation(deleteFalta);
     useEffect(() =>{
         if(loading){
             return
@@ -24,7 +25,15 @@ const TablaListaFaltas = ({Id,id}) => {
     },[loading,data]);
 
     const eliminarFalta = (id) => {
-        console.log(id);
+        deleteFal({
+            variables:{id}
+        }).then((res) => {
+            if(res.data){
+                
+                setTimeout(() => {
+                }, 2000);
+            }
+        })
     }
     
     return (
