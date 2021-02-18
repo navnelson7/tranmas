@@ -53,11 +53,11 @@ const FormularioFaltas = ({Id,Nombre}) => {
                 })
                 .then((res) => {
                     if(res.data){
-                        console.log(res.data)
+                        console.log(res.data.insert_faltas_motoristas_one)
                         setIconType("success")
                         setshowAlert(true);
                         setTextAlert("Registrado correctamente")
-                        setFalta([falta,res.data.falta])
+                        setFalta([falta,res.data.insert_faltas_motoristas_one])
                         setTimeout(() => {
                         }, 2000);
                     }

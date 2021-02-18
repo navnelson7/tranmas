@@ -28,6 +28,9 @@ function ListadoEmpleados() {
   if (listadoEmpleados.length === 0) return null;
   if (error) return <p align="center">{error.message}</p>;
 
+  const eliminarEmpleado = (id)=> {
+    console.log("borrando....",id)
+  }
   return (
     <Fragment>
       <Container>
@@ -54,7 +57,11 @@ function ListadoEmpleados() {
               ) : (
                 listadoEmpleados.map((empleado) => (
                   <tr key={empleado.id}>
-                    <Empleado empleado={empleado} />
+                    <Empleado 
+                        empleado={empleado} 
+                        eliminarEmpleado={eliminarEmpleado} 
+                        id={empleado.id}   
+                    />
                   </tr>
                 ))
               )}
