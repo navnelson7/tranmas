@@ -53,9 +53,11 @@ const FormularioFaltas = ({Id,Nombre}) => {
                 })
                 .then((res) => {
                     if(res.data){
+                        console.log(res.data)
                         setIconType("success")
                         setshowAlert(true);
                         setTextAlert("Registrado correctamente")
+                        setFalta([falta,res.data.falta])
                         setTimeout(() => {
                         }, 2000);
                     }

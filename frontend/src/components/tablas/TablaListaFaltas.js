@@ -7,7 +7,7 @@ import {getFaltaPorIdEmpleado} from '../../graphql/Queries';
 import {deleteFalta} from '../../graphql/Mutations'
 const TablaListaFaltas = ({Id,id}) => {
     const [listadoFaltas, setListadoFaltas] = useState([]);
-    const {data, loading} = useQuery(getFaltaPorIdEmpleado,{
+    const {data, loading, refetch} = useQuery(getFaltaPorIdEmpleado,{
         variables: {
             id_empleado:Id,
         },
@@ -21,14 +21,14 @@ const TablaListaFaltas = ({Id,id}) => {
             setListadoFaltas(data.faltas_motoristas);
         }
         //eslint-disable-next-line
-    },[loading,data,listadoFaltas]);
+    },[loading,data]);
 
     const eliminarFalta = (id) => {
         deleteFal({
             variables:{id}
         }).then((res) => {
             if(res.data){
-                
+                refetch()
                 setTimeout(() => {
                 }, 2000);
             }
