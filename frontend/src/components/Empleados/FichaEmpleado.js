@@ -1,18 +1,39 @@
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, Fragment} from 'react';
 import {Container} from 'react-bootstrap';
 import PdfEmpleado from './PdfEmpleado';
+import {useQuery} from '@apollo/client';
+import {getEmpleadosbyId} from '../../graphql/Queries'
+import { useParams } from "react-router-dom";
+
 const FichaEmpleado = () => {
 
-   
-    return (
-        <Container>     
+    const {id} = useParams()
+     const [empleado, setEmpleado] = useState([]);
+     const {loading, data, error} = useQuery(getEmpleadosbyId,{
+         variables: {
+             id:id
+         }
+     });
     
-            <PDFDownloadLink document={<PdfEmpleado />} fileName="somename.pdf">
-                {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-            </PDFDownloadLink>
+     useEffect(() =>{
+         if(loading){
+             return;
+         }
+         if(data){
+             setEmpleado(data.empleados)
+             console.log(empleado);
 
-        </Container>
+         }
+     })
+    return (
+        <Fragment>
+            <div className="box-left">
+            <Container>     
+                <h1>Algo</h1>
+            </Container>
+            </div>
+        </Fragment>
     );
 }
 

@@ -349,3 +349,29 @@ export const AccidenteById = gql `
     }
   }
 `;
+
+export const getEmpleadosbyId = gql `
+  query empleados_by_pk($id: uuid!) {
+    empleados_by_pk(id: $id) {
+      id
+      codigo_empleado
+      nombres
+      apellidos
+      edad
+      sexo
+      tipo_empleado {
+        tipo_empleado
+      }
+      departamento_empleado {
+        departamento
+      }
+      dui
+      nit
+      afp
+      licencia_conducir
+      licencia_arma
+      picture
+      activo
+    }
+  }
+`;
