@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import BusquedaEmpleados from './BusquedaEmpleados';
-import {useQuery} from "@apollo/client";
+import {useQuery, useSubscription} from "@apollo/client";
 import {getEmpleados} from "../../graphql/Queries";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,7 @@ const RegistroFaltas = () => {
     
 
     const [listadoEmpleados,setListadoEmpleados] = useState([]);
-    const {loading, data} = useQuery(getEmpleados);
+    const {loading, data} = useSubscription(getEmpleados);
     useEffect(()=>{
         if(loading){
             return;

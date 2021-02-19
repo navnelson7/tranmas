@@ -227,7 +227,7 @@ function App() {
             </Route>
             <Route
               exact
-              path="/ficha-empleado/:codigo_empleado"
+              path="/ficha-empleado/:Id"
               component={FichaEmpleado}
             >
               <Suspense fallback="Cargando....">
