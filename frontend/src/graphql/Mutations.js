@@ -328,9 +328,12 @@ export const setEmpleadosOne = gql`
     $id_departamento: uuid
     $comentarios: String
     $picture: String
+    $id_estado_empleados: uuid
+    $activo: Boolean
   ) {
     insert_empleados_one(
       object: {
+        activo: $activo
         codigo_empleado: $codigo_empleado
         nombres: $nombres
         apellidos: $apellidos

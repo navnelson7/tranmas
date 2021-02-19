@@ -1,52 +1,70 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import Empleado from "./Empleado";
 
-import { useQuery } from "@apollo/client";
+import { useSubscription, useMutation } from "@apollo/client";
 import { getEmpleados } from "../../graphql/Queries";
-
 import "bootstrap/dist/css/bootstrap.css";
-import { Container, Table } from "react-bootstrap";
-
+import { Container, Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "react-bootstrap";
 import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
 import { updateActivoEmpleado } from "../../graphql/Mutations";
+import { ToastComponent } from "../Toast";
 
 function ListadoEmpleados() {
   const [inactivar] = useMutation(updateActivoEmpleado);
 
-  const [listadoEmpleados, setListadoEmpleados] = useState([]);
-  const { loading, data, error, refetch } = useQuery(getEmpleados);
-  useEffect(() => {
-    if (loading) {
-      return;
-    }
-    if (data) {
-      setListadoEmpleados(data.empleados);
-    }
-    console.log(data);
-  }, [data, loading]);
+  const { loading, data, error } = useSubscription(getEmpleados);
 
-  if (listadoEmpleados.length === 0) return null;
-  if (error) return <p align="center">{error.message}</p>;
+  //ALERTA
+  const [TextAlert, setTextAlert] = useState("");
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
 
+  //DESACTIVA A UN EMPLEADO
   const eliminarEmpleado = (id) => {
     inactivar({ variables: { id: id, activo: false } })
       .then((res) => {
+        //ELIMINARLO DE LA VISTA
         if (res.data) {
-          refetch();
+          setTextAlert("Eliminado correctamente");
+          setIconType("success");
+          setshowAlert(true);
+          setTimeout(() => {
+            setshowAlert(false);
+          }, 2000);
         }
       })
-      .catch((err) => console.log(err.message));
+      .catch(() => {
+        setTextAlert("Ocurrio un error");
+        setIconType("error");
+        setshowAlert(true);
+        setTimeout(() => {
+          setshowAlert(false);
+        }, 2000);
+      });
   };
 
+  if (loading)
+    return (
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
       <Container>
         <div className="box-left">
-          <h1>Listado de Epleados</h1>
+          <h1>Listado de Empleados</h1>
           <Link to={`/registro`} variant="danger">
             <Button variant="info">
               <FontAwesomeIcon icon={faUserEdit} /> Nuevo Empleado
@@ -57,6 +75,8 @@ function ListadoEmpleados() {
               <FontAwesomeIcon icon={faUserEdit} /> Registro Falta
             </Button>
           </Link>
+          <br />
+          <br />
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -69,12 +89,12 @@ function ListadoEmpleados() {
               </tr>
             </thead>
             <tbody>
-              {listadoEmpleados.length === 0 ? (
+              {data.empleados.length === 0 ? (
                 <tr>
                   <td>No hay Empleados registrados </td>
                 </tr>
               ) : (
-                listadoEmpleados.map((empleado) => (
+                data.empleados.map((empleado) => (
                   <tr key={empleado.id}>
                     <Empleado
                       empleado={empleado}
