@@ -11,10 +11,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {Button} from 'react-bootstrap';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
+import { useMutation } from "@apollo/react-hooks";
+import {updateActivoEmpleado} from "../../graphql/Mutations"
 
 function ListadoEmpleados() {
+  const [inactivar] = useMutation(updateActivoEmpleado)  
+
   const [listadoEmpleados, setListadoEmpleados] = useState([]);
-  const { loading, data, error } = useQuery(getEmpleados);
+  const { loading, data, error,refetch } = useQuery(getEmpleados);
   useEffect(() => {
     if (loading) {
       return;
@@ -27,9 +31,10 @@ function ListadoEmpleados() {
 
   if (listadoEmpleados.length === 0) return null;
   if (error) return <p align="center">{error.message}</p>;
-
+  
   const eliminarEmpleado = (id)=> {
-    console.log("borrando....",id)
+    inactivar({ variables: {id: id, activo: false}})
+    refetch()
   }
   return (
     <Fragment>
