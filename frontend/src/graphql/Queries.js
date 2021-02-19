@@ -2,7 +2,7 @@ import { gql } from "apollo-boost";
 
 export const getEmpmleados = gql `
   query getEmpleados {
-    empleados {
+    empleados(where: { activo: { _eq: true } }) {
       id
       codigo_empleado
       nombres
@@ -21,6 +21,7 @@ export const getEmpmleados = gql `
       licencia_conducir
       licencia_arma
       picture
+      activo
     }
   }
 `;

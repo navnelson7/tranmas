@@ -677,6 +677,7 @@ export const updateEmpledoById = gql`
     $id: uuid!
     $id_departamento: uuid
     $id_tipo_empleado: uuid
+    $id_estado_empleados: uuid
     $isss: String
     $licencia_arma: String
     $licencia_conducir: String
@@ -789,3 +790,10 @@ export const updateAireAcondicionadoOne = gql`
     }
   }
 `;
+export const updateActivoEmpleado = gql `
+    mutation updateActivoEmpleados($id: uuid!, $activo: Boolean){
+      update_empleados(where:{ id: {_eq: $id}}, _set:{activo:$activo}){
+        affected_rows
+      }
+    }
+`
