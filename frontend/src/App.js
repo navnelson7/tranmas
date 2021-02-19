@@ -11,12 +11,21 @@ import EditarCombustible from "./components/UnidadesTransporte/Combustible/Edita
 import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible/statistic";
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
-import FormNuevoAccidente from "./components/UnidadesTransporte/Accidentes/FormNuevoAccidente";
 import EditarEmpleado from "./components/Empleados/Editar";
 
-//IMPORT LAZY IN COMPONENTS
-const EditarAccidente = lazy(() =>
-  import("./components/UnidadesTransporte/Accidentes/Editar")
+
+const EditarAireAcondicionado = lazy(() =>
+  import("./components/UnidadesTransporte/AireAcondicionado/Editar")
+);
+
+const RegistroAireAcondicionado = lazy(() =>
+  import("./components/UnidadesTransporte/AireAcondicionado/Registro")
+);
+
+const TableAireAcondicionado = lazy(() =>
+  import(
+    "./components/UnidadesTransporte/AireAcondicionado/TableAireAcondicionado"
+  )
 );
 const EditarRegistroEnTaller = lazy(() =>
   import("./components/UnidadesTransporte/Taller/RegistroTaller/Editar")
@@ -113,9 +122,6 @@ function App() {
             <Route exact path="/actualizar-empleado/:id">
               <EditarEmpleado />
             </Route>
-            <Route exact path="/registro/accidente/:id">
-              <FormNuevoAccidente />
-            </Route>
             <Route exact path="/accidentes/:id">
               <Accidentes />
             </Route>
@@ -128,16 +134,31 @@ function App() {
             <Route exact path="/registro/combustible/:id">
               <RegistroCombustible />
             </Route>
-            <Route exact path="/editar/registro/accidente/:id">
-              <Suspense fallback="Cargando....">
-                <EditarAccidente />
-              </Suspense>
-            </Route>
             <Route exact path="/editar/registro/taller/:id">
               <Suspense fallback="Cargando....">
                 <EditarRegistroEnTaller />
               </Suspense>
             </Route>
+
+            <Route exact path="/editar/aire/acondicionado/:idTransporte/:idAireAcondicionado">
+              <Suspense fallback="Cargando....">
+                <EditarAireAcondicionado />
+              </Suspense>
+            </Route>
+
+
+            <Route exact path="/registro/aire/acondicionado/:id">
+              <Suspense fallback="Cargando....">
+                <RegistroAireAcondicionado />
+              </Suspense>
+            </Route>
+
+            <Route exact path="/tabla/aire/acondicionado/:id">
+              <Suspense fallback="Cargando....">
+                <TableAireAcondicionado />
+              </Suspense>
+            </Route>
+
             <Route exact path="/editar/detalle/taller/:id">
               <Suspense fallback="Cargando....">
                 <EditarDetalleEnTaller />

@@ -66,7 +66,7 @@ function RegistroCombustible() {
           if (res.data) {
             setLoading(false);
             setIconType("success");
-            setshowAlert(true);
+            setshowAlert(true); 
             setTextAlert("Registrado correctamente");
             setTimeout(() => {
               //si todo va bien lo redirecciona al inicio
