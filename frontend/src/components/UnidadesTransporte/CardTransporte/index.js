@@ -4,6 +4,7 @@ import ButtonAccidentes from "./ButtonAccidentes";
 import ButtonFuel from "./ButtonFuel";
 import ButtonGraphic from "./ButtonGraphic";
 import ButtonReparaciones from "./ButtonReparaciones";
+import ButtonAireAcondicionado from "./ButtonAireAcondicionado";
 import Image from "./Image";
 
 function CardTransporte({ unidad }) {
@@ -23,7 +24,8 @@ function CardTransporte({ unidad }) {
                 <ButtonFuel id={unidad.id} />
                 <ButtonGraphic idUnidadTransporte={unidad.id} />
                 <ButtonReparaciones idUnidadTransporte={unidad.id} />
-                <ButtonAccidentes idUnidadTransporte={unidad.id}/>
+                <ButtonAccidentes idUnidadTransporte={unidad.id} />
+                <ButtonAireAcondicionado idUnidadTransporte={unidad.id} />
               </div>
             </StyleGridCircle>
             <br />
@@ -44,7 +46,7 @@ function CardTransporte({ unidad }) {
 const StyleGridCircle = styled.div`
   .grid-circle-card {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 25% 25% 25% 25% 25%;
     grid-column-gap: 10%;
     margin-left: 5px;
   }

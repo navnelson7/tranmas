@@ -225,3 +225,26 @@ export const listenAccidentes = gql`
     }
   }
 `;
+
+export const listenTableAireAcondicionado = gql`
+  subscription {
+    aire_acondicionado(order_by: { id: desc }) {
+      fecha
+      id
+      motorista {
+        nombres
+        apellidos
+      }
+      descripcion
+    }
+  }
+`;
+
+export const listenAireAcondicionadoById = gql`
+  subscription aire_acondicionado_by_pk($id: uuid!) {
+    aire_acondicionado_by_pk(id: $id) {
+      descripcion
+      id_empleado_motorista
+    }
+  }
+`;

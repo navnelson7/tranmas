@@ -11,7 +11,7 @@ import {
   Modal,
   Image,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ListBoxTipoEmpleados from "../Empleados/ListBoxTipoEmpleados";
 import ListBoxDepartamentos from "./ListBoxDepartamentos";
 import ListBoxEstadoEmpleado from "./ListBoxEstadoEmpleado";
@@ -19,11 +19,10 @@ import CapturaFotoEmpleado from "./CapturaFotoEmpleado";
 import { ToastComponent } from "../Toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
-
 import { useMutation } from "@apollo/client";
 import { setEmpleadosOne } from "../../graphql/Mutations";
-import Empleado from "./Empleado";
 const Registro = () => {
+  const {push} = useHistory();
   const [image, setImage] = useState(
     "https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg "
   );
@@ -37,11 +36,11 @@ const Registro = () => {
 
   const [addEmpleados] = useMutation(setEmpleadosOne);
 
-  const [empleado, guardarRegistro] = useState({
+  const [empleadoEstado, guardarRegistro] = useState({
     codigo_empleado: "",
     nombres: "",
     apellidos: "",
-    edad: "",
+    edad: 0,
     sexo: "",
     telefono: "",
     direccion: "",
@@ -59,63 +58,47 @@ const Registro = () => {
     id_departamento: "",
     comentarios: "",
     picture: image,
+    activo: true,
   });
 
-  const {
-    codigo_empleado,
-    nombres,
-    apellidos,
-    edad,
-    sexo,
-    telefono,
-    direccion,
-    dui,
-    nit,
-    afp,
-    isss,
-    fecha_ingreso_empresa,
-    fecha_nacimiento,
-    estado_civil,
-    licencia_conducir,
-    licencia_arma,
-    id_tipo_empleado,
-    id_estado_empleados,
-    id_departamento,
-    comentarios,
-    picture,
-  } = Empleado;
-
   const onChange = (e) => {
-    guardarRegistro({
-      ...empleado,
-      [e.target.name]: e.target.value,
-      picture: image,
-    });
+    if (e.target.name === "edad") {
+      guardarRegistro({
+        ...empleadoEstado,
+        [e.target.name]: parseInt(e.target.value),
+        picture: image,
+      });
+    } else {
+      guardarRegistro({
+        ...empleadoEstado,
+        [e.target.name]: e.target.value,
+        picture: image,
+      });
+    }
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (
-      codigo_empleado.trim() === "" ||
-      nombres.trim() === "" ||
-      apellidos.trim() === "" ||
-      edad.trim() === "" ||
-      sexo.trim() === "" ||
-      telefono.trim() === "" ||
-      direccion.trim() === "" ||
-      dui.trim() === "" ||
-      nit.trim() === "" ||
-      isss.trim() === "" ||
-      afp.trim() === "" ||
-      fecha_nacimiento.trim() === "" ||
-      fecha_ingreso_empresa.trim() === "" ||
-      estado_civil.trim() === "" ||
-      id_tipo_empleado.trim() === "" ||
-      licencia_conducir.trim() === "" ||
-      licencia_arma.trim() === "" ||
-      id_estado_empleados.trim() === "" ||
-      id_departamento.trim() === "" ||
-      comentarios.trim() === ""
+      empleadoEstado.codigo_empleado === "" ||
+      empleadoEstado.nombres === "" ||
+      empleadoEstado.apellidos === "" ||
+      empleadoEstado.sexo === "" ||
+      empleadoEstado.telefono === "" ||
+      empleadoEstado.direccion === "" ||
+      empleadoEstado.dui === "" ||
+      empleadoEstado.nit === "" ||
+      empleadoEstado.isss === "" ||
+      empleadoEstado.afp === "" ||
+      empleadoEstado.echa_nacimiento === "" ||
+      empleadoEstado.fecha_ingreso_empresa === "" ||
+      empleadoEstado.estado_civil === "" ||
+      empleadoEstado.id_tipo_empleado === "" ||
+      empleadoEstado.licencia_conducir === "" ||
+      empleadoEstado.licencia_arma === "" ||
+      empleadoEstado.id_estado_empleados === "" ||
+      empleadoEstado.id_departamento === "" ||
+      empleadoEstado.comentarios === ""
     ) {
       setIconType("error");
       setshowAlert(true);
@@ -123,21 +106,22 @@ const Registro = () => {
       return;
     } else {
       addEmpleados({
-        variables: empleado,
+        variables: empleadoEstado,
       })
         .then((res) => {
           if (res.data) {
             setIconType("success");
             setshowAlert(true);
             setTextAlert("Registrado correctamente");
-            setTimeout(() => {}, 2000);
+            setTimeout(() => {
+              push("/listado-empleados")
+            }, 2000);
           }
         })
         .catch((error) => {
           setTextAlert("Ocurrio un problema");
-          setIconType("error");
+          setIconType(error.message);
           setshowAlert(true);
-          console.log(error);
         });
     }
 
@@ -157,14 +141,19 @@ const Registro = () => {
       <Container>
         <div className="box-left">
           <h1>REGISTRO DE EMPLEADOS</h1>
-          <Image src={image} alt="Foto empleado" rounded responsive="true"></Image>
+          <Image
+            src={image}
+            alt="Foto empleado"
+            rounded
+            responsive="true"
+          ></Image>
 
           <Form>
             <InputGroup className="mb-3">
               <InputGroup.Append></InputGroup.Append>
-              <FormControl value={picture} onChange={onChange} hidden />
+              <FormControl value={empleadoEstado.picture} onChange={onChange} hidden />
             </InputGroup>
-            <Card> 
+            <Card>
               <Card.Body>
                 <Row>
                   <Col sm={4}>
@@ -179,7 +168,7 @@ const Registro = () => {
                         arial-label="codigo_empleado"
                         arial-describedby="basic-addon1"
                         name="codigo_empleado"
-                        value={codigo_empleado}
+                        value={empleadoEstado.codigo_empleado}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -199,7 +188,7 @@ const Registro = () => {
                       <FormControl
                         placeholder="nombres"
                         name="nombres"
-                        value={nombres}
+                        value={empleadoEstado.nombres}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -212,7 +201,7 @@ const Registro = () => {
                       <FormControl
                         placeholder="Apellidos"
                         name="apellidos"
-                        value={apellidos}
+                        value={empleadoEstado.apellidos}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -231,7 +220,8 @@ const Registro = () => {
                         aria-label="Edad"
                         aria-describedby="basic-addon1"
                         name="edad"
-                        value={edad}
+                        type="number"
+                        value={empleadoEstado.edad}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -244,7 +234,7 @@ const Registro = () => {
                       <FormControl
                         as="select"
                         name="sexo"
-                        value={sexo}
+                        value={empleadoEstado.sexo}
                         onChange={onChange}
                       >
                         <option value="null"> </option>
@@ -265,7 +255,7 @@ const Registro = () => {
                         aria-label="Telefono"
                         aria-describedby="basic -addon1"
                         name="telefono"
-                        value={telefono}
+                        value={empleadoEstado.telefono}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -284,7 +274,7 @@ const Registro = () => {
                         aria-label="Direccion"
                         aria-describedby="basic -addon1"
                         name="direccion"
-                        value={direccion}
+                        value={empleadoEstado.direccion}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -303,7 +293,7 @@ const Registro = () => {
                         aria-label="DUI"
                         aria-describedby="DUI"
                         name="dui"
-                        value={dui}
+                        value={empleadoEstado.dui}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -320,7 +310,7 @@ const Registro = () => {
                         aria-label="NIT"
                         aria-describedby="NIT"
                         name="nit"
-                        value={nit}
+                        value={empleadoEstado.nit}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -339,7 +329,7 @@ const Registro = () => {
                         aria-label="ISSS"
                         aria-describedby="ISSS"
                         name="isss"
-                        value={isss}
+                        value={empleadoEstado.isss}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -356,7 +346,7 @@ const Registro = () => {
                         aria-label="AFP"
                         aria-describedby="AFP"
                         name="afp"
-                        value={afp}
+                        value={empleadoEstado.afp}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -375,7 +365,7 @@ const Registro = () => {
                         aria-describedby="Nacimiento"
                         type="date"
                         name="fecha_nacimiento"
-                        value={fecha_nacimiento}
+                        value={empleadoEstado.fecha_nacimiento}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -392,7 +382,7 @@ const Registro = () => {
                         aria-describedby="Ingreso"
                         type="date"
                         name="fecha_ingreso_empresa"
-                        value={fecha_ingreso_empresa}
+                        value={empleadoEstado.fecha_ingreso_empresa}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -409,7 +399,7 @@ const Registro = () => {
                       <FormControl
                         as="select"
                         name="estado_civil"
-                        value={estado_civil}
+                        value={empleadoEstado.estado_civil}
                         onChange={onChange}
                       >
                         <option value=""></option>
@@ -435,7 +425,7 @@ const Registro = () => {
                         aria-label="Licencia de Conducir"
                         aria-describedby="Licencia de Conducir"
                         name="licencia_conducir"
-                        value={licencia_conducir}
+                        value={empleadoEstado.licencia_conducir}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -452,7 +442,7 @@ const Registro = () => {
                         aria-label="Licencia de Arma"
                         aria-describedby="Licencia de Arma"
                         name="licencia_arma"
-                        value={licencia_arma}
+                        value={empleadoEstado.licencia_arma}
                         onChange={onChange}
                       />
                     </InputGroup>
@@ -472,7 +462,7 @@ const Registro = () => {
                         as="textarea"
                         aria-label="Comentarios"
                         name="comentarios"
-                        value={comentarios}
+                        value={empleadoEstado.comentarios}
                         onChange={onChange}
                       />
                     </InputGroup>

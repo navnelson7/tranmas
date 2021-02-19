@@ -110,8 +110,8 @@ export const getRoles = gql `
 `;
 
 export const getEmpleados = gql `
-  query {
-    empleados {
+  subscription {
+    empleados(where: { activo: { _eq: true } }) {
       codigo_empleado
       nombres
       apellidos
@@ -346,32 +346,6 @@ export const AccidenteById = gql `
       id
       id_empleado_motorista
       registro_fotos
-    }
-  }
-`;
-
-export const getEmpleadosbyId = gql `
-  query empleados_by_pk($id: uuid!) {
-    empleados_by_pk(id: $id) {
-      id
-      codigo_empleado
-      nombres
-      apellidos
-      edad
-      sexo
-      tipo_empleado {
-        tipo_empleado
-      }
-      departamento_empleado {
-        departamento
-      }
-      dui
-      nit
-      afp
-      licencia_conducir
-      licencia_arma
-      picture
-      activo
     }
   }
 `;
