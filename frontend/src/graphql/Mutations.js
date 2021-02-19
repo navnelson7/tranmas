@@ -740,15 +740,15 @@ export const updateAccidente = gql`
     }
   }
 `;
-
+ 
 export const newAireAcondicionado = gql`
-  mutation insert_aire_acondionado_one(
+  mutation insert_aire_acondicionado_one(
     $descripcion: String
     $fecha: date
     $id_empleado_motorista: uuid
     $id_unidad_transporte: uuid
   ) {
-    insert_aire_acondionado_one(
+    insert_aire_acondicionado_one(
       object: {
         descripcion: $descripcion
         fecha: $fecha
@@ -762,8 +762,8 @@ export const newAireAcondicionado = gql`
 `;
 
 export const deleteAireAcondicionado = gql`
-  mutation delete_aire_acondionado_by_pk($id: uuid!){
-    delete_aire_acondionado_by_pk(id: $id) {
+  mutation delete_aire_acondicionado_by_pk($id: uuid!){
+    delete_aire_acondicionado_by_pk(id: $id) {
       id
     }
   }

@@ -228,7 +228,7 @@ export const listenAccidentes = gql`
 
 export const listenTableAireAcondicionado = gql`
   subscription {
-    aire_acondicionado {
+    aire_acondicionado(order_by: { id: desc }) {
       fecha
       id
       motorista {
