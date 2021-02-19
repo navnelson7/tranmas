@@ -33,9 +33,15 @@ function ListadoEmpleados() {
   if (error) return <p align="center">{error.message}</p>;
   
   const eliminarEmpleado = (id)=> {
-    inactivar({ variables: {id: id, activo: false}})
-    refetch()
+    inactivar({ variables: {id: id, activo: false}}).then(res => {
+      if(res.data){
+      refetch()
+      }
+      })
   }
+
+  
+
   return (
     <Fragment>
       <Container>
