@@ -3,30 +3,31 @@ import { Table, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faEdit,
+  faFileImage,
+} from "@fortawesome/free-solid-svg-icons";
 import { useSubscription, useMutation } from "@apollo/client";
-import { listenTableAireAcondicionado } from "../../../../graphql/Suscription";
-import { deleteAireAcondicionado } from "../../../../graphql/Mutations";
+import { listenTapiceria } from "../../../../graphql/Suscription";
+import { deleteTapiceriaById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
 
-function TableAireAcondicionado() {
+function TableTapiceria() {
   const { id } = useParams();
   //ALERTA
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
 
-  const { data, loading, error } = useSubscription(
-    listenTableAireAcondicionado,
-    {
-      variables: {
-        id,
-      },
-    }
-  );
-  const [deleteAire] = useMutation(deleteAireAcondicionado);
-  const submitDeleteAire = (idSelected) => {
-    deleteAire({
+  const { data, loading, error } = useSubscription(listenTapiceria, {
+    variables: {
+      id,
+    },
+  });
+  const [deleteTapiceria] = useMutation(deleteTapiceriaById);
+  const submitDeleteTapiceria = (idSelected) => {
+    deleteTapiceria({
       variables: {
         id: idSelected,
       },
@@ -52,7 +53,8 @@ function TableAireAcondicionado() {
         </div>
       </div>
     );
-  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
+  if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
+  console.log(data);
   return (
     <Fragment>
       <ToastComponent
@@ -63,7 +65,7 @@ function TableAireAcondicionado() {
       />
       <StyleAire>
         <div className="box-left-aire">
-          <Link to={`/registro/aire/acondicionado/${id}`} variant="danger">
+          <Link to={`/registro/tapiceria/${id}`} variant="danger">
             <Button variant="info">Nuevo Registro</Button>
           </Link>
           <br />
@@ -79,19 +81,24 @@ function TableAireAcondicionado() {
               </tr>
             </thead>
             <tbody>
-              {data.aire_acondicionado.map((aire, index) => {
+              {data.control_tapiceria_carroceria.map((tapiceria, index) => {
                 return (
-                  <tr key={aire.id}>
+                  <tr key={tapiceria.id}>
                     <td>{index + 1}</td>
                     <td>
-                      {aire.motorista.nombres} {aire.motorista.apellidos}
+                      {tapiceria.empleado_motorista.nombres}{" "}
+                      {tapiceria.empleado_motorista.apellidos}
                     </td>
-                    <td>{aire.descripcion}</td>
-                    <td>{aire.fecha}</td>
+                    <td>{tapiceria.descripcion_dano}</td>
+                    <td>{tapiceria.fecha}</td>
                     <td>
+                      <Button title="Ver fotografia" variant="success">
+                        <FontAwesomeIcon icon={faFileImage} />
+                      </Button>
                       <Link
-                        to={`/editar/aire/acondicionado/${id}/${aire.id}`}
+                        to={`/editar/aire/acondicionado/${id}/${tapiceria.id}`}
                         variant="danger"
+                        title="Editar"
                       >
                         <Button variant="info">
                           <FontAwesomeIcon icon={faEdit} />
@@ -99,7 +106,8 @@ function TableAireAcondicionado() {
                       </Link>
                       <Button
                         variant="danger"
-                        onClick={() => submitDeleteAire(aire.id)}
+                        title="Eliminar"
+                        onClick={() => submitDeleteTapiceria(tapiceria.id)}
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
@@ -115,7 +123,7 @@ function TableAireAcondicionado() {
   );
 }
 
-export default TableAireAcondicionado;
+export default TableTapiceria;
 
 const StyleAire = styled.div`
   .box-left-aire {

@@ -743,7 +743,7 @@ export const updateAccidente = gql`
     }
   }
 `;
- 
+
 export const newAireAcondicionado = gql`
   mutation insert_aire_acondicionado_one(
     $descripcion: String
@@ -765,13 +765,12 @@ export const newAireAcondicionado = gql`
 `;
 
 export const deleteAireAcondicionado = gql`
-  mutation delete_aire_acondicionado_by_pk($id: uuid!){
+  mutation delete_aire_acondicionado_by_pk($id: uuid!) {
     delete_aire_acondicionado_by_pk(id: $id) {
       id
     }
   }
 `;
-
 
 export const updateAireAcondicionadoOne = gql`
   mutation update_aire_acondicionado_by_pk(
@@ -793,10 +792,40 @@ export const updateAireAcondicionadoOne = gql`
     }
   }
 `;
-export const updateActivoEmpleado = gql `
-    mutation updateActivoEmpleados($id: uuid!, $activo: Boolean){
-      update_empleados(where:{ id: {_eq: $id}}, _set:{activo:$activo}){
-        affected_rows
-      }
+export const updateActivoEmpleado = gql`
+  mutation updateActivoEmpleados($id: uuid!, $activo: Boolean) {
+    update_empleados(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
+      affected_rows
     }
-`
+  }
+`;
+
+export const deleteTapiceriaById = gql`
+  mutation delete_control_tapiceria_carroceria_by_pk($id: uuid!) {
+    delete_control_tapiceria_carroceria_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
+export const insertTapiceriaOne = gql`
+  mutation insert_control_tapiceria_carroceria_one(
+    $descripcion_dano: String
+    $foto: String
+    $id_unidades_transporte: uuid
+    $id_empleado_motorista: uuid
+    $fecha: date
+  ) {
+    insert_control_tapiceria_carroceria_one(
+      object: {
+        descripcion_dano: "esta es una descripcion"
+        foto: $foto
+        id_unidades_transporte: "961cbb6f-8e9a-478f-b688-cb1883774cca"
+        id_empleado_motorista: "2afb466b-27b3-4a4a-b4d7-63bf90575790"
+        fecha: "2020-1-1"
+      }
+    ) {
+      id
+    }
+  }
+`;

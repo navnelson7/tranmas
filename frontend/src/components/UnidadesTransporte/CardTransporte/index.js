@@ -6,6 +6,7 @@ import ButtonGraphic from "./ButtonGraphic";
 import ButtonReparaciones from "./ButtonReparaciones";
 import ButtonAireAcondicionado from "./ButtonAireAcondicionado";
 import Image from "./Image";
+import ButtonTapiceria from "./ButtonTapiceria";
 
 function CardTransporte({ unidad }) {
   return (
@@ -26,6 +27,7 @@ function CardTransporte({ unidad }) {
                 <ButtonReparaciones idUnidadTransporte={unidad.id} />
                 <ButtonAccidentes idUnidadTransporte={unidad.id} />
                 <ButtonAireAcondicionado idUnidadTransporte={unidad.id} />
+                <ButtonTapiceria idUnidadTransporte={unidad.id} />
               </div>
             </StyleGridCircle>
             <br />
@@ -46,7 +48,7 @@ function CardTransporte({ unidad }) {
 const StyleGridCircle = styled.div`
   .grid-circle-card {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25% 25%;
+    grid-template-columns: 25% 25% 25% 25% 25% 25%;
     grid-column-gap: 10%;
     margin-left: 5px;
   }

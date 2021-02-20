@@ -4,17 +4,23 @@ import { Form, Card, Row, InputGroup, Col, FormControl } from "react-bootstrap";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 import ButtonsDesitions from "../../../ButtonsDesitions";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 function FormAireAcondicionado({
   changeAireAcondicionado,
   NuevoAireAcondicionado,
   submitAireAcondicionado,
 }) {
+  const { location } = useHistory();
   return (
     <Fragment>
       <StyleAireAcondicionado>
         <div className="container-form">
-          <h1>Formulario para registro de aire acondicionado</h1>
+          <h1>
+            {location.pathname.includes("/registro/aire/acondicionado/")
+              ? "Formulario para registro de aire acondicionado"
+              : "Formulario para editar de aire acondicionado"}
+          </h1>
           <Form>
             <Card>
               <Card.Body>
