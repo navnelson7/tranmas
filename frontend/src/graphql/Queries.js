@@ -328,9 +328,13 @@ export const EmpleadoByid = gql `
       id_tipo_empleado
       id_departamento
       comentarios
+      departamento_de_empleado{
+        departamento
+      }
       picture
       id_estado_empleados
       id
+      picture
     }
   }
 `;
