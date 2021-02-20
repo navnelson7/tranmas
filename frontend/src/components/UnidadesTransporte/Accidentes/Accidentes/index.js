@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Button, Carousel } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useSubscription } from "@apollo/client";
@@ -51,7 +51,7 @@ function Accidentes() {
 }
 export default Accidentes;
 
-const StyleCards = styled.div`
+export const StyleCards = styled.div`
   .box-left-cards {
     margin-left: 18%;
     margin-top: 2%;

@@ -13,6 +13,13 @@ import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
 
+const RegistroTapiceria = lazy(() =>
+  import("./components/UnidadesTransporte/ControlTapiceria/Registro")
+);
+
+const TableTapiceria = lazy(() =>
+  import("./components/UnidadesTransporte/ControlTapiceria/TableTapiceria")
+);
 
 const EditarAireAcondicionado = lazy(() =>
   import("./components/UnidadesTransporte/AireAcondicionado/Editar")
@@ -140,16 +147,30 @@ function App() {
               </Suspense>
             </Route>
 
-            <Route exact path="/editar/aire/acondicionado/:idTransporte/:idAireAcondicionado">
+            <Route
+              exact
+              path="/editar/aire/acondicionado/:idTransporte/:idAireAcondicionado"
+            >
               <Suspense fallback="Cargando....">
                 <EditarAireAcondicionado />
               </Suspense>
             </Route>
 
-
             <Route exact path="/registro/aire/acondicionado/:id">
               <Suspense fallback="Cargando....">
                 <RegistroAireAcondicionado />
+              </Suspense>
+            </Route>
+
+            <Route exact path="/registro/tapiceria/:id">
+              <Suspense fallback="Cargando....">
+                <RegistroTapiceria />
+              </Suspense>
+            </Route>
+
+            <Route exact path="/tabla/tapiceria/:id">
+              <Suspense fallback="Cargando....">
+                <TableTapiceria />
               </Suspense>
             </Route>
 

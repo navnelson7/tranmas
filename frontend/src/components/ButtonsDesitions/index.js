@@ -17,7 +17,7 @@ function ButtonDesitions({ linkCancel, submitSave }) {
               <button
                 className="btn-opcion bg-guardar"
                 onClick={(e) => submitSave(e)}
-              >
+              > 
                 <strong>Guardar</strong>
               </button>
             </li>
