@@ -13,6 +13,10 @@ import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
 
+const RegistroRefrenda = lazy(() =>
+  import("./components/Empleados/RegistroRefrenda")
+)
+
 const RegistroTapiceria = lazy(() =>
   import("./components/UnidadesTransporte/ControlTapiceria/Registro")
 );
@@ -319,6 +323,11 @@ function App() {
             <Route exact path="/registro-faltas" component={RegistroFaltas}>
               <Suspense fallback="Cargando...">
                 <RegistroFaltas />
+              </Suspense>
+            </Route>
+            <Route exact path="/registro-refrenda" component={RegistroRefrenda}>
+              <Suspense fallback="Cargando ...">
+                <RegistroRefrenda />
               </Suspense>
             </Route>
           </Switch>

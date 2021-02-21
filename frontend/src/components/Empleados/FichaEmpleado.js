@@ -77,6 +77,10 @@ const FichaEmpleado = () => {
                         </tr>
                         <tr>
                             <td key={empleado}>Departamento: </td>
+                            <td>Estado:</td>
+                        </tr>
+                        <tr>
+                            <td>Comentarios:</td><td> {empleado.comentarios}</td>
                         </tr>
                     </tbody>
                 </Table>

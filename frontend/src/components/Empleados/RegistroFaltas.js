@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import BusquedaEmpleados from './BusquedaEmpleados';
-import {useQuery, useSubscription} from "@apollo/client";
+import { useSubscription} from "@apollo/client";
 import {getEmpleados} from "../../graphql/Queries";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
