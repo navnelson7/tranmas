@@ -818,11 +818,11 @@ export const insertTapiceriaOne = gql `
   ) {
     insert_control_tapiceria_carroceria_one(
       object: {
-        descripcion_dano: "esta es una descripcion"
+        descripcion_dano: $descripcion_dano
         foto: $foto
-        id_unidades_transporte: "961cbb6f-8e9a-478f-b688-cb1883774cca"
-        id_empleado_motorista: "2afb466b-27b3-4a4a-b4d7-63bf90575790"
-        fecha: "2020-1-1"
+        id_unidades_transporte: $id_unidades_transporte
+        id_empleado_motorista: $id_empleado_motorista
+        fecha: $fecha
       }
     ) {
       id
