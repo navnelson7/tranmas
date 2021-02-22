@@ -145,6 +145,7 @@ function Registro() {
               EstadoTapiceria={EstadoTapiceria}
               changeTapiceria={changeTapiceria}
               submitSave={uploadImage}
+              idUnidadTransporte={id}
             />
             <div>
               <ImageSelected

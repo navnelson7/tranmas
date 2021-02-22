@@ -9,6 +9,7 @@ function FormTapiceria({
   EstadoTapiceria,
   submitSave,
   data = {},
+  idUnidadTransporte
 }) {
   const { location } = useHistory();
   return (
@@ -44,9 +45,9 @@ function FormTapiceria({
       />
       <br />
       <ButtonsDesitions
-        linkCancel="/unidades-transporte"
+        linkCancel={`/tabla/tapiceria/${idUnidadTransporte}`}
         submitSave={submitSave}
-      />
+      /> 
     </div>
   );
 }

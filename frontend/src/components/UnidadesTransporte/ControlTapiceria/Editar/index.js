@@ -179,6 +179,7 @@ function EditarControlTapiceria() {
               changeTapiceria={changeTapiceria}
               submitSave={uploadImage}
               data={data}
+              idUnidadTransporte={idTransporte}
             />
             <div>
               <ImageSelected
