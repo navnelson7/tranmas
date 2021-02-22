@@ -830,21 +830,7 @@ export const insertTapiceriaOne = gql `
   }
 `;
 
-<<<<<<< HEAD
-export const setRefrendaOne = gql `
-  mutation insert_faltas_motoristas_one(
-    $id_empleado: uuid
-    $descripcion_de_falta: String
-    $id_tipo_falta: uuid
-  ) {
-    insert_faltas_motoristas_one(
-      object: {
-        id_empleado: $id_empleado
-        descripcion_de_falta: $descripcion_de_falta
-        id_tipo_falta: $id_tipo_falta
-      }
-=======
-export const updateTapiceriaOne = gql`
+export const updateTapiceriaOne = gql `
   mutation update_control_tapiceria_carroceria_by_pk(
     $descripcion_dano: String
     $foto: String
@@ -862,13 +848,8 @@ export const updateTapiceriaOne = gql`
         fecha: $fecha
       }
       pk_columns: { id: $id }
->>>>>>> 52be58eeaf8edd53e35582fc31f8454d19d0fc33
     ) {
       id
     }
   }
-<<<<<<< HEAD
 `;
-=======
-`;
->>>>>>> 52be58eeaf8edd53e35582fc31f8454d19d0fc33
