@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Modal, Image } from "react-bootstrap";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,7 +19,7 @@ function TableTapiceria() {
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
-
+  const [ImageSelected, setImageSelected] = useState("");
   const { data, loading, error } = useSubscription(listenTapiceria, {
     variables: {
       id,
@@ -45,6 +45,11 @@ function TableTapiceria() {
         setshowAlert(true);
       });
   };
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   if (loading)
     return (
       <div className="center-box mt-5">
@@ -56,6 +61,19 @@ function TableTapiceria() {
   if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
+      <Modal show={show} onHide={handleClose}>
+          <Image
+            src={
+              process.env.REACT_APP_BACKEND_FLASK + "images/" + ImageSelected
+            }
+            thumbnail
+          />
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleClose}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <ToastComponent
         showAlert={showAlert}
         setShowAlert={setshowAlert}
@@ -91,7 +109,14 @@ function TableTapiceria() {
                     <td>{tapiceria.descripcion_dano}</td>
                     <td>{tapiceria.fecha}</td>
                     <td>
-                      <Button title="Ver fotografia" variant="success">
+                      <Button
+                        title="Ver fotografia"
+                        variant="success"
+                        onClick={() => {
+                          setImageSelected(tapiceria.foto);
+                          handleShow();
+                        }}
+                      >
                         <FontAwesomeIcon icon={faFileImage} />
                       </Button>
                       <Link

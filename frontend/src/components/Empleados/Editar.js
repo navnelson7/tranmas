@@ -37,7 +37,7 @@ const EditarEmpleado = () => {
     variables: {
       id,
     },
-  }); 
+  });
   const [setUpdatedEmpleado] = useMutation(updateEmpledoById);
   const [image, setImage] = useState(
     "https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg"
@@ -52,6 +52,7 @@ const EditarEmpleado = () => {
       ...Empleado,
       picture: image,
     });
+    // eslint-disable-next-line
   }, [image]);
   const [Empleado, setEmpleado] = useState({
     codigo_empleado: "",
