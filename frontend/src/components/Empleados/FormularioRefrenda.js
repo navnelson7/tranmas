@@ -12,6 +12,8 @@ const FormularioRefrenda = () => {
     const [IconType, setIconType] = useState("");
     const [TextAlert, setTextAlert] = useState("");
 
+    //const [addReRefrenda] = useMutation(setRefrendaOne);
+
     return (
         <Fragment>
             <ToastComponent
@@ -58,6 +60,7 @@ const FormularioRefrenda = () => {
                         </InputGroup>
                     </Col>
                 </Row>
+                <Button variant="danger">  Agregar Refrenda <FontAwesomeIcon icon={faAddressCard}></FontAwesomeIcon></Button>
             </Form>
         </Fragment>
     );
