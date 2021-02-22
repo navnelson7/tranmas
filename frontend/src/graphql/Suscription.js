@@ -285,3 +285,22 @@ export const listenTapiceriaOne = gql`
     }
   }
 `;
+
+
+export const listenRefrendasCiculacion = gql`
+
+subscription refrendas_tarjeta_circulacion($id: uuid!){
+  refrendas_tarjeta_circulacion(where: {
+    id_unidad_transporte: {
+      _eq: $id
+    }
+  }){
+    costo_refrenda
+    fecha_emision
+    fecha_refrenda
+    id
+    refrendado
+    numero_tarjeta_circulacion
+  }
+}
+`
