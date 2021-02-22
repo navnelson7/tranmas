@@ -8,8 +8,8 @@ function FormTapiceria({
   changeTapiceria,
   EstadoTapiceria,
   submitSave,
-  data = {},
-  idUnidadTransporte
+  data = null,
+  idUnidadTransporte,
 }) {
   const { location } = useHistory();
   return (
@@ -37,9 +37,16 @@ function FormTapiceria({
       </InputGroup>
       <ListBoxMotorista
         motoristaSeleccionado={
-          data.control_tapiceria_carroceria_by_pk.empleado_motorista.nombres +
-          " " +
-          data.control_tapiceria_carroceria_by_pk.empleado_motorista.apellidos
+          data == null
+            ? ""
+            : data.control_tapiceria_carroceria_by_pk.empleado_motorista
+                .nombres +
+                " " +
+                data ==
+              null
+            ? ""
+            : data.control_tapiceria_carroceria_by_pk.empleado_motorista
+                .apellidos
         }
         changeMotorista={changeTapiceria}
       />
@@ -47,7 +54,7 @@ function FormTapiceria({
       <ButtonsDesitions
         linkCancel={`/tabla/tapiceria/${idUnidadTransporte}`}
         submitSave={submitSave}
-      /> 
+      />
     </div>
   );
 }
