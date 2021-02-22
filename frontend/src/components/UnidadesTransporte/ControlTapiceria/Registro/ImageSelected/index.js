@@ -3,7 +3,7 @@ import styled from "styled-components";
 import editIcon from "../icons/edit.svg";
 import tranmasImage from "../icons/tranmas.png";
 
-function ImageSelected({ setnewImageChange, Progress }) {
+function ImageSelected({ setnewImageChange, Progress, ImagePreviousSelected }) {
   const refFile = useRef(null);
   const [Imageprevious, setImageprevious] = useState(null);
   const changeImage = (e) => {
@@ -21,7 +21,13 @@ function ImageSelected({ setnewImageChange, Progress }) {
   return (
     <Fragment>
       <StyleImageSelected
-        src={Imageprevious === null ? tranmasImage : Imageprevious}
+        src={
+          Imageprevious === null
+            ? process.env.REACT_APP_BACKEND_FLASK +
+              "images/" +
+              ImagePreviousSelected
+            : Imageprevious
+        }
       >
         <h5 className="center-txt">
           <strong>Fotografia de bus</strong>

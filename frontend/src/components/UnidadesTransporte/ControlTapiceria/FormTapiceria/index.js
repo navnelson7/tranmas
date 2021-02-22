@@ -3,10 +3,10 @@ import { Form, InputGroup } from "react-bootstrap";
 import ButtonsDesitions from "../../../ButtonsDesitions";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 
-function FormTapiceria({ changeTapiceria, EstadoTapiceria, submitSave }) {
+function FormTapiceria({ changeTapiceria, EstadoTapiceria, submitSave, data= {} }) {
   return (
     <div>
-      <h5>Registro de tapiceria xd</h5>
+      <h5>Registro de tapiceria</h5>
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
           <InputGroup.Text id="basic-addon1">
@@ -23,7 +23,7 @@ function FormTapiceria({ changeTapiceria, EstadoTapiceria, submitSave }) {
           onChange={(e) => changeTapiceria(e)}
         />
       </InputGroup>
-      <ListBoxMotorista changeMotorista={changeTapiceria} />
+      <ListBoxMotorista motoristaSeleccionado={data.control_tapiceria_carroceria_by_pk.empleado_motorista.nombres + " " + data.control_tapiceria_carroceria_by_pk.empleado_motorista.apellidos} changeMotorista={changeTapiceria} />
       <br />
       <ButtonsDesitions
         linkCancel="/unidades-transporte"

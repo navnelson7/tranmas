@@ -95,7 +95,7 @@ function TableTapiceria() {
                         <FontAwesomeIcon icon={faFileImage} />
                       </Button>
                       <Link
-                        to={`/editar/aire/acondicionado/${id}/${tapiceria.id}`}
+                        to={`/editar/tapiceria/${tapiceria.id}/${id}`}
                         variant="danger"
                         title="Editar"
                       >

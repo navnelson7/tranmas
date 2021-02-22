@@ -829,3 +829,27 @@ export const insertTapiceriaOne = gql`
     }
   }
 `;
+
+export const updateTapiceriaOne = gql`
+  mutation update_control_tapiceria_carroceria_by_pk(
+    $descripcion_dano: String
+    $foto: String
+    $id_unidades_transporte: uuid
+    $id_empleado_motorista: uuid
+    $fecha: date
+    $id: uuid!
+  ) {
+    update_control_tapiceria_carroceria_by_pk(
+      _set: {
+        descripcion_dano: $descripcion_dano
+        foto: $foto
+        id_unidades_transporte: $id_unidades_transporte
+        id_empleado_motorista: $id_empleado_motorista
+        fecha: $fecha
+      }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;

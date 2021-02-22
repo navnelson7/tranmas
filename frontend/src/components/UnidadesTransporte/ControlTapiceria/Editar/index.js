@@ -1,20 +1,28 @@
 import React, { Fragment, useState, useEffect } from "react";
-import styled from "styled-components";
-import { useMutation } from "@apollo/client";
-import { insertTapiceriaOne } from "../../../../graphql/Mutations";
-import { ToastComponent } from "../../../Toast";
-import { useHistory, useParams } from "react-router-dom";
-import ImageSelected from "./ImageSelected";
-import axios from "axios";
 import FormTapiceria from "../FormTapiceria";
+import { useParams, useHistory } from "react-router-dom";
+import { StyleRegitroUnidades } from "../Registro";
+import axios from "axios";
+import ImageSelected from "../Registro/ImageSelected";
+import { useMutation, useSubscription } from "@apollo/client";
+import { ToastComponent } from "../../../Toast";
+import { updateTapiceriaOne } from "../../../../graphql/Mutations";
+import { listenTapiceriaOne } from "../../../../graphql/Suscription";
 
-function Registro() {
-  const { id } = useParams();
+function EditarControlTapiceria() {
+  const { idTapiceria, idTransporte } = useParams();
   const { push } = useHistory();
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
+
+  const { loading, data, error } = useSubscription(listenTapiceriaOne, {
+    variables: {
+      id: idTapiceria,
+    },
+  });
+
   const [EstadoTapiceria, setEstadoTapiceria] = useState({
     descripcion_dano: "",
     fecha:
@@ -23,12 +31,12 @@ function Registro() {
       (new Date().getMonth() + 1) +
       "-" +
       new Date().getDate(),
-    id_unidades_transporte: id,
+    id_unidades_transporte: idTransporte,
     id_empleado_motorista: "",
     foto: "",
   });
 
-  const [addTapiceria] = useMutation(insertTapiceriaOne);
+  const [addTapiceria] = useMutation(updateTapiceriaOne);
 
   const changeTapiceria = (e) => {
     setEstadoTapiceria({
@@ -36,6 +44,23 @@ function Registro() {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    let tapiceria = {};
+    tapiceria =
+      data === undefined
+        ? {}
+        : {
+            ...data.control_tapiceria_carroceria_by_pk,
+            fecha:
+              new Date().getFullYear() +
+              "-" +
+              (new Date().getMonth() + 1) +
+              "-" +
+              new Date().getDate(),
+          };
+    setEstadoTapiceria(tapiceria);
+  }, [data]);
 
   const [newImageChange, setnewImageChange] = useState(null);
   const [Progress, setProgress] = useState(0);
@@ -49,10 +74,8 @@ function Registro() {
     formData.append("file", newImageChange);
 
     if (newImageChange === null) {
-      setLoading(false);
-      setTextAlert("Selecciona una imagen");
-      setIconType("error");
-      setshowAlert(true);
+      setExecuteSave(true);
+      setImagenUrlGetting(true);
     } else {
       // Send to cloudianry
       axios
@@ -99,17 +122,24 @@ function Registro() {
   const submitTransporte = () => {
     setLoading(true);
     addTapiceria({
-      variables: EstadoTapiceria,
+      variables: {
+        id: idTapiceria,
+        descripcion_dano: EstadoTapiceria.descripcion_dano,
+        foto: EstadoTapiceria.foto,
+        id_unidades_transporte: EstadoTapiceria.id_unidades_transporte,
+        id_empleado_motorista: EstadoTapiceria.id_empleado_motorista,
+        fecha: EstadoTapiceria.fecha,
+      },
     })
       .then((res) => {
         if (res.data) {
           setLoading(false);
           setIconType("success");
           setshowAlert(true);
-          setTextAlert("Registrado correctamente");
+          setTextAlert("Actualizado correctamente");
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
-            push(`/tabla/tapiceria/${id}`);
+            push(`/tabla/tapiceria/${idTransporte}`);
           }, 2000);
         }
       })
@@ -121,7 +151,7 @@ function Registro() {
       });
   };
 
-  if (Loading)
+  if (Loading || loading)
     return (
       <div className="box-center">
         <div className="spinner-border text-primary" role="status">
@@ -129,6 +159,9 @@ function Registro() {
         </div>
       </div>
     );
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
+
+  console.log(data);
   return (
     <Fragment>
       <br />
@@ -145,9 +178,13 @@ function Registro() {
               EstadoTapiceria={EstadoTapiceria}
               changeTapiceria={changeTapiceria}
               submitSave={uploadImage}
+              data={data}
             />
             <div>
               <ImageSelected
+                ImagePreviousSelected={
+                  data.control_tapiceria_carroceria_by_pk.foto
+                }
                 setnewImageChange={setnewImageChange}
                 Progress={Progress}
               />
@@ -162,57 +199,4 @@ function Registro() {
   );
 }
 
-export default Registro;
-
-export const StyleRegitroUnidades = styled.div`
-  .center-txt {
-    text-align: center;
-  }
-  .box-center-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  @media (min-width: 0px) and (max-width: 767px) {
-    .box-left-container {
-      margin-left: 2%;
-      margin-right: 2%;
-      margin-top: 2%;
-    }
-  }
-  @media (min-width: 768px) and (max-width: 1024px) {
-    .box-left-container {
-      margin-left: 2%;
-      margin-top: 2%;
-    }
-  }
-  @media (min-width: 1920px) {
-    .box-left-container {
-      margin-left: 15%;
-      margin-top: 2%;
-    }
-  }
-
-  //GRID FORM TRANSPORTE
-
-  /* MOBILE */
-  @media (max-width: 1025px) {
-    .grid-form-transporte {
-      display: grid;
-      grid-template-columns: 100%;
-    }
-  }
-
-  /* DESKTOP */
-  @media (min-width: 1025px) {
-    .grid-form-transporte {
-      display: grid;
-      grid-template-columns: 60% 40%;
-    }
-    .box-left-container {
-      margin-left: 20%;
-      margin-top: 2%;
-      overflow-x: hidden;
-    }
-  }
-`;
+export default EditarControlTapiceria;
