@@ -853,3 +853,27 @@ export const updateTapiceriaOne = gql`
     }
   }
 `;
+
+export const insertRefrendaCirculacion = gql`
+  mutation insert_refrendas_tarjeta_circulacion_one(
+    $costo_refrenda: Int
+    $fecha_emision: date
+    $fecha_refrenda: date
+    $id_unidad_transporte: uuid
+    $numero_tarjeta_circulacion: String
+    $refrendado: Boolean
+  ) {
+    insert_refrendas_tarjeta_circulacion_one(
+      object: {
+        costo_refrenda: $costo_refrenda
+        fecha_emision: $fecha_emision
+        fecha_refrenda: $fecha_refrenda
+        id_unidad_transporte: $id_unidad_transporte
+        refrendado: $refrendado
+        numero_tarjeta_circulacion: $numero_tarjeta_circulacion
+      }
+    ) {
+      id
+    }
+  }
+`;

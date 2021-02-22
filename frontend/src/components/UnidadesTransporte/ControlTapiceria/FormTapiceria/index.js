@@ -16,8 +16,8 @@ function FormTapiceria({
     <div>
       <h5>
         {location.pathname.includes("/registro/tapiceria/")
-          ? "Formulario para registro de control de tapiceria"
-          : "Formulario para editar control de tapiceria"}
+          ? "Registro de control de tapiceria"
+          : "Editar control de tapiceria"}
       </h5>
       <InputGroup className="mb-3">
         <InputGroup.Prepend>

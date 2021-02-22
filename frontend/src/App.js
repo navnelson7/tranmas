@@ -13,6 +13,10 @@ import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
 
+
+const RegistroRefrendaCirculacion = lazy(() =>
+  import("./components/UnidadesTransporte/RefrendaTarjetaCirculacion/Registro")
+);
 const TableRefrendaCirculacion = lazy(() =>
   import("./components/UnidadesTransporte/RefrendaTarjetaCirculacion/TableRefrendaCirculacion")
 );
@@ -191,7 +195,11 @@ function App() {
                 <TableTapiceria />
               </Suspense>
             </Route>
-
+            <Route exact path="/registro/refrenda/circulacion/:id">
+              <Suspense fallback="Cargando....">
+                <RegistroRefrendaCirculacion />
+              </Suspense>
+            </Route>
             <Route exact path="/tabla/refrenda/circulacion/:id">
               <Suspense fallback="Cargando....">
                 <TableRefrendaCirculacion />
