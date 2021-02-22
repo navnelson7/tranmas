@@ -808,6 +808,14 @@ export const deleteTapiceriaById = gql`
   }
 `;
 
+export const deleteRefrendaLicenciaById = gql`
+  mutation delete_refrendas_tarjeta_circulacion_by_pk($id: uuid!){
+    delete_refrendas_tarjeta_circulacion_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
 export const insertTapiceriaOne = gql`
   mutation insert_control_tapiceria_carroceria_one(
     $descripcion_dano: String

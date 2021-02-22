@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useSubscription, useMutation } from "@apollo/client";
 import { listenRefrendasCiculacion } from "../../../../graphql/Suscription";
-import { deleteTapiceriaById } from "../../../../graphql/Mutations";
+import { deleteRefrendaLicenciaById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
 
 function TableRefrendaCirculacion() {
@@ -24,9 +24,9 @@ function TableRefrendaCirculacion() {
       id,
     },
   });
-  const [deleteTapiceria] = useMutation(deleteTapiceriaById);
-  const submitDeleteTapiceria = (idSelected) => {
-    deleteTapiceria({
+  const [deleteRefrenda] = useMutation(deleteRefrendaLicenciaById);
+  const submitDeleteRefrenda = (idSelected) => {
+    deleteRefrenda({
       variables: {
         id: idSelected,
       },
@@ -142,7 +142,7 @@ function TableRefrendaCirculacion() {
                       <Button
                         variant="danger"
                         title="Eliminar"
-                        onClick={() => submitDeleteTapiceria(refrenda.id)}
+                        onClick={() => submitDeleteRefrenda(refrenda.id)}
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
