@@ -73,7 +73,7 @@ function Registro() {
         .then((res) => {
           const urlImage = res.data.filename;
           setEstadoTapiceria({
-            ...UnidadTransporte,
+            ...EstadoTapiceria,
             foto: urlImage,
           });
           setImagenUrlGetting(true);
@@ -99,6 +99,7 @@ function Registro() {
   }, [ExecuteSave, ImagenUrlGetting]);
 
   const submitTransporte = () => {
+    console.log(EstadoTapiceria);
     setLoading(true);
     addTapiceria({
       variables: EstadoTapiceria,
