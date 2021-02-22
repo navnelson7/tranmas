@@ -73,7 +73,7 @@ function Registro() {
         .then((res) => {
           const urlImage = res.data.filename;
           setEstadoTapiceria({
-            ...UnidadTransporte,
+            ...EstadoTapiceria,
             foto: urlImage,
           });
           setImagenUrlGetting(true);
