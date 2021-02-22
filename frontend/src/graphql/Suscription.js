@@ -227,8 +227,11 @@ export const listenAccidentes = gql`
 `;
 
 export const listenTableAireAcondicionado = gql`
-  subscription aire_acondicionado($id: uuid!){
-    aire_acondicionado(order_by: { id: desc }, where: { id_unidad_transporte: { _eq: $id } }) {
+  subscription aire_acondicionado($id: uuid!) {
+    aire_acondicionado(
+      order_by: { id: desc }
+      where: { id_unidad_transporte: { _eq: $id } }
+    ) {
       fecha
       id
       motorista {
@@ -263,6 +266,22 @@ export const listenTapiceria = gql`
       }
       foto
       fecha
+    }
+  }
+`;
+
+export const listenTapiceriaOne = gql`
+  subscription control_tapiceria_carroceria_by_pk($id: uuid!) {
+    control_tapiceria_carroceria_by_pk(id: $id) {
+      descripcion_dano
+      foto
+      id_unidades_transporte
+      id_empleado_motorista
+      id
+      empleado_motorista {
+        nombres
+        apellidos
+      }
     }
   }
 `;

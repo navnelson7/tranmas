@@ -29,7 +29,7 @@ function ImageSelected({
           newImage === null
             ? process.env.REACT_APP_BACKEND_FLASK + "images/" + ImagePrevious
             : newImage
-        }
+        } 
       >
         <h5 className="center-txt">
           <strong>Fotografia de bus</strong>

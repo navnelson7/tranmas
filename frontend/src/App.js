@@ -15,7 +15,11 @@ import EditarEmpleado from "./components/Empleados/Editar";
 
 const RegistroRefrenda = lazy(() =>
   import("./components/Empleados/RegistroRefrenda")
-)
+);
+
+const EditarTapiceria = lazy(() =>
+  import("./components/UnidadesTransporte/ControlTapiceria/Editar")
+);
 
 const RegistroTapiceria = lazy(() =>
   import("./components/UnidadesTransporte/ControlTapiceria/Registro")
@@ -166,6 +170,12 @@ function App() {
               </Suspense>
             </Route>
 
+            <Route exact path="/editar/tapiceria/:idTapiceria/:idTransporte">
+              <Suspense fallback="Cargando....">
+                <EditarTapiceria />
+              </Suspense>
+            </Route>
+
             <Route exact path="/registro/tapiceria/:id">
               <Suspense fallback="Cargando....">
                 <RegistroTapiceria />
@@ -250,11 +260,7 @@ function App() {
                 <ListadoEmpleados />
               </Suspense>
             </Route>
-            <Route
-              exact
-              path="/ficha-empleado/:Id"
-              component={FichaEmpleado}
-            >
+            <Route exact path="/ficha-empleado/:Id" component={FichaEmpleado}>
               <Suspense fallback="Cargando....">
                 <FichaEmpleado />
               </Suspense>
