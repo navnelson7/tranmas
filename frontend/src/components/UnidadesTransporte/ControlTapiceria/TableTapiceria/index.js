@@ -54,7 +54,6 @@ function TableTapiceria() {
       </div>
     );
   if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
-  console.log(data);
   return (
     <Fragment>
       <ToastComponent

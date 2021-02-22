@@ -99,7 +99,6 @@ function Registro() {
   }, [ExecuteSave, ImagenUrlGetting]);
 
   const submitTransporte = () => {
-    console.log(EstadoTapiceria);
     setLoading(true);
     addTapiceria({
       variables: EstadoTapiceria,

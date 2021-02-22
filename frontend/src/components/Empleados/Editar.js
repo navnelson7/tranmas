@@ -6,7 +6,7 @@ import {
   FormControl,
   InputGroup,
   Row,
-  Col, 
+  Col,
   Button,
   Modal,
   Image,
@@ -37,12 +37,11 @@ const EditarEmpleado = () => {
     variables: {
       id,
     },
-  });
+  }); 
   const [setUpdatedEmpleado] = useMutation(updateEmpledoById);
   const [image, setImage] = useState(
     "https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg"
   );
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -58,7 +57,7 @@ const EditarEmpleado = () => {
     codigo_empleado: "",
     nombres: "",
     apellidos: "",
-    edad: "",
+    edad: 0,
     sexo: "",
     telefono: "",
     direccion: "",
@@ -83,12 +82,19 @@ const EditarEmpleado = () => {
     empleadoOne = data === undefined ? {} : data.empleados_by_pk;
     setEmpleado(empleadoOne);
   }, [data]);
- 
+
   const onChange = (e) => {
-    setEmpleado({
-      ...Empleado,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "edad") {
+      setEmpleado({
+        ...Empleado,
+        [e.target.name]: parseInt(e.target.value),
+      });
+    } else {
+      setEmpleado({
+        ...Empleado,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
   const updateEmpleado = () => {
     setUpdatedEmpleado({
@@ -481,9 +487,9 @@ const EditarEmpleado = () => {
                   Guardar
                 </Button>
                 <Link to="/listado-empleados">
-                <Button variant="warning" size="lg">
-                  Cancelar
-                </Button>
+                  <Button variant="warning" size="lg">
+                    Cancelar
+                  </Button>
                 </Link>
               </Card.Body>
             </Card>
