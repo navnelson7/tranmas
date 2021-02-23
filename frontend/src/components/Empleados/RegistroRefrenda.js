@@ -32,6 +32,7 @@ const RegistroRefrenda = () => {
     } = state
     const [encontrados, guardarEncontrados] = useState([]);
     const [Id, setId] = useState("");
+    const [Nombre, setNombre] = useState("");
 
     const onChange = async e =>{
         e.persist();
@@ -89,7 +90,7 @@ const RegistroRefrenda = () => {
                                             <td><Button variant="danger" onClick={() => {
                                             agregarRefrenda();
                                             setId(encontrado.id);
-                                            //setNombre(encontrado.nombres);
+                                            setNombre(encontrado.nombres);
                                             }
                                             } value={encontrado.id} name="id">Agregar Refrenda <FontAwesomeIcon icon={faExclamationCircle}/></Button></td>
                                         </tr>
@@ -103,7 +104,7 @@ const RegistroRefrenda = () => {
                     mostrarFormulario === true ? (
                         <Fragment>
                             <FormularioRefrenda 
-                            
+                                Id={Id}
                             />
                         </Fragment>
                     ):(

@@ -808,10 +808,7 @@ export const deleteTapiceriaById = gql `
   }
 `;
 
-<<<<<<< HEAD
-export const insertTapiceriaOne = gql `
-=======
-export const deleteRefrendaLicenciaById = gql`
+export const deleteRefrendaLicenciaById = gql `
   mutation delete_refrendas_tarjeta_circulacion_by_pk($id: uuid!){
     delete_refrendas_tarjeta_circulacion_by_pk(id: $id) {
       id
@@ -819,8 +816,7 @@ export const deleteRefrendaLicenciaById = gql`
   }
 `;
 
-export const insertTapiceriaOne = gql`
->>>>>>> af03d9164a18b49ca432ad1804a6ed57b6865c2a
+export const insertTapiceriaOne = gql `
   mutation insert_control_tapiceria_carroceria_one(
     $descripcion_dano: String
     $foto: String
@@ -864,12 +860,9 @@ export const updateTapiceriaOne = gql `
       id
     }
   }
-<<<<<<< HEAD
-`;
-=======
 `;
 
-export const insertRefrendaCirculacion = gql`
+export const insertRefrendaCirculacion = gql `
   mutation insert_refrendas_tarjeta_circulacion_one(
     $costo_refrenda: Int
     $fecha_emision: date
@@ -892,4 +885,3 @@ export const insertRefrendaCirculacion = gql`
     }
   }
 `;
->>>>>>> af03d9164a18b49ca432ad1804a6ed57b6865c2a
