@@ -809,7 +809,7 @@ export const deleteTapiceriaById = gql `
 `;
 
 export const deleteRefrendaLicenciaById = gql `
-  mutation delete_refrendas_tarjeta_circulacion_by_pk($id: uuid!){
+  mutation delete_refrendas_tarjeta_circulacion_by_pk($id: uuid!) {
     delete_refrendas_tarjeta_circulacion_by_pk(id: $id) {
       id
     }
@@ -884,4 +884,24 @@ export const insertRefrendaCirculacion = gql `
       id
     }
   }
+`;
+
+export const updateRefrendaLicencia = gql `
+mutation update_refrendas_tarjeta_circulacion_by_pk(
+    $id: uuid!
+    $costo_refrenda: Int $fecha_emision: date $fecha_refrenda: date $numero_tarjeta_circulacion: String $refrendado: Boolean $__typename: String
+) {
+    update_refrendas_tarjeta_circulacion_by_pk(
+        _set: {
+            costo_refrenda: $costo_refrenda
+            fecha_emision: $fecha_emision
+            fecha_refrenda: $fecha_refrenda
+            numero_tarjeta_circulacion: $numero_tarjeta_circulacion
+            refrendado: $refrendado
+        }
+        pk_columns: { id: $id }
+    ) {
+        id
+    }
+}
 `;
