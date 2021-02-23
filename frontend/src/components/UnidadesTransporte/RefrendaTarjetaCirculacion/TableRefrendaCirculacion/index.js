@@ -131,7 +131,7 @@ function TableRefrendaCirculacion() {
                     <td>{refrenda.fecha_refrenda}</td>
                     <td>
                       <Link
-                        to={`/editar/tapiceria/${refrenda.id}/${id}`}
+                        to={`/editar/refrenda/circulacion/${refrenda.id}/${id}`}
                         variant="danger"
                         title="Editar"
                       >

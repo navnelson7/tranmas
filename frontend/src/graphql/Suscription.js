@@ -286,21 +286,29 @@ export const listenTapiceriaOne = gql`
   }
 `;
 
-
 export const listenRefrendasCiculacion = gql`
-
-subscription refrendas_tarjeta_circulacion($id: uuid!){
-  refrendas_tarjeta_circulacion(where: {
-    id_unidad_transporte: {
-      _eq: $id
+  subscription refrendas_tarjeta_circulacion($id: uuid!) {
+    refrendas_tarjeta_circulacion(
+      where: { id_unidad_transporte: { _eq: $id } }
+    ) {
+      costo_refrenda
+      fecha_emision
+      fecha_refrenda
+      id
+      refrendado
+      numero_tarjeta_circulacion
     }
-  }){
-    costo_refrenda
-    fecha_emision
-    fecha_refrenda
-    id
-    refrendado
-    numero_tarjeta_circulacion
   }
-}
-`
+`;
+
+export const listenRefrendaCirculacion = gql`
+  subscription refrendas_tarjeta_circulacion_by_pk($id: uuid!) {
+    refrendas_tarjeta_circulacion_by_pk(id: $id) {
+      costo_refrenda
+      fecha_emision
+      fecha_refrenda
+      numero_tarjeta_circulacion
+      refrendado
+    }
+  }
+`;

@@ -16,9 +16,9 @@ function FormRefrenda({
       <StyleRefrenda>
         <div className="container-form">
           <h1>
-            {location.pathname.includes("/registro/refrenda/circulacion/")
+            {location.pathname.includes("/registro/refrenda/")
               ? "Registro de refrenda para tarjeta de circulación"
-              : "Registro de refrenda para tarjeta de circulación"}
+              : "Edición de refrenda para tarjeta de circulación"}
           </h1>
           <Form>
             <Card>
