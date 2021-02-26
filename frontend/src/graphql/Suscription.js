@@ -312,3 +312,20 @@ export const listenRefrendaCirculacion = gql`
     }
   }
 `;
+
+export const listenRefrendaVencida = gql`
+  subscription refrendas_tarjeta_circulacion($fecha: date){
+    refrendas_tarjeta_circulacion(
+      where: { fecha_refrenda: { _lte: $fecha } }
+    ) {
+      id
+      costo_refrenda
+      id_unidad_transporte
+      numero_tarjeta_circulacion
+      refrendado
+      fecha_refrenda
+      costo_refrenda
+    }
+  }
+  
+`;

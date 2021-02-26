@@ -1,6 +1,6 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
+import NotificacionRefrendaCirculacion from "./NotificacionRefrendaCirculacion";
 
 function NavegacionTop() {
   return (
@@ -27,12 +27,14 @@ function NavegacionTop() {
             </div>
           </StyleDropdown>
         </div>
+
         {/* NAVBAR TOP DESKTOP */}
         <header className="top-navbar fixed-top-navbar">
           <StyleDropdown>
             <div className="flex-icons-right">
               <div className="grid-icons-right">
                 <div className="container-dropdown" style={{ float: "right" }}>
+                    <StyleAnchuraDropdown>
                   <button className="btn">
                     <img
                       className="box-icons-right"
@@ -41,11 +43,13 @@ function NavegacionTop() {
                       width="32px"
                       height="32px"
                     />
-                    <div className="dropdown scroll-container">
-                      <span>Cerrar Sesión</span>
-                    </div>
+                      <div className="dropdown scroll-container">
+                        <span>Cerrar Sesión</span>
+                      </div>
                   </button>
+                    </StyleAnchuraDropdown>
                 </div>
+                <NotificacionRefrendaCirculacion />
               </div>
             </div>
           </StyleDropdown>
@@ -163,20 +167,6 @@ const StyleDropdown = styled.div`
   .btn .material-icons {
     border-radius: 100%;
   }
-  .btn .dropdown {
-    position: absolute;
-    width: 100px;
-    margin-left: -55px;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    opacity: 0;
-    background-color: white;
-    visibility: hidden;
-    transition: 0.3s ease;
-    z-index: 1;
-  }
   span:hover {
     color: white;
     background-color: #3d50fa;
@@ -185,7 +175,7 @@ const StyleDropdown = styled.div`
     display: block;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding: 16px 0;
-    font-size: 13px;
+    font-size: 14px;
     text-decoration: none;
   }
 
@@ -212,5 +202,21 @@ const StyleDropdown = styled.div`
   .scroll-container::-webkit-scrollbar-thumb:hover {
     background: #3c50fa;
     border-radius: 5px;
+  }
+`;
+const StyleAnchuraDropdown = styled.div`
+  .btn .dropdown {
+    position: absolute;
+    width: 120px;
+    margin-left: -55px;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    opacity: 0;
+    background-color: white;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 1;
   }
 `;
