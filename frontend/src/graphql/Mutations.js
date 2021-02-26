@@ -905,3 +905,25 @@ mutation update_refrendas_tarjeta_circulacion_by_pk(
     }
 }
 `;
+
+export const setRefrendaONe = gql `
+  mutation insert_refrenda_documentos_motorista_one(
+    $id_empleado_motorista: uuid
+    $numero_licencia_conducir: String
+    $fecha_emision: date
+    $fecha_vencimiento: date
+    $refrendado: Boolean
+  ) {
+    insert_faltas_motoristas_one(
+      object: {
+        id_empleado_motorista: $id_empleado_motorista
+        descripcion_de_falta: $descripcion_de_falta
+        fecha_emision: $fecha_emision
+        fecha_vencimiento: $fecha_vencimiento
+        refrendado: $refrendado
+      }
+    ) {
+      id
+    }
+  }
+`;
