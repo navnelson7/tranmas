@@ -9,6 +9,7 @@ function FormRefrenda({
   NuevoRefrendaCirculacion,
   submitRefrendaCirculacion,
   changeNuevoRefrendaCirculacion,
+  idTransporte = "",
 }) {
   const { location } = useHistory();
   return (
@@ -122,7 +123,9 @@ function FormRefrenda({
         </div>
       </StyleRefrenda>
       <ButtonsDesitions
-        linkCancel={`/tabla/refrenda/circulacion/${NuevoRefrendaCirculacion.id_unidad_transporte}`}
+        linkCancel={`/tabla/refrenda/circulacion/${
+          NuevoRefrendaCirculacion.id_unidad_transporte || idTransporte
+        }`}
         submitSave={submitRefrendaCirculacion}
       />
     </Fragment>

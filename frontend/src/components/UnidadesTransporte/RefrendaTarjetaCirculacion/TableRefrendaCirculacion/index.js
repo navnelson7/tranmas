@@ -3,6 +3,7 @@ import { Table, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getDiferenceDays } from "../../../../functions/getDiferenceDays";
 import {
   faTrash,
   faEdit,
@@ -104,7 +105,6 @@ function TableRefrendaCirculacion() {
                             <path
                               fill="green"
                               d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                              class=""
                             ></path>
                           </svg>
                         ) : (
@@ -128,7 +128,36 @@ function TableRefrendaCirculacion() {
                       </div>
                     </td>
                     <td>{refrenda.fecha_emision}</td>
-                    <td>{refrenda.fecha_refrenda}</td>
+                    <td
+                      style={
+                        getDiferenceDays(refrenda.fecha_refrenda) <= 0
+                          ? { color: "red" }
+                          : {}
+                      }
+                    >
+                      {getDiferenceDays(refrenda.fecha_refrenda) < 0 ? (
+                        <Fragment>
+                          vencida por{" "}
+                          {Math.abs(getDiferenceDays(refrenda.fecha_refrenda))}{" "}
+                          {Math.abs(
+                            getDiferenceDays(refrenda.fecha_refrenda)
+                          ) <= 1
+                            ? "dia atras"
+                            : "dias atras"}
+                        </Fragment>
+                        // SI LA FECHA ES MAYOR A CERO MUESTRAN LOS DIAS QUE FALTAN PARA QUE SE VENSA
+                      ) : Math.abs(
+                          getDiferenceDays(refrenda.fecha_refrenda)
+                        ) === 1 ? (
+                        "Falta " +
+                        Math.abs(getDiferenceDays(refrenda.fecha_refrenda)) +
+                        " dia"
+                      ) : (
+                        "Faltan " +
+                        Math.abs(getDiferenceDays(refrenda.fecha_refrenda)) +
+                        " dias"
+                      )}
+                    </td>
                     <td>
                       <Link
                         to={`/editar/refrenda/circulacion/${refrenda.id}/${id}`}

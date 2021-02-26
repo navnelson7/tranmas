@@ -92,11 +92,12 @@ function EditarRefrendaCirculacion() {
         setShowAlert={setshowAlert}
         iconType={IconType}
         textAlert={TextAlert}
-      />
-      <FormRefrenda
+      /> 
+      <FormRefrenda 
         NuevoRefrendaCirculacion={NuevoRefrendaCirculacion}
         changeNuevoRefrendaCirculacion={changeNuevoRefrendaCirculacion}
         submitRefrendaCirculacion={submitRefrendaCirculacion}
+        idTransporte={idTransporte}
       />
     </div>
   );
