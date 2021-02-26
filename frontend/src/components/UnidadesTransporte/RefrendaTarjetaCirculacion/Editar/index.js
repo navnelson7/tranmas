@@ -37,7 +37,7 @@ function EditarRefrendaCirculacion() {
         ? {}
         : { ...data.refrendas_tarjeta_circulacion_by_pk, id: idRefrenda };
     setNuevoRefrendaCirculacion(refrenda);
-  }, [data]);
+  }, [data, idRefrenda]);
 
   const changeNuevoRefrendaCirculacion = (e) => {
     if (e.target.name === "costo_refrenda") {
@@ -92,8 +92,8 @@ function EditarRefrendaCirculacion() {
         setShowAlert={setshowAlert}
         iconType={IconType}
         textAlert={TextAlert}
-      /> 
-      <FormRefrenda 
+      />
+      <FormRefrenda
         NuevoRefrendaCirculacion={NuevoRefrendaCirculacion}
         changeNuevoRefrendaCirculacion={changeNuevoRefrendaCirculacion}
         submitRefrendaCirculacion={submitRefrendaCirculacion}

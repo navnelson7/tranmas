@@ -43,7 +43,7 @@ function Editar() {
             id: idAireAcondicionado,
           };
     setNuevoAireAcondicionado(aire);
-  }, [AireAcondicionado.data]);
+  }, [AireAcondicionado.data, idAireAcondicionado]);
 
   const changeAireAcondicionado = (e) => {
     setNuevoAireAcondicionado({
