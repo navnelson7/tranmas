@@ -3,6 +3,7 @@ import { useSubscription } from "@apollo/client";
 import { listenRefrendaVencida } from "../../../../graphql/Suscription";
 import styled from "styled-components";
 import { getDiferenceDays } from "../../../../functions/getDiferenceDays";
+import { Link } from "react-router-dom";
 
 function NotificacionRefrendaCirculacion() {
   const [ShowAnimation, setShowAnimation] = useState(false);
@@ -60,18 +61,24 @@ function NotificacionRefrendaCirculacion() {
             <div className="dropdown scroll-container">
               {data.refrendas_tarjeta_circulacion.map((refrenda) => {
                 return (
-                  <span key={refrenda.id}>
-                    La tarjeta de circulacion con el numero{"  "}
-                    <strong>{refrenda.numero_tarjeta_circulacion}</strong> esta
-                    vencida desde{" "}
-                    {Math.abs(getDiferenceDays(refrenda.fecha_refrenda))}{" "}
-                    {Math.abs(getDiferenceDays(refrenda.fecha_refrenda)) <=
-                    1 ? (
-                      <strong>dia atras</strong>
-                    ) : (
-                      <strong>dias atras</strong>
-                    )}
-                  </span>
+                  <Link
+                    to={`/editar/refrenda/circulacion/${refrenda.id}/${refrenda.id_unidad_transporte}`}
+                  >
+                    <span key={refrenda.id}>
+                      La tarjeta de circulacion con el numero{"  "}
+                      <strong>
+                        {refrenda.numero_tarjeta_circulacion}
+                      </strong>{" "}
+                      esta vencida desde{" "}
+                      {Math.abs(getDiferenceDays(refrenda.fecha_refrenda))}{" "}
+                      {Math.abs(getDiferenceDays(refrenda.fecha_refrenda)) <=
+                      1 ? (
+                        <strong>dia atras</strong>
+                      ) : (
+                        <strong>dias atras</strong>
+                      )}
+                    </span>
+                  </Link>
                 );
               })}
             </div>
@@ -102,6 +109,9 @@ const StyleAnchuraDropdown = styled.div`
   span {
     text-align: center;
     font-size: 14px;
+  }
+  a {
+    color: black;
   }
   .animation-alert {
     fill: white;
