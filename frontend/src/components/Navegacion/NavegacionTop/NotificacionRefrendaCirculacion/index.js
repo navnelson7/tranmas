@@ -39,7 +39,6 @@ function NotificacionRefrendaCirculacion() {
       </div>
     );
   }
-  console.log(data);
   return (
     <Fragment>
       <div className="container-dropdown" style={{ float: "right" }}>
@@ -63,6 +62,7 @@ function NotificacionRefrendaCirculacion() {
                 return (
                   <Link
                     to={`/editar/refrenda/circulacion/${refrenda.id}/${refrenda.id_unidad_transporte}`}
+                    key={refrenda.id}
                   >
                     <span key={refrenda.id}>
                       La tarjeta de circulacion con el numero{"  "}

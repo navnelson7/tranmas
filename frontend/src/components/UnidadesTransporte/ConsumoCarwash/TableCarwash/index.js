@@ -3,14 +3,10 @@ import { Table, Button, Modal, Image } from "react-bootstrap";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faEdit,
-  faFileImage,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useSubscription, useMutation } from "@apollo/client";
-import { listenTapiceria } from "../../../../graphql/Suscription";
-import { deleteTapiceriaById } from "../../../../graphql/Mutations";
+import { listenControlCarwash } from "../../../../graphql/Suscription";
+import { deleteControlCarwashById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
 
 function TableCarwash() {
@@ -19,14 +15,14 @@ function TableCarwash() {
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
-  const { data, loading, error } = useSubscription(listenTapiceria, {
+  const { data, loading, error } = useSubscription(listenControlCarwash, {
     variables: {
       id,
     },
   });
-  const [deleteTapiceria] = useMutation(deleteTapiceriaById);
-  const submitDeleteTapiceria = (idSelected) => {
-    deleteTapiceria({
+  const [deleteCarwash] = useMutation(deleteControlCarwashById);
+  const submitDeleteCarwash = (idSelected) => {
+    deleteCarwash({
       variables: {
         id: idSelected,
       },
@@ -63,7 +59,7 @@ function TableCarwash() {
       />
       <StyleAire>
         <div className="box-left-aire">
-          <Link to={`/registro/tapiceria/${id}`} variant="danger">
+          <Link to={`/registro/consumo/carwash/${id}`} variant="danger">
             <Button variant="info">Nuevo Registro</Button>
           </Link>
           <br />
@@ -72,26 +68,23 @@ function TableCarwash() {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Motorista</th>
+                <th>Costo</th>
                 <th>Descripción</th>
                 <th>Fecha</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody>
-              {data.control_tapiceria_carroceria.map((tapiceria, index) => {
+              {data.registro_carwash.map((carwash, index) => {
                 return (
-                  <tr key={tapiceria.id}>
+                  <tr key={carwash.id}>
                     <td>{index + 1}</td>
-                    <td>
-                      {tapiceria.empleado_motorista.nombres}{" "}
-                      {tapiceria.empleado_motorista.apellidos}
-                    </td>
-                    <td>{tapiceria.descripcion_dano}</td>
-                    <td>{tapiceria.fecha}</td>
+                    <td>{carwash.costo}</td>
+                    <td>{carwash.descripcion_trabajo}</td>
+                    <td>{carwash.fecha}</td>
                     <td>
                       <Link
-                        to={`/editar/tapiceria/${tapiceria.id}/${id}`}
+                        to={`/editar/tapiceria/${carwash.id}/${id}`}
                         variant="danger"
                         title="Editar"
                       >
@@ -102,7 +95,7 @@ function TableCarwash() {
                       <Button
                         variant="danger"
                         title="Eliminar"
-                        onClick={() => submitDeleteTapiceria(tapiceria.id)}
+                        onClick={() => submitDeleteCarwash(carwash.id)}
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
