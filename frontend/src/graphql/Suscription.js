@@ -349,3 +349,27 @@ export const listenControlCarwashById = gql`
     }
   }
 `;
+
+export const listenKilometrajePenultimo = gql`
+  subscription registro_combustible($id: uuid, $fecha: date) {
+    registro_combustible(
+      limit: 1
+      where: { fecha: { _lte: $fecha }, id_unidad_transporte: { _eq: $id } }
+    ) {
+      kilometraje_actual
+    }
+  }
+`;
+export const listenKilometrajeMax = gql`
+  subscription registro_combustible_aggregate($id: uuid) {
+    registro_combustible_aggregate(
+      where: { id_unidad_transporte: { _eq: $id } }
+    ) {
+      aggregate {
+        max {
+          kilometraje_actual
+        }
+      }
+    }
+  }
+`;

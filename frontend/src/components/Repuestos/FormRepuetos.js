@@ -100,7 +100,7 @@ const FormRepuestos = () => {
                 }
             })
             .catch((error) =>{
-                setTextAlert("Ocurrio un problema");
+                setTextAlert(error.message);
                 setIconType("error");
                 setshowAlert(true);
             })
