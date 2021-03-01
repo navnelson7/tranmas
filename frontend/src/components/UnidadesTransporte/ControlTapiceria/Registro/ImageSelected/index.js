@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useRef } from "react";
 import styled from "styled-components";
 import editIcon from "../icons/edit.svg";
-import tranmasImage from "../icons/tranmas.png";
 
 function ImageSelected({ setnewImageChange, Progress, ImagePreviousSelected }) {
   const refFile = useRef(null);

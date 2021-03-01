@@ -1,33 +1,30 @@
 import React, { useState, useEffect } from "react";
-import FormRefrenda from "../FormRefrenda";
+import FormCarwash from "../FormCarwash";
 import { useMutation, useSubscription } from "@apollo/client";
-import { updateRefrendaLicencia } from "../../../../graphql/Mutations";
-import { listenRefrendaCirculacion } from "../../../../graphql/Suscription";
+import { updateControlCarwashById } from "../../../../graphql/Mutations";
+import { listenControlCarwashById } from "../../../../graphql/Suscription";
 import { useHistory, useParams } from "react-router";
 import { ToastComponent } from "../../../Toast";
 
-function EditarRefrendaCirculacion() {
-  const { idRefrenda, idTransporte } = useParams();
+function EditarControlCarwash() {
+  const { idCarwash, idTransporte } = useParams();
   const { push } = useHistory();
   //ALERTA
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [Loading, setLoading] = useState(false);
-  const [setRefrenda] = useMutation(updateRefrendaLicencia);
+  const [setCarwash] = useMutation(updateControlCarwashById);
 
-  const { data, loading, error } = useSubscription(listenRefrendaCirculacion, {
+  const { data, loading, error } = useSubscription(listenControlCarwashById, {
     variables: {
-      id: idRefrenda,
+      id: idCarwash,
     },
   });
 
-  const [NuevoRefrendaCirculacion, setNuevoRefrendaCirculacion] = useState({
-    costo_refrenda: 0,
-    fecha_emision: "",
-    fecha_refrenda: "",
-    numero_tarjeta_circulacion: "",
-    refrendado: true,
+  const [CarwashState, setCarwashState] = useState({
+    costo: 0,
+    descripcion_trabajo: "",
   });
 
   useEffect(() => {
@@ -35,27 +32,36 @@ function EditarRefrendaCirculacion() {
     refrenda =
       data === undefined
         ? {}
-        : { ...data.refrendas_tarjeta_circulacion_by_pk, id: idRefrenda };
-    setNuevoRefrendaCirculacion(refrenda);
-  }, [data, idRefrenda]);
+        : {
+            ...data.registro_carwash_by_pk,
+            id: idCarwash,
+            fecha:
+              new Date().getFullYear() +
+              "-" +
+              (new Date().getMonth() + 1) +
+              "-" +
+              new Date().getDate(),
+          };
+    setCarwashState(refrenda);
+  }, [data, idCarwash]);
 
-  const changeNuevoRefrendaCirculacion = (e) => {
-    if (e.target.name === "costo_refrenda") {
-      setNuevoRefrendaCirculacion({
-        ...NuevoRefrendaCirculacion,
+  const changeCarwashState = (e) => {
+    if (e.target.name === "costo") {
+      setCarwashState({
+        ...CarwashState,
         [e.target.name]: parseInt(e.target.value),
       });
     } else {
-      setNuevoRefrendaCirculacion({
-        ...NuevoRefrendaCirculacion,
+      setCarwashState({
+        ...CarwashState,
         [e.target.name]:
           e.target.type === "checkbox" ? e.target.checked : e.target.value,
       });
     }
   };
   const submitRefrendaCirculacion = (e) => {
-    setRefrenda({
-      variables: NuevoRefrendaCirculacion,
+    setCarwash({
+      variables: CarwashState,
     })
       .then((res) => {
         if (res.data) {
@@ -65,7 +71,7 @@ function EditarRefrendaCirculacion() {
           setTextAlert("Actualizado correctamente");
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
-            push(`/tabla/refrenda/circulacion/${idTransporte}`);
+            push(`/tabla/consumo/carwash/${idTransporte}`);
           }, 2000);
         }
       })
@@ -93,14 +99,13 @@ function EditarRefrendaCirculacion() {
         iconType={IconType}
         textAlert={TextAlert}
       />
-      <FormRefrenda
-        NuevoRefrendaCirculacion={NuevoRefrendaCirculacion}
-        changeNuevoRefrendaCirculacion={changeNuevoRefrendaCirculacion}
-        submitRefrendaCirculacion={submitRefrendaCirculacion}
-        idTransporte={idTransporte}
+      <FormCarwash
+        NuevoCarwash={CarwashState}
+        changeControlTransporte={changeCarwashState}
+        submitControlCarwash={submitRefrendaCirculacion}
       />
     </div>
   );
 }
 
-export default EditarRefrendaCirculacion;
+export default EditarControlCarwash;

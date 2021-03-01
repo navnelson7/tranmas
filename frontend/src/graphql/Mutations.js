@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const setUserOne = gql `
+export const setUserOne = gql`
   mutation insert_users_one(
     $email: String
     $password: String
@@ -23,7 +23,7 @@ export const setUserOne = gql `
   }
 `;
 
-export const setRepuestosOne = gql `
+export const setRepuestosOne = gql`
   mutation addRepuestos(
     $activo: Boolean
     $cantidad: numeric
@@ -67,7 +67,7 @@ export const setRepuestosOne = gql `
   }
 `;
 
-export const setProveedorOne = gql `
+export const setProveedorOne = gql`
   mutation insert_proveedores_one(
     $nombre_proveedor: String
     $activo: Boolean
@@ -104,7 +104,7 @@ export const setProveedorOne = gql `
 `;
 
 //update mutation
-const updateActivoRepuesto = gql `
+const updateActivoRepuesto = gql`
   mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!) {
     update_repuestos(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
       affected_rows
@@ -112,7 +112,7 @@ const updateActivoRepuesto = gql `
   }
 `;
 
-export const updateActivoProveedor = gql `
+export const updateActivoProveedor = gql`
   mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean) {
     update_proveedores_by_pk(
       pk_columns: { id: $id }
@@ -123,7 +123,7 @@ export const updateActivoProveedor = gql `
   }
 `;
 
-export const updateProveedorOne = gql `
+export const updateProveedorOne = gql`
   mutation update_proveedores_by_pk(
     $nombre_proveedor: String
     $activo: Boolean
@@ -163,7 +163,7 @@ export const updateProveedorOne = gql `
   }
 `;
 
-export const setMarcasOne = gql `
+export const setMarcasOne = gql`
   mutation addMarcas($marca: String) {
     insert_marcas_one(object: { marca: $marca }) {
       id
@@ -172,7 +172,7 @@ export const setMarcasOne = gql `
   }
 `;
 
-export const setMedidasOne = gql `
+export const setMedidasOne = gql`
   mutation addMedidas($unidad_de_medida: String) {
     insert_unidades_de_medida_one(
       object: { unidad_de_medida: $unidad_de_medida }
@@ -183,7 +183,7 @@ export const setMedidasOne = gql `
   }
 `;
 
-export const setEstadosOne = gql `
+export const setEstadosOne = gql`
   mutation insert_estado_repuestos_stock_one(
     $estado_repuestos: String
     $activo: Boolean
@@ -203,7 +203,7 @@ export const setEstadosOne = gql `
   }
 `;
 
-export const deletEstadosbyId = gql `
+export const deletEstadosbyId = gql`
   mutation deleteEstadoRepuestos($id: uuid) {
     update_estado_repuestos_stock(
       where: { id: { _eq: $id } }
@@ -219,7 +219,7 @@ export const deletEstadosbyId = gql `
   }
 `;
 
-export const activateEstadosbyId = gql `
+export const activateEstadosbyId = gql`
   mutation deleteEstadoRepuestos($id: uuid) {
     update_estado_repuestos_stock(
       where: { id: { _eq: $id } }
@@ -235,7 +235,7 @@ export const activateEstadosbyId = gql `
   }
 `;
 
-export const updateRepuestoOne = gql `
+export const updateRepuestoOne = gql`
   mutation update_repuestos_by_pk(
     $activo: Boolean
     $cantidad: numeric
@@ -266,7 +266,7 @@ export const updateRepuestoOne = gql `
   }
 `;
 
-export const setTransporteOne = gql `
+export const setTransporteOne = gql`
   mutation(
     $activo: Boolean
     $color: String
@@ -306,7 +306,7 @@ export const setTransporteOne = gql `
   }
 `;
 
-export const setEmpleadosOne = gql `
+export const setEmpleadosOne = gql`
   mutation(
     $codigo_empleado: String
     $nombres: String
@@ -362,7 +362,7 @@ export const setEmpleadosOne = gql `
   }
 `;
 
-export const updateUnidadOne = gql `
+export const updateUnidadOne = gql`
   mutation update_unidades_de_transporte_by_pk(
     $id: uuid!
     $activo: Boolean
@@ -403,7 +403,7 @@ export const updateUnidadOne = gql `
   }
 `;
 
-export const deleteTransporte = gql `
+export const deleteTransporte = gql`
   mutation delete_unidades_de_transporte_by_pk($id: uuid!) {
     delete_unidades_de_transporte_by_pk(id: $id) {
       id
@@ -411,7 +411,7 @@ export const deleteTransporte = gql `
   }
 `;
 
-export const saveMarcaTransporte = gql `
+export const saveMarcaTransporte = gql`
   mutation insert_marca_transporte_one($marca: String) {
     insert_marca_transporte_one(object: { marca: $marca }) {
       id
@@ -419,7 +419,7 @@ export const saveMarcaTransporte = gql `
   }
 `;
 
-export const updateRegistroCombustibleById = gql `
+export const updateRegistroCombustibleById = gql`
   mutation update_registro_combustible_by_pk(
     $comentarios: String
     $fecha: date
@@ -443,7 +443,7 @@ export const updateRegistroCombustibleById = gql `
   }
 `;
 
-export const updateNuevaMarcaTransporteById = gql `
+export const updateNuevaMarcaTransporteById = gql`
   mutation update_marca_transporte_by_pk($id: uuid!, $marca: String) {
     update_marca_transporte_by_pk(
       pk_columns: { id: $id }
@@ -454,7 +454,7 @@ export const updateNuevaMarcaTransporteById = gql `
   }
 `;
 
-export const saveRegistroCombustibleDaily = gql `
+export const saveRegistroCombustibleDaily = gql`
   mutation insert_registro_combustible_one(
     $comentarios: String
     $fecha: date
@@ -484,7 +484,7 @@ export const saveRegistroCombustibleDaily = gql `
   }
 `;
 
-export const setEstadoTaller = gql `
+export const setEstadoTaller = gql`
   mutation insert_estado_en_taller_one($activo: Boolean, $estado: String) {
     insert_estado_en_taller_one(object: { activo: $activo, estado: $estado }) {
       id
@@ -492,7 +492,7 @@ export const setEstadoTaller = gql `
   }
 `;
 
-export const setRegistroTallerOne = gql `
+export const setRegistroTallerOne = gql`
   mutation insert_registro_taller_one(
     $id_empleado_mecanico: uuid
     $id_empleado_motorista: uuid
@@ -516,7 +516,7 @@ export const setRegistroTallerOne = gql `
   }
 `;
 
-export const updateCantidadRepuesto = gql `
+export const updateCantidadRepuesto = gql`
   mutation update_repuestos_by_pk($id: uuid!, $cantidad: numeric) {
     update_repuestos_by_pk(
       pk_columns: { id: $id }
@@ -527,7 +527,7 @@ export const updateCantidadRepuesto = gql `
   }
 `;
 
-export const insertDetalleTaller = gql `
+export const insertDetalleTaller = gql`
   mutation insert_detalle_trabajo_taller_one(
     $cantidad: numeric!
     $comentarios: String!
@@ -547,7 +547,7 @@ export const insertDetalleTaller = gql `
   }
 `;
 
-export const updateDetalleTrabajoTaller = gql `
+export const updateDetalleTrabajoTaller = gql`
   mutation update_detalle_trabajo_taller_by_pk(
     $id: uuid!
     $cantidad: numeric
@@ -563,14 +563,14 @@ export const updateDetalleTrabajoTaller = gql `
   }
 `;
 
-export const deleteDetalleEnTaller = gql `
+export const deleteDetalleEnTaller = gql`
   mutation delete_detalle_trabajo_taller_by_pk($id: uuid!) {
     delete_detalle_trabajo_taller_by_pk(id: $id) {
       id
     }
   }
 `;
-export const deleteRegistroEnTaller = gql `
+export const deleteRegistroEnTaller = gql`
   mutation delete_registro_taller_by_pk($id: uuid!, $id_estado: uuid!) {
     delete_registro_taller_by_pk(id: $id) {
       id
@@ -585,7 +585,7 @@ export const deleteRegistroEnTaller = gql `
     }
   }
 `;
-export const setFaltaOne = gql `
+export const setFaltaOne = gql`
   mutation insert_faltas_motoristas_one(
     $id_empleado: uuid
     $descripcion_de_falta: String
@@ -603,7 +603,7 @@ export const setFaltaOne = gql `
   }
 `;
 
-export const updateRegistroTallerOne = gql `
+export const updateRegistroTallerOne = gql`
   mutation update_registro_taller_by_pk(
     $id: uuid!
     $id_estado: uuid!
@@ -634,7 +634,7 @@ export const updateRegistroTallerOne = gql `
   }
 `;
 
-export const deleteFalta = gql `
+export const deleteFalta = gql`
   mutation delete_faltas_motoristas_by_pk($id: uuid!) {
     delete_faltas_motoristas_by_pk(id: $id) {
       id
@@ -642,7 +642,7 @@ export const deleteFalta = gql `
   }
 `;
 
-export const insertNewAccidentes = gql `
+export const insertNewAccidentes = gql`
   mutation insert_accidentes_one(
     $descripcion_accidente: String
     $fecha: date
@@ -664,7 +664,7 @@ export const insertNewAccidentes = gql `
   }
 `;
 
-export const updateEmpledoById = gql `
+export const updateEmpledoById = gql`
   mutation update_empleados_by_pk(
     $codigo_empleado: String
     $activo: Boolean
@@ -722,7 +722,7 @@ export const updateEmpledoById = gql `
   }
 `;
 
-export const updateAccidente = gql `
+export const updateAccidente = gql`
   mutation update_accidentes_by_pk(
     $id: uuid!
     $registro_fotos: String
@@ -744,7 +744,7 @@ export const updateAccidente = gql `
   }
 `;
 
-export const newAireAcondicionado = gql `
+export const newAireAcondicionado = gql`
   mutation insert_aire_acondicionado_one(
     $descripcion: String
     $fecha: date
@@ -764,7 +764,7 @@ export const newAireAcondicionado = gql `
   }
 `;
 
-export const deleteAireAcondicionado = gql `
+export const deleteAireAcondicionado = gql`
   mutation delete_aire_acondicionado_by_pk($id: uuid!) {
     delete_aire_acondicionado_by_pk(id: $id) {
       id
@@ -772,7 +772,7 @@ export const deleteAireAcondicionado = gql `
   }
 `;
 
-export const updateAireAcondicionadoOne = gql `
+export const updateAireAcondicionadoOne = gql`
   mutation update_aire_acondicionado_by_pk(
     $id: uuid!
     $descripcion: String
@@ -792,7 +792,7 @@ export const updateAireAcondicionadoOne = gql `
     }
   }
 `;
-export const updateActivoEmpleado = gql `
+export const updateActivoEmpleado = gql`
   mutation updateActivoEmpleados($id: uuid!, $activo: Boolean) {
     update_empleados(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
       affected_rows
@@ -800,7 +800,7 @@ export const updateActivoEmpleado = gql `
   }
 `;
 
-export const deleteTapiceriaById = gql `
+export const deleteTapiceriaById = gql`
   mutation delete_control_tapiceria_carroceria_by_pk($id: uuid!) {
     delete_control_tapiceria_carroceria_by_pk(id: $id) {
       id
@@ -808,7 +808,7 @@ export const deleteTapiceriaById = gql `
   }
 `;
 
-export const deleteRefrendaLicenciaById = gql `
+export const deleteRefrendaLicenciaById = gql`
   mutation delete_refrendas_tarjeta_circulacion_by_pk($id: uuid!) {
     delete_refrendas_tarjeta_circulacion_by_pk(id: $id) {
       id
@@ -816,7 +816,7 @@ export const deleteRefrendaLicenciaById = gql `
   }
 `;
 
-export const insertTapiceriaOne = gql `
+export const insertTapiceriaOne = gql`
   mutation insert_control_tapiceria_carroceria_one(
     $descripcion_dano: String
     $foto: String
@@ -838,7 +838,7 @@ export const insertTapiceriaOne = gql `
   }
 `;
 
-export const updateTapiceriaOne = gql `
+export const updateTapiceriaOne = gql`
   mutation update_control_tapiceria_carroceria_by_pk(
     $descripcion_dano: String
     $foto: String
@@ -862,7 +862,7 @@ export const updateTapiceriaOne = gql `
   }
 `;
 
-export const insertRefrendaCirculacion = gql `
+export const insertRefrendaCirculacion = gql`
   mutation insert_refrendas_tarjeta_circulacion_one(
     $costo_refrenda: Int
     $fecha_emision: date
@@ -886,23 +886,29 @@ export const insertRefrendaCirculacion = gql `
   }
 `;
 
-export const updateRefrendaLicencia = gql `
-mutation update_refrendas_tarjeta_circulacion_by_pk(
+export const updateRefrendaLicencia = gql`
+  mutation update_refrendas_tarjeta_circulacion_by_pk(
     $id: uuid!
-    $costo_refrenda: Int $fecha_emision: date $fecha_refrenda: date $numero_tarjeta_circulacion: String $refrendado: Boolean $__typename: String
-) {
+    $costo_refrenda: Int
+    $fecha_emision: date
+    $fecha_refrenda: date
+    $numero_tarjeta_circulacion: String
+    $refrendado: Boolean
+    $__typename: String
+  ) {
     update_refrendas_tarjeta_circulacion_by_pk(
-        _set: {
-            costo_refrenda: $costo_refrenda
-            fecha_emision: $fecha_emision
-            fecha_refrenda: $fecha_refrenda
-            numero_tarjeta_circulacion: $numero_tarjeta_circulacion
-            refrendado: $refrendado
-        }
-        pk_columns: { id: $id }
+      _set: {
+        costo_refrenda: $costo_refrenda
+        fecha_emision: $fecha_emision
+        fecha_refrenda: $fecha_refrenda
+        numero_tarjeta_circulacion: $numero_tarjeta_circulacion
+        refrendado: $refrendado
+      }
+      pk_columns: { id: $id }
     ) {
-        id
+      id
     }
+<<<<<<< HEAD
 }
 `;
 
@@ -921,9 +927,56 @@ export const setRefrendaONe = gql `
         fecha_emision: $fecha_emision
         fecha_vencimiento: $fecha_vencimiento
         refrendado: $refrendado
+=======
+  }
+`;
+
+export const insertControlCarwash = gql`
+  mutation insert_registro_carwash_one(
+    $costo: Int
+    $descripcion_trabajo: String
+    $fecha: date
+    $id_unidad_transporte: uuid
+  ) {
+    insert_registro_carwash_one(
+      object: {
+        costo: $costo
+        descripcion_trabajo: $descripcion_trabajo
+        fecha: $fecha
+        id_unidad_transporte: $id_unidad_transporte
+>>>>>>> 45904494a9eef41ac33746bbe0155ceafb657377
       }
     ) {
       id
     }
   }
+<<<<<<< HEAD
 `;
+=======
+`;
+
+export const deleteControlCarwashById = gql`
+  mutation delete_registro_carwash_by_pk($id: uuid!) {
+    delete_registro_carwash_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
+export const updateControlCarwashById = gql`
+  mutation update_registro_carwash_by_pk(
+    $__typename: String 
+    $costo: Int
+    $descripcion_trabajo: String
+    $fecha: date
+    $id: uuid!
+    ) {
+    update_registro_carwash_by_pk(
+      _set: { costo: $costo, descripcion_trabajo: $descripcion_trabajo, fecha: $fecha }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
+>>>>>>> 45904494a9eef41ac33746bbe0155ceafb657377

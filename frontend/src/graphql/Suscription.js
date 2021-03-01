@@ -314,10 +314,8 @@ export const listenRefrendaCirculacion = gql`
 `;
 
 export const listenRefrendaVencida = gql`
-  subscription refrendas_tarjeta_circulacion($fecha: date){
-    refrendas_tarjeta_circulacion(
-      where: { fecha_refrenda: { _lte: $fecha } }
-    ) {
+  subscription refrendas_tarjeta_circulacion($fecha: date) {
+    refrendas_tarjeta_circulacion(where: { fecha_refrenda: { _lte: $fecha } }) {
       id
       costo_refrenda
       id_unidad_transporte
@@ -327,5 +325,51 @@ export const listenRefrendaVencida = gql`
       costo_refrenda
     }
   }
-  
+`;
+
+export const listenControlCarwash = gql`
+  subscription registro_carwash($id: uuid!) {
+    registro_carwash(
+      order_by: { id: desc }
+      where: { id_unidad_transporte: { _eq: $id } }
+    ) {
+      id
+      costo
+      descripcion_trabajo
+      fecha
+    }
+  }
+`;
+
+export const listenControlCarwashById = gql`
+  subscription registro_carwash_by_pk($id: uuid!) {
+    registro_carwash_by_pk(id: $id) {
+      costo
+      descripcion_trabajo
+    }
+  }
+`;
+
+export const listenKilometrajePenultimo = gql`
+  subscription registro_combustible($id: uuid, $fecha: date) {
+    registro_combustible(
+      limit: 1
+      where: { fecha: { _lte: $fecha }, id_unidad_transporte: { _eq: $id } }
+    ) {
+      kilometraje_actual
+    }
+  }
+`;
+export const listenKilometrajeMax = gql`
+  subscription registro_combustible_aggregate($id: uuid) {
+    registro_combustible_aggregate(
+      where: { id_unidad_transporte: { _eq: $id } }
+    ) {
+      aggregate {
+        max {
+          kilometraje_actual
+        }
+      }
+    }
+  }
 `;
