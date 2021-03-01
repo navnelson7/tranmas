@@ -84,7 +84,7 @@ function TableCarwash() {
                     <td>{carwash.fecha}</td>
                     <td>
                       <Link
-                        to={`/editar/tapiceria/${carwash.id}/${id}`}
+                        to={`/editar/consumo/carwash/${carwash.id}/${id}`}
                         variant="danger"
                         title="Editar"
                       >

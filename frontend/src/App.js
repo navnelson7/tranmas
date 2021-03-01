@@ -13,6 +13,10 @@ import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
 
+const EditarCarwash = lazy(() =>
+  import("./components/UnidadesTransporte/ConsumoCarwash/Editar")
+);
+
 const RegistroCarwash = lazy(() =>
   import("./components/UnidadesTransporte/ConsumoCarwash/Registro")
 );
@@ -207,6 +211,11 @@ function App() {
               </Suspense>
             </Route>
 
+            <Route exact path="/editar/consumo/carwash/:idCarwash/:idTransporte">
+              <Suspense fallback="Cargando....">
+                <EditarCarwash />
+              </Suspense>
+            </Route>
             <Route exact path="/registro/consumo/carwash/:id">
               <Suspense fallback="Cargando....">
                 <RegistroCarwash />

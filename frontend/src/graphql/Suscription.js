@@ -340,3 +340,12 @@ export const listenControlCarwash = gql`
     }
   }
 `;
+
+export const listenControlCarwashById = gql`
+  subscription registro_carwash_by_pk($id: uuid!) {
+    registro_carwash_by_pk(id: $id) {
+      costo
+      descripcion_trabajo
+    }
+  }
+`;

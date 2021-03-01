@@ -938,3 +938,20 @@ export const deleteControlCarwashById = gql`
     }
   }
 `;
+
+export const updateControlCarwashById = gql`
+  mutation update_registro_carwash_by_pk(
+    $__typename: String 
+    $costo: Int
+    $descripcion_trabajo: String
+    $fecha: date
+    $id: uuid!
+    ) {
+    update_registro_carwash_by_pk(
+      _set: { costo: $costo, descripcion_trabajo: $descripcion_trabajo, fecha: $fecha }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
