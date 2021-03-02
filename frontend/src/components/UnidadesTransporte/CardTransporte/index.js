@@ -9,35 +9,11 @@ import Image from "./Image";
 import ButtonTapiceria from "./ButtonTapiceria";
 import ButtonRefrenda from "./ButtonRefrenda";
 import ButtonCarwash from "./ButtonCarwash";
-import { useSubscription } from "@apollo/client";
-import { listenKilometrajePenultimo } from "../../../graphql/Suscription";
-import { listenKilometrajeMax } from "../../../graphql/Suscription";
-import { Alert } from "react-bootstrap";
+// import { useSubscription } from "@apollo/client";
+// import { listenKilometrajePenultimo } from "../../../graphql/Suscription";
+// import { listenKilometrajeMax } from "../../../graphql/Suscription";
 
 function CardTransporte({ unidad }) {
-  const [show, setShow] = useState(true);
-
-  const kilometrajeMax = useSubscription(listenKilometrajeMax, {
-    variables: {
-      id: unidad.id,
-    },
-  });
-  const { data, loading, error } = useSubscription(listenKilometrajePenultimo, {
-    variables: {
-      id: unidad.id,
-      fecha:
-        new Date().getFullYear() +
-        "-" +
-        (new Date().getMonth() + 1) +
-        "-" +
-        new Date().getDate(),
-    },
-  });
-  if (loading || kilometrajeMax.loading) {
-    return "";
-  }
-  if (error || kilometrajeMax.error)
-    return <p align="center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
       <div className="col-md-4" key={unidad.id}>
@@ -62,16 +38,6 @@ function CardTransporte({ unidad }) {
               </div>
             </StyleGridCircle>
             <br />
-            {data.registro_combustible[0].kilometraje_actual + 3000 >=
-            kilometrajeMax.data.registro_combustible_aggregate.aggregate.max
-              .kilometraje_actual ? (
-              <Alert variant="warning">
-                <Alert.Heading>¡Oh vaya!</Alert.Heading>
-                <p>La unidad de transporte necesita un cambio de repuestos</p>
-              </Alert>
-            ) : (
-              ""
-            )}
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
               <div className="box-white">
