@@ -18,8 +18,6 @@ import { listenKilometrajeMax } from "../../../graphql/Suscription";
 import { Alert } from "react-bootstrap";
 
 function CardTransporte({ unidad }) {
-  const [show, setShow] = useState(true);
-
   const kilometrajeCambio = useSubscription(listenKmParaCambio);
 
   const kilometrajeMax = useSubscription(listenKilometrajeMax, {
@@ -38,10 +36,10 @@ function CardTransporte({ unidad }) {
         new Date().getDate(),
     },
   });
-  if (loading || kilometrajeMax.loading) {
+  if (loading || kilometrajeMax.loading || kilometrajeCambio.loading) {
     return "";
   }
-  if (error || kilometrajeMax.error)
+  if (error || kilometrajeMax.error || kilometrajeCambio.error)
     return <p align="center">{`Error! ${error.message}`}</p>;
 
   console.log(kilometrajeCambio.data.repuestos);
@@ -89,6 +87,7 @@ function CardTransporte({ unidad }) {
                 </Fragment>
               );
             })}
+            <p className="center-box">Número de unidad {unidad.numero_equipo} </p>
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
               <div className="box-white">

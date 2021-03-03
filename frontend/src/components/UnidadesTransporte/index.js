@@ -36,6 +36,7 @@ function UnidadesTransporte() {
             id
             image
             id_marca
+            numero_equipo
             marca_transporte {
               marca
             }
