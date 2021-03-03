@@ -106,7 +106,7 @@ export const listenCombustibleByUnidadId = gql`
     }
   }
 `;
-
+ 
 export const listenKilomatrajeMax = gql`
   subscription registro_combustible_aggregate($id: uuid!) {
     registro_combustible_aggregate(
@@ -380,6 +380,7 @@ export const listenKilometrajeMax = gql`
 export const listenKmParaCambio = gql`
   subscription {
     repuestos {
+      id
       km_para_cambio
       nombre
     }

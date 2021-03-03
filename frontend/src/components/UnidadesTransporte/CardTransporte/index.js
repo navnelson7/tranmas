@@ -43,8 +43,8 @@ function CardTransporte({ unidad }) {
     return <p align="center">{`Error! ${error.message}`}</p>;
 
   return (
-    <Fragment>
-      <div className="col-md-4" key={unidad.id}>
+    <Fragment key={unidad.id}>
+      <div className="col-md-4">
         <div className="card mt-3">
           <div className="card-block stilo">
             <Image
@@ -68,7 +68,7 @@ function CardTransporte({ unidad }) {
             <br />
             {kilometrajeCambio.data.repuestos.map((kilometrajes) => {
               return (
-                <Fragment>
+                <Fragment key={kilometrajes.id}>
                   {data.registro_combustible[0].kilometraje_actual +
                     kilometrajes.km_para_cambio >=
                   kilometrajeMax.data.registro_combustible_aggregate.aggregate
@@ -108,7 +108,6 @@ const StyleGridCircle = styled.div`
     display: grid;
     grid-template-columns: 25% 25% 25% 25% 25% 25% 25% 25% 25%;
     grid-column-gap: 10%;
-    margin-left: 5px;
   }
   /* SCROLL CARDS */
   .scroll-cards {

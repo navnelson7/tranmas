@@ -1,17 +1,22 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import styled from "styled-components";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 import { Form, InputGroup, Card, Row, Col, FormControl } from "react-bootstrap";
 import ButtonDesitions from "../../../ButtonsDesitions";
-import { useMutation } from "@apollo/client";
+import { useMutation, useSubscription } from "@apollo/client";
 import { saveRegistroCombustibleDaily } from "../../../../graphql/Mutations";
 import { useParams, useHistory } from "react-router-dom";
 import { ToastComponent } from "../../../Toast";
+import { listenKilomatrajeMax } from "../../../../graphql/Suscription";
 
 function RegistroCombustible() {
   const { id } = useParams();
   const { push } = useHistory();
   const [addCombustible] = useMutation(saveRegistroCombustibleDaily);
+
+  const { data, loading, error } = useSubscription(listenKilomatrajeMax, {
+    variables: { id: id },
+  });
 
   //ALERTA
   const [TextAlert, setTextAlert] = useState("");
@@ -33,6 +38,20 @@ function RegistroCombustible() {
     mes: (new Date().getMonth() + 1).toString(),
     year: new Date().getFullYear().toString(),
   });
+
+  useEffect(() => {
+    let kilometrajeData = 0;
+    kilometrajeData =
+      data === undefined
+        ? 0
+        : data.registro_combustible_aggregate.aggregate.max.kilometraje_actual;
+
+    setNuevoCombustible({
+      ...NuevoCombustible,
+      kilometraje_actual: kilometrajeData,
+    });
+    // eslint-disable-next-line
+  }, [data]);
   const changeCombustible = (e) => {
     if (
       e.target.name === "galones_servidos" ||
@@ -52,13 +71,15 @@ function RegistroCombustible() {
   const submitCombustible = () => {
     setLoading(true);
     // SI EL USUARIO NO SELECCIONA AL MOTORISTA
-    if (NuevoCombustible.id_empleado_motorista === "" || NuevoCombustible.id_empleado_motorista === "Seleccione un motorista") {
+    if (
+      NuevoCombustible.id_empleado_motorista === "" ||
+      NuevoCombustible.id_empleado_motorista === "Seleccione un motorista"
+    ) {
       setLoading(false);
       setTextAlert("Selecciona un motorista");
       setIconType("error");
       setshowAlert(true);
-    }
-    else{
+    } else {
       addCombustible({
         variables: NuevoCombustible,
       })
@@ -66,7 +87,7 @@ function RegistroCombustible() {
           if (res.data) {
             setLoading(false);
             setIconType("success");
-            setshowAlert(true); 
+            setshowAlert(true);
             setTextAlert("Registrado correctamente");
             setTimeout(() => {
               //si todo va bien lo redirecciona al inicio
@@ -82,7 +103,7 @@ function RegistroCombustible() {
         });
     }
   };
-  if (Loading)
+  if (Loading || loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -90,6 +111,8 @@ function RegistroCombustible() {
         </div>
       </div>
     );
+  if (error) return `Error! ${error.message}`;
+
   return (
     <Fragment>
       <ToastComponent
