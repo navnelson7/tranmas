@@ -318,13 +318,13 @@ function App() {
                 <ListadoEmpleados />
               </Suspense>
             </Route>
-            <Route exact path="/ficha-empleado/:Id" component={FichaEmpleado}>
+            <Route exact path="/ficha-empleado/:Id">
               <Suspense fallback="Cargando....">
                 <FichaEmpleado />
               </Suspense>
             </Route>
 
-            <Route exact path="/listado-repuestos" component={ListadoRepuestos}>
+            <Route exact path="/listado-repuestos">
               <Suspense fallback="Cargando...">
                 <ListadoRepuestos />
               </Suspense>
@@ -370,7 +370,7 @@ function App() {
                 <FormularioEstadoRepuestos />
               </Suspense>
             </Route>
-            <Route exact path="/pdf-empleado" component={PdfEmpleado}>
+            <Route exact path="/pdf-empleado">
               <Suspense fallback="Cargando...">
                 <PdfEmpleado />
               </Suspense>
@@ -384,12 +384,12 @@ function App() {
                 <CapturaFotoEmpleado />
               </Suspense>
             </Route>
-            <Route exact path="/registro-faltas" component={RegistroFaltas}>
+            <Route exact path="/registro-faltas">
               <Suspense fallback="Cargando...">
                 <RegistroFaltas />
               </Suspense>
             </Route>
-            <Route exact path="/registro-refrenda" component={RegistroRefrenda}>
+            <Route exact path="/registro-refrenda">
               <Suspense fallback="Cargando ...">
                 <RegistroRefrenda />
               </Suspense>

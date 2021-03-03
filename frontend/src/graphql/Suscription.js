@@ -350,7 +350,7 @@ export const listenControlCarwashById = gql`
   }
 `;
 
-/*export const listenKilometrajePenultimo = gql`
+export const listenKilometrajePenultimo = gql`
   subscription registro_combustible($id: uuid, $fecha: date) {
     registro_combustible(
       limit: 1
@@ -373,4 +373,12 @@ export const listenKilometrajeMax = gql`
     }
   }
 `;
-*/
+
+export const listenKmParaCambio = gql`
+  subscription {
+    repuestos {
+      km_para_cambio
+      nombre
+    }
+  }
+`;
