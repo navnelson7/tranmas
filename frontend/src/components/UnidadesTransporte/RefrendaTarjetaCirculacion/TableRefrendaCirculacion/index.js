@@ -78,6 +78,7 @@ function TableRefrendaCirculacion() {
                 <th>Refrendado</th>
                 <th>Fecha de emisión</th>
                 <th>Fecha de refrenda</th>
+                <th>N° tarjeta de circulación</th>
                 <th>Acción</th>
               </tr>
             </thead>
@@ -145,10 +146,9 @@ function TableRefrendaCirculacion() {
                             ? "dia atras"
                             : "dias atras"}
                         </Fragment>
-                        // SI LA FECHA ES MAYOR A CERO MUESTRAN LOS DIAS QUE FALTAN PARA QUE SE VENSA
-                      ) : Math.abs(
-                          getDiferenceDays(refrenda.fecha_refrenda)
-                        ) === 1 ? (
+                      ) : // SI LA FECHA ES MAYOR A CERO MUESTRAN LOS DIAS QUE FALTAN PARA QUE SE VENSA
+                      Math.abs(getDiferenceDays(refrenda.fecha_refrenda)) ===
+                        1 ? (
                         "Falta " +
                         Math.abs(getDiferenceDays(refrenda.fecha_refrenda)) +
                         " dia"
@@ -157,6 +157,9 @@ function TableRefrendaCirculacion() {
                         Math.abs(getDiferenceDays(refrenda.fecha_refrenda)) +
                         " dias"
                       )}
+                    </td>
+                    <td>
+                      {refrenda.unidad_transporte.numero_tarjeta_circulacion}
                     </td>
                     <td>
                       <Link

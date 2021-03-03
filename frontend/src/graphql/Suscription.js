@@ -297,6 +297,9 @@ export const listenRefrendasCiculacion = gql`
       id
       refrendado
       numero_tarjeta_circulacion
+      unidad_transporte{
+        numero_tarjeta_circulacion
+      }
     }
   }
 `;
