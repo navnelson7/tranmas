@@ -46,12 +46,12 @@ const ListadoRepuestos = () => {
                 <th>Precio</th>
                 <th>Proveedor</th>
                 <th>Estado</th>
-                <th>Alarma</th>
+                <th>Km para cambio</th>
                 <th colSpan="3">acciones</th>
               </tr>
             </thead>
             <tbody>
-              {listadoRepuestos.lenght === 0 ? (
+              {listadoRepuestos.length === 0 ? (
                 <tr>
                   <td>No hay repuestos</td>
                 </tr>

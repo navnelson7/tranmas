@@ -10,12 +10,15 @@ import ButtonTapiceria from "./ButtonTapiceria";
 import ButtonRefrenda from "./ButtonRefrenda";
 import ButtonCarwash from "./ButtonCarwash";
 import { useSubscription } from "@apollo/client";
-import { listenKilometrajePenultimo } from "../../../graphql/Suscription";
+import {
+  listenKilometrajePenultimo,
+  listenKmParaCambio,
+} from "../../../graphql/Suscription";
 import { listenKilometrajeMax } from "../../../graphql/Suscription";
 import { Alert } from "react-bootstrap";
 
 function CardTransporte({ unidad }) {
-  const [show, setShow] = useState(true);
+  const kilometrajeCambio = useSubscription(listenKmParaCambio);
 
   const kilometrajeMax = useSubscription(listenKilometrajeMax, {
     variables: {
@@ -33,14 +36,15 @@ function CardTransporte({ unidad }) {
         new Date().getDate(),
     },
   });
-  if (loading || kilometrajeMax.loading) {
+  if (loading || kilometrajeMax.loading || kilometrajeCambio.loading) {
     return "";
   }
-  if (error || kilometrajeMax.error)
+  if (error || kilometrajeMax.error || kilometrajeCambio.error)
     return <p align="center">{`Error! ${error.message}`}</p>;
+
   return (
-    <Fragment>
-      <div className="col-md-4" key={unidad.id}>
+    <Fragment key={unidad.id}>
+      <div className="col-md-4">
         <div className="card mt-3">
           <div className="card-block stilo">
             <Image
@@ -62,16 +66,29 @@ function CardTransporte({ unidad }) {
               </div>
             </StyleGridCircle>
             <br />
-            {data.registro_combustible[0].kilometraje_actual + 3000 >=
-            kilometrajeMax.data.registro_combustible_aggregate.aggregate.max
-              .kilometraje_actual ? (
-              <Alert variant="warning">
-                <Alert.Heading>¡Oh vaya!</Alert.Heading>
-                <p>La unidad de transporte necesita un cambio de repuestos</p>
-              </Alert>
-            ) : (
-              ""
-            )}
+            {kilometrajeCambio.data.repuestos.map((kilometrajes) => {
+              return (
+                <Fragment key={kilometrajes.id}>
+                  {data.registro_combustible[0].kilometraje_actual +
+                    kilometrajes.km_para_cambio >=
+                  kilometrajeMax.data.registro_combustible_aggregate.aggregate
+                    .max.kilometraje_actual ? (
+                    <Alert variant="warning">
+                      <Alert.Heading>¡Oh vaya!</Alert.Heading>
+                      <p>
+                        La unidad de transporte necesita un cambio de{" "}
+                        {kilometrajes.nombre}
+                      </p>
+                    </Alert>
+                  ) : (
+                    ""
+                  )}
+                </Fragment>
+              );
+            })}
+            <p className="center-box">
+              Unidad N° {unidad.numero_equipo}{" "}
+            </p>
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
               <div className="box-white">
@@ -91,7 +108,6 @@ const StyleGridCircle = styled.div`
     display: grid;
     grid-template-columns: 25% 25% 25% 25% 25% 25% 25% 25% 25%;
     grid-column-gap: 10%;
-    margin-left: 5px;
   }
   /* SCROLL CARDS */
   .scroll-cards {

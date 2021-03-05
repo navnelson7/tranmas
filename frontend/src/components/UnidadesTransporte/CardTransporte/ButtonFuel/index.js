@@ -123,6 +123,7 @@ const StyleLoaderEspera = styled.div`
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
+    margin-left: 15px;
   }
   .flip-box:hover .flip-box-inner {
     transform: rotateY(180deg);

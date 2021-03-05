@@ -106,7 +106,7 @@ export const listenCombustibleByUnidadId = gql`
     }
   }
 `;
-
+ 
 export const listenKilomatrajeMax = gql`
   subscription registro_combustible_aggregate($id: uuid!) {
     registro_combustible_aggregate(
@@ -297,6 +297,9 @@ export const listenRefrendasCiculacion = gql`
       id
       refrendado
       numero_tarjeta_circulacion
+      unidad_transporte{
+        numero_tarjeta_circulacion
+      }
     }
   }
 `;
@@ -370,6 +373,16 @@ export const listenKilometrajeMax = gql`
           kilometraje_actual
         }
       }
+    }
+  }
+`;
+
+export const listenKmParaCambio = gql`
+  subscription {
+    repuestos {
+      id
+      km_para_cambio
+      nombre
     }
   }
 `;

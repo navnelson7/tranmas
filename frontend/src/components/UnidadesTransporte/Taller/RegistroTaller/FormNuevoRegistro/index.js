@@ -208,6 +208,7 @@ function FormNuevoRegistro() {
         linkCancel={"/unidades-transporte"}
         submitSave={executeSaveEstadoTaller}
       />
+      <br/><br/><br/><br/><br/>
     </Fragment>
   );
 }

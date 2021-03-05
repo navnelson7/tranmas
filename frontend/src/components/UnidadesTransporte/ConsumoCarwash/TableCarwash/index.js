@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Table, Button, Modal, Image } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

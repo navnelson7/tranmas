@@ -39,6 +39,7 @@ export const setRepuestosOne = gql `
     $nombre: String
     $precio: money
     $numero_factura: Int
+    $km_para_cambio: Int
   ) {
     insert_repuestos_one(
       object: {
@@ -56,6 +57,7 @@ export const setRepuestosOne = gql `
         nombre: $nombre
         numero_factura: $numero_factura
         precio: $precio
+        km_para_cambio: $km_para_cambio
       }
     ) {
       activo
