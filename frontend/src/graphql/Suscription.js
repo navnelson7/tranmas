@@ -357,7 +357,7 @@ export const listenKilometrajePenultimo = gql`
   subscription registro_combustible($id: uuid, $fecha: date) {
     registro_combustible(
       limit: 1
-      where: { fecha: { _lte: $fecha }, id_unidad_transporte: { _eq: $id } }
+      where: { fecha: { _lt: $fecha }, id_unidad_transporte: { _eq: $id } }
     ) {
       kilometraje_actual
     }

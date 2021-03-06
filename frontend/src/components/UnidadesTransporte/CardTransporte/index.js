@@ -69,10 +69,10 @@ function CardTransporte({ unidad }) {
             {kilometrajeCambio.data.repuestos.map((kilometrajes) => {
               return (
                 <Fragment key={kilometrajes.id}>
-                  {data.registro_combustible[0].kilometraje_actual +
-                    kilometrajes.km_para_cambio >=
-                  kilometrajeMax.data.registro_combustible_aggregate.aggregate
-                    .max.kilometraje_actual ? (
+                  {kilometrajeMax.data.registro_combustible_aggregate.aggregate
+                    .max.kilometraje_actual >
+                  data.registro_combustible[0].kilometraje_actual +
+                    kilometrajes.km_para_cambio ? (
                     <Alert variant="warning">
                       <Alert.Heading>¡Oh vaya!</Alert.Heading>
                       <p>
@@ -86,9 +86,7 @@ function CardTransporte({ unidad }) {
                 </Fragment>
               );
             })}
-            <p className="center-box">
-              Unidad N° {unidad.numero_equipo}{" "}
-            </p>
+            <p className="center-box">Unidad N° {unidad.numero_equipo} </p>
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
               <div className="box-white">
@@ -133,6 +131,4 @@ const StyleGridCircle = styled.div`
   }
 `;
 
-export default React.memo(CardTransporte, (prevProps, nextProps) => {
-  return prevProps.id === nextProps.id;
-});
+export default CardTransporte;
