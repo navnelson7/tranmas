@@ -106,7 +106,7 @@ export const listenCombustibleByUnidadId = gql`
     }
   }
 `;
- 
+
 export const listenKilomatrajeMax = gql`
   subscription registro_combustible_aggregate($id: uuid!) {
     registro_combustible_aggregate(
@@ -297,7 +297,7 @@ export const listenRefrendasCiculacion = gql`
       id
       refrendado
       numero_tarjeta_circulacion
-      unidad_transporte{
+      unidad_transporte {
         numero_tarjeta_circulacion
       }
     }
@@ -383,6 +383,23 @@ export const listenKmParaCambio = gql`
       id
       km_para_cambio
       nombre
+    }
+  }
+`;
+
+export const listenUnidadBySearch = gql`
+  subscription unidades_de_transporte($numero_unidad: numeric){
+    unidades_de_transporte(where: { numero_equipo: { _eq: $numero_unidad } }) {
+      activo
+      numero_pasajeros
+      numero_placa
+      id
+      image
+      id_marca
+      numero_equipo
+      marca_transporte {
+        marca
+      }
     }
   }
 `;
