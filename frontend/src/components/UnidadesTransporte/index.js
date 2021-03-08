@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import CardTransporte from "./CardTransporte";
+import BusquedaUnidad from "./BusquedaUnidad";
 
 function UnidadesTransporte() {
   const [Element, setElement] = useState(null);
@@ -88,6 +89,7 @@ function UnidadesTransporte() {
         <div className="box-left-cards">
           <div className="container-viewport">
             <div className="d-flex justify-content-end mr-2">
+              <BusquedaUnidad setData={setData} />
               <Link to="/registro-transporte">
                 <Button variant="primary">Nueva Unidad</Button>
               </Link>
