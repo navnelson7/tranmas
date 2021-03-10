@@ -105,6 +105,7 @@ const RegistroRefrenda = () => {
                         <Fragment>
                             <FormularioRefrenda 
                                 Id={Id}
+                                Nombre={Nombre}
                             />
                         </Fragment>
                     ):(

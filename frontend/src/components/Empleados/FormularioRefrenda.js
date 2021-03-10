@@ -6,7 +6,7 @@ import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { Form, InputGroup, FormControl, Col, Row, Button } from 'react-bootstrap'
 import { ToastComponent } from "../Toast";
 
-const FormularioRefrenda = () => {
+const FormularioRefrenda = ({Id,Nombre}) => {
 
     const [showAlert, setshowAlert] = useState(false);
     const [IconType, setIconType] = useState("");
@@ -22,7 +22,7 @@ const FormularioRefrenda = () => {
                 iconType={IconType}
                 textAlert={TextAlert}
             />
-            <h1>Agregar detalle de Refrenda a:</h1>
+            <h1>Agregar detalle de Refrenda a: {Nombre}</h1>
             <Form>
                 <Row>
                     <Col sm={6}>
