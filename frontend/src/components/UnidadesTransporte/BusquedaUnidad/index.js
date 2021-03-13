@@ -12,7 +12,6 @@ function BusquedaUnidad({ setData }) {
   });
   useEffect(()=> {
     if (data !== undefined) {
-      console.log(data);
       setData(data.unidades_de_transporte)
     }
   }, [data])
