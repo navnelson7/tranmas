@@ -82,7 +82,7 @@ function Navegacion() {
                           : { color: "black" }
                       }
                     >
-                      Respuestos
+                      Repuestos
                     </Link>
                   </p>
                 </div>

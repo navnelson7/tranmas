@@ -41,6 +41,7 @@ function CardTransporte({ unidad }) {
   }
   if (error || kilometrajeMax.error || kilometrajeCambio.error)
     return <p align="center">{`Error! ${error.message}`}</p>;
+
   return (
     <Fragment key={unidad.id}>
       <div className="col-md-4">
@@ -68,10 +69,7 @@ function CardTransporte({ unidad }) {
             {kilometrajeCambio.data.repuestos.map((kilometrajes) => {
               return (
                 <Fragment key={kilometrajes.id}>
-                  {kilometrajeMax.data.registro_combustible_aggregate.aggregate
-                    .max.kilometraje_actual  === null || undefined ? "" : 
-
-                    kilometrajeMax.data.registro_combustible_aggregate.aggregate
+                    {data.registro_combustible[0] === undefined || null ? "" : kilometrajeMax.data.registro_combustible_aggregate.aggregate
                     .max.kilometraje_actual >
                   data.registro_combustible[0].kilometraje_actual +
                     kilometrajes.km_para_cambio ? (
@@ -84,9 +82,8 @@ function CardTransporte({ unidad }) {
                     </Alert>
                   ) : (
                     ""
-                  )
-                    
-                    }
+                  ) }
+
                   
                 </Fragment>
               );

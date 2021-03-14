@@ -40,7 +40,7 @@ function UnidadesTransporte() {
             numero_equipo
             marca_transporte {
               marca
-            }
+            } 
           }
         }
       `,
@@ -75,14 +75,7 @@ function UnidadesTransporte() {
         <p>{Error}</p>
       </div>
     );
-  if (Loading)
-    return (
-      <div className="center-box mt-5">
-        <div className="spinner-border text-primary" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    );
+
   return (
     <Fragment>
       <StyleCards>
@@ -96,7 +89,7 @@ function UnidadesTransporte() {
             </div>
             <div className="row hidden-md-up">
               {Data.map((unidad) => {
-                return <CardTransporte unidad={unidad} key={unidad.id} />;
+                return  <CardTransporte unidad={unidad} key={unidad.id} />;
               })}
             </div>
             {Loading && <p>Cargando...</p>}

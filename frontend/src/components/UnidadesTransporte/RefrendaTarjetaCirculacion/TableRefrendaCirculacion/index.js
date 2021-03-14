@@ -7,7 +7,6 @@ import { getDiferenceDays } from "../../../../functions/getDiferenceDays";
 import {
   faTrash,
   faEdit,
-  faFileImage,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSubscription, useMutation } from "@apollo/client";
 import { listenRefrendasCiculacion } from "../../../../graphql/Suscription";
