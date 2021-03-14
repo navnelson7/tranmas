@@ -1,13 +1,11 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./rules.css";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./graphql/ApolloClient";
 import * as serviceWorker from "./serviceWorker";
 import Loader from "./components/Loader";
-
 const App = lazy(() => import("./App"));
-
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<Loader />}>

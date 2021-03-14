@@ -12,6 +12,7 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible/statistic";
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
+import { preguntaPermisos } from "./firebaseConfig";
 
 const EditarCarwash = lazy(() =>
   import("./components/UnidadesTransporte/ConsumoCarwash/Editar")

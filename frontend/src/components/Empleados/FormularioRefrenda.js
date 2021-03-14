@@ -14,6 +14,21 @@ const FormularioRefrenda = ({Id,Nombre}) => {
 
     //const [addReRefrenda] = useMutation(setRefrendaOne);
 
+    const [refrenda, setRefrenda] = useState({
+        id_empleado: '',
+        fecha_emision: '',
+        fecha_refrenda: ''
+    });
+
+
+    const onChange = e => {
+        setRefrenda({
+            ...refrenda,
+            [e.target.name] : e.target.value,
+            id_empleado: Id
+        })
+    }
+
     return (
         <Fragment>
             <ToastComponent
@@ -36,9 +51,9 @@ const FormularioRefrenda = ({Id,Nombre}) => {
                                 aria-label="Nacimiento"
                                 aria-describedby="Nacimiento"
                                 type="date"
-                                name="fecha_nacimiento"
-                                // value={empleadoEstado.fecha_nacimiento}
-                                // onChange={onChange}
+                                name="fecha_emision"
+                                value={refrenda.fecha_emision}
+                                onChange={onChange}
                             />
                         </InputGroup>
                     </Col>
@@ -53,9 +68,9 @@ const FormularioRefrenda = ({Id,Nombre}) => {
                                 aria-label="Nacimiento"
                                 aria-describedby="Nacimiento"
                                 type="date"
-                                name="fecha_nacimiento"
-                                // value={empleadoEstado.fecha_nacimiento}
-                                // onChange={onChange}
+                                name="fecha_refrenda"
+                                value={refrenda.fecha_refrenda}
+                                onChange={onChange}
                             />
                         </InputGroup>
                     </Col>
