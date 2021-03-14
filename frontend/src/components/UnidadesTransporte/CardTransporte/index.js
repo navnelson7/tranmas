@@ -69,7 +69,24 @@ function CardTransporte({ unidad }) {
             {kilometrajeCambio.data.repuestos.map((kilometrajes) => {
               return (
                 <Fragment key={kilometrajes.id}>
-                    {data.registro_combustible[0] === undefined || null ? "" : kilometrajeMax.data.registro_combustible_aggregate.aggregate
+                  {
+                  data.registro_combustible.length === 0 ? 
+                  
+                  kilometrajeMax.data.registro_combustible_aggregate.aggregate
+                    .max.kilometraje_actual > kilometrajes.km_para_cambio ? (
+                    <Alert variant="warning">
+                      <Alert.Heading>¡Oh vaya!</Alert.Heading>
+                      <p>
+                        La unidad de transporte necesita un cambio de{" "}
+                        {kilometrajes.nombre}
+                      </p>
+                    </Alert>
+                  ) : (
+                    ""
+                  )
+                  : 
+                  
+                  kilometrajeMax.data.registro_combustible_aggregate.aggregate
                     .max.kilometraje_actual >
                   data.registro_combustible[0].kilometraje_actual +
                     kilometrajes.km_para_cambio ? (
@@ -82,9 +99,7 @@ function CardTransporte({ unidad }) {
                     </Alert>
                   ) : (
                     ""
-                  ) }
-
-                  
+                  )}
                 </Fragment>
               );
             })}
