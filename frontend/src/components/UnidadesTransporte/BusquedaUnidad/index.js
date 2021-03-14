@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Form } from "react-bootstrap";
 import { useSubscription } from "@apollo/client";
 import { listenUnidadBySearch } from "../../../graphql/Suscription";
 
 function BusquedaUnidad({ setData }) {
   const [TextSearch, setTextSearch] = useState(null);
-  const { data } = useSubscription(listenUnidadBySearch, {
+  const { data, loading } = useSubscription(listenUnidadBySearch, {
     variables: {
       numero_unidad: TextSearch,
     },
   });
   useEffect(()=> {
-    if (data !== undefined) {
-      console.log(data);
+    if (data !== undefined && TextSearch !== null) {
+      console.log('seteado');
       setData(data.unidades_de_transporte)
     }
   }, [data])
+  if (loading) {
+    return <Fragment>
+      Cargando busqueda...
+    </Fragment>
+  }
   return (
     <div className="mr-3">
       <Form.Control

@@ -29,6 +29,7 @@ function RegistroDetalleEnTaller() {
   const [ExecuteDetalleTaller, setExecuteDetalleTaller] = useState(false);
   const [setDetalleTaller] = useMutation(insertDetalleTaller);
   const [updateRespuesto] = useMutation(updateCantidadRepuesto);
+  
   const changeTaller = (e) => {
     if (e.target.name === "cantidad") {
       setNuevoDetallerTaller({
@@ -42,6 +43,7 @@ function RegistroDetalleEnTaller() {
       });
     }
   };
+  // GUARDA EL ESTADO EN TALLER
   useEffect(() => {
     if (ExecuteDetalleTaller) {
       setLoading(true);
@@ -54,7 +56,7 @@ function RegistroDetalleEnTaller() {
             setIconType("success");
             setTextAlert("Estado en taller registrado correctamente");
             setshowAlert(true);
-            setExecuteDetalleTaller(true);
+            setExecuteDetalleTaller(true); 
             setNuevoDetallerTaller({
               ...NuevoDetallerTaller,
               cantidad: 1,
@@ -79,6 +81,7 @@ function RegistroDetalleEnTaller() {
     // eslint-disable-next-line
   }, [ExecuteDetalleTaller, id]);
 
+  //ACTUALIZA LA CANTIDAD DE REPUESTOS EN STOCK
   const submitUpdateCantidadDeRespuesto = (e) => {
     e.preventDefault();
     if (NuevoDetallerTaller.cantidad < 1) {
@@ -91,7 +94,7 @@ function RegistroDetalleEnTaller() {
       updateRespuesto({
         variables: {
           id: NuevoDetallerTaller.id_repuesto,
-          cantidad: NuevoDetallerTaller.cantidad / -1,
+          cantidad: NuevoDetallerTaller.cantidad / -1, // CONVIERTE EL NUMERO EN NEGATIVO
         },
       })
         .then((res) => {

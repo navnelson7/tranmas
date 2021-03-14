@@ -116,7 +116,8 @@ function FormNuevoRegistro() {
           }
         });
     }
-  }, [ExecuteRegistroTaller, id]);
+    // eslint-disable-next-line
+  }, [ExecuteRegistroTaller, id, addRegistroTaller]);
 
   if (loading || Loading)
     return (
