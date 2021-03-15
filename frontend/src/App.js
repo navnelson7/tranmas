@@ -257,7 +257,7 @@ function App() {
                 <EditarDetalleEnTaller />
               </Suspense>
             </Route>
-            <Route exact path="/registro/detalle/taller/:id">
+            <Route exact path="/registro/detalle/taller/:id/:unidadTransporte">
               <Suspense fallback="Cargando....">
                 <RegistroDetalleEnTaller />
               </Suspense>

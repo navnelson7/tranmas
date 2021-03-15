@@ -4,7 +4,10 @@ import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 import { Form, InputGroup, Card, Row, Col, FormControl } from "react-bootstrap";
 import ButtonDesitions from "../../../ButtonsDesitions";
 import { useMutation, useSubscription } from "@apollo/client";
-import { saveRegistroCombustibleDaily } from "../../../../graphql/Mutations";
+import {
+  saveRegistroCombustibleDaily,
+  updateRepuestosReparadosByUnidadTransporte,
+} from "../../../../graphql/Mutations";
 import { useParams, useHistory } from "react-router-dom";
 import { ToastComponent } from "../../../Toast";
 import { listenKilomatrajeMax } from "../../../../graphql/Suscription";
@@ -12,7 +15,11 @@ import { listenKilomatrajeMax } from "../../../../graphql/Suscription";
 function RegistroCombustible() {
   const { id } = useParams();
   const { push } = useHistory();
+
   const [addCombustible] = useMutation(saveRegistroCombustibleDaily);
+  const [reloadRepuestosReparadosOfUnidadTransporte] = useMutation(
+    updateRepuestosReparadosByUnidadTransporte
+  );
 
   const { data, loading, error } = useSubscription(listenKilomatrajeMax, {
     variables: { id: id },
@@ -68,6 +75,40 @@ function RegistroCombustible() {
       });
     }
   };
+
+  const [
+    ExecuteCleanRepuestosReparados,
+    setExecuteCleanRepuestosReparados,
+  ] = useState(false);
+
+  useEffect(() => {
+    if (ExecuteCleanRepuestosReparados) {
+      reloadRepuestosReparadosOfUnidadTransporte({
+        variables: {
+          id: id,
+        },
+      })
+        .then((res) => {
+          if (res.data) {
+            setLoading(false);
+            setIconType("success");
+            setTextAlert("Registrado correctamente");
+            setshowAlert(true);
+            setTimeout(() => {
+              //si todo va bien lo redirecciona al inicio
+              push("/unidades-transporte");
+            }, 2000);
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setTextAlert(error.message);
+          setIconType("error");
+          setshowAlert(true);
+        });
+    }
+  }, [ExecuteCleanRepuestosReparados]);
+
   const submitCombustible = () => {
     setLoading(true);
     // SI EL USUARIO NO SELECCIONA AL MOTORISTA
@@ -86,13 +127,7 @@ function RegistroCombustible() {
         .then((res) => {
           if (res.data) {
             setLoading(false);
-            setIconType("success");
-            setshowAlert(true);
-            setTextAlert("Registrado correctamente");
-            setTimeout(() => {
-              //si todo va bien lo redirecciona al inicio
-              push("/unidades-transporte");
-            }, 2000);
+            setExecuteCleanRepuestosReparados(true);
           }
         })
         .catch((error) => {
@@ -112,7 +147,6 @@ function RegistroCombustible() {
       </div>
     );
   if (error) return `Error! ${error.message}`;
-
   return (
     <Fragment>
       <ToastComponent

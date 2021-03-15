@@ -1,12 +1,13 @@
 import React from "react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSubscription } from "@apollo/client";
 import { listenDetallesTaller } from "../../../../../../graphql/Suscription";
 import styled from "styled-components";
 import CardsDetalles from "./CardsDetalles";
 
 function DetallesTaller({ idRegistroTaller }) {
+  const {id} = useParams();
   const { loading, data, error } = useSubscription(listenDetallesTaller, {
     variables: {
       id_registro_taller: idRegistroTaller,
@@ -54,7 +55,7 @@ function DetallesTaller({ idRegistroTaller }) {
           </div>
           <div>
             <StyleButton>
-              <Link to={`/registro/detalle/taller/${idRegistroTaller}`}>
+              <Link to={`/registro/detalle/taller/${idRegistroTaller}/${id}`}>
                 <button className="btn-opcion bg-guardar">
                   <strong>Agregar detalle</strong>
                 </button>
@@ -108,8 +109,8 @@ function DetallesTaller({ idRegistroTaller }) {
                   <hr class="line-horizontal" />
                 </div>
                 <div>
-                  <Link to={`/registro/detalle/taller/${idRegistroTaller}`}>
-                    <button className="btn-opcion bg-guardar">
+                  <Link to={`/registro/detalle/taller/${idRegistroTaller}/${id}`}>
+                    <button className="btn-opcion bg-guardar"> 
                       <strong>Agregar detalle</strong>
                     </button>
                   </Link>

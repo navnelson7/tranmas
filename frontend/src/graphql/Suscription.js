@@ -388,7 +388,7 @@ export const listenKmParaCambio = gql`
 `;
 
 export const listenUnidadBySearch = gql`
-  subscription unidades_de_transporte($numero_unidad: numeric){
+  subscription unidades_de_transporte($numero_unidad: numeric) {
     unidades_de_transporte(where: { numero_equipo: { _eq: $numero_unidad } }) {
       activo
       numero_pasajeros
@@ -400,6 +400,14 @@ export const listenUnidadBySearch = gql`
       marca_transporte {
         marca
       }
+    }
+  }
+`;
+
+export const RepuestosReperadosByUnidadDeTransporte = gql`
+  subscription unidades_de_transporte_by_pk($id: uuid!) {
+    unidades_de_transporte_by_pk(id: $id) {
+      id_repuestos_reparados
     }
   }
 `;
