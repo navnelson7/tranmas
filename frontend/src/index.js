@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./rules.css";
 import { ApolloProvider } from "@apollo/client";

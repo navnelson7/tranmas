@@ -6,7 +6,7 @@ import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { Form, InputGroup, FormControl, Col, Row, Button } from 'react-bootstrap'
 import { ToastComponent } from "../Toast";
 
-const FormularioRefrenda = ({Id,Nombre}) => {
+const FormularioRefrenda = ({Id,Nombre,Licencia}) => {
 
     const [showAlert, setshowAlert] = useState(false);
     const [IconType, setIconType] = useState("");
@@ -17,7 +17,8 @@ const FormularioRefrenda = ({Id,Nombre}) => {
     const [refrenda, setRefrenda] = useState({
         id_empleado: '',
         fecha_emision: '',
-        fecha_refrenda: ''
+        fecha_refrenda: '',
+        numero_licencia_conducir:''
     });
 
 
@@ -25,8 +26,13 @@ const FormularioRefrenda = ({Id,Nombre}) => {
         setRefrenda({
             ...refrenda,
             [e.target.name] : e.target.value,
-            id_empleado: Id
+            id_empleado: Id,
+            numero_licencia_conducir:Licencia
         })
+    }
+
+    const onSubmit = (e) => {
+        console.log("clicando")
     }
 
     return (
@@ -75,7 +81,7 @@ const FormularioRefrenda = ({Id,Nombre}) => {
                         </InputGroup>
                     </Col>
                 </Row>
-                <Button variant="danger">  Agregar Refrenda <FontAwesomeIcon icon={faAddressCard}></FontAwesomeIcon></Button>
+                <Button variant="danger" onClick={onSubmit}>  Agregar Refrenda <FontAwesomeIcon icon={faAddressCard}></FontAwesomeIcon></Button>
             </Form>
         </Fragment>
     );
