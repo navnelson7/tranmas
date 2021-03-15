@@ -5,15 +5,27 @@ import ButtonDesitions from "../../../../ButtonsDesitions";
 import FormDetalleEnTaller from "../FormDetalleTaller";
 import { useMutation } from "@apollo/client";
 import { ToastComponent } from "../../../../Toast";
+import { useSubscription } from "@apollo/client";
+import { RepuestosReperadosByUnidadDeTransporte } from "../../../../../graphql/Suscription";
 import {
   updateCantidadRepuesto,
   insertDetalleTaller,
+  updateUnidadDeTransporteRepuestosReparados,
 } from "../../../../../graphql/Mutations";
 
 function RegistroDetalleEnTaller() {
-  const { id } = useParams();
+  const { id, unidadTransporte } = useParams();
   const { push } = useHistory();
 
+  // TRAEMOS LOS REPUESTOS REPARADOS DE LA UNIDAD
+  const { data, loading } = useSubscription(
+    RepuestosReperadosByUnidadDeTransporte,
+    {
+      variables: {
+        id: unidadTransporte,
+      },
+    }
+  );
   //ALERT
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
@@ -29,7 +41,11 @@ function RegistroDetalleEnTaller() {
   const [ExecuteDetalleTaller, setExecuteDetalleTaller] = useState(false);
   const [setDetalleTaller] = useMutation(insertDetalleTaller);
   const [updateRespuesto] = useMutation(updateCantidadRepuesto);
-  
+  const [updateRepuestoReparado] = useMutation(
+    updateUnidadDeTransporteRepuestosReparados
+  );
+  const [ExecuteRepuestoReparado, setExecuteRepuestoReparado] = useState(false);
+
   const changeTaller = (e) => {
     if (e.target.name === "cantidad") {
       setNuevoDetallerTaller({
@@ -56,17 +72,14 @@ function RegistroDetalleEnTaller() {
             setIconType("success");
             setTextAlert("Estado en taller registrado correctamente");
             setshowAlert(true);
-            setExecuteDetalleTaller(true); 
+            setExecuteDetalleTaller(true);
             setNuevoDetallerTaller({
               ...NuevoDetallerTaller,
               cantidad: 1,
               comentarios: "",
               id_registro_taller: id,
             });
-            setTimeout(() => {
-              //si todo va bien lo redirecciona al inicio
-              push("/unidades-transporte");
-            }, 2000);
+            setExecuteRepuestoReparado(true);
           }
         })
         .catch((error) => {
@@ -117,7 +130,48 @@ function RegistroDetalleEnTaller() {
     }
   };
 
-  if (Loading)
+  useEffect(() => {
+    if (ExecuteRepuestoReparado) {
+      let repuestosReparadosAll =
+        JSON.parse(data.unidades_de_transporte_by_pk.id_repuestos_reparados) ===
+          null || ""
+          ? []
+          : JSON.parse(
+              data.unidades_de_transporte_by_pk.id_repuestos_reparados
+            );
+      updateRepuestoReparado({
+        variables: {
+          id: unidadTransporte,
+          id_repuestos_reparados: JSON.stringify([
+            ...repuestosReparadosAll,
+            NuevoDetallerTaller.id_repuesto,
+          ]),
+        },
+      })
+        .then((res) => {
+          if (res.data) {
+            setLoading(false);
+            setIconType("success");
+            setTextAlert("Registrado correctamente");
+            setshowAlert(true);
+            setTimeout(() => {
+              //si todo va bien lo redirecciona al inicio
+              push(`/registro/taller/${unidadTransporte}`);
+            }, 2000);
+          }
+        })
+        .catch((error) => {
+          if (error !== null || error !== undefined) {
+            setTextAlert(error.message);
+            setIconType("error");
+            setLoading(false);
+            setshowAlert(true);
+          }
+        });
+    }
+  }, [ExecuteRepuestoReparado]);
+
+  if (Loading || loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -143,7 +197,7 @@ function RegistroDetalleEnTaller() {
         </div>
       </StyleRegistroTaller>
       <ButtonDesitions
-        linkCancel={"/unidades-transporte"}
+        linkCancel={`/registro/taller/${unidadTransporte}`}
         submitSave={submitUpdateCantidadDeRespuesto}
       />
     </Fragment>

@@ -119,6 +119,7 @@ function FormNuevoRegistro() {
     // eslint-disable-next-line
   }, [ExecuteRegistroTaller, id, addRegistroTaller]);
 
+
   if (loading || Loading)
     return (
       <div className="center-box mt-5">
