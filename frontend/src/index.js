@@ -5,9 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import { client } from "./graphql/ApolloClient";
 import * as serviceWorker from "./serviceWorker";
 import Loader from "./components/Loader";
-
 const App = lazy(() => import("./App"));
-
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<Loader />}>

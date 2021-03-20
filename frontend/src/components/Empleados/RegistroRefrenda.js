@@ -33,6 +33,7 @@ const RegistroRefrenda = () => {
     const [encontrados, guardarEncontrados] = useState([]);
     const [Id, setId] = useState("");
     const [Nombre, setNombre] = useState("");
+    const [Licencia, setLicencia] = useState("");
 
     const onChange = async e =>{
         e.persist();
@@ -91,6 +92,7 @@ const RegistroRefrenda = () => {
                                             agregarRefrenda();
                                             setId(encontrado.id);
                                             setNombre(encontrado.nombres);
+                                            setLicencia(encontrado.licencia_conducir);
                                             }
                                             } value={encontrado.id} name="id">Agregar Refrenda <FontAwesomeIcon icon={faExclamationCircle}/></Button></td>
                                         </tr>
@@ -106,6 +108,7 @@ const RegistroRefrenda = () => {
                             <FormularioRefrenda 
                                 Id={Id}
                                 Nombre={Nombre}
+                                Licencia={Licencia}
                             />
                         </Fragment>
                     ):(
