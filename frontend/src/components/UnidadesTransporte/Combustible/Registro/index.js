@@ -60,13 +60,17 @@ function RegistroCombustible() {
     // eslint-disable-next-line
   }, [data]);
   const changeCombustible = (e) => {
-    if (
-      e.target.name === "galones_servidos" ||
-      e.target.name === "kilometraje_actual"
-    ) {
+    if (e.target.name === "galones_servidos") {
       setNuevoCombustible({
         ...NuevoCombustible,
         [e.target.name]: parseInt(e.target.value),
+      });
+    }
+
+    if (e.target.name === "kilometraje_actual") {
+      setNuevoCombustible({
+        ...NuevoCombustible,
+        [e.target.name]: parseFloat(e.target.value).toFixed(2),
       });
     } else {
       setNuevoCombustible({
@@ -186,8 +190,7 @@ function RegistroCombustible() {
                       </InputGroup.Prepend>
                       <FormControl
                         placeholder="Kilometraje actual"
-                        aria-label="nombre"
-                        aria-describedby="basic-addon1"
+                        step="0.01"
                         name="kilometraje_actual"
                         type="number"
                         onChange={(e) => changeCombustible(e)}

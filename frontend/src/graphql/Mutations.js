@@ -427,7 +427,7 @@ export const updateRegistroCombustibleById = gql`
     $fecha: date
     $galones_servidos: numeric
     $id_empleado_motorista: uuid
-    $kilometraje_actual: numeric
+    $kilometraje_actual: float8
     $id: uuid!
   ) {
     update_registro_combustible_by_pk(
@@ -464,7 +464,7 @@ export const saveRegistroCombustibleDaily = gql`
     $id_empleado_motorista: uuid
     $id_unidad_transporte: uuid
     $id_usuario: uuid
-    $kilometraje_actual: numeric
+    $kilometraje_actual: float8
     $year: String
     $mes: String
   ) {

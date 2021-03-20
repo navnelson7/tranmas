@@ -32,12 +32,16 @@ function EditarCombustible() {
 
   const changeCombustible = (e) => {
     if (
-      e.target.name === "galones_servidos" ||
-      e.target.name === "kilometraje_actual"
-    ) {
+      e.target.name === "galones_servidos") {
       setEditarCombustible({
         ...EditarCombustible,
         [e.target.name]: parseInt(e.target.value),
+      });
+    }
+    if (e.target.name === "kilometraje_actual") {
+      setEditarCombustible({
+        ...EditarCombustible,
+        [e.target.name]: parseFloat(e.target.value).toFixed(2),
       });
     } else {
       setEditarCombustible({
@@ -126,9 +130,8 @@ function EditarCombustible() {
                       </InputGroup.Prepend>
                       <FormControl
                         placeholder="Kilometraje actual"
-                        aria-label="nombre"
-                        aria-describedby="basic-addon1"
                         name="kilometraje_actual"
+                        step="0.01"
                         type="number"
                         value={EditarCombustible.kilometraje_actual}
                         onChange={(e) => changeCombustible(e)}
