@@ -1,55 +1,98 @@
 import React, { Fragment, useState, useEffect } from "react";
-import styled from "styled-components";
-import { Form, Spinner } from "react-bootstrap";
-import { Link, useHistory, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/client";
-import { getRepuestosById } from "../../../graphql/Queries";
-import { updateRepuestoOne } from "../../../graphql/Mutations";
+import {
+  Container,
+  Row,
+  Form,
+  FormControl,
+  Col,
+  InputGroup,
+  Card,
+  Button,
+} from "react-bootstrap";
 
+import ListBoxEstadoRepuesto from "../../listbox/ListBoxEstadoRepuesto";
+import ListBoxProveedores from "../../listbox/ListBoxProveedores";
+import ListBoxUnidadMedida from "../../listbox/ListBoxUnidadMedida";
+import ListBoxMarcas from "../../listbox/ListBoxMarcas";
 import { ToastComponent } from "../../Toast";
+import {
+  listenRepuestosByEdit,
+  listenRelacionesRepuestoEdit,
+} from "../../../graphql/Suscription";
+import { updateRepuestoById } from "../../../graphql/Mutations";
+import { useSubscription, useMutation } from "@apollo/client";
+import { useHistory, useParams } from "react-router";
 
-function EditarRepuestos() {
+const FormRepuestos = () => {
+  const { id } = useParams();
   const { push } = useHistory();
-  const params = useParams();
+
+  // ALERTA
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
-  const [newRepuesto, setnewRepuesto] = useState({});
 
-  const { loading, error, data } = useQuery(getRepuestosById, {
-    variables: { id: params ? params.id : "" },
+  const [repuestoin, guardarRepuesto] = useState({
+    cantidad: 868681,
+    codigo_repuesto: "",
+    comentarios: "",
+    fecha_factura: "",
+    fecha_ingreso: "",
+    id_estado: "",
+    id_marca: "",
+    id_proveedor: "",
+    id_unidad_medida: "",
+    km_para_cambio: 0,
+    nombre: "aaaa",
+    numero_factura: 0,
+    precio: "$0",
+    id: "",
+  });
+  const { data, loading, error } = useSubscription(listenRepuestosByEdit, {
+    variables: {
+      id: id,
+    },
   });
 
-  const [updateProveedor] = useMutation(updateRepuestoOne);
-  useEffect(() => {
-    let datos = {};
-    datos = data === undefined ? {} : data.repuestos_by_pk;
-    setnewRepuesto(datos);
-  }, [data]);
+  const relacionesRepuestos = useSubscription(listenRelacionesRepuestoEdit, {
+    variables: {
+      id: id,
+    },
+  });
 
-  const changeProveedor = (e) => {
-    setnewRepuesto({
-      ...newRepuesto,
-      [e.target.name]: e.target.value,
-    });
+  const [updateRepuesto] = useMutation(updateRepuestoById);
+
+  useEffect(() => {
+    let repuesto = {};
+    repuesto = data === undefined ? {} : { ...data.repuestos_by_pk, id: id };
+    guardarRepuesto(repuesto);
+  }, [data, id]);
+
+  const changeRepuesto = (e) => {
+    if (e.target.name === "km_para_cambio") {
+      guardarRepuesto({
+        ...repuestoin,
+        [e.target.name]: parseInt(e.target.value),
+      });
+    } else {
+      guardarRepuesto({
+        ...repuestoin,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
-  const submitProveedor = (e) => {
-    e.preventDefault();
-    setnewRepuesto({
-      ...newRepuesto,
-      updated_at: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + "-" + new Date().getDate(),
-    });
-    updateProveedor({
-      variables: newRepuesto
+  const submitUpdateRepuesto = () => {
+    updateRepuesto({
+      variables: repuestoin,
     })
       .then((res) => {
         if (res.data) {
           setLoading(false);
           setIconType("success");
-          setshowAlert(true);
           setTextAlert("Registrado correctamente");
+          setshowAlert(true);
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
             push("/listado-repuestos");
@@ -64,15 +107,15 @@ function EditarRepuestos() {
         setshowAlert(true);
       });
   };
-  if (loading)
+  if (loading || relacionesRepuestos.loading || Loading)
     return (
-      <Fragment>
-        <div className="box-center">
-          <Spinner animation="border" variant="primary" />
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
-      </Fragment>
+      </div>
     );
-  if (error) return <p align="center">{`Error! ${error.message}`}</p>
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
       <ToastComponent
@@ -81,190 +124,245 @@ function EditarRepuestos() {
         iconType={IconType}
         textAlert={TextAlert}
       />
-      <br />
-      {Loading ? (
-        <div className="box-center">
-          <Spinner />
+      <Container>
+        <div className="box-left">
+          <h1>Formulario para editar Ingreso de Repuestos</h1>
+          <Form>
+            <Card>
+              <Card.Body>
+                <Row>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Codigo Repuesto
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="0000000000"
+                        aria-label="codigo"
+                        aria-describedby="basic -addon1"
+                        name="codigo_repuesto"
+                        value={repuestoin.codigo_repuesto}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Nombre
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="Nombre del Repuesto"
+                        aria-label="nombre"
+                        aria-describedby="basic-addon1"
+                        name="nombre"
+                        value={repuestoin.nombre}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={4}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Cantidad
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="00"
+                        aria-label="cantidad"
+                        aria-describedby="basic-addon1"
+                        name="cantidad"
+                        value={repuestoin.cantidad}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+                  <Col sm={4}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <InputGroup.Text id="basic-addon1">
+                          Precio
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="0.00"
+                        aria-label="precio"
+                        aria-describedby="basic-addon1"
+                        name="precio"
+                        value={repuestoin.precio}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+
+                  <ListBoxUnidadMedida
+                    medidaEscogida={
+                      relacionesRepuestos.data.repuestos_by_pk
+                        .unidad_medida_repuesto.unidad_de_medida
+                    }
+                    idMedidaEscogida={
+                      relacionesRepuestos.data.repuestos_by_pk.id_unidad_medida
+                    }
+                    changeMedida={changeRepuesto}
+                  />
+                </Row>
+                <Row>
+                  <Col sm={4}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
+                        <InputGroup.Text id="basic-addon1">
+                          Factura
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="000000000"
+                        aria-label="numero_factura"
+                        arita-describedby="basic-addon1"
+                        name="numero_factura"
+                        value={repuestoin.numero_factura}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+                  <Col sm={4}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Fecha Factura
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        type="date"
+                        aria-label="fecha_factura"
+                        aria-describedby="basic-addon1"
+                        name="fecha_factura"
+                        value={repuestoin.fecha_factura}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+                  <Col sm={4}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Fecha Ingreso
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        type="date"
+                        aria-label="fecha_ingreso"
+                        aria-describedby="basic-addon1"
+                        name="fecha_ingreso"
+                        value={repuestoin.fecha_ingreso}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={6}>
+                    <ListBoxMarcas
+                      marcaSeleccionada={
+                        relacionesRepuestos.data.repuestos_by_pk
+                          .marcar_de_repuestos.marca
+                      }
+                      idmarcaSeleccionada={
+                        relacionesRepuestos.data.repuestos_by_pk.id_marca
+                      }
+                      changeMarca={changeRepuesto}
+                    />
+                  </Col>
+                  <ListBoxProveedores
+                    proveedorEscogido={
+                      relacionesRepuestos.data.repuestos_by_pk
+                        .proveedor_de_repuesto.nombre_proveedor
+                    }
+                    idproveedorEscogido={
+                      relacionesRepuestos.data.repuestos_by_pk.id_proveedor
+                    }
+                    changeProveedor={changeRepuesto}
+                  />
+                </Row>
+                <Row>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Usuario
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="usuario"
+                        aria-label="id_usuario"
+                        aria-describedby="basic-addon1"
+                        name="id_usuario"
+                        readOnly
+                      />
+                    </InputGroup>
+                  </Col>
+                  <ListBoxEstadoRepuesto
+                    estadoRepuestoSeleccionado={
+                      relacionesRepuestos.data.repuestos_by_pk
+                        .estado_repuesto_stock.estado_repuestos
+                    }
+                    changeEstadoRepuesto={changeRepuesto}
+                  />
+                </Row>
+                <Row>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>
+                          Km para cambio de repuesto
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        type="number"
+                        name="km_para_cambio"
+                        placeholder="Km para cambio de repuesto"
+                        value={repuestoin.km_para_cambio}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>Comentarios</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        as="textarea"
+                        aria-label="Comentarios"
+                        name="comentarios"
+                        value={repuestoin.comentarios}
+                        onChange={changeRepuesto}
+                      />
+                    </InputGroup>
+                  </Col>
+                </Row>
+                <Button
+                  varian="Primary"
+                  size="lg"
+                  onClick={() => submitUpdateRepuesto()}
+                >
+                  Guardar
+                </Button>
+              </Card.Body>
+            </Card>
+          </Form>
         </div>
-      ) : null}
-      <StyleNuevoProveedor>
-        <div className="box-left-proveedor">
-          <h2>Editar Proveedor</h2>
-          <div className="grid-forms-proveedor">
-            <div className="mt-grid">
-              Producto
-              <Form.Control
-                type="text"
-                onChange={(e) => changeProveedor(e)}
-                name="nombre"
-                placeholder="Nombre de Repuesto"
-                value={newRepuesto ? newRepuesto.nombre : ""}
-              />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control
-                type="text"
-                onChange={(e) => changeProveedor(e)}
-                name="cantidad"
-                placeholder="Cantidad"
-                value={newRepuesto ? newRepuesto.cantidad : ""}
-              />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control
-                type="text"
-                onChange={(e) => changeProveedor(e)}
-                name="codigo_repuesto"
-                placeholder="Código de repuesto"
-                value={newRepuesto ? newRepuesto.codigo_repuesto : ""}
-              />
-            </div>
-          </div>
-
-          <div className="grid-forms-proveedor">
-            <div className="mt-grid">
-              <Form.Control
-                type="text"
-                onChange={(e) => changeProveedor(e)}
-                name="precio"
-                placeholder="Precio"
-                value={newRepuesto ? newRepuesto.precio : ""}
-              />
-            </div>
-
-            <div className="mt-grid">
-              <Form.Control
-                type="text"
-                onChange={(e) => changeProveedor(e)}
-                name="numero_factura"
-                placeholder="Número de factura"
-                value={newRepuesto ? newRepuesto.numero_factura : ""}
-              />
-            </div>
-          </div>
-        </div>
-      </StyleNuevoProveedor>
-      <br />
-      <StyleBtn>
-        <div>
-          <ul>
-            <li>
-              <Link to="/listado-repuestos">
-                <button className="btn-opcion bg-cancelar">
-                  <strong>Cancelar</strong>
-                </button>
-              </Link>
-              <button
-                className="btn-opcion bg-guardar"
-                onClick={(e) => submitProveedor(e)}
-              >
-                <strong>Guardar</strong>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <br />
-        <br />
-      </StyleBtn>
+      </Container>
     </Fragment>
   );
-}
+};
 
-export default EditarRepuestos;
-
-const StyleNuevoProveedor = styled.div`
-  .box-left-proveedor {
-    margin-left: 18%;
-    margin-top: 2%;
-  }
-  .grid-forms-proveedor {
-    display: grid;
-    grid-template-columns: 33% 33% 33%;
-    grid-gap: 1%;
-    margin-left: 1%;
-    margin-right: 2%;
-  }
-  .mt-grid {
-    margin-top: 10px;
-  }
-  @media (min-width: 0px) and (max-width: 767px) {
-    .box-left-proveedor {
-      margin-left: 2%;
-      margin-top: 2%;
-    }
-    .grid-forms-proveedor {
-      display: grid;
-      grid-template-columns: 100%;
-      grid-gap: 1%;
-      margin-left: 1%;
-      margin-right: 2%;
-    }
-  }
-  @media (min-width: 768px) and (max-width: 1024px) {
-    .box-left-proveedor {
-      margin-left: 2%;
-      margin-top: 2%;
-    }
-  }
-  @media (min-width: 1920px) {
-    .box-left-proveedor {
-      margin-left: 15%;
-      margin-top: 2%;
-    }
-  }
-`;
-
-const StyleBtn = styled.div`
-  ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: black;
-  }
-  .btn-opcion {
-    display: inline-block;
-    font-weight: 400;
-    height: 40px;
-    width: 100px;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid transparent;
-    font-size: 1rem;
-    line-height: 1.5;
-    /* BORDER RADIUS */
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  .bg-cancelar {
-    transition: 0.3s;
-    color: black;
-    background: transparent;
-  }
-  .bg-cancelar:hover {
-    transition: 0.3s;
-    color: black;
-    background: #e6ecf0;
-  }
-  .bg-guardar {
-    transition: 0.3s;
-    color: #ffffff;
-    background: #3d50fa;
-  }
-  .bg-guardar:hover {
-    transition: 0.3s;
-    color: #ffffff;
-    background: #1f30cc;
-  }
-`;
+export default FormRepuestos;

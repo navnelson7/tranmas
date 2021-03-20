@@ -986,3 +986,44 @@ export const updateRepuestosReparadosByUnidadTransporte = gql`
     }
   }
 `;
+
+export const updateRepuestoById = gql`
+  mutation update_repuestos_by_pk(
+    $cantidad: numeric
+    $codigo_repuesto: String
+    $comentarios: String
+    $fecha_factura: date
+    $fecha_ingreso: date
+    $id_estado: uuid
+    $id_marca: uuid
+    $id_proveedor: uuid
+    $id_unidad_medida: uuid
+    $km_para_cambio: Int
+    $nombre: String
+    $numero_factura: Int
+    $precio: money
+    $id: uuid!
+    $__typename: String
+  ) {
+    update_repuestos_by_pk(
+      pk_columns: { id: $id }
+      _set: {
+        cantidad: $cantidad
+        codigo_repuesto: $codigo_repuesto
+        comentarios: $comentarios
+        fecha_factura: $fecha_factura
+        fecha_ingreso: $fecha_ingreso
+        id_estado: $id_estado
+        id_marca: $id_marca
+        id_proveedor: $id_proveedor
+        id_unidad_medida: $id_unidad_medida
+        km_para_cambio: $km_para_cambio
+        nombre: $nombre
+        numero_factura: $numero_factura
+        precio: $precio
+      }
+    ) {
+      id
+    }
+  }
+`;

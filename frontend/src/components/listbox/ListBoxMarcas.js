@@ -3,7 +3,11 @@ import { InputGroup, FormControl } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { getMarcas } from "../../graphql/Queries";
 
-const ListMarcas = ({ changeMarca, marcaSeleccionada="" }) => {
+const ListMarcas = ({
+  changeMarca,
+  marcaSeleccionada = "",
+  idmarcaSeleccionada = "",
+}) => {
   const [marcas] = useState([
     {
       id: "",
@@ -28,7 +32,7 @@ const ListMarcas = ({ changeMarca, marcaSeleccionada="" }) => {
         value={id}
         onChange={changeMarca}
       >
-        <option>
+        <option value={idmarcaSeleccionada}>
           {marcaSeleccionada === ""
             ? "Seleccione una Marca"
             : marcaSeleccionada}

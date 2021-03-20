@@ -411,3 +411,46 @@ export const RepuestosReperadosByUnidadDeTransporte = gql`
     }
   }
 `;
+
+export const listenRepuestosByEdit = gql`
+  subscription repuestos_by_pk($id: uuid!) {
+    repuestos_by_pk(id: $id) {
+      cantidad
+      fecha_factura
+      id_estado
+      id_marca
+      id_proveedor
+      comentarios
+      id_unidad_medida
+      codigo_repuesto
+      nombre
+      numero_factura
+      precio
+      km_para_cambio
+      fecha_ingreso
+    }
+  }
+`;
+
+export const listenRelacionesRepuestoEdit = gql`
+  subscription repuestos_by_pk($id: uuid!) {
+    repuestos_by_pk(id: $id) {
+      id_estado
+      estado_repuesto_stock {
+        estado_repuestos
+      }
+      id_marca
+      marcar_de_repuestos {
+        marca
+      }
+      id_proveedor
+      proveedor_de_repuesto {
+        nombre_proveedor
+      }
+      unidad_medida_repuesto {
+        unidad_de_medida
+      }
+      id_unidad_medida
+    }
+  }
+`;

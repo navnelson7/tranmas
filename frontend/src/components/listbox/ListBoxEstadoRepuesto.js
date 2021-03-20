@@ -1,44 +1,56 @@
-import React, { useState } from 'react';
-import {InputGroup, FormControl, Col} from 'react-bootstrap';
-import { useQuery } from '@apollo/client';
-import { getEstadoRepuestos } from '../../graphql/Queries'
+import React, { useState } from "react";
+import { InputGroup, FormControl, Col } from "react-bootstrap";
+import { useQuery } from "@apollo/client";
+import { getEstadoRepuestos } from "../../graphql/Queries";
 
+const ListBoxEstadoRepuestos = ({
+  changeEstadoRepuesto,
+  estadoRepuestoSeleccionado = "",
+}) => {
+  const [estados] = useState([
+    {
+      id: "",
+      estado_repuestos: "",
+    },
+  ]);
 
-const ListBoxEstadoRepuestos = ({changeEstadoRepuesto}) => {
+  const { id } = estados;
 
-    const [estados] = useState([{
-        id: '',
-        estado_repuestos: ''
-    }]);
+  const { data, loading, error } = useQuery(getEstadoRepuestos);
 
-    const {
-        id
-    } = estados
-
-    const {data, loading, error} = useQuery(getEstadoRepuestos);
-    
-    
-   
-
-
-    if (loading) return 'Loading...';   if (error) return `Error! ${error.message}`;
-    return (
-        <Col sm={6}>
-            <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                    <InputGroup.Text id="basic-addon1">Estado de Repuesto</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl as="select" name="id_estado" value={id} onChange={changeEstadoRepuesto}>
-                    <option>Seleccione un Estado</option>
-                    { data.estado_repuestos_stock.lenght === 0
-                                ? (<option id="">No hay data</option>)
-                                :  data.estado_repuestos_stock.map(estado =>(
-                                    <option key={estado.id} value={estado.id}>{estado.estado_repuestos}</option>
-                                ))
-                            }
-                </FormControl>
-                </InputGroup>
-        </Col>
-    );
-}
+  if (loading) return "Loading...";
+  if (error) return `Error! ${error.message}`;
+  return (
+    <Col sm={6}>
+      <InputGroup className="mb-3">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon1">
+            Estado de Repuesto
+          </InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          as="select"
+          name="id_estado"
+          value={id}
+          onChange={changeEstadoRepuesto}
+        >
+          <option>
+            {estadoRepuestoSeleccionado === ""
+              ? "Seleccione un Estado"
+              : estadoRepuestoSeleccionado}
+          </option>
+          {data.estado_repuestos_stock.lenght === 0 ? (
+            <option id="">No hay data</option>
+          ) : (
+            data.estado_repuestos_stock.map((estado) => (
+              <option key={estado.id} value={estado.id}>
+                {estado.estado_repuestos}
+              </option>
+            ))
+          )}
+        </FormControl>
+      </InputGroup>
+    </Col>
+  );
+};
 export default ListBoxEstadoRepuestos;

@@ -19,7 +19,6 @@ import { useMutation } from "@apollo/client";
 import { setRepuestosOne } from "../../graphql/Mutations";
 
 import { ToastComponent } from "../Toast";
-import { parse } from "graphql";
 //import { concatPagination } from '@apollo/client/utilities';
 
 const FormRepuestos = () => {
@@ -317,6 +316,7 @@ const FormRepuestos = () => {
                       <FormControl
                         type="number"
                         name="km_para_cambio"
+                        placeholder="Km para cambio de repuesto"
                         value={km_para_cambio}
                         onChange={onChange}
                       />

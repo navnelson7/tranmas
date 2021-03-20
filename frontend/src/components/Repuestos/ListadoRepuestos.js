@@ -21,7 +21,6 @@ const ListadoRepuestos = () => {
     if (data) {
       setListadoRepuestos(data.repuestos);
     }
-    console.log(listadoRepuestos);
     // eslint-disable-next-line
   }, [loading, data, setListadoRepuestos]);
   if (loading) return <p>cargando</p>;
@@ -62,7 +61,7 @@ const ListadoRepuestos = () => {
                   </tr>
                 ))
               )}
-            </tbody>
+            </tbody> 
           </Table>
         </div>
       </Container>
