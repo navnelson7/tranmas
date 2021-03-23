@@ -10,16 +10,13 @@ function BusquedaUnidad({ setData }) {
       numero_unidad: TextSearch,
     },
   });
-  useEffect(()=> {
-    if (data !== undefined && TextSearch !== null) {
-      console.log('seteado');
-      setData(data.unidades_de_transporte)
+  useEffect(() => {
+    if (data !== undefined && TextSearch !== null && loading === false) {
+      setData(data.unidades_de_transporte);
     }
-  }, [data])
+  }, [data, loading]);
   if (loading) {
-    return <Fragment>
-      Cargando busqueda...
-    </Fragment>
+    return <Fragment>Cargando busqueda...</Fragment>;
   }
   return (
     <div className="mr-3">

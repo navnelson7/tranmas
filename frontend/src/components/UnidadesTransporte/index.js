@@ -42,7 +42,7 @@ function UnidadesTransporte() {
             marca_transporte {
               marca
             } 
-          }
+          } 
         }
       `,
           }),

@@ -396,6 +396,7 @@ export const listenUnidadBySearch = gql`
       id
       image
       id_marca
+      id_repuestos_reparados
       numero_equipo
       marca_transporte {
         marca
