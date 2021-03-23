@@ -63,7 +63,11 @@ function ResultFilter() {
   const { data, loading, error } = useSubscription(
     SelectField === "updated_at" ? GET_FILTER_DATE : GET_FILTER,
     {
-      variables: { text: StateSearch, limit: 20, offset: PaginateNumber },
+      variables: {
+        text: "%" + StateSearch + "%",
+        limit: 20,
+        offset: PaginateNumber,
+      },
     }
   );
   //EDITAR
