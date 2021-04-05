@@ -457,9 +457,15 @@ export const listenRelacionesRepuestoEdit = gql`
 `;
 
 export const listenDetalleTaller = gql`
-  subscription detalle_trabajo_taller_aggregate($idRepuesto: uuid) {
+  subscription detalle_trabajo_taller_aggregate(
+    $idRepuesto: uuid
+    $idUnidadTransporte: uuid
+  ) {
     detalle_trabajo_taller_aggregate(
-      where: { id_repuesto: { _eq: $idRepuesto } }
+      where: {
+        id_repuesto: { _eq: $idRepuesto }
+        registro_taller: { id_unidad_transporte: { _eq: $idUnidadTransporte } }
+      }
     ) {
       aggregate {
         count

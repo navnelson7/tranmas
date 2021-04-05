@@ -14,7 +14,7 @@ function BusquedaUnidad({ setData }) {
     if (data !== undefined && TextSearch !== null && loading === false) {
       setData(data.unidades_de_transporte);
     }
-  }, [data, loading]);
+  }, [data, loading, TextSearch]);
   if (loading) {
     return <Fragment>Cargando busqueda...</Fragment>;
   }

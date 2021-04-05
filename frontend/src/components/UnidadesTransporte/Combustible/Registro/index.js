@@ -111,7 +111,8 @@ function RegistroCombustible() {
           setshowAlert(true);
         });
     }
-  }, [ExecuteCleanRepuestosReparados]);
+    // eslint-disable-next-line
+  }, [ExecuteCleanRepuestosReparados, push, id]);
 
   const submitCombustible = () => {
     setLoading(true);
