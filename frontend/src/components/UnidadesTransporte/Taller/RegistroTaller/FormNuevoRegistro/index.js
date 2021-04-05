@@ -34,7 +34,7 @@ function FormNuevoRegistro() {
   });
 
   const [addRegistroTaller] = useMutation(setRegistroTallerOne);
-
+ 
   useEffect(() => {
     let kilometrajeData = 0;
     kilometrajeData =

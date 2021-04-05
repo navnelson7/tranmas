@@ -10,6 +10,7 @@ import ButtonTapiceria from "./ButtonTapiceria";
 import ButtonRefrenda from "./ButtonRefrenda";
 import ButtonCarwash from "./ButtonCarwash";
 import { useSubscription } from "@apollo/client";
+import ButtonFallas from "./ButtonFallas";
 import {
   listenKilometrajePenultimo,
   listenKmParaCambio,
@@ -24,7 +25,7 @@ function CardTransporte({ unidad }) {
   const kilometrajeMax = useSubscription(listenKilometrajeMax, {
     variables: {
       id: unidad.id,
-    },  
+    },
   });
   // ESTO TRAE EL KILOMETRAJE PENULTIMO DE LA UNIDAD DE TRANSPORTE
   const { data, loading, error } = useSubscription(listenKilometrajePenultimo, {
@@ -65,6 +66,7 @@ function CardTransporte({ unidad }) {
                 <ButtonTapiceria idUnidadTransporte={unidad.id} />
                 <ButtonRefrenda idUnidadTransporte={unidad.id} />
                 <ButtonCarwash idUnidadTransporte={unidad.id} />
+                <ButtonFallas idUnidadTransporte={unidad.id} />
               </div>
             </StyleGridCircle>
             <br />
@@ -111,7 +113,7 @@ function CardTransporte({ unidad }) {
                       kilometrajeMax={kilometrajeMax}
                       kilometrajes={kilometrajes}
                       repuestosReparados={unidad.id_repuestos_reparados}
-                    />                   
+                    />
                   )}
                 </Fragment>
               );

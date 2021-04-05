@@ -455,3 +455,34 @@ export const listenRelacionesRepuestoEdit = gql`
     }
   }
 `;
+
+export const listenDetalleTaller = gql`
+  subscription detalle_trabajo_taller_aggregate($idRepuesto: uuid) {
+    detalle_trabajo_taller_aggregate(
+      where: { id_repuesto: { _eq: $idRepuesto } }
+    ) {
+      aggregate {
+        count
+      }
+      nodes {
+        id
+        registro_taller {
+          fecha
+          comentarios
+          unidad_transporte {
+            numero_placa
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const listenNombresDeRepuestos = gql`
+  subscription {
+    repuestos {
+      id
+      nombre
+    }
+  }
+`;

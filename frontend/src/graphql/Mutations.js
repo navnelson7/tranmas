@@ -499,8 +499,8 @@ export const setRegistroTallerOne = gql`
     $id_empleado_mecanico: uuid
     $id_empleado_motorista: uuid
     $id_estado: uuid
-    $id_unidad_transporte: uuid
-    $kilometraje: Int
+    $id_unidad_transporte: uuid 
+    $kilometraje: float8
     $comentarios: String
   ) {
     insert_registro_taller_one(
