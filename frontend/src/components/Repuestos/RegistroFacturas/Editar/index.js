@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormFacturaRepuesto from "../FormFacturaRepuesto";
-import { useMutation } from "@apollo/client";
-import { insertOneFacturaRepuesto } from "../../../../graphql/Mutations";
+import { useMutation, useSubscription } from "@apollo/client";
+import { updateRegistroFacturaRepuesto } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { listenFacturaRepuestoById } from "../../../../graphql/Suscription";
 
-function RegistroFactura() {
+function EditarFactura() {
+  const { id } = useParams();
   const { push } = useHistory();
   // ALERTAS
   const [showAlert, setshowAlert] = useState(false);
@@ -13,7 +15,12 @@ function RegistroFactura() {
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
 
-  const [addFactura] = useMutation(insertOneFacturaRepuesto);
+  const { data, loading, error } = useSubscription(listenFacturaRepuestoById, {
+    variables: {
+      id: id,
+    },
+  });
+  const [updateFactura] = useMutation(updateRegistroFacturaRepuesto);
 
   const [NuevaFactura, setNuevaFactura] = useState({
     numero_factura: 0,
@@ -21,6 +28,20 @@ function RegistroFactura() {
     fecha: "",
     id_repuesto: "",
   });
+
+  useEffect(() => {
+    let factura = {};
+    factura =
+      data === undefined
+        ? {}
+        : {
+            numero_factura: data.registro_facturas_by_pk.numero_factura,
+            cantidad_comprada: data.registro_facturas_by_pk.cantidad_comprada,
+            fecha: data.registro_facturas_by_pk.fecha,
+            id_repuesto: data.registro_facturas_by_pk.id_repuesto,
+          };
+    setNuevaFactura(factura);
+  }, [data, id]);
 
   const changeFactura = (e) => {
     if (
@@ -41,8 +62,11 @@ function RegistroFactura() {
 
   const submitFactura = () => {
     setLoading(true);
-    addFactura({
-      variables: NuevaFactura,
+    updateFactura({
+      variables: {
+        ...NuevaFactura,
+        id: id,
+      },
     })
       .then((res) => {
         if (res.data) {
@@ -52,7 +76,7 @@ function RegistroFactura() {
           setTextAlert("Actualizado correctamente");
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
-            push("/listado-repuestos");
+            push("/facturas/repuestos");
           }, 2000);
         }
       })
@@ -63,7 +87,7 @@ function RegistroFactura() {
         setshowAlert(true);
       });
   };
-  if (Loading)
+  if (Loading || loading)
     return (
       <div className="box-center">
         <div className="spinner-border text-primary" role="status">
@@ -71,6 +95,8 @@ function RegistroFactura() {
         </div>
       </div>
     );
+  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
+  console.log(data.registro_facturas_by_pk);
   return (
     <div>
       <br />
@@ -84,9 +110,10 @@ function RegistroFactura() {
         NuevaFactura={NuevaFactura}
         changeFactura={changeFactura}
         submitFactura={submitFactura}
+        repuestoSeleccionado={data.registro_facturas_by_pk.repuesto.nombre}
       />
     </div>
   );
 }
 
-export default RegistroFactura;
+export default EditarFactura;

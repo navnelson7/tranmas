@@ -506,3 +506,17 @@ export const listenFacturaRepuesto = gql`
     }
   }
 `;
+
+export const listenFacturaRepuestoById = gql`
+  subscription registro_facturas_by_pk($id: uuid!) {
+    registro_facturas_by_pk(id: $id) {
+      cantidad_comprada
+      numero_factura
+      fecha
+      id_repuesto
+      repuesto {
+        nombre
+      }
+    }
+  }
+`;

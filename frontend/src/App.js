@@ -13,6 +13,9 @@ import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
 
+const EditarFacturaRepuesto = lazy(() =>
+  import("./components/Repuestos/RegistroFacturas/Editar")
+);
 const RegistroFacturaRepuesto = lazy(() =>
   import("./components/Repuestos/RegistroFacturas/Registro")
 );
@@ -193,6 +196,11 @@ function App() {
               </Suspense>
             </Route>
 
+            <Route exact path="/editar/facturas/repuestos/:id">
+              <Suspense fallback="Cargando....">
+                <EditarFacturaRepuesto />
+              </Suspense>
+            </Route>
             <Route exact path="/registro/facturas/repuestos">
               <Suspense fallback="Cargando....">
                 <RegistroFacturaRepuesto />

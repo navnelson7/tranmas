@@ -4,19 +4,34 @@ import { Form, Card, Row, InputGroup, Col, FormControl } from "react-bootstrap";
 import ButtonsDesitions from "../../../ButtonsDesitions";
 import styled from "styled-components";
 import ListBoxRepuestos from "../../../listbox/ListBoxRepuestos";
+import { useHistory } from "react-router";
 
-function FormFacturaRepuesto({ NuevaFactura, changeFactura, submitFactura }) {
+function FormFacturaRepuesto({
+  NuevaFactura,
+  changeFactura,
+  submitFactura,
+  repuestoSeleccionado = "",
+}) {
+  const { location } = useHistory();
   return (
     <Fragment>
       <StyleCarwash>
         <div className="container-form">
-          <h1>Registro de facturas de repuestos</h1>
+          <h1>
+            {location.pathname.includes("/registro/facturas/repuestos")
+              ? "Registro de facturas de repuestos"
+              : "Edición de factura de repuesto"}
+          </h1>
+
           <Form>
             <Card>
               <Card.Body>
                 <Row>
                   <Col sm={6}>
-                    <ListBoxRepuestos changeRepuesto={changeFactura} />
+                    <ListBoxRepuestos
+                      changeRepuesto={changeFactura}
+                      respuestoSeleccionado={repuestoSeleccionado}
+                    />
                   </Col>
                   <Col sm={6}>
                     <InputGroup className="mb-3">
@@ -72,7 +87,7 @@ function FormFacturaRepuesto({ NuevaFactura, changeFactura, submitFactura }) {
           </Form>
         </div>
       </StyleCarwash>
-      <ButtonsDesitions linkCancel="/" submitSave={submitFactura} />
+      <ButtonsDesitions linkCancel="/facturas/repuestos" submitSave={submitFactura} />
     </Fragment>
   );
 }

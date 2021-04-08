@@ -52,7 +52,7 @@ function RegistroFactura() {
           setTextAlert("Registrado correctamente");
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
-            push("/listado-repuestos");
+            push("/facturas/repuestos");
           }, 2000);
         }
       })

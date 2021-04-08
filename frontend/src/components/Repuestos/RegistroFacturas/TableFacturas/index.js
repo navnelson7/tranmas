@@ -87,7 +87,7 @@ function TableFacturas() {
                     <td>{factura.fecha}</td>
                     <td>
                       <Link
-                        to={`/editar/tapiceria/1`}
+                        to={`/editar/facturas/repuestos/${factura.id}`}
                         variant="danger"
                         title="Editar"
                       >

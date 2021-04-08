@@ -1062,3 +1062,25 @@ export const deleteregistroFacturaRepuestobyId = gql`
     }
   }
 `;
+
+export const updateRegistroFacturaRepuesto = gql`
+  mutation update_registro_facturas_by_pk(
+    $id: uuid!
+    $cantidad_comprada: numeric
+    $fecha: date
+    $id_repuesto: uuid!
+    $numero_factura: numeric
+  ) {
+    update_registro_facturas_by_pk(
+      _set: {
+        cantidad_comprada: $cantidad_comprada
+        fecha: $fecha
+        id_repuesto: $id_repuesto
+        numero_factura: $numero_factura
+      }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
