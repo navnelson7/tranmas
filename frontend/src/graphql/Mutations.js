@@ -499,7 +499,7 @@ export const setRegistroTallerOne = gql`
     $id_empleado_mecanico: uuid
     $id_empleado_motorista: uuid
     $id_estado: uuid
-    $id_unidad_transporte: uuid 
+    $id_unidad_transporte: uuid
     $kilometraje: float8
     $comentarios: String
   ) {
@@ -1023,6 +1023,41 @@ export const updateRepuestoById = gql`
         precio: $precio
       }
     ) {
+      id
+    }
+  }
+`;
+
+export const insertOneFacturaRepuesto = gql`
+  mutation insert_registro_facturas_one(
+    $cantidad_comprada: numeric
+    $fecha: date
+    $id_repuesto: uuid!
+    $numero_factura: numeric
+  ) {
+    insert_registro_facturas_one(
+      object: {
+        cantidad_comprada: $cantidad_comprada
+        fecha: $fecha
+        id_repuesto: $id_repuesto
+        numero_factura: $numero_factura
+      }
+    ) {
+      id
+    }
+
+    update_repuestos_by_pk(
+      _inc: { cantidad: $cantidad_comprada }
+      pk_columns: { id: $id_repuesto }
+    ) {
+      id
+    }
+  }
+`;
+
+export const deleteregistroFacturaRepuestobyId = gql`
+  mutation delete_registro_facturas_by_pk($id: uuid!) {
+    delete_registro_facturas_by_pk(id: $id) {
       id
     }
   }

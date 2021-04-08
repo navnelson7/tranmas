@@ -3,7 +3,7 @@ import Repuesto from "./Repuesto";
 import { Table, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
-import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { faUserEdit, faScroll } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
@@ -35,11 +35,17 @@ const ListadoRepuestos = () => {
             </Button>
           </Link>
 
-          <Table striped bordered hover responsive>
+          <Link className="ml-3" to="/facturas/repuestos" variant="danger">
+            <Button variant="primary">
+              <FontAwesomeIcon icon={faScroll} /> Facturas de repuestos
+            </Button>
+          </Link>
+          <br/><br/>
+          <Table striped bordered hover responsive size="sm">
             <thead>
               <tr>
                 <th>Nombres</th>
-                <th>Marca</th>
+                <th>Marca</th> 
                 <th>Cantidad</th>
                 <th>U. Medida</th>
                 <th>Precio</th>
@@ -61,7 +67,7 @@ const ListadoRepuestos = () => {
                   </tr>
                 ))
               )}
-            </tbody> 
+            </tbody>
           </Table>
         </div>
       </Container>

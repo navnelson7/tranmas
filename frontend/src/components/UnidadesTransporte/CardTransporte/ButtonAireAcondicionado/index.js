@@ -6,7 +6,7 @@ function ButtonAireAcondicionado({ idUnidadTransporte }) {
     <Fragment>
       <StyleLoaderEspera>
         <Link
-          title="Reparaciones"
+          title="Reparaciones de aire acondicionado"
           to={`/tabla/aire/acondicionado/${idUnidadTransporte}`}
         >
           <div className="cursor-pointer">

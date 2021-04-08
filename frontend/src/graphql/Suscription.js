@@ -492,3 +492,17 @@ export const listenNombresDeRepuestos = gql`
     }
   }
 `;
+
+export const listenFacturaRepuesto = gql`
+  subscription {
+    registro_facturas {
+      cantidad_comprada
+      fecha
+      id
+      numero_factura
+      repuesto {
+        nombre
+      }
+    }
+  }
+`;
