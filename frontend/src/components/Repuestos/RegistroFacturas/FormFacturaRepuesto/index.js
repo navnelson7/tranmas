@@ -59,7 +59,7 @@ function FormFacturaRepuesto({
                       <FormControl
                         placeholder="N° de factura"
                         name="numero_factura"
-                        type="text"
+                        type="number"
                         onChange={(e) => changeFactura(e)}
                         value={NuevaFactura.numero_factura}
                       />
