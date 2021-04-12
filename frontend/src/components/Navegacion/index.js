@@ -8,6 +8,7 @@ import empleadosIcon from "./iconos/empleados.svg";
 import repuestosIcon from "./iconos/repuesto.svg";
 import proveedorIcon from "./iconos/proveedor.svg";
 import busIcon from "./iconos/bus.svg";
+import edificioIcon from "./iconos/edificio.svg";
 
 //icons active
 import homeIconActive from "./iconos-active/home.svg";
@@ -16,6 +17,7 @@ import empleadosIconActive from "./iconos-active/empleados.svg";
 import repuestosIconActive from "./iconos-active/repuesto.svg";
 import proveedorIconActive from "./iconos-active/proveedor.svg";
 import busIconActive from "./iconos-active/bus.svg";
+import edificioIconActive from "./iconos-active/edificio.svg";
 
 import NavbarMobile from "./NavbarMobile";
 
@@ -87,8 +89,6 @@ function Navegacion() {
                   </p>
                 </div>
               </div>
-
-
 
               <div className="grid-sidebar bg-active">
                 <div className="icon-sidebar-align">
@@ -190,6 +190,41 @@ function Navegacion() {
                       }
                     >
                       Proveedores
+                    </Link>
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid-sidebar bg-active">
+                <div className="icon-sidebar-align">
+                  <img
+                    src={
+                      location.pathname === "/edificios"
+                        ? edificioIconActive
+                        : edificioIcon
+                    }
+                    height="32px"
+                    width="32px"
+                    alt="Listado de empleados"
+                  />
+                </div>
+                <div className="mt-txt">
+                  <p
+                    style={
+                      location.pathname === "/edificios"
+                        ? { color: "#1DA1F2" }
+                        : { color: "black" }
+                    }
+                  >
+                    <Link
+                      to="/edificios"
+                      style={
+                        location.pathname === "/edificios"
+                          ? { color: "#1DA1F2" }
+                          : { color: "black" }
+                      }
+                    >
+                      Edificios
                     </Link>
                   </p>
                 </div>
