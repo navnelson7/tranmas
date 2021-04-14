@@ -18,7 +18,7 @@ function TableCarwash() {
   const { data, loading, error } = useSubscription(listenControlCarwash, {
     variables: {
       id,
-    },
+    }, 
   });
   const [deleteCarwash] = useMutation(deleteControlCarwashById);
   const submitDeleteCarwash = (idSelected) => {

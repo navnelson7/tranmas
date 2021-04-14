@@ -1,14 +1,43 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { listenRegistroEdificios } from "../../../../graphql/Suscription";
-import { useSubscription } from "@apollo/react-hooks";
+import { useSubscription, useMutation } from "@apollo/client";
+import { deleteRegistroEdificioById } from "../../../../graphql/Mutations";
+import { ToastComponent } from "../../../Toast";
 
 function TableRegistroEdificios() {
+  //ALERTA
+  const [TextAlert, setTextAlert] = useState("");
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
+
   const { data, loading, error } = useSubscription(listenRegistroEdificios);
+
+  const [deleteRegistroEdificio] = useMutation(deleteRegistroEdificioById);
+
+  const submitDeleteRegistroEdificio = (idSelected) => {
+    deleteRegistroEdificio({
+      variables: {
+        id: idSelected,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          setIconType("success");
+          setshowAlert(true);
+          setTextAlert("Eliminado correctamente");
+        }
+      })
+      .catch((error) => {
+        setTextAlert(error.message);
+        setIconType("error");
+        setshowAlert(true);
+      });
+  };
   if (loading)
     return (
       <div className="center-box mt-5">
@@ -20,9 +49,17 @@ function TableRegistroEdificios() {
   if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
       <StyleAire>
         <div className="box-left-aire">
-          <Button variant="info">Nuevo Registro</Button>
+          <Link to="/registro/edificios">
+            <Button variant="info">Nuevo Registro</Button>
+          </Link>
           <br />
           <br />
           <Table striped bordered hover size="sm">
@@ -42,7 +79,7 @@ function TableRegistroEdificios() {
                   <tr key={edificio.id}>
                     <td>{index + 1}</td>
                     <td>{edificio.nombre}</td>
-                    <td>{edificio.description}</td>
+                    <td>{edificio.descripcion}</td>
                     <td>{edificio.extension}</td>
                     <td>{edificio.funcion_edificio}</td>
                     <td>
@@ -55,7 +92,13 @@ function TableRegistroEdificios() {
                           <FontAwesomeIcon icon={faEdit} />
                         </Button>
                       </Link>
-                      <Button variant="danger" title="Eliminar">
+                      <Button
+                        variant="danger"
+                        title="Eliminar"
+                        onClick={() =>
+                          submitDeleteRegistroEdificio(edificio.id)
+                        }
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
                     </td>

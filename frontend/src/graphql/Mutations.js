@@ -1084,3 +1084,31 @@ export const updateRegistroFacturaRepuesto = gql`
     }
   }
 `;
+
+export const insertRegistroEdificiosOne = gql`
+  mutation insert_registro_edificios_one(
+    $descripcion: String
+    $extension: String
+    $funcion_edificio: String
+    $nombre: String
+  ) {
+    insert_registro_edificios_one(
+      object: {
+        descripcion: $descripcion
+        extension: $extension
+        funcion_edificio: $funcion_edificio
+        nombre: $nombre
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const deleteRegistroEdificioById = gql`
+  mutation delete_registro_edificios_by_pk($id: uuid!) {
+    delete_registro_edificios_by_pk(id: $id) {
+      id
+    }
+  }
+`;

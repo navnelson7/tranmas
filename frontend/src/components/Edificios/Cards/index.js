@@ -11,7 +11,7 @@ function CardsEdificios() {
         <div className="box-left-cards">
           <Row>
             <Col md={4}>
-              <Link to="/registro/edificios" className="txt-decoration">
+              <Link to="/tabla/edificios" className="txt-decoration">
                 <Card className="card-hover" style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Title className="text-center">

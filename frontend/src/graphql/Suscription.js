@@ -524,7 +524,7 @@ export const listenFacturaRepuestoById = gql`
 export const listenRegistroEdificios = gql`
   subscription {
     registro_edificios {
-      description
+      descripcion
       nombre
       extension
       funcion_edificio
