@@ -520,3 +520,15 @@ export const listenFacturaRepuestoById = gql`
     }
   }
 `;
+
+export const listenRegistroEdificios = gql`
+  subscription {
+    registro_edificios {
+      description
+      nombre
+      extension
+      funcion_edificio
+      id
+    }
+  }
+`;
