@@ -1,24 +1,37 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { insertRegistroEdificiosOne } from "../../../../graphql/Mutations";
-import { useHistory } from "react-router";
+import React, { useState, useEffect } from "react";
+import { useMutation, useSubscription } from "@apollo/client";
+import { updateRegistroEdificios } from "../../../../graphql/Mutations";
+import { listenRegistroEdificioById } from "../../../../graphql/Suscription";
+import { useHistory, useParams } from "react-router";
 import { ToastComponent } from "../../../Toast";
 import FormEdificio from "../FormEdificio";
 
-function Registro() {
+function EditarEdficio() {
+  const { idEdificio } = useParams();
   const { push } = useHistory();
   //ALERTA
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [Loading, setLoading] = useState(false);
-  const [setEdificio] = useMutation(insertRegistroEdificiosOne);
+  const [updateEdificio] = useMutation(updateRegistroEdificios);
   const [NuevoEdificio, setNuevoEdificio] = useState({
     nombre: "",
     descripcion: "",
     extension: "",
     funcion_edificio: "",
   });
+
+  const { data, loading, error } = useSubscription(listenRegistroEdificioById, {
+    variables: {
+      id: idEdificio,
+    },
+  });
+  useEffect(() => {
+    let edificio = {};
+    edificio = data === undefined ? {} : data.registro_edificios_by_pk;
+    setNuevoEdificio(edificio);
+  }, [data, idEdificio]);
 
   const changeEdificio = (e) => {
     setNuevoEdificio({
@@ -27,7 +40,7 @@ function Registro() {
     });
   };
   const submitRegistroEdificio = () => {
-    setEdificio({
+    updateEdificio({
       variables: NuevoEdificio,
     })
       .then((res) => {
@@ -35,7 +48,7 @@ function Registro() {
           setLoading(false);
           setIconType("success");
           setshowAlert(true);
-          setTextAlert("Registrado correctamente");
+          setTextAlert("Actualizado correctamente");
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
             push("/tabla/edificios");
@@ -49,7 +62,7 @@ function Registro() {
         setshowAlert(true);
       });
   };
-  if (Loading)
+  if (Loading || loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -57,6 +70,8 @@ function Registro() {
         </div>
       </div>
     );
+  if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
+
   return (
     <div>
       <ToastComponent
@@ -74,4 +89,4 @@ function Registro() {
   );
 }
 
-export default Registro;
+export default EditarEdficio;

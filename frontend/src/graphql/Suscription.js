@@ -532,3 +532,15 @@ export const listenRegistroEdificios = gql`
     }
   }
 `;
+
+export const listenRegistroEdificioById = gql`
+  subscription registro_edificios_by_pk($id: uuid!) {
+    registro_edificios_by_pk(id: $id) {
+      descripcion
+      nombre
+      extension
+      funcion_edificio
+      id
+    }
+  }
+`;

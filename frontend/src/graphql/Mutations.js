@@ -1105,6 +1105,29 @@ export const insertRegistroEdificiosOne = gql`
   }
 `;
 
+export const updateRegistroEdificios = gql`
+  mutation update_registro_edificios_by_pk(
+    $descripcion: String
+    $extension: String
+    $funcion_edificio: String
+    $nombre: String
+    $id: uuid!
+    $__typename: String
+  ) {
+    update_registro_edificios_by_pk(
+      _set: {
+        descripcion: $descripcion
+        extension: $extension
+        funcion_edificio: $funcion_edificio
+        nombre: $nombre
+      }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
+
 export const deleteRegistroEdificioById = gql`
   mutation delete_registro_edificios_by_pk($id: uuid!) {
     delete_registro_edificios_by_pk(id: $id) {

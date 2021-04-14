@@ -84,9 +84,9 @@ function TableRegistroEdificios() {
                     <td>{edificio.funcion_edificio}</td>
                     <td>
                       <Link
-                        to={`/editar/refrenda/circulacion/${edificio.id}`}
+                        to={`/editar/registro/edificio/${edificio.id}`}
                         variant="danger"
-                        title="Editar"
+                        title="Editar" 
                       >
                         <Button variant="info">
                           <FontAwesomeIcon icon={faEdit} />
