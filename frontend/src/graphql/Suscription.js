@@ -72,6 +72,25 @@ export const listenMotoristasListBox = gql`
   }
 `;
 
+export const listenEmpleadosListBox = gql`
+  subscription {
+    empleados {
+      id
+      nombres
+      apellidos
+    }
+  }
+`;
+
+export const listenEdificiosListBox = gql`
+  subscription {
+    registro_edificios {
+      nombre
+      id
+    }
+  }
+`;
+
 export const listenRepuestosListbox = gql`
   subscription {
     repuestos(where: { activo: { _eq: true }, cantidad: { _gt: 0 } }) {
@@ -568,6 +587,26 @@ export const listenMantenimientoEdificios = gql`
       empleado {
         nombres
         apellidos
+      }
+    }
+  }
+`;
+
+export const listenMantenimientoById = gql`
+  subscription mantenimiento_edificios_by_pk($id: uuid!) {
+    mantenimiento_edificios_by_pk(id: $id) {
+      id
+      fecha
+      imagen_antes
+      imagen_despues
+      id_edificio
+      id_empleado
+      empleado {
+        nombres
+        apellidos
+      }
+      edificio {
+        nombre
       }
     }
   }

@@ -1135,3 +1135,58 @@ export const deleteRegistroEdificioById = gql`
     }
   }
 `;
+
+export const insertRegistroMantenimientoEdificiosOne = gql`
+  mutation insert_mantenimiento_edificios_one(
+    $fecha: date
+    $id_edificio: uuid
+    $id_empleado: uuid
+    $imagen_antes: String
+    $imagen_despues: String
+  ) {
+    insert_mantenimiento_edificios_one(
+      object: {
+        fecha: $fecha
+        id_edificio: $id_edificio
+        id_empleado: $id_empleado
+        imagen_antes: $imagen_antes
+        imagen_despues: $imagen_despues
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const updateMantenimientoEdificio = gql`
+  mutation update_mantenimiento_edificios_by_pk(
+    $fecha: date
+    $id_edificio: uuid
+    $id_empleado: uuid
+    $imagen_antes: String
+    $imagen_despues: String
+    $id: uuid!
+    $__typename: String
+  ) {
+    update_mantenimiento_edificios_by_pk(
+      _set: {
+        fecha: $fecha
+        id_edificio: $id_edificio
+        id_empleado: $id_empleado
+        imagen_antes: $imagen_antes
+        imagen_despues: $imagen_despues
+      }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
+
+export const deleteMantenimientoEdificioById = gql`
+  mutation delete_mantenimiento_edificios_by_pk($id: uuid!) {
+    delete_mantenimiento_edificios_by_pk(id: $id) {
+      id
+    }
+  }
+`;

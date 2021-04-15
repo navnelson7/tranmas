@@ -85,7 +85,7 @@ function Registro() {
               setshowAlert(true);
             }
           }
-        });
+        }); 
     }
   };
   // ESPERA SI LA IMAGEN YA SE SUBIO Y SE OBTUVO LA URL PARA GUARDARLA EN EL TRANSPORTE
