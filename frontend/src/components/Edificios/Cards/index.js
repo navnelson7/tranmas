@@ -22,13 +22,18 @@ function CardsEdificios() {
               </Link>
             </Col>
             <Col md={4}>
-              <Card className="card-hover" style={{ width: "18rem" }}>
-                <Card.Body>
-                  <Card.Title className="text-center">
-                    Registro de trabajos de mantenimiento
-                  </Card.Title>
-                </Card.Body>
-              </Card>
+              <Link
+                to="/tabla/matenimiento/edificios"
+                className="txt-decoration"
+              >
+                <Card className="card-hover" style={{ width: "18rem" }}>
+                  <Card.Body>
+                    <Card.Title className="text-center">
+                      Mantenimiento de edificios
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Link>
             </Col>
             <Col md={4}>
               <Card className="card-hover" style={{ width: "18rem" }}>

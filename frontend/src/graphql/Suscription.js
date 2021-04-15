@@ -544,3 +544,31 @@ export const listenRegistroEdificioById = gql`
     }
   }
 `;
+
+export const listenDetalleMantenimiento = gql`
+  subscription {
+    detalle_mantenimiento_edificios {
+      costo
+      descripcion_de_trabajo
+      id
+      material
+      numero_factura
+    }
+  }
+`;
+
+export const listenMantenimientoEdificios = gql`
+  subscription {
+    mantenimiento_edificios {
+      id
+      edificio {
+        nombre
+      }
+      fecha
+      empleado {
+        nombres
+        apellidos
+      }
+    }
+  }
+`;

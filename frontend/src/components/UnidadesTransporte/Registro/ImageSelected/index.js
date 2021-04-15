@@ -16,7 +16,7 @@ function ImageSelected({ setnewImageChange, Progress }) {
         e.preventDefault();
         setImageprevious(e.target.result); // le damos el binario de la imagen para mostrarla en pantalla
       };
-    }
+    } 
   };
   return (
     <Fragment>
