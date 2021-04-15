@@ -1,40 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { useMutation, useSubscription } from "@apollo/client";
-import { updateRegistroEdificios } from "../../../../graphql/Mutations";
-import { listenDetalleMantenimientoEdificioById } from "../../../../graphql/Suscription";
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { insertDetalleEdificiosOne } from "../../../../graphql/Mutations";
 import { useHistory, useParams } from "react-router";
 import { ToastComponent } from "../../../Toast";
 import FormEdificio from "../FormEdificio";
 
-function EditarEdficio() {
-  const { idDetalle } = useParams();
+function Registro() {
+  const { idMantenimiento } = useParams();
   const { push } = useHistory();
   //ALERTA
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
   const [Loading, setLoading] = useState(false);
-  const [updateEdificio] = useMutation(updateRegistroEdificios);
-  const [NuevoEdificio, setNuevoEdificio] = useState({
-    nombre: "",
-    descripcion: "",
-    extension: "",
-    funcion_edificio: "",
-  });
+  const [setEdificio] = useMutation(insertDetalleEdificiosOne);
 
-  const { data, loading, error } = useSubscription(
-    listenDetalleMantenimientoEdificioById,
-    {
-      variables: {
-        id: idDetalle,
-      },
-    }
-  );
-  useEffect(() => {
-    let edificio = {};
-    edificio = data === undefined ? {} : data.registro_edificios_by_pk;
-    setNuevoEdificio(edificio);
-  }, [data, idDetalle]);
+  const [NuevoEdificio, setNuevoEdificio] = useState({
+    id_mantenimiento: idMantenimiento,
+    descripcion_de_trabajo: "",
+    material: "",
+    numero_factura: 0,
+    costo: 0,
+  });
 
   const changeEdificio = (e) => {
     setNuevoEdificio({
@@ -43,7 +30,7 @@ function EditarEdficio() {
     });
   };
   const submitRegistroEdificio = () => {
-    updateEdificio({
+    setEdificio({
       variables: NuevoEdificio,
     })
       .then((res) => {
@@ -51,10 +38,10 @@ function EditarEdficio() {
           setLoading(false);
           setIconType("success");
           setshowAlert(true);
-          setTextAlert("Actualizado correctamente");
+          setTextAlert("Registrado correctamente");
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
-            push("/tabla/edificios");
+            push(`/tabla/detalle/matenimiento/edificios/${idMantenimiento}`);
           }, 2000);
         }
       })
@@ -65,7 +52,7 @@ function EditarEdficio() {
         setshowAlert(true);
       });
   };
-  if (Loading || loading)
+  if (Loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -73,8 +60,6 @@ function EditarEdficio() {
         </div>
       </div>
     );
-  if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
-
   return (
     <div>
       <ToastComponent
@@ -84,6 +69,7 @@ function EditarEdficio() {
         textAlert={TextAlert}
       />
       <FormEdificio
+        idMantenimiento={idMantenimiento}
         changeEdificio={changeEdificio}
         NuevoEdificio={NuevoEdificio}
         submitRegistroEdificio={submitRegistroEdificio}
@@ -92,4 +78,4 @@ function EditarEdficio() {
   );
 }
 
-export default EditarEdficio;
+export default Registro;

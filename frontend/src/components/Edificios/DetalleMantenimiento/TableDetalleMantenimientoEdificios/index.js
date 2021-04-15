@@ -1,14 +1,47 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useSubscription } from "@apollo/client";
+import { useSubscription, useMutation } from "@apollo/client";
 import { listenDetalleMantenimiento } from "../../../../graphql/Suscription";
+import { deleteDetalleMantenimientoEdificioById } from "../../../../graphql/Mutations";
+import { ToastComponent } from "../../../Toast";
 
 function TableDetalleMantenimientoEdificios() {
-  const { data, loading, error } = useSubscription(listenDetalleMantenimiento);
+  //ALERTA
+  const [TextAlert, setTextAlert] = useState("");
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
+
+  const { idMantenimiento } = useParams();
+  const { data, loading, error } = useSubscription(listenDetalleMantenimiento, {
+    idMantenimiento: idMantenimiento,
+  });
+  const [deleteRegistroEdificio] = useMutation(
+    deleteDetalleMantenimientoEdificioById
+  );
+
+  const submitDeleteRegistroEdificio = (idSelected) => {
+    deleteRegistroEdificio({
+      variables: {
+        id: idSelected,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          setIconType("success");
+          setshowAlert(true);
+          setTextAlert("Eliminado correctamente");
+        }
+      })
+      .catch((error) => {
+        setTextAlert(error.message);
+        setIconType("error");
+        setshowAlert(true);
+      });
+  };
   if (loading)
     return (
       <div className="box-center">
@@ -25,9 +58,19 @@ function TableDetalleMantenimientoEdificios() {
     );
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
       <StyleAire>
         <div className="box-left-aire">
-          <Button variant="info">Nuevo Registro</Button>
+          <Link
+            to={`/registro/detalle/matenimiento/edificios/${idMantenimiento}`}
+          >
+            <Button variant="info">Nuevo Registro</Button>
+          </Link>
           <br />
           <br />
           <Table striped bordered hover size="sm">
@@ -54,15 +97,17 @@ function TableDetalleMantenimientoEdificios() {
                     <td>{detalle.costo}</td>
                     <td>
                       <Link
-                        to={`/editar/raaefrenda/circulacion/${detalle.id}`}
-                        variant="danger"
-                        title="Editar"
+                        to={`/editar/detalle/matenimiento/edificios/${detalle.id}/${idMantenimiento}`}
                       >
                         <Button variant="info">
                           <FontAwesomeIcon icon={faEdit} />
                         </Button>
                       </Link>
-                      <Button variant="danger" title="Eliminar">
+                      <Button
+                        variant="danger"
+                        title="Eliminar"
+                        onClick={() => submitDeleteRegistroEdificio(detalle.id)}
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
                     </td>

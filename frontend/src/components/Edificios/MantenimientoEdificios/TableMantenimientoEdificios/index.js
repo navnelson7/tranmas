@@ -104,7 +104,7 @@ function TableRegistroEdificios() {
                     </td>
                     <td>
                       <Link
-                        to={`/editar/matenimiento/edificios/${mantenimiento.id}`}
+                        to={`/tabla/detalle/matenimiento/edificios/${mantenimiento.id}`}
                       >
                         <Button variant="info">
                           <FontAwesomeIcon icon={faEdit} />

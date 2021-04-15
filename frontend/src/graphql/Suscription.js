@@ -565,8 +565,10 @@ export const listenRegistroEdificioById = gql`
 `;
 
 export const listenDetalleMantenimiento = gql`
-  subscription {
-    detalle_mantenimiento_edificios {
+  subscription detalle_mantenimiento_edificios($idMantenimiento: uuid) {
+    detalle_mantenimiento_edificios(
+      where: { id_mantenimiento: { _eq: $idMantenimiento } }
+    ) {
       costo
       descripcion_de_trabajo
       id
@@ -608,6 +610,18 @@ export const listenMantenimientoById = gql`
       edificio {
         nombre
       }
+    }
+  }
+`;
+
+export const listenDetalleMantenimientoEdificioById = gql`
+  subscription detalle_mantenimiento_edificios_by_pk($id: uuid!) {
+    detalle_mantenimiento_edificios_by_pk(id: $id) {
+      costo
+      descripcion_de_trabajo
+      material
+      numero_factura
+      id
     }
   }
 `;

@@ -1190,3 +1190,55 @@ export const deleteMantenimientoEdificioById = gql`
     }
   }
 `;
+
+export const insertDetalleEdificiosOne = gql`
+  mutation insert_detalle_mantenimiento_edificios_one(
+    $id_mantenimiento: uuid
+    $descripcion_de_trabajo: String
+    $material: String
+    $numero_factura: numeric
+    $costo: numeric
+  ) {
+    insert_detalle_mantenimiento_edificios_one(
+      object: {
+        id_mantenimiento: $id_mantenimiento
+        descripcion_de_trabajo: $descripcion_de_trabajo
+        material: $material
+        numero_factura: $numero_factura
+        costo: $costo
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const updateDetalleMantenimientoEdificio = gql`
+  mutation update_detalle_mantenimiento_edificios_by_pk(
+    $descripcion_de_trabajo: String
+    $material: String
+    $numero_factura: numeric
+    $costo: numeric
+    $__typename: String
+    $id: uuid!
+  ) {
+    update_detalle_mantenimiento_edificios_by_pk(
+      _set: {
+        descripcion_de_trabajo: $descripcion_de_trabajo
+        material: $material
+        numero_factura: $numero_factura
+        costo: $costo
+      }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
+export const deleteDetalleMantenimientoEdificioById = gql`
+  mutation delete_detalle_mantenimiento_edificios_by_pk($id: uuid!) {
+    delete_detalle_mantenimiento_edificios_by_pk(id: $id) {
+      id
+    }
+  }
+`;

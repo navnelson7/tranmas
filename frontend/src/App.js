@@ -13,6 +13,12 @@ import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
 
+const EditarDetalleMantenimientoEdificios = lazy(() =>
+  import("./components/Edificios/DetalleMantenimiento/Editar")
+);
+const RegistroDetalleMantenimientoEdificios = lazy(() =>
+  import("./components/Edificios/DetalleMantenimiento/Registro")
+);
 const EditarMantenimientoEdificios = lazy(() =>
   import("./components/Edificios/MantenimientoEdificios/Editar")
 );
@@ -250,12 +256,30 @@ function App() {
 
             <Route
               exact
-              path="/tabla/detalle/matenimiento/edificios/:idDetalle"
+              path="/editar/detalle/matenimiento/edificios/:idDetalle/:idMantenimiento"
+            >
+              <Suspense fallback="Cargando....">
+                <EditarDetalleMantenimientoEdificios />
+              </Suspense>
+            </Route>
+
+            <Route
+              exact
+              path="/registro/detalle/matenimiento/edificios/:idMantenimiento"
+            >
+              <Suspense fallback="Cargando....">
+                <RegistroDetalleMantenimientoEdificios />
+              </Suspense>
+            </Route>
+            <Route
+              exact
+              path="/tabla/detalle/matenimiento/edificios/:idMantenimiento"
             >
               <Suspense fallback="Cargando....">
                 <TableDetalleMantenimientoEdificios />
               </Suspense>
             </Route>
+
             <Route exact path="/tabla/matenimiento/edificios">
               <Suspense fallback="Cargando....">
                 <TableMantenimientoEdificios />
