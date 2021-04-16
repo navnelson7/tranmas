@@ -56,6 +56,7 @@ function TableDetalleMantenimientoEdificios() {
         <p>{error.message}</p>
       </div>
     );
+    console.log(data);
   return (
     <Fragment>
       <ToastComponent
@@ -90,7 +91,7 @@ function TableDetalleMantenimientoEdificios() {
                 return (
                   <tr key={detalle.id}>
                     <td>{index + 1}</td>
-                    <td>aqui va el nombre</td>
+                    <td>{detalle.mantenimiento_edificio.edificio.nombre}</td>
                     <td>{detalle.descripcion_de_trabajo}</td>
                     <td>{detalle.material}</td>
                     <td>{detalle.numero_factura}</td>

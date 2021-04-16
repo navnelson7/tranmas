@@ -576,6 +576,11 @@ export const listenDetalleMantenimiento = gql`
       id
       material
       numero_factura
+      mantenimiento_edificio {
+        edificio {
+          nombre
+        }
+      }
     }
   }
 `;
