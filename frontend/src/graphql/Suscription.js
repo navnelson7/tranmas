@@ -518,6 +518,7 @@ export const listenFacturaRepuesto = gql`
       cantidad_comprada
       fecha
       id
+      precio_repuesto
       numero_factura
       repuesto {
         nombre
@@ -533,6 +534,7 @@ export const listenFacturaRepuestoById = gql`
       numero_factura
       fecha
       id_repuesto
+      precio_repuesto
       repuesto {
         nombre
       }

@@ -1034,6 +1034,7 @@ export const insertOneFacturaRepuesto = gql`
     $fecha: date
     $id_repuesto: uuid!
     $numero_factura: numeric
+    $precio_repuesto: float8
   ) {
     insert_registro_facturas_one(
       object: {
@@ -1041,6 +1042,7 @@ export const insertOneFacturaRepuesto = gql`
         fecha: $fecha
         id_repuesto: $id_repuesto
         numero_factura: $numero_factura
+        precio_repuesto: $precio_repuesto
       }
     ) {
       id
@@ -1070,6 +1072,7 @@ export const updateRegistroFacturaRepuesto = gql`
     $fecha: date
     $id_repuesto: uuid!
     $numero_factura: numeric
+    $precio_repuesto: float8
   ) {
     update_registro_facturas_by_pk(
       _set: {
@@ -1077,6 +1080,7 @@ export const updateRegistroFacturaRepuesto = gql`
         fecha: $fecha
         id_repuesto: $id_repuesto
         numero_factura: $numero_factura
+        precio_repuesto: $precio_repuesto
       }
       pk_columns: { id: $id }
     ) {

@@ -27,6 +27,7 @@ function EditarFactura() {
     cantidad_comprada: 1,
     fecha: "",
     id_repuesto: "",
+    precio_repuesto: "",
   });
 
   useEffect(() => {
@@ -39,6 +40,7 @@ function EditarFactura() {
             cantidad_comprada: data.registro_facturas_by_pk.cantidad_comprada,
             fecha: data.registro_facturas_by_pk.fecha,
             id_repuesto: data.registro_facturas_by_pk.id_repuesto,
+            precio_repuesto: data.registro_facturas_by_pk.precio_repuesto,
           };
     setNuevaFactura(factura);
   }, [data, id]);
@@ -96,7 +98,6 @@ function EditarFactura() {
       </div>
     );
   if (error) return <p align="center">{`Error! ${error.message}`}</p>;
-  console.log(data.registro_facturas_by_pk);
   return (
     <div>
       <br />

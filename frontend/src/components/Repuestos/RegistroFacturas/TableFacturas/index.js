@@ -72,6 +72,7 @@ function TableFacturas() {
                 <th>N° de factura</th>
                 <th>Nombre de repuesto</th>
                 <th>Cantidad Comprada</th>
+                <th>Precio de repuiesto</th>
                 <th>Fecha</th>
                 <th>Acción</th>
               </tr>
@@ -84,6 +85,7 @@ function TableFacturas() {
                     <td>{factura.numero_factura}</td>
                     <td>{factura.repuesto.nombre}</td>
                     <td>{factura.cantidad_comprada}</td>
+                    <td>{factura.precio_repuesto}</td>
                     <td>{factura.fecha}</td>
                     <td>
                       <Link

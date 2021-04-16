@@ -81,6 +81,22 @@ function FormFacturaRepuesto({
                       />
                     </InputGroup>
                   </Col>
+                  <Col sm={6}>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">
+                          Precio de factura
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        placeholder="Precio de factura"
+                        name="precio_repuesto"
+                        type="text"
+                        onChange={(e) => changeFactura(e)}
+                        value={NuevaFactura.precio_repuesto}
+                      />
+                    </InputGroup>
+                  </Col>
                 </Row>
               </Card.Body>
             </Card>

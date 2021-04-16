@@ -20,6 +20,7 @@ function RegistroFactura() {
     cantidad_comprada: 1,
     fecha: "",
     id_repuesto: "",
+    precio_repuesto: "",
   });
 
   const changeFactura = (e) => {
