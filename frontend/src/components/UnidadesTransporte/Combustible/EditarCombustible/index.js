@@ -31,17 +31,10 @@ function EditarCombustible() {
   }, [data]);
 
   const changeCombustible = (e) => {
-    if (
-      e.target.name === "galones_servidos") {
+    if (e.target.name === "galones_servidos") {
       setEditarCombustible({
         ...EditarCombustible,
         [e.target.name]: parseInt(e.target.value),
-      });
-    }
-    if (e.target.name === "kilometraje_actual") {
-      setEditarCombustible({
-        ...EditarCombustible,
-        [e.target.name]: parseFloat(e.target.value).toFixed(2),
       });
     } else {
       setEditarCombustible({
@@ -68,7 +61,7 @@ function EditarCombustible() {
           setLoading(false);
           setIconType("success");
           setshowAlert(true);
-          setTextAlert("Registrado correctamente");
+          setTextAlert("Actualizado correctamente");
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
             push("/unidades-transporte");
@@ -131,8 +124,7 @@ function EditarCombustible() {
                       <FormControl
                         placeholder="Kilometraje actual"
                         name="kilometraje_actual"
-                        step="0.01"
-                        type="number"
+                        type="text"
                         value={EditarCombustible.kilometraje_actual}
                         onChange={(e) => changeCombustible(e)}
                       />
