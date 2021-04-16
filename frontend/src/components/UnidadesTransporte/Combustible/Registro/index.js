@@ -65,13 +65,6 @@ function RegistroCombustible() {
         ...NuevoCombustible,
         [e.target.name]: parseInt(e.target.value),
       });
-    }
-
-    if (e.target.name === "kilometraje_actual") {
-      setNuevoCombustible({
-        ...NuevoCombustible,
-        [e.target.name]: parseFloat(e.target.value).toFixed(2),
-      });
     } else {
       setNuevoCombustible({
         ...NuevoCombustible,
@@ -191,9 +184,8 @@ function RegistroCombustible() {
                       </InputGroup.Prepend>
                       <FormControl
                         placeholder="Kilometraje actual"
-                        step="0.01"
                         name="kilometraje_actual"
-                        type="number"
+                        type="text"
                         onChange={(e) => changeCombustible(e)}
                         value={NuevoCombustible.kilometraje_actual}
                       />
