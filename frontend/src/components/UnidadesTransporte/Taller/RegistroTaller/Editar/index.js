@@ -29,7 +29,7 @@ function EditarRegistroTaller() {
   const { loading, data, error } = useSubscription(listenRegistroTallerById, {
     variables: {
       id: id,
-    },
+    }, 
   });
 
   const [deleteregistroTallerById] = useMutation(deleteRegistroEnTaller);
@@ -62,14 +62,8 @@ function EditarRegistroTaller() {
   }, [data]);
 
   const changeTaller = (e) => {
-    if (e.target.name === "kilometraje") {
-      setRegistroTaller({
-        ...RegistroTaller,
-        [e.target.name]: parseInt(e.target.value),
-      });
-    }
+
     if (e.target.name === "activo") {
-      console.log(e.target.name, e.target.checked);
       setRegistroTaller({
         ...RegistroTaller,
         [e.target.name]: e.target.checked,
@@ -167,7 +161,7 @@ function EditarRegistroTaller() {
                       <FormControl
                         placeholder="Kilometraje actual"
                         name="kilometraje"
-                        type="number"
+                        type="text"
                         value={RegistroTaller.kilometraje}
                         onChange={(e) => changeTaller(e)}
                       />

@@ -612,8 +612,8 @@ export const updateRegistroTallerOne = gql`
     $comentarios: String
     $id_empleado_mecanico: uuid
     $id_empleado_motorista: uuid
-    $kilometraje: Int
-    $activo: Boolean
+    $kilometraje: float8
+    $activo: Boolean 
     $estado: String
   ) {
     update_registro_taller_by_pk(
