@@ -1254,3 +1254,11 @@ export const deleteRegistroCombustibleById = gql`
     }
   }
 `;
+
+export const deleteAccidenteById = gql`
+  mutation delete_accidentes_by_pk($id: uuid!) {
+    delete_accidentes_by_pk(id: $id) {
+      id
+    }
+  }
+`;

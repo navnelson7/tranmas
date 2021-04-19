@@ -1,12 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useSubscription } from "@apollo/client";
 import { listenAccidentes } from "../../../../graphql/Suscription";
 import CardAccidente from "./CardAccidente";
+import { ToastComponent } from "../../../Toast";
 
 function Accidentes() {
+  //ALERTA
+  const [TextAlert, setTextAlert] = useState("");
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
+
   const { id } = useParams();
   const { data, loading, error } = useSubscription(listenAccidentes, {
     variables: {
@@ -30,17 +36,32 @@ function Accidentes() {
     );
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
       <StyleCards>
         <div className="box-left-cards">
           <div className="container-viewport">
             <div className="d-flex justify-content-end mr-2">
               <Link to={`/registro/accidente/${id}`}>
-                <Button variant="primary">Nueva Unidad</Button>
+                <Button variant="primary">Nuevo accidente</Button>
               </Link>
             </div>
             <div className="row hidden-md-up">
               {data.accidentes.map((accidente) => {
-                return <CardAccidente key={accidente.id} accidente={accidente} />;
+                return (
+                  <CardAccidente
+                    idUnidadTransporte={id}
+                    key={accidente.id}
+                    accidente={accidente}
+                    setIconType={setIconType}
+                    setTextAlert={setTextAlert}
+                    setshowAlert={setshowAlert}
+                  />
+                );
               })}
             </div>
           </div>
@@ -51,7 +72,7 @@ function Accidentes() {
 }
 export default Accidentes;
 
-export const StyleCards = styled.div`
+const StyleCards = styled.div`
   .box-left-cards {
     margin-left: 18%;
     margin-top: 2%;

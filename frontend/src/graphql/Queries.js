@@ -338,18 +338,3 @@ export const EmpleadoByid = gql`
     }
   }
 `;
-
-export const AccidenteById = gql`
-  query accidentes_by_pk($id: uuid!) {
-    accidentes_by_pk(id: $id) {
-      descripcion_accidente
-      empleado_motorista {
-        nombres
-        apellidos
-      }
-      id
-      id_empleado_motorista
-      registro_fotos
-    }
-  }
-`;

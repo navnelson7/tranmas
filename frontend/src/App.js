@@ -12,7 +12,11 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible/statistic";
 import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
+import FormNuevoAccidente from "./components/UnidadesTransporte/Accidentes/FormNuevoAccidente";
 
+const EditarAccidente = lazy(() =>
+  import("./components/UnidadesTransporte/Accidentes/Editar")
+);
 const TableRegistroCombustible = lazy(() =>
   import("./components/UnidadesTransporte/Combustible/TableCombustible")
 );
@@ -222,13 +226,13 @@ function App() {
             </Route>
             <Route exact path="/registro/combustible/:id">
               <RegistroCombustible />
-            </Route> 
+            </Route>
             <Route exact path="/editar/registro/taller/:id">
-              <Suspense fallback="Cargando...."> 
+              <Suspense fallback="Cargando....">
                 <EditarRegistroEnTaller />
               </Suspense>
             </Route>
-            
+
             <Route exact path="/fallas/transporte/:id">
               <Suspense fallback="Cargando....">
                 <TableFallasTransporte />
@@ -284,10 +288,18 @@ function App() {
               </Suspense>
             </Route>
 
+            <Route exact path="/editar/registro/accidente/:id/:idUnidadTransporte">
+              <Suspense fallback="Cargando....">
+                <EditarAccidente />
+              </Suspense>
+            </Route>
+            <Route exact path="/registro/accidente/:id">
+              <FormNuevoAccidente />
+            </Route>
             <Route exact path="/tabla/registro/combustible/:idUnidadTransporte">
               <Suspense fallback="Cargando....">
                 <TableRegistroCombustible />
-              </Suspense> 
+              </Suspense>
             </Route>
 
             <Route exact path="/tabla/matenimiento/edificios">
