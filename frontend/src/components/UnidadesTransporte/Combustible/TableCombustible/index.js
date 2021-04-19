@@ -2,30 +2,54 @@ import React, { Fragment, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
+import { listenCombustibleinTable } from "../../../../graphql/Suscription";
+import { deleteRegistroCombustibleById } from "../../../../graphql/Mutations";
+import { useMutation, useSubscription } from "@apollo/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useSubscription, useMutation } from "@apollo/client";
-import { listenControlCarwash } from "../../../../graphql/Suscription";
-import { deleteControlCarwashById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
 
-function TableCarwash() {
-  const { id } = useParams();
+function TableCombustible() {
   //ALERTA
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
-  const { data, loading, error } = useSubscription(listenControlCarwash, {
+
+  const [meses] = useState([
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ]);
+
+  const { idUnidadTransporte } = useParams();
+  const { loading, data, error } = useSubscription(listenCombustibleinTable, {
     variables: {
-      id,
-    }, 
+      fecha:
+        new Date().getFullYear() +
+        "-" +
+        (new Date().getMonth() + 1) +
+        "-" +
+        new Date().getDate(),
+      id_unidad_transporte: idUnidadTransporte,
+    },
   });
-  const [deleteCarwash] = useMutation(deleteControlCarwashById);
-  const submitDeleteCarwash = (idSelected) => {
-    deleteCarwash({
+
+  const [setCombustible] = useMutation(deleteRegistroCombustibleById);
+
+  const submitDeleteCombustible = (idSelected) => {
+    setCombustible({
       variables: {
         id: idSelected,
-      }, 
+      },
     })
       .then((res) => {
         if (res.data) {
@@ -59,7 +83,17 @@ function TableCarwash() {
       />
       <StyleAire>
         <div className="box-left-aire">
-          <Link to={`/registro/consumo/carwash/${id}`} variant="danger">
+          <h6>
+            <strong>
+              Registros de combustibles del dia{" "}
+              {new Date().getDate() +
+                " de " +
+                meses[new Date().getMonth()] +
+                " de " +
+                new Date().getFullYear()}
+            </strong>
+          </h6>
+          <Link to={`/registro/combustible/${idUnidadTransporte}`}>
             <Button variant="info">Nuevo Registro</Button>
           </Link>
           <br />
@@ -68,25 +102,30 @@ function TableCarwash() {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Costo</th>
-                <th>Descripción</th>
+                <th>Galones servidos</th>
+                <th>Kilometraje</th>
+                <th>Motorista</th>
+                <th>Comentarios</th>
                 <th>Fecha</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody>
-              {data.registro_carwash.map((carwash, index) => {
+              {data.registro_combustible.map((carwash, index) => {
                 return (
                   <tr key={carwash.id}>
                     <td>{index + 1}</td>
-                    <td>{carwash.costo}</td>
-                    <td>{carwash.descripcion_trabajo}</td>
+                    <td>{carwash.galones_servidos}</td>
+                    <td>{carwash.kilometraje_actual}</td>
+                    <td>
+                      {carwash.empleado_motorista.nombres}{" "}
+                      {carwash.empleado_motorista.apellidos}
+                    </td>
+                    <td>{carwash.comentarios}</td>
                     <td>{carwash.fecha}</td>
                     <td>
                       <Link
-                        to={`/editar/consumo/carwash/${carwash.id}/${id}`}
-                        variant="danger"
-                        title="Editar"
+                        to={`/editar/combustible/${carwash.id}/${idUnidadTransporte}`}
                       >
                         <Button variant="info">
                           <FontAwesomeIcon icon={faEdit} />
@@ -95,7 +134,7 @@ function TableCarwash() {
                       <Button
                         variant="danger"
                         title="Eliminar"
-                        onClick={() => submitDeleteCarwash(carwash.id)}
+                        onClick={() => submitDeleteCombustible(carwash.id)}
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
@@ -111,7 +150,7 @@ function TableCarwash() {
   );
 }
 
-export default TableCarwash;
+export default TableCombustible;
 
 const StyleAire = styled.div`
   .box-left-aire {

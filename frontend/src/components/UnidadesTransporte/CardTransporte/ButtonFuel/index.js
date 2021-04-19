@@ -17,17 +17,10 @@ function ButtonFuel({ id }) {
         new Date().getDate(),
       id_unidad_transporte: id,
     },
-  });
+  }); 
 
   const routerDesition = () => {
-    if (data.registro_combustible.length === 0) {
-      push(`/registro/combustible/${id}`);
-    } else {
-      const idCombustible = data.registro_combustible.map((combustible) => {
-        return combustible.id;
-      });
-      push(`/editar/combustible/${idCombustible}`);
-    }
+    push(`/tabla/registro/combustible/${id}`);
   };
   if (loading) return <SpinnerLazy />;
   return (

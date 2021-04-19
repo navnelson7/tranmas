@@ -613,7 +613,7 @@ export const updateRegistroTallerOne = gql`
     $id_empleado_mecanico: uuid
     $id_empleado_motorista: uuid
     $kilometraje: float8
-    $activo: Boolean 
+    $activo: Boolean
     $estado: String
   ) {
     update_registro_taller_by_pk(
@@ -1242,6 +1242,14 @@ export const updateDetalleMantenimientoEdificio = gql`
 export const deleteDetalleMantenimientoEdificioById = gql`
   mutation delete_detalle_mantenimiento_edificios_by_pk($id: uuid!) {
     delete_detalle_mantenimiento_edificios_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
+export const deleteRegistroCombustibleById = gql`
+  mutation delete_registro_combustible_by_pk($id: uuid!) {
+    delete_registro_combustible_by_pk(id: $id) {
       id
     }
   }

@@ -125,6 +125,27 @@ export const listenCombustibleByUnidadId = gql`
     }
   }
 `;
+export const listenCombustibleinTable = gql`
+  subscription($fecha: date, $id_unidad_transporte: uuid) {
+    registro_combustible(
+      where: {
+        fecha: { _eq: $fecha }
+        id_unidad_transporte: { _eq: $id_unidad_transporte }
+      }
+    ) {
+      id
+      galones_servidos
+      kilometraje_actual
+      galones_servidos
+      comentarios
+      fecha
+      empleado_motorista {
+        nombres
+        apellidos
+      }
+    }
+  }
+`;
 
 export const listenKilomatrajeMax = gql`
   subscription registro_combustible_aggregate($id: uuid!) {

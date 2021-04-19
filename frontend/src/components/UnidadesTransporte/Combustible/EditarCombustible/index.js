@@ -17,7 +17,7 @@ function EditarCombustible() {
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
   const [updateCombustible] = useMutation(updateRegistroCombustibleById);
-  const { id } = useParams();
+  const { id, idUnidadTransporte } = useParams();
   const { data, loading } = useSubscription(registroCombustibleById, {
     variables: {
       id: id,
@@ -146,6 +146,9 @@ function EditarCombustible() {
                             null
                           ? ""
                           : data.registro_combustible_by_pk.empleado_motorista
+                              .nombres +
+                            " " +
+                            data.registro_combustible_by_pk.empleado_motorista
                               .apellidos
                       }
                     />
@@ -173,7 +176,7 @@ function EditarCombustible() {
         </div>
       </StyleCombustible>
       <ButtonDesitions
-        linkCancel={"/unidades-transporte"}
+        linkCancel={`/tabla/registro/combustible/${idUnidadTransporte}`}
         submitSave={submitEditarCombustible}
       />
     </Fragment>
