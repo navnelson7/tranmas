@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, useEffect } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios, { CancelToken, isCancel } from "axios";
@@ -13,7 +13,6 @@ function FilesSelected({
   setAboutFiles,
   newAccidente,
   setnewAccidente,
-  setExecuteSaveAccidente,
 }) {
   const [Loader, setLoader] = useState(null);
   const cancelFileUpload = useRef(null);
@@ -30,6 +29,9 @@ function FilesSelected({
         method: "POST",
         url: process.env.REACT_APP_BACKEND_FLASK + "upload/mutiple/accidentes",
         data: formdata,
+        cancelToken: new CancelToken(
+          (cancel) => (cancelFileUpload.current = cancel)
+        ),
         onUploadProgress: (progressEvent) => {
           var percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
@@ -45,7 +47,6 @@ function FilesSelected({
             imagenesAntiguas.concat(response.data.images)
           ),
         });
-        setExecuteSaveAccidente(true);
       })
       .catch((err) => {
         if (isCancel(err)) {

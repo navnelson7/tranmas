@@ -169,7 +169,14 @@ function RegistroDetalleEnTaller() {
           }
         });
     }
-  }, [ExecuteRepuestoReparado]);
+    // eslint-disable-next-line
+  }, [
+    NuevoDetallerTaller.id_repuesto,
+    ExecuteRepuestoReparado,
+    push,
+    unidadTransporte,
+    data.unidades_de_transporte_by_pk.id_repuestos_reparados,
+  ]);
 
   if (Loading || loading)
     return (

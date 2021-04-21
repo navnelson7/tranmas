@@ -105,15 +105,6 @@ export const setProveedorOne = gql`
   }
 `;
 
-//update mutation
-const updateActivoRepuesto = gql`
-  mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!) {
-    update_repuestos(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
-      affected_rows
-    }
-  }
-`;
-
 export const updateActivoProveedor = gql`
   mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean) {
     update_proveedores_by_pk(

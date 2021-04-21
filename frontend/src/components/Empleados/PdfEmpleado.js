@@ -1,10 +1,5 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import {useParams} from 'react-router-dom';
-
-import {useQuery} from '@apollo/client';
-import { getEmpleadosByCodigo} from '../../graphql/Queries';
-import { Container } from 'react-bootstrap';
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',

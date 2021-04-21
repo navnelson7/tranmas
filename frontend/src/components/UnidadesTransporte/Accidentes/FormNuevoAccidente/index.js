@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
@@ -38,35 +38,39 @@ function Registro() {
       [e.target.name]: e.target.value,
     });
   };
-  const submitAccidente = () => {
-    if (
-      newAccidente.descripcion_accidente === "" ||
-      newAccidente.id_empleado_motorista === ""
-    ) {
-    } else {
-      setNewAccidenteMutation({
-        variables: newAccidente,
-      })
-        .then((res) => {
-          if (res.data) {
-            setLoading(false);
-            setIconType("success");
-            setshowAlert(true);
-            setTextAlert("Registrado correctamente");
-            setTimeout(() => {
-              //si todo va bien lo redirecciona al inicio
-              push(`/accidentes/${id}`);
-            }, 2000);
-          }
+  const submitAccidente = useCallback(() => {
+    if (ExecuteSaveAccidente) {
+      if (
+        newAccidente.descripcion_accidente === "" ||
+        newAccidente.id_empleado_motorista === ""
+      ) {
+      } else {
+        setNewAccidenteMutation({
+          variables: newAccidente,
         })
-        .catch((error) => {
-          setLoading(false);
-          setIconType("error");
-          setshowAlert(true);
-          setTextAlert(error.message);
-        });
+          .then((res) => {
+            if (res.data) {
+              setExecuteSaveAccidente(false);
+              setLoading(false);
+              setIconType("success");
+              setshowAlert(true);
+              setTextAlert("Registrado correctamente");
+              setTimeout(() => {
+                //si todo va bien lo redirecciona al inicio
+                push(`/accidentes/${id}`);
+              }, 2000);
+            }
+          })
+          .catch((error) => {
+            setLoading(false);
+            setIconType("error");
+            setshowAlert(true);
+            setTextAlert(error.message);
+          });
+      }
     }
-  };
+    // eslint-disable-next-line
+  }, [push, id, ExecuteSaveAccidente]);
 
   useEffect(() => {
     if (ExecuteSaveAccidente) {

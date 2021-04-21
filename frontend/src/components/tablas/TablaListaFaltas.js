@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {Table, Container} from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
 import Falta from '../Empleados/Falta';
 
 import {useMutation, useQuery} from '@apollo/client';
