@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import axios, { CancelToken, isCancel } from "axios";
+import axios, { isCancel } from "axios";
 import { v4 as uuid } from "uuid";
 import imageIcon from "./image.svg";
 import SpinnerLoad from "../SpinnerLoad";
@@ -13,6 +13,7 @@ function FilesSelected({
   setAboutFiles,
   newAccidente,
   setnewAccidente,
+  setExecuteSaveAccidente,
 }) {
   const [Loader, setLoader] = useState(null);
   const cancelFileUpload = useRef(null);
@@ -29,9 +30,6 @@ function FilesSelected({
         method: "POST",
         url: process.env.REACT_APP_BACKEND_FLASK + "upload/mutiple/accidentes",
         data: formdata,
-        cancelToken: new CancelToken(
-          (cancel) => (cancelFileUpload.current = cancel)
-        ),
         onUploadProgress: (progressEvent) => {
           var percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
@@ -47,6 +45,7 @@ function FilesSelected({
             imagenesAntiguas.concat(response.data.images)
           ),
         });
+        setExecuteSaveAccidente(true);
       })
       .catch((err) => {
         if (isCancel(err)) {
@@ -148,7 +147,6 @@ const StyleFicheros = styled.div`
     width: 100%;
     height: auto;
   }
-
   .grid-file {
     background: white;
     -webkit-box-shadow: 0px 3px 5px -1px rgba(204, 174, 204, 1);
@@ -162,7 +160,6 @@ const StyleFicheros = styled.div`
     text-align: center;
     margin-bottom: 10px;
   }
-
   .grid-double {
     display: grid;
     grid-template-columns: 100%;

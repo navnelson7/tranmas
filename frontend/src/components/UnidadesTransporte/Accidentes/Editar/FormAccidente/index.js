@@ -65,10 +65,10 @@ export default function FormAccidente() {
       })
         .then((res) => {
           if (res.data) {
+            setTextAlert("Actualizado correctamente");
             setLoading(false);
             setIconType("success");
             setshowAlert(true);
-            setTextAlert("Actualizado correctamente");
             setTimeout(() => {
               //si todo va bien lo redirecciona al inicio
               push(`/accidentes/${idUnidadTransporte}`);
@@ -151,6 +151,9 @@ export default function FormAccidente() {
                       ? JSON.parse(newAccidente.registro_fotos)
                       : []
                   }
+                  setnewAccidente={setnewAccidente}
+                  newAccidente={newAccidente}
+                  setTextAlert={setTextAlert}
                 />
 
                 <br />

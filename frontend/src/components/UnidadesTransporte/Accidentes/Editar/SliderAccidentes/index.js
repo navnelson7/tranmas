@@ -2,7 +2,12 @@ import React, { Fragment, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import ButtonDeleteImage from "../ButtonDeleteImage";
 
-function SliderAccidente({ fotos }) {
+function SliderAccidente({
+  fotos,
+  newAccidente,
+  setnewAccidente,
+  setTextAlert,
+}) {
   const [infoImage, setinfoImage] = useState({
     position: 0,
     nameImage: "",
@@ -11,16 +16,16 @@ function SliderAccidente({ fotos }) {
   const handleSelect = (selectedIndex) => {
     setinfoImage({
       position: selectedIndex,
-      nameImage: fotos[selectedIndex],
+      nameImage: fotos[selectedIndex === "" ? 0 : selectedIndex],
     });
   };
 
   return (
     <Fragment>
       <Carousel onSelect={handleSelect}>
-        {fotos.map((foto, index) => {
+        {fotos.map((foto) => {
           return (
-            <Carousel.Item key={foto}>
+            <Carousel.Item>
               <img
                 className="d-block w-100"
                 src={`${process.env.REACT_APP_BACKEND_FLASK}imagenes/accidentes/${foto}`}
@@ -31,7 +36,12 @@ function SliderAccidente({ fotos }) {
         })}
       </Carousel>
       <br />
-      <ButtonDeleteImage infoImage={infoImage} />
+      <ButtonDeleteImage
+        setnewAccidente={setnewAccidente}
+        newAccidente={newAccidente}
+        infoImage={infoImage}
+        setTextAlert={setTextAlert}
+      />
     </Fragment>
   );
 }

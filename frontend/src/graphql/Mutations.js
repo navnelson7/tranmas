@@ -737,6 +737,17 @@ export const updateAccidente = gql`
   }
 `;
 
+export const updateImagenesAccidente = gql`
+  mutation update_accidentes_by_pk($registro_fotos: String, $id: uuid!) {
+    update_accidentes_by_pk(
+      pk_columns: { id: $id }
+      _set: { registro_fotos: $registro_fotos }
+    ) {
+      id
+    }
+  }
+`;
+
 export const newAireAcondicionado = gql`
   mutation insert_aire_acondicionado_one(
     $descripcion: String

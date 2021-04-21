@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useCallback } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
@@ -38,39 +38,36 @@ function Registro() {
       [e.target.name]: e.target.value,
     });
   };
-  const submitAccidente = useCallback(() => {
-    if (ExecuteSaveAccidente) {
-      if (
-        newAccidente.descripcion_accidente === "" ||
-        newAccidente.id_empleado_motorista === ""
-      ) {
-      } else {
-        setNewAccidenteMutation({
-          variables: newAccidente,
-        })
-          .then((res) => {
-            if (res.data) {
-              setExecuteSaveAccidente(false);
-              setLoading(false);
-              setIconType("success");
-              setshowAlert(true);
-              setTextAlert("Registrado correctamente");
-              setTimeout(() => {
-                //si todo va bien lo redirecciona al inicio
-                push(`/accidentes/${id}`);
-              }, 2000);
-            }
-          })
-          .catch((error) => {
+  // eslint-disable-next-line
+  const submitAccidente = () => {
+    if (
+      newAccidente.descripcion_accidente === "" ||
+      newAccidente.id_empleado_motorista === ""
+    ) {
+    } else {
+      setNewAccidenteMutation({
+        variables: newAccidente,
+      })
+        .then((res) => {
+          if (res.data) {
+            setTextAlert("Registrado correctamente");
             setLoading(false);
-            setIconType("error");
+            setIconType("success");
             setshowAlert(true);
-            setTextAlert(error.message);
-          });
-      }
+            setTimeout(() => {
+              //si todo va bien lo redirecciona al inicio
+              push(`/accidentes/${id}`);
+            }, 2000);
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setIconType("error");
+          setshowAlert(true);
+          setTextAlert(error.message);
+        });
     }
-    // eslint-disable-next-line
-  }, [push, id, ExecuteSaveAccidente]);
+  };
 
   useEffect(() => {
     if (ExecuteSaveAccidente) {
@@ -165,9 +162,7 @@ export const StyleRegitroUnidades = styled.div`
       margin-top: 2%;
     }
   }
-
   //GRID FORM TRANSPORTE
-
   /* MOBILE */
   @media (max-width: 1025px) {
     .grid-form-transporte {
@@ -175,7 +170,6 @@ export const StyleRegitroUnidades = styled.div`
       grid-template-columns: 100%;
     }
   }
-
   /* DESKTOP */
   @media (min-width: 1025px) {
     .grid-form-transporte {
