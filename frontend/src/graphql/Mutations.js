@@ -105,20 +105,7 @@ export const setProveedorOne = gql `
   }
 `;
 
-<<<<<<< HEAD
-//update mutation
-const updateActivoRepuesto = gql `
-  mutation updateActivoRepuesto($id: uuid!, $activo: Boolean!) {
-    update_repuestos(where: { id: { _eq: $id } }, _set: { activo: $activo }) {
-      affected_rows
-    }
-  }
-`;
-
 export const updateActivoProveedor = gql `
-=======
-export const updateActivoProveedor = gql`
->>>>>>> 19417dc3c5004b335c08f818d76ff1fddda49c1e
   mutation update_proveedores_by_pk($id: uuid!, $activo: Boolean) {
     update_proveedores_by_pk(
       pk_columns: { id: $id }
@@ -750,10 +737,7 @@ export const updateAccidente = gql `
   }
 `;
 
-<<<<<<< HEAD
-export const newAireAcondicionado = gql `
-=======
-export const updateImagenesAccidente = gql`
+export const updateImagenesAccidente = gql `
   mutation update_accidentes_by_pk($registro_fotos: String, $id: uuid!) {
     update_accidentes_by_pk(
       pk_columns: { id: $id }
@@ -764,8 +748,7 @@ export const updateImagenesAccidente = gql`
   }
 `;
 
-export const newAireAcondicionado = gql`
->>>>>>> 19417dc3c5004b335c08f818d76ff1fddda49c1e
+export const newAireAcondicionado = gql `
   mutation insert_aire_acondicionado_one(
     $descripcion: String
     $fecha: date
