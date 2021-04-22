@@ -11,7 +11,6 @@ const RegistroFaltas = () => {
 
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     
-
     const [listadoEmpleados,setListadoEmpleados] = useState([]);
     const {loading, data} = useSubscription(getEmpleados);
     useEffect(()=>{

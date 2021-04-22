@@ -38,7 +38,6 @@ const FormularioFaltas = ({Id,Nombre}) => {
     }
 
     const onSubmit = (e) =>{
-        console.log("entrando")
         e.preventDefault();
         if(id_empleado.trim() === "" ||
             descripcion_de_falta.trim() === "" ||

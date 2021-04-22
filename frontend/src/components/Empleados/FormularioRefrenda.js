@@ -6,13 +6,16 @@ import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { Form, InputGroup, FormControl, Col, Row, Button } from 'react-bootstrap'
 import { ToastComponent } from "../Toast";
 
+import {useMutation} from "@apollo/client";
+//import {setRefrendaOne} from  '../../graphql/Mutations';
+
 const FormularioRefrenda = ({Id,Nombre,Licencia}) => {
 
     const [showAlert, setshowAlert] = useState(false);
     const [IconType, setIconType] = useState("");
     const [TextAlert, setTextAlert] = useState("");
 
-    //const [addReRefrenda] = useMutation(setRefrendaOne);
+   // const [addReRefrenda] = useMutation(setRefrendaOne);
 
     const [refrenda, setRefrenda] = useState({
         id_empleado: '',
@@ -21,6 +24,12 @@ const FormularioRefrenda = ({Id,Nombre,Licencia}) => {
         numero_licencia_conducir:''
     });
 
+    const {
+        id_empleado,
+        fecha_emision,
+        fecha_refrenda,
+        numero_licencia_conducir
+    } = refrenda;
 
     const onChange = e => {
         setRefrenda({
@@ -32,7 +41,18 @@ const FormularioRefrenda = ({Id,Nombre,Licencia}) => {
     }
 
     const onSubmit = (e) => {
-        console.log("clicando")
+        if(id_empleado.trim() === ""||
+        fecha_emision.trim() === "" ||
+        fecha_refrenda.trim() === "" ||
+        numero_licencia_conducir.trim() === ""
+        ){
+            setIconType("error")
+            setshowAlert("true")
+            setTextAlert("Debes llenar todos los campos");
+            return
+        }else{
+
+        }
     }
 
     return (
