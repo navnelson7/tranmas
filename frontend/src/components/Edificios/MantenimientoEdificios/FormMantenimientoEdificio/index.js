@@ -30,7 +30,7 @@ function FormMantenimientoEdificio({
       <ListBoxEmpleados
         changeEmpleado={changeMantenimiento}
         empleadoSeleccionado={
-          NuevoMantenimiento.empleado == undefined
+          NuevoMantenimiento.empleado === undefined
             ? ""
             : NuevoMantenimiento.empleado.nombres +
               " " +

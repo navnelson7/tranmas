@@ -247,7 +247,7 @@ const EditarEmpleado = () => {
                         <option value="null">
                           {Empleado.sexo === "M"
                             ? "Masculino"
-                            : Empleado.sexo == "F"
+                            : Empleado.sexo === "F"
                             ? "Femenino"
                             : "Selecciona un sexo"}
                         </option>

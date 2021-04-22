@@ -27,7 +27,6 @@ export default function FormAccidente() {
       id: id,
     },
   });
-  const [_, setExecuteSaveAccidente] = useState(false);
   const [newAccidente, setnewAccidente] = useState({
     descripcion_accidente: "",
     id_unidad_transporte: id,
@@ -62,15 +61,14 @@ export default function FormAccidente() {
           id_empleado_motorista: newAccidente.id_empleado_motorista,
           fecha: newAccidente.fecha,
           descripcion_accidente: newAccidente.descripcion_accidente,
-          descripcion_accidente: newAccidente.fecha,
         },
       })
         .then((res) => {
           if (res.data) {
+            setTextAlert("Actualizado correctamente");
             setLoading(false);
             setIconType("success");
             setshowAlert(true);
-            setTextAlert("Actualizado correctamente");
             setTimeout(() => {
               //si todo va bien lo redirecciona al inicio
               push(`/accidentes/${idUnidadTransporte}`);
@@ -153,6 +151,9 @@ export default function FormAccidente() {
                       ? JSON.parse(newAccidente.registro_fotos)
                       : []
                   }
+                  setnewAccidente={setnewAccidente}
+                  newAccidente={newAccidente}
+                  setTextAlert={setTextAlert}
                 />
 
                 <br />
@@ -166,7 +167,6 @@ export default function FormAccidente() {
                 <Upload
                   newAccidente={newAccidente}
                   setnewAccidente={setnewAccidente}
-                  setExecuteSaveAccidente={setExecuteSaveAccidente}
                 />
               </div>
 

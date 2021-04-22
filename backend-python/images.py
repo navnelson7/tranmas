@@ -24,7 +24,7 @@ def upload_image():
     if request.method == 'POST':
         # SI EL USUARIO NO MANDA LA IMAGEN
         if 'file' not in request.files:
-            return not_found(error="Image not found")
+            return not_found(error="Image not found") 
 
         file = request.files['file']       
 

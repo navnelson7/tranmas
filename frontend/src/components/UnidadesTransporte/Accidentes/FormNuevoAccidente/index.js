@@ -38,6 +38,7 @@ function Registro() {
       [e.target.name]: e.target.value,
     });
   };
+  // eslint-disable-next-line
   const submitAccidente = () => {
     if (
       newAccidente.descripcion_accidente === "" ||
@@ -49,10 +50,10 @@ function Registro() {
       })
         .then((res) => {
           if (res.data) {
+            setTextAlert("Registrado correctamente");
             setLoading(false);
             setIconType("success");
             setshowAlert(true);
-            setTextAlert("Registrado correctamente");
             setTimeout(() => {
               //si todo va bien lo redirecciona al inicio
               push(`/accidentes/${id}`);
@@ -161,9 +162,7 @@ export const StyleRegitroUnidades = styled.div`
       margin-top: 2%;
     }
   }
-
   //GRID FORM TRANSPORTE
-
   /* MOBILE */
   @media (max-width: 1025px) {
     .grid-form-transporte {
@@ -171,7 +170,6 @@ export const StyleRegitroUnidades = styled.div`
       grid-template-columns: 100%;
     }
   }
-
   /* DESKTOP */
   @media (min-width: 1025px) {
     .grid-form-transporte {
