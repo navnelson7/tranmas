@@ -827,6 +827,7 @@ export const insertTapiceriaOne = gql`
     $id_unidades_transporte: uuid
     $id_empleado_motorista: uuid
     $fecha: date
+    $costo_tapiceria: String
   ) {
     insert_control_tapiceria_carroceria_one(
       object: {
@@ -835,6 +836,7 @@ export const insertTapiceriaOne = gql`
         id_unidades_transporte: $id_unidades_transporte
         id_empleado_motorista: $id_empleado_motorista
         fecha: $fecha
+        costo_tapiceria: $costo_tapiceria
       }
     ) {
       id
@@ -850,6 +852,7 @@ export const updateTapiceriaOne = gql`
     $id_empleado_motorista: uuid
     $fecha: date
     $id: uuid!
+    $costo_tapiceria: String
   ) {
     update_control_tapiceria_carroceria_by_pk(
       _set: {
@@ -858,6 +861,7 @@ export const updateTapiceriaOne = gql`
         id_unidades_transporte: $id_unidades_transporte
         id_empleado_motorista: $id_empleado_motorista
         fecha: $fecha
+        costo_tapiceria: $costo_tapiceria
       }
       pk_columns: { id: $id }
     ) {

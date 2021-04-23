@@ -26,6 +26,7 @@ function Registro() {
     id_unidades_transporte: id,
     id_empleado_motorista: "",
     foto: "",
+    costo_tapiceria: "",
   });
 
   const [addTapiceria] = useMutation(insertTapiceriaOne);
@@ -85,7 +86,7 @@ function Registro() {
               setshowAlert(true);
             }
           }
-        }); 
+        });
     }
   };
   // ESPERA SI LA IMAGEN YA SE SUBIO Y SE OBTUVO LA URL PARA GUARDARLA EN EL TRANSPORTE

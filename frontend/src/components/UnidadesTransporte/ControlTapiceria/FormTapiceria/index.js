@@ -35,6 +35,21 @@ function FormTapiceria({
           onChange={(e) => changeTapiceria(e)}
         />
       </InputGroup>
+      <InputGroup className="mb-3">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon1">
+            Costo de tapiceria
+          </InputGroup.Text>
+        </InputGroup.Prepend>
+        <Form.Control
+          type="text"
+          name="costo_tapiceria"
+          placeholder="Costo de tapiceria"
+          autoComplete="off"
+          value={EstadoTapiceria.costo_tapiceria}
+          onChange={(e) => changeTapiceria(e)}
+        />
+      </InputGroup>
       <ListBoxMotorista
         motoristaSeleccionado={
           data == null

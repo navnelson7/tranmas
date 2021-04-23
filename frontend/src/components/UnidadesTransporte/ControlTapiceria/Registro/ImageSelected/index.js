@@ -29,7 +29,7 @@ function ImageSelected({ setnewImageChange, Progress, ImagePreviousSelected }) {
         }
       >
         <h5 className="center-txt">
-          <strong>Fotografia de bus</strong>
+          <strong>Fotografia de tapiceria</strong>
         </h5>
 
         <div className="box-center-image">

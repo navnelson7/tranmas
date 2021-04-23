@@ -62,12 +62,10 @@ function TableTapiceria() {
   return (
     <Fragment>
       <Modal show={show} onHide={handleClose}>
-          <Image
-            src={
-              process.env.REACT_APP_BACKEND_FLASK + "images/" + ImageSelected
-            }
-            thumbnail
-          />
+        <Image
+          src={process.env.REACT_APP_BACKEND_FLASK + "images/" + ImageSelected}
+          thumbnail
+        />
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
             Cerrar
@@ -93,6 +91,7 @@ function TableTapiceria() {
                 <th>#</th>
                 <th>Motorista</th>
                 <th>Descripción</th>
+                <th>Costo de tapiceria</th>
                 <th>Fecha</th>
                 <th>Acción</th>
               </tr>
@@ -107,6 +106,7 @@ function TableTapiceria() {
                       {tapiceria.empleado_motorista.apellidos}
                     </td>
                     <td>{tapiceria.descripcion_dano}</td>
+                    <td>{tapiceria.costo_tapiceria}</td>
                     <td>{tapiceria.fecha}</td>
                     <td>
                       <Button
