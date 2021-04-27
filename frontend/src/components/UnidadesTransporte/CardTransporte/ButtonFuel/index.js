@@ -1,28 +1,13 @@
 import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { listenCombustibleByUnidadId } from "../../../../graphql/Suscription";
-import { useSubscription } from "@apollo/client";
-import { SpinnerLazy } from "../../../Loader/SpinnerLazy";
 
 function ButtonFuel({ id }) {
   const { push } = useHistory();
-  const { loading, data } = useSubscription(listenCombustibleByUnidadId, {
-    variables: {
-      fecha:
-        new Date().getFullYear() +
-        "-" +
-        (new Date().getMonth() + 1) +
-        "-" +
-        new Date().getDate(),
-      id_unidad_transporte: id,
-    },
-  }); 
 
   const routerDesition = () => {
     push(`/tabla/registro/combustible/${id}`);
   };
-  if (loading) return <SpinnerLazy />;
   return (
     <Fragment>
       <StyleLoaderEspera>
@@ -50,29 +35,6 @@ function ButtonFuel({ id }) {
                       ></path>
                     </svg>
                   </div>
-                </div>
-                <div className="flip-box-back">
-                  {data !== undefined &&
-                    data.registro_combustible.map((combustible) => {
-                      return (
-                        <p
-                          align="center"
-                          className="mt-icon"
-                          key={combustible.id}
-                        >
-                          <strong className="number-porcentaje">
-                            {combustible.galones_servidos}
-                          </strong>
-                          <span className="gal-txt">gal</span>
-                        </p>
-                      );
-                    })}
-                  {data.registro_combustible.length === 0 && (
-                    <p align="center" className="mt-icon">
-                      <strong className="number-porcentaje">0</strong>
-                      <span className="gal-txt">gal</span>
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
@@ -118,9 +80,6 @@ const StyleLoaderEspera = styled.div`
     transform-style: preserve-3d;
     margin-left: 15px;
   }
-  .flip-box:hover .flip-box-inner {
-    transform: rotateY(180deg);
-  }
   .flip-box-front {
     position: absolute;
     color: rgb(0, 0, 0);
@@ -164,27 +123,5 @@ const StyleLoaderEspera = styled.div`
         0% 100%
       );
     }
-  }
-  .flip-box-back {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 50%;
-  }
-  .flip-box-back {
-    -webkit-box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
-    color: rgb(0, 0, 0);
-    transform: rotateY(180deg);
-  }
-  .number-porcentaje {
-    font-size: 40px;
-  }
-  .gal-txt {
-    font-size: 20px;
-    margin-left: 1px;
   }
 `;
