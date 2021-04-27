@@ -7,7 +7,7 @@ function ButtonTapiceria({ idUnidadTransporte }) {
     <Fragment>
       <StyleLoaderEspera>
         <Link
-          title="Reparaciones"
+          title="Tapiceria"
           to={`/tabla/tapiceria/${idUnidadTransporte}`}
         >
           <div className="cursor-pointer">

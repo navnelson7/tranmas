@@ -300,6 +300,7 @@ export const listenTapiceria = gql`
     ) {
       descripcion_dano
       id
+      costo_tapiceria
       empleado_motorista {
         nombres
         apellidos
@@ -318,6 +319,7 @@ export const listenTapiceriaOne = gql`
       id_unidades_transporte
       id_empleado_motorista
       id
+      costo_tapiceria
       empleado_motorista {
         nombres
         apellidos

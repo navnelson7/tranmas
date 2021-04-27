@@ -34,6 +34,7 @@ function EditarControlTapiceria() {
     id_unidades_transporte: idTransporte,
     id_empleado_motorista: "",
     foto: "",
+    costo_tapiceria: ""
   });
 
   const [addTapiceria] = useMutation(updateTapiceriaOne);
@@ -129,6 +130,7 @@ function EditarControlTapiceria() {
         id_unidades_transporte: EstadoTapiceria.id_unidades_transporte,
         id_empleado_motorista: EstadoTapiceria.id_empleado_motorista,
         fecha: EstadoTapiceria.fecha,
+        costo_tapiceria: EstadoTapiceria.costo_tapiceria
       },
     })
       .then((res) => {
