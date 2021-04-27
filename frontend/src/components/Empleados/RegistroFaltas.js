@@ -10,21 +10,6 @@ import TablaListaFaltas from "../tablas/TablaListaFaltas";
 const RegistroFaltas = () => {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
-<<<<<<< HEAD
-    const [mostrarFormulario, setMostrarFormulario] = useState(false);
-    
-    const [listadoEmpleados,setListadoEmpleados] = useState([]);
-    const {loading, data} = useSubscription(getEmpleados);
-    useEffect(()=>{
-        if(loading){
-            return;
-        }
-        if(data){
-            setListadoEmpleados(data.empleados);
-        }
-        console.log(data);
-    },[data, loading]);
-=======
   const [listadoEmpleados, setListadoEmpleados] = useState([]);
   const { loading, data } = useSubscription(getEmpleados);
   useEffect(() => {
@@ -40,7 +25,6 @@ const RegistroFaltas = () => {
   const [state, setState] = useState({
     codigo: "",
   });
->>>>>>> 19417dc3c5004b335c08f818d76ff1fddda49c1e
 
   const { codigo } = state;
 
