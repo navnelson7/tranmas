@@ -1269,6 +1269,25 @@ export const deleteAccidenteById = gql `
   }
 `;
 
-// export const setRefrendaOne = gql `
-//   # mutation inset_refrenda
-// `;
+export const setRefrendaOne = gql `
+  mutation insert_refrenda_documentos_motorista_one(
+  $id_empleado :  uuid
+  $fecha_emision: date
+  $fecha_refrenda: date
+  $numero_licencia_conducir: String
+  $refrendado: Boolean
+) {
+  insert_refrenda_documentos_motorista_one(
+    object:{
+      id_empleado_motorista: $id_empleado
+      numero_licencia_conducir: $numero_licencia_conducir
+      fecha_emision: $fecha_emision
+      fecha_vencimiento: $fecha_refrenda
+      refrendado: $refrendado
+    }
+  ){
+    id_empleado_motorista
+    numero_licencia_conducir
+  }
+}
+`;
