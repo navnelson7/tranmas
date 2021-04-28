@@ -111,20 +111,6 @@ export const listenMecanicoListBox = gql`
     }
   }
 `;
-
-export const listenCombustibleByUnidadId = gql`
-  subscription($fecha: date, $id_unidad_transporte: uuid) {
-    registro_combustible(
-      where: {
-        fecha: { _eq: $fecha }
-        id_unidad_transporte: { _eq: $id_unidad_transporte }
-      }
-    ) {
-      id
-      galones_servidos
-    }
-  }
-`;
 export const listenCombustibleinTable = gql`
   subscription($fecha: date, $id_unidad_transporte: uuid) {
     registro_combustible(

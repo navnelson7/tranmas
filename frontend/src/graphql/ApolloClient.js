@@ -9,7 +9,7 @@ const httpLink = new HttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: process.env.REACT_APP_BACKEND_WS_URL,
+  uri: process.env.REACT_APP_WS ? process.env.REACT_APP_WS + process.env.REACT_APP_BACKEND_WS_URL : process.env.REACT_APP_BACKEND_WS_URL,
   options: {
     reconnect: true,
   },
