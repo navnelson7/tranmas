@@ -28,7 +28,7 @@ function FormDetalleEnTaller({
                     onChange={(e) => changeTaller(e)}
                     autoComplete="off"
                     value={
-                      stateDetalleTaller === null
+                      stateDetalleTaller === undefined
                         ? ""
                         : stateDetalleTaller.cantidad
                     }
@@ -57,7 +57,7 @@ function FormDetalleEnTaller({
                     onChange={(e) => changeTaller(e)}
                     autoComplete="off"
                     value={
-                      stateDetalleTaller === null
+                      stateDetalleTaller === undefined
                         ? ""
                         : stateDetalleTaller.comentarios
                     }

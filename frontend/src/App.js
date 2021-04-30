@@ -14,6 +14,9 @@ import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
 import FormNuevoAccidente from "./components/UnidadesTransporte/Accidentes/FormNuevoAccidente";
 
+const AlertasCambioRepuesto = lazy(() =>
+  import("./components/UnidadesTransporte/AlertasCambioRepuesto")
+);
 const EditarAccidente = lazy(() =>
   import("./components/UnidadesTransporte/Accidentes/Editar")
 );
@@ -227,9 +230,15 @@ function App() {
             <Route exact path="/registro/combustible/:id">
               <RegistroCombustible />
             </Route>
-            <Route exact path="/editar/registro/taller/:id">
+            <Route exact path="/editar/registro/taller/:id/:idUnidadTransporte">
               <Suspense fallback="Cargando....">
                 <EditarRegistroEnTaller />
+              </Suspense>
+            </Route>
+
+            <Route exact path="/alertas/cambio/repuesto/:idUnidadTransporte">
+              <Suspense fallback="Cargando....">
+                <AlertasCambioRepuesto />
               </Suspense>
             </Route>
 
@@ -288,7 +297,10 @@ function App() {
               </Suspense>
             </Route>
 
-            <Route exact path="/editar/registro/accidente/:id/:idUnidadTransporte">
+            <Route
+              exact
+              path="/editar/registro/accidente/:id/:idUnidadTransporte"
+            >
               <Suspense fallback="Cargando....">
                 <EditarAccidente />
               </Suspense>
@@ -413,7 +425,7 @@ function App() {
               </Suspense>
             </Route>
 
-            <Route exact path="/editar/detalle/taller/:id">
+            <Route exact path="/editar/detalle/taller/:id/:idUnidadTransporte">
               <Suspense fallback="Cargando....">
                 <EditarDetalleEnTaller />
               </Suspense>

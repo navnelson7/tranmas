@@ -15,7 +15,7 @@ import EstadoTaller from "./EstadoTaller";
 import ButtonDesitionsWithDelete from "../../../../ButtonsDesitions/ButtonDesitionsWithDelete";
 
 function EditarRegistroTaller() {
-  const { id } = useParams();
+  const { id, idUnidadTransporte } = useParams();
   const { push } = useHistory();
 
   //ALERT
@@ -29,7 +29,7 @@ function EditarRegistroTaller() {
   const { loading, data, error } = useSubscription(listenRegistroTallerById, {
     variables: {
       id: id,
-    }, 
+    },
   });
 
   const [deleteregistroTallerById] = useMutation(deleteRegistroEnTaller);
@@ -62,7 +62,6 @@ function EditarRegistroTaller() {
   }, [data]);
 
   const changeTaller = (e) => {
-
     if (e.target.name === "activo") {
       setRegistroTaller({
         ...RegistroTaller,
@@ -86,6 +85,10 @@ function EditarRegistroTaller() {
           setIconType("success");
           setTextAlert("Actualizado correctamente");
           setshowAlert(true);
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push(`/registro/taller/${idUnidadTransporte}`);
+          }, 2000);
         }
       })
       .catch((error) => {
@@ -110,7 +113,7 @@ function EditarRegistroTaller() {
           setshowAlert(true);
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
-            push("/unidades-transporte");
+            push(`/registro/taller/${idUnidadTransporte}`);
           }, 2000);
         }
       })

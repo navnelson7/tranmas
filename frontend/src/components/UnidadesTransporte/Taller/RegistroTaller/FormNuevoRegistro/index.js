@@ -34,7 +34,7 @@ function FormNuevoRegistro() {
   });
 
   const [addRegistroTaller] = useMutation(setRegistroTallerOne);
- 
+
   useEffect(() => {
     let kilometrajeData = 0;
     kilometrajeData =
@@ -119,7 +119,6 @@ function FormNuevoRegistro() {
     // eslint-disable-next-line
   }, [ExecuteRegistroTaller, id, addRegistroTaller]);
 
-
   if (loading || Loading)
     return (
       <div className="center-box mt-5">
@@ -156,7 +155,7 @@ function FormNuevoRegistro() {
                         placeholder="Kilometraje actual"
                         name="kilometraje"
                         type="number"
-                        value={RegistroTaller.kilometraje}
+                        value={RegistroTaller.kilometraje === null ? 0 : RegistroTaller.kilometraje}
                         onChange={(e) => changeTaller(e)}
                       />
                     </InputGroup>
@@ -210,7 +209,11 @@ function FormNuevoRegistro() {
         linkCancel={"/unidades-transporte"}
         submitSave={executeSaveEstadoTaller}
       />
-      <br/><br/><br/><br/><br/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Fragment>
   );
 }

@@ -35,7 +35,7 @@ function RegistroDetalleEnTaller() {
   const [NuevoDetallerTaller, setNuevoDetallerTaller] = useState({
     cantidad: 1,
     comentarios: "",
-    id_repuesto: "",
+    id_repuesto: "", 
     id_registro_taller: id,
   });
   const [ExecuteDetalleTaller, setExecuteDetalleTaller] = useState(false);
@@ -175,7 +175,6 @@ function RegistroDetalleEnTaller() {
     ExecuteRepuestoReparado,
     push,
     unidadTransporte,
-    data.unidades_de_transporte_by_pk.id_repuestos_reparados,
   ]);
 
   if (Loading || loading)
