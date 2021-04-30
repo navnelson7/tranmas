@@ -1286,8 +1286,7 @@ export const setRefrendaOne = gql `
       refrendado: $refrendado
     }
   ){
-    id_empleado_motorista
-    numero_licencia_conducir
+    id
   }
 }
 `;
