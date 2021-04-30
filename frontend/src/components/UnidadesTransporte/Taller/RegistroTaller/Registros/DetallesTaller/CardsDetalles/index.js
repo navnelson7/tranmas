@@ -1,14 +1,15 @@
 import React from "react";
 import { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CardsShowMore from "./CardsShowMore";
 function CardsDetalles({ registro, idRegistroTaller }) {
+  const { id } = useParams();
   const [ShowMoreCards, setShowMoreCards] = useState(false);
   const [IdSelected, setIdSelected] = useState("");
   return (
     <Fragment>
-    {/* AQUI MOSTRAMOS SOLO UNA CARTA */}
-      <Link to={`/editar/detalle/taller/${registro.id}`}>
+      {/* AQUI MOSTRAMOS SOLO UNA CARTA */}
+      <Link to={`/editar/detalle/taller/${registro.id}/${id}`}>
         <div className="card-detalle-taller card-detalle-top">
           <p className="mt-txt-card">
             <strong>{registro.repuesto.nombre} </strong>
@@ -26,15 +27,20 @@ function CardsDetalles({ registro, idRegistroTaller }) {
         <div
           className="mostrar-mas"
           onClick={() => {
-            setIdSelected(registro.id)
-            setShowMoreCards(!ShowMoreCards)
+            setIdSelected(registro.id);
+            setShowMoreCards(!ShowMoreCards);
           }}
         >
           <p>Mostrar más</p>
         </div>
       )}
       {/* MOSTRAMOS LA CARTAS EXCLUYENDO EL ID DE LA PRIMER CARTA */}
-      {ShowMoreCards && <CardsShowMore idRegistroTaller={idRegistroTaller} IdSelected={IdSelected} />}
+      {ShowMoreCards && (
+        <CardsShowMore
+          idRegistroTaller={idRegistroTaller}
+          IdSelected={IdSelected}
+        />
+      )}
       {ShowMoreCards && (
         <div
           className="mostrar-mas"

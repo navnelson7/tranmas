@@ -35,7 +35,7 @@ function Registros() {
                 </div>
                 <div>
                   <Link
-                    to={`/editar/registro/taller/${registro.id}`}
+                    to={`/editar/registro/taller/${registro.id}/${id}`}
                     key={registro.id}
                   >
                     <div className="card-registro-taller">

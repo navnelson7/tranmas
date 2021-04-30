@@ -185,6 +185,7 @@ export const listenDetalleTallerUpdate = gql`
     detalle_trabajo_taller_by_pk(id: $id) {
       cantidad
       comentarios
+      id_repuesto
       repuesto {
         nombre
       }

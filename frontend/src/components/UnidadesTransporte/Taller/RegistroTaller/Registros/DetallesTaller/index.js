@@ -106,7 +106,7 @@ function DetallesTaller({ idRegistroTaller }) {
             <StyleButton>
               <div className="grid-agregar-detalle">
                 <div>
-                  <hr class="line-horizontal" />
+                  <hr className="line-horizontal" />
                 </div>
                 <div>
                   <Link to={`/registro/detalle/taller/${idRegistroTaller}/${id}`}>

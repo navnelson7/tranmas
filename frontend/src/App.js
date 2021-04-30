@@ -230,7 +230,7 @@ function App() {
             <Route exact path="/registro/combustible/:id">
               <RegistroCombustible />
             </Route>
-            <Route exact path="/editar/registro/taller/:id">
+            <Route exact path="/editar/registro/taller/:id/:idUnidadTransporte">
               <Suspense fallback="Cargando....">
                 <EditarRegistroEnTaller />
               </Suspense>
@@ -425,7 +425,7 @@ function App() {
               </Suspense>
             </Route>
 
-            <Route exact path="/editar/detalle/taller/:id">
+            <Route exact path="/editar/detalle/taller/:id/:idUnidadTransporte">
               <Suspense fallback="Cargando....">
                 <EditarDetalleEnTaller />
               </Suspense>

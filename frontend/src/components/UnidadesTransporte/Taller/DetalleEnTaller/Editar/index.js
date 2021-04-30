@@ -12,8 +12,8 @@ import {
 import ButtonDesitionsWithDelete from "../../../../ButtonsDesitions/ButtonDesitionsWithDelete";
 
 function EditarDetalleEnTaller() {
-  const { id } = useParams();
-  const {push} = useHistory();
+  const { id, idUnidadTransporte } = useParams();
+  const { push } = useHistory();
 
   //ALERT
   const [showAlert, setshowAlert] = useState(false);
@@ -33,11 +33,20 @@ function EditarDetalleEnTaller() {
     id: id,
     cantidad: 1,
     comentarios: "",
+    id_repuesto: "",
   });
 
   useEffect(() => {
     let estadoTaller = {};
-    estadoTaller = data === undefined ? {} : data.detalle_trabajo_taller_by_pk;
+    estadoTaller =
+      data === undefined
+        ? {
+            id: id,
+            cantidad: 1,
+            comentarios: "",
+            id_repuesto: "",
+          }
+        : data.detalle_trabajo_taller_by_pk;
 
     setNuevoDetallerTaller(estadoTaller);
     // eslint-disable-next-line
@@ -63,6 +72,7 @@ function EditarDetalleEnTaller() {
         id: id,
         cantidad: NuevoDetallerTaller.cantidad,
         comentarios: NuevoDetallerTaller.comentarios,
+        id_repuesto: NuevoDetallerTaller.id_repuesto,
       },
     })
       .then((res) => {
@@ -71,6 +81,11 @@ function EditarDetalleEnTaller() {
           setIconType("success");
           setTextAlert("Actualizado correctamente");
           setshowAlert(true);
+
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push(`/registro/taller/${idUnidadTransporte}`);
+          }, 2000);
         }
       })
       .catch((error) => {
@@ -94,9 +109,10 @@ function EditarDetalleEnTaller() {
           setIconType("success");
           setTextAlert("Eliminado correctamente");
           setshowAlert(true);
+
           setTimeout(() => {
             //si todo va bien lo redirecciona al inicio
-            push("/unidades-transporte");
+            push(`/registro/taller/${idUnidadTransporte}`);
           }, 2000);
         }
       })
@@ -120,6 +136,7 @@ function EditarDetalleEnTaller() {
     );
 
   if (error) return <p className="center">Error! ${error.message}</p>;
+
   return (
     <Fragment>
       <ToastComponent

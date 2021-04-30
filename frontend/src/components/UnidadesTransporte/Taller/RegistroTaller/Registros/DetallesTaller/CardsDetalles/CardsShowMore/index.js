@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import { useSubscription } from "@apollo/client";
 import { listenDetalleTrabajoExcludeId } from "../../../../../../../../graphql/Suscription";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
 
 function CardsShowMore({ IdSelected, idRegistroTaller }) {
+  const { id } = useParams();
   const { loading, data, error } = useSubscription(
     listenDetalleTrabajoExcludeId,
     {
@@ -28,7 +28,7 @@ function CardsShowMore({ IdSelected, idRegistroTaller }) {
       {data.detalle_trabajo_taller.map((detalle) => {
         return (
           <Fragment>
-            <Link to={`/editar/detalle/taller/${detalle.id}`}>
+            <Link to={`/editar/detalle/taller/${detalle.id}/${id}`}>
               <div class="vl-detalle"></div>
               <div class="circle-detalle"></div>
               <div class="vl-detalle"></div>
