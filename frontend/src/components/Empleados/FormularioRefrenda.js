@@ -27,16 +27,14 @@ const FormularioRefrenda = ({ Id, Nombre, Licencia }) => {
     id_empleado: "",
     fecha_emision: "",
     fecha_refrenda: "",
-    numero_licencia_conducir: "",
-    refrendado: true
+    numero_licencia_conducir: ""
   });
 
   const {
     id_empleado,
     fecha_emision,
     fecha_refrenda,
-    numero_licencia_conducir,
-    refrendado
+    numero_licencia_conducir
   } = refrenda;
 
   const onChange = (e) => {
@@ -47,7 +45,7 @@ const FormularioRefrenda = ({ Id, Nombre, Licencia }) => {
       numero_licencia_conducir: Licencia,
     });
   };
-
+  
   const onSubmit = (e) => {
     e.preventDefault();
     if(id_empleado.trim()=== "" ||
@@ -64,10 +62,10 @@ const FormularioRefrenda = ({ Id, Nombre, Licencia }) => {
           })
           .then((res) =>{
             if(res.data){
-              console.log(res.data.insert_refrendas_one)
+              console.log(res.data.insert_refrenda_documentos_motorista_one)
               setIconType("success")
               setshowAlert(true)
-              setTextAlert([refrenda,res.data.insert_refrendas_one])
+              setTextAlert("Guardado Correctamente")
               setTimeout(()=>{
               }, 2000);
             }
