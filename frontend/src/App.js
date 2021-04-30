@@ -14,6 +14,9 @@ import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
 import EditarEmpleado from "./components/Empleados/Editar";
 import FormNuevoAccidente from "./components/UnidadesTransporte/Accidentes/FormNuevoAccidente";
 
+const AlertasCambioRepuesto = lazy(() =>
+  import("./components/UnidadesTransporte/AlertasCambioRepuesto")
+);
 const EditarAccidente = lazy(() =>
   import("./components/UnidadesTransporte/Accidentes/Editar")
 );
@@ -233,6 +236,12 @@ function App() {
               </Suspense>
             </Route>
 
+            <Route exact path="/alertas/cambio/repuesto/:idUnidadTransporte">
+              <Suspense fallback="Cargando....">
+                <AlertasCambioRepuesto />
+              </Suspense>
+            </Route>
+
             <Route exact path="/fallas/transporte/:id">
               <Suspense fallback="Cargando....">
                 <TableFallasTransporte />
@@ -288,7 +297,10 @@ function App() {
               </Suspense>
             </Route>
 
-            <Route exact path="/editar/registro/accidente/:id/:idUnidadTransporte">
+            <Route
+              exact
+              path="/editar/registro/accidente/:id/:idUnidadTransporte"
+            >
               <Suspense fallback="Cargando....">
                 <EditarAccidente />
               </Suspense>

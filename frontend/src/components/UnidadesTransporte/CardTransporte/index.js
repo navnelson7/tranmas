@@ -10,7 +10,7 @@ import ButtonTapiceria from "./ButtonTapiceria";
 import ButtonRefrenda from "./ButtonRefrenda";
 import ButtonCarwash from "./ButtonCarwash";
 import ButtonFallas from "./ButtonFallas";
-import AlertRepuesto from "./AlertaRepuesto";
+import ButtonCambioRepuesto from "./ButtonCambioRepuesto";
 
 function CardTransporte({ unidad }) {
   return (
@@ -27,6 +27,7 @@ function CardTransporte({ unidad }) {
             <StyleGridCircle>
               <div className="grid-circle-card scroll-cards">
                 <ButtonFuel id={unidad.id} />
+                <ButtonCambioRepuesto idUnidadTransporte={unidad.id} />
                 <ButtonGraphic idUnidadTransporte={unidad.id} />
                 <ButtonReparaciones idUnidadTransporte={unidad.id} />
                 <ButtonAccidentes idUnidadTransporte={unidad.id} />
@@ -38,7 +39,6 @@ function CardTransporte({ unidad }) {
               </div>
             </StyleGridCircle>
             <br />
-            <AlertRepuesto unidad={unidad} />
             <p className="center-box">Unidad N° {unidad.numero_equipo} </p>
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
@@ -57,7 +57,7 @@ function CardTransporte({ unidad }) {
 const StyleGridCircle = styled.div`
   .grid-circle-card {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25% 25% 25% 25% 25% 25%;
+    grid-template-columns: 25% 25% 25% 25% 25% 25% 25% 25% 25% 25%;
     grid-column-gap: 10%;
   }
   /* SCROLL CARDS */
