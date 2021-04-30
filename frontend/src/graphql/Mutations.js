@@ -1290,3 +1290,11 @@ export const setRefrendaOne = gql `
   }
 }
 `;
+
+export const deleteRefrenda = gql `
+  mutation delete_refrenda_documentos_motoristas_by_pk($id: uuid!){
+    delete_refrenda_documentos_motoristas_by_pk(id: $id){
+      id
+    }
+  }
+`;

@@ -6,6 +6,7 @@ import { getEmpleados } from "../../graphql/Queries";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import FormularioRefrenda from "./FormularioRefrenda";
+import TablaListaRefrenda from "../tablas/TablaListaRefrenda";
 //importar formulario refrendas
 //importar tabla refrenda
 const RegistroRefrenda = () => {
@@ -106,6 +107,7 @@ const RegistroRefrenda = () => {
           {mostrarFormulario === true ? (
             <Fragment>
               <FormularioRefrenda Id={Id} Nombre={Nombre} Licencia={Licencia} />
+              <TablaListaRefrenda Id={Id} />
             </Fragment>
           ) : (
             <h1>No hay nada que mostrar</h1>
