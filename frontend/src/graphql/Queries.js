@@ -340,7 +340,7 @@ export const EmpleadoByid = gql `
 `;
 
 export const getRefrendaPorIdEpleado = gql `
-  query getRefrendaPorIdEpleado($id_empleado: uuid!){
+  query getRefrendaPorIdEpleado($id_empleado_motorista: uuid!){
     refrenda_documentos_motorista(where: {id_empleado_motorista:{_eq: $id_empleado_motorista}}) {
     motorista{
       nombres

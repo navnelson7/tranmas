@@ -16,6 +16,7 @@ const TablaListaRefrenda = (Id, id) => {
     const [deleteRefren] = useMutation(deleteRefrenda);
     useEffect(() => {
         if (loading) {
+            console.log(Id);
             return
         }
         if (data) {
