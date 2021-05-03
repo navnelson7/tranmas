@@ -394,8 +394,7 @@ export const listenKilometrajeMax = gql`
       }
     }
   }
-`; 
-
+`;
 
 export const listenUnidadBySearch = gql`
   subscription unidades_de_transporte($numero_unidad: numeric) {
@@ -663,6 +662,14 @@ export const listenRepuestosCambios = gql`
       registro_taller {
         kilometraje
       }
+    }
+  }
+`;
+
+export const listenRepuestosReparadosById = gql`
+  subscription unidades_de_transporte_by_pk($idUnidadTransporte: uuid!) {
+    unidades_de_transporte_by_pk(id: $idUnidadTransporte) {
+      id_repuestos_reparados
     }
   }
 `;

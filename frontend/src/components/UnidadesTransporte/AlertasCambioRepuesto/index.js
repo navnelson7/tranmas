@@ -23,7 +23,7 @@ function AlertasCambioRepuesto() {
         <div className="spinner-border text-primary" role="status">
           <span className="sr-only">Loading...</span>
         </div>
-      </div>
+      </div> 
     );
   if (error) {
     return <p align="box-center">{`Error! ${error.message}`}</p>;
@@ -31,10 +31,6 @@ function AlertasCambioRepuesto() {
   if (KilometrajeMax.error) {
     return <p align="box-center">{`Error! ${KilometrajeMax.error}`}</p>;
   }
-  // console.log(
-  //   KilometrajeMax.data.registro_combustible_aggregate.aggregate.max
-  //     .kilometraje_actual
-  // );
   return (
     <Fragment>
       <StyleAlertas>
