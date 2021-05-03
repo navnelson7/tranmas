@@ -23,6 +23,7 @@ function UnidadesTransporte() {
 
   useEffect(() => {
     setLoading(true);
+    const abortController = new AbortController();
     const fetchGraphQL = async () => {
       try {
         const result = await fetch(process.env.REACT_APP_BACKEND_URL, {
@@ -69,6 +70,9 @@ function UnidadesTransporte() {
       }
     };
     fetchGraphQL();
+    return function cleanup() {
+      abortController.abort();
+    };
   }, [pageNumber]);
   if (Error)
     return (
@@ -90,7 +94,7 @@ function UnidadesTransporte() {
             </div>
             <div className="row hidden-md-up">
               {Data.map((unidad) => {
-                return  <CardTransporte unidad={unidad} key={unidad.id} />;
+                return <CardTransporte unidad={unidad} key={unidad.id} />;
               })}
             </div>
             {Loading && <p>Cargando...</p>}
