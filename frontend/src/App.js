@@ -1,18 +1,33 @@
 import React, { Fragment, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Login from "./components/Auth/Login";
 import { SearchContextProvider } from "./context/ContextInputSearch";
+import Loader from "./components/Loader";
 
 import Navegacion from "./components/Navegacion";
 import NavegacionTop from "./components/Navegacion/NavegacionTop";
-import RegistroCombustible from "./components/UnidadesTransporte/Combustible/Registro";
-import EditarCombustible from "./components/UnidadesTransporte/Combustible/EditarCombustible";
 import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
-import EstadisticasCombustible from "./components/UnidadesTransporte/Combustible/statistic";
-import Accidentes from "./components/UnidadesTransporte/Accidentes/Accidentes";
-import EditarEmpleado from "./components/Empleados/Editar";
-import FormNuevoAccidente from "./components/UnidadesTransporte/Accidentes/FormNuevoAccidente";
+import Login from "./components/Auth/Login";
+
+// LAZY IMPORTS
+const EditarCombustible = lazy(() =>
+  import("./components/UnidadesTransporte/Combustible/EditarCombustible")
+);
+const RegistroCombustible = lazy(() =>
+  import("./components/UnidadesTransporte/Combustible/Registro")
+);
+const FormNuevoAccidente = lazy(() =>
+  import("./components/UnidadesTransporte/Accidentes/FormNuevoAccidente")
+);
+const EditarEmpleado = lazy(() => import("./components/Empleados/Editar"));
+
+const Accidentes = lazy(() =>
+  import("./components/UnidadesTransporte/Accidentes/Accidentes")
+);
+
+const EstadisticasCombustible = lazy(() =>
+  import("./components/UnidadesTransporte/Combustible/statistic")
+);
 
 const AlertasCambioRepuesto = lazy(() =>
   import("./components/UnidadesTransporte/AlertasCambioRepuesto")
@@ -211,62 +226,72 @@ function App() {
           <Navegacion />
           <Switch>
             <Route exact path="/" component={Login}>
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarTransporte />
               </Suspense>
             </Route>
             <Route exact path="/actualizar-empleado/:id">
-              <EditarEmpleado />
+              <Suspense fallback={<Loader />}>
+                <EditarEmpleado />
+              </Suspense>
             </Route>
             <Route exact path="/accidentes/:id">
-              <Accidentes />
+              <Suspense fallback={<Loader />}>
+                <Accidentes />
+              </Suspense>
             </Route>
             <Route exact path="/editar/combustible/:id/:idUnidadTransporte">
-              <EditarCombustible />
+              <Suspense fallback={<Loader />}>
+                <EditarCombustible />
+              </Suspense>
             </Route>
             <Route exact path="/estadisticas/combustible/:id">
-              <EstadisticasCombustible />
+              <Suspense fallback={<Loader />}>
+                <EstadisticasCombustible />
+              </Suspense>
             </Route>
             <Route exact path="/registro/combustible/:id">
-              <RegistroCombustible />
+              <Suspense fallback={<Loader />}>
+                <RegistroCombustible />
+              </Suspense>
             </Route>
             <Route exact path="/editar/registro/taller/:id/:idUnidadTransporte">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarRegistroEnTaller />
               </Suspense>
             </Route>
 
             <Route exact path="/alertas/cambio/repuesto/:idUnidadTransporte">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <AlertasCambioRepuesto />
               </Suspense>
             </Route>
 
             <Route exact path="/fallas/transporte/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableFallasTransporte />
               </Suspense>
             </Route>
 
             <Route exact path="/editar/facturas/repuestos/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarFacturaRepuesto />
               </Suspense>
             </Route>
             <Route exact path="/registro/facturas/repuestos">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroFacturaRepuesto />
               </Suspense>
             </Route>
 
             <Route exact path="/editar/matenimiento/edificios/:idMantenimiento">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarMantenimientoEdificios />
               </Suspense>
             </Route>
 
             <Route exact path="/registro/matenimiento/edificios">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroMantenimientoEdificios />
               </Suspense>
             </Route>
@@ -275,7 +300,7 @@ function App() {
               exact
               path="/editar/detalle/matenimiento/edificios/:idDetalle/:idMantenimiento"
             >
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarDetalleMantenimientoEdificios />
               </Suspense>
             </Route>
@@ -284,7 +309,7 @@ function App() {
               exact
               path="/registro/detalle/matenimiento/edificios/:idMantenimiento"
             >
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroDetalleMantenimientoEdificios />
               </Suspense>
             </Route>
@@ -292,7 +317,7 @@ function App() {
               exact
               path="/tabla/detalle/matenimiento/edificios/:idMantenimiento"
             >
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableDetalleMantenimientoEdificios />
               </Suspense>
             </Route>
@@ -301,7 +326,7 @@ function App() {
               exact
               path="/editar/registro/accidente/:id/:idUnidadTransporte"
             >
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarAccidente />
               </Suspense>
             </Route>
@@ -309,41 +334,41 @@ function App() {
               <FormNuevoAccidente />
             </Route>
             <Route exact path="/tabla/registro/combustible/:idUnidadTransporte">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableRegistroCombustible />
               </Suspense>
             </Route>
 
             <Route exact path="/tabla/matenimiento/edificios">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableMantenimientoEdificios />
               </Suspense>
             </Route>
             <Route exact path="/editar/registro/edificio/:idEdificio">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarEdificio />
               </Suspense>
             </Route>
             <Route exact path="/registro/edificios">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroEdificios />
               </Suspense>
             </Route>
 
             <Route path="/tabla/edificios">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableRegistroEdificios />
               </Suspense>
             </Route>
 
             <Route exact path="/edificios">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <CardsEdificios />
               </Suspense>
             </Route>
 
             <Route exact path="/facturas/repuestos">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableFacturas />
               </Suspense>
             </Route>
@@ -352,31 +377,31 @@ function App() {
               exact
               path="/editar/aire/acondicionado/:idTransporte/:idAireAcondicionado"
             >
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarAireAcondicionado />
               </Suspense>
             </Route>
 
             <Route exact path="/registro/aire/acondicionado/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroAireAcondicionado />
               </Suspense>
             </Route>
 
             <Route exact path="/editar/tapiceria/:idTapiceria/:idTransporte">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarTapiceria />
               </Suspense>
             </Route>
 
             <Route exact path="/registro/tapiceria/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroTapiceria />
               </Suspense>
             </Route>
 
             <Route exact path="/tabla/tapiceria/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableTapiceria />
               </Suspense>
             </Route>
@@ -385,7 +410,7 @@ function App() {
               exact
               path="/editar/consumo/carwash/:idCarwash/:idTransporte"
             >
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarCarwash />
               </Suspense>
             </Route>
@@ -395,7 +420,7 @@ function App() {
               </Suspense>
             </Route>
             <Route exact path="/tabla/consumo/carwash/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableCarwash />
               </Suspense>
             </Route>
@@ -404,50 +429,50 @@ function App() {
               exact
               path="/editar/refrenda/circulacion/:idRefrenda/:idTransporte"
             >
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarRefrendaCirculacion />
               </Suspense>
             </Route>
 
             <Route exact path="/registro/refrenda/circulacion/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroRefrendaCirculacion />
               </Suspense>
             </Route>
             <Route exact path="/tabla/refrenda/circulacion/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableRefrendaCirculacion />
               </Suspense>
             </Route>
             <Route exact path="/tabla/aire/acondicionado/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <TableAireAcondicionado />
               </Suspense>
             </Route>
 
             <Route exact path="/editar/detalle/taller/:id/:idUnidadTransporte">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarDetalleEnTaller />
               </Suspense>
             </Route>
             <Route exact path="/registro/detalle/taller/:id/:unidadTransporte">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroDetalleEnTaller />
               </Suspense>
             </Route>
 
             <Route exact path="/registro/taller/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroTaller />
               </Suspense>
             </Route>
             <Route exact path="/actualizar-unidad-transporte/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarTransporte />
               </Suspense>
             </Route>
             <Route exact path="/registro-transporte">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <RegistroTransporte />
               </Suspense>
             </Route>
@@ -457,37 +482,37 @@ function App() {
               </Suspense>
             </Route>
             <Route exact path="/actualizar-repuestos/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarRepuestos />
               </Suspense>
             </Route>
             <Route exact path="/actualizar-proveedor/:id">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <EditarProveedor />
               </Suspense>
             </Route>
             <Route exact path="/nuevo-proveedor">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <NuevoProveedor />
               </Suspense>
             </Route>
             <Route exact path="/proveedores">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <Proveedores />
               </Suspense>
             </Route>
             <Route exact path="/nuevo-usuario">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <NuevoUsuario />
               </Suspense>
             </Route>
             <Route exact path="/registro">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <Registro />
               </Suspense>
             </Route>
             <Route exact path="/listado-empleados">
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <ListadoEmpleados />
               </Suspense>
             </Route>
@@ -498,53 +523,53 @@ function App() {
             </Route>
 
             <Route exact path="/listado-repuestos">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <ListadoRepuestos />
               </Suspense>
             </Route>
 
             <Route exact path="/formulario-repuestos">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <FormRepuestos />
               </Suspense>
             </Route>
             <Route exact path="/listado-marcas">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <ListadoMarcas />
               </Suspense>
             </Route>
             <Route exact path="/formulario-marcas">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <FormularioMarcas />
               </Suspense>
             </Route>
             <Route exact path="/formulario-medidas">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <FormularioMedidas />
               </Suspense>
             </Route>
             <Route exact path="/listado-medidas">
-              <Suspense fallback="Cargando..">
+              <Suspense fallback={<Loader />}>
                 <ListadoMedidas />
               </Suspense>
             </Route>
             <Route exact path="/busqueda-productos">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <BusquedaProductos />
               </Suspense>
             </Route>
             <Route exact path="/listado-estados-repuestos">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <ListadoEstadoRepuestos />
               </Suspense>
             </Route>
             <Route exact path="/formulario-estados">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <FormularioEstadoRepuestos />
               </Suspense>
             </Route>
             <Route exact path="/pdf-empleado">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <PdfEmpleado />
               </Suspense>
             </Route>
@@ -553,17 +578,17 @@ function App() {
               path="/captura-foto-empleado"
               component={CapturaFotoEmpleado}
             >
-              <Suspense fallback="Cargando....">
+              <Suspense fallback={<Loader />}>
                 <CapturaFotoEmpleado />
               </Suspense>
             </Route>
             <Route exact path="/registro-faltas">
-              <Suspense fallback="Cargando...">
+              <Suspense fallback={<Loader />}>
                 <RegistroFaltas />
               </Suspense>
             </Route>
             <Route exact path="/registro-refrenda">
-              <Suspense fallback="Cargando ...">
+              <Suspense fallback={<Loader />}>
                 <RegistroRefrenda />
               </Suspense>
             </Route>
