@@ -85,7 +85,11 @@ function TableRegistroEdificios() {
                 return (
                   <tr key={mantenimiento.id}>
                     <td>{index + 1}</td>
-                    <td>{mantenimiento.edificio.nombre}</td>
+                    <td>
+                      {mantenimiento.edificio.nombre === null
+                        ? ""
+                        : mantenimiento.edificio.nombre}
+                    </td>
                     <td>
                       {mantenimiento.empleado.nombres}{" "}
                       {mantenimiento.empleado.apellidos}
@@ -110,7 +114,7 @@ function TableRegistroEdificios() {
                           <FontAwesomeIcon icon={faEdit} />
                         </Button>
                       </Link>
-                      <Button 
+                      <Button
                         variant="danger"
                         title="Eliminar"
                         onClick={() =>
