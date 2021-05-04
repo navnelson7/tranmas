@@ -350,6 +350,7 @@ export const getRefrendaPorIdEpleado = gql `
     fecha_emision
     fecha_vencimiento
     refrendado
+    id
   }   
   }
 `;

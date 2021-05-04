@@ -6,7 +6,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { getRefrendaPorIdEpleado } from '../../graphql/Queries';
 import { deleteRefrenda } from '../../graphql/Mutations';
 
-const TablaListaRefrenda = (Id, id) => {
+const TablaListaRefrenda = ({Id, id}) => {
     const [listadoRefrenda, setListadoRefrenda] = useState([]);
     const { data, loading, refetch } = useQuery(getRefrendaPorIdEpleado, {
         variables: {
@@ -16,12 +16,10 @@ const TablaListaRefrenda = (Id, id) => {
     const [deleteRefren] = useMutation(deleteRefrenda);
     useEffect(() => {
         if (loading) {
-            console.log(Id);
             return
         }
         if (data) {
             setListadoRefrenda(data.refrenda_documentos_motorista);
-            console.log(data);
         }
         //eslint-disable-next-line
     }, [loading, data]);

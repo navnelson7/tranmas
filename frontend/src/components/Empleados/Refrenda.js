@@ -1,9 +1,14 @@
 import React from "react";
 import { Fragment } from "react";
-const Refrenda = (refrenda, id) => {
+const Refrenda = (refrenda,eliminarRefrenda, id) => {
+    console.log(refrenda)
+
   return (
     <Fragment>
-      <td>{refrenda.id}</td>
+      <td>{refrenda.refrenda.motorista.nombres} {refrenda.refrenda.motorista.apellidos}</td>
+      <td>{refrenda.refrenda.motorista.licencia_conducir}</td>
+      <td>{refrenda.refrenda.fecha_emision}</td>
+      <td>{refrenda.refrenda.fecha_vencimiento}</td>
     </Fragment>
   );
 };
