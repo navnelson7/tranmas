@@ -6,9 +6,10 @@ import styled from "styled-components";
 import { useHistory, useParams } from "react-router-dom";
 import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 
-function FormViajes({ NuevoViaje, changeViaje, submitViaje }) {
+function FormViajes({ NuevoViaje, changeViaje, submitViaje, motorista }) {
   const { location } = useHistory();
   const { idUnidadTransporte } = useParams();
+
   return (
     <Fragment>
       <StyleCarwash>
@@ -75,7 +76,14 @@ function FormViajes({ NuevoViaje, changeViaje, submitViaje }) {
                     </InputGroup>
                   </Col>
                   <Col sm={6}>
-                    <ListBoxMotorista changeMotorista={changeViaje} />
+                    <ListBoxMotorista
+                      changeMotorista={changeViaje}
+                      motoristaSeleccionado={
+                        motorista === undefined
+                          ? ""
+                          : motorista.nombres + motorista.apellidos
+                      }
+                    />
                   </Col>
                   <Col sm={6}>
                     <FormControl
@@ -89,7 +97,8 @@ function FormViajes({ NuevoViaje, changeViaje, submitViaje }) {
                           : NuevoViaje.tipo_viaje}
                       </option>
 
-                      <option value={"Libre"}>Libre</option>
+                      <option value={"Diario"}>Diario</option>
+                      <option value={"Express"}>Express</option>
                     </FormControl>
                   </Col>
                 </Row>

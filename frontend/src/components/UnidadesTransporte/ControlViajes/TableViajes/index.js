@@ -1,13 +1,20 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useParams, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useSubscription } from "@apollo/client";
+import { useMutation, useSubscription } from "@apollo/client";
 import { listenViajesByUnidadTransporte } from "../../../../graphql/Suscription";
+import { deleteViajeById } from "../../../../graphql/Mutations";
+import { ToastComponent } from "../../../Toast";
 
 function TableViajes() {
+  //ALERTA
+  const [TextAlert, setTextAlert] = useState("");
+  const [showAlert, setshowAlert] = useState(false);
+  const [IconType, setIconType] = useState("");
+
   const { idUnidadTransporte } = useParams();
   const { data, loading, error } = useSubscription(
     listenViajesByUnidadTransporte,
@@ -17,6 +24,28 @@ function TableViajes() {
       },
     }
   );
+  const [deleteViaje] = useMutation(deleteViajeById);
+
+  const submitDeleteViaje = (idSelected) => {
+    deleteViaje({
+      variables: {
+        id: idSelected,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          setIconType("success");
+          setshowAlert(true);
+          setTextAlert("Eliminado correctamente");
+        }
+      })
+      .catch((error) => {
+        setTextAlert(error.message);
+        setIconType("error");
+        setshowAlert(true);
+      });
+  };
+
   if (loading)
     return (
       <div className="center-box mt-5">
@@ -28,6 +57,12 @@ function TableViajes() {
   if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
+      <ToastComponent
+        showAlert={showAlert}
+        setShowAlert={setshowAlert}
+        iconType={IconType}
+        textAlert={TextAlert}
+      />
       <StyleAire>
         <div className="box-left-aire">
           <Link to={`/registro/viajes/${idUnidadTransporte}`}>
@@ -58,16 +93,26 @@ function TableViajes() {
                     <td>{viaje.kilometrajes_recogidos}</td>
                     <td>{viaje.tipo_viaje}</td>
                     <td>
-                      {viaje.empleado_motorista.nombres +
-                        " " +
-                        viaje.empleado_motorista.apellidos}
+                      {viaje.empleado_motorista === null
+                        ? ""
+                        : viaje.empleado_motorista.nombres +
+                          " " +
+                          viaje.empleado_motorista.apellidos}
                     </td>
                     <td>{viaje.fecha}</td>
                     <td>
-                      <Button variant="info">
-                        <FontAwesomeIcon icon={faEdit} />
-                      </Button>
-                      <Button variant="danger" title="Eliminar">
+                      <Link
+                        to={`/editar/viajes/${idUnidadTransporte}/${viaje.id}`}
+                      >
+                        <Button variant="info">
+                          <FontAwesomeIcon icon={faEdit} />
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="danger"
+                        title="Eliminar"
+                        onClick={() => submitDeleteViaje(viaje.id)}
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
                     </td>

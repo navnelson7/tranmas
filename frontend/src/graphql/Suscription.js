@@ -694,3 +694,20 @@ export const listenViajesByUnidadTransporte = gql`
     }
   }
 `;
+
+export const listenViajeById = gql`
+  subscription control_viajes_by_pk($id: uuid!) {
+    control_viajes_by_pk(id: $id) {
+      id
+      id_empleado_motorista
+      kilometrajes_recogidos
+      fecha
+      tipo_viaje
+      numero_de_viajes_realizados
+      empleado_motorista {
+        nombres
+        apellidos
+      }
+    }
+  }
+`;
