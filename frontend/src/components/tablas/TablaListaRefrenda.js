@@ -4,24 +4,22 @@ import Refrenda from '../Empleados/Refrenda';
 
 import { useMutation, useQuery } from '@apollo/client';
 import { getRefrendaPorIdEpleado } from '../../graphql/Queries';
-import { deleteRefrenda } from '../../graphql/Mutations';
+import { deleteRefrendaLicencia } from '../../graphql/Mutations';
 
-const TablaListaRefrenda = (Id, id) => {
+const TablaListaRefrenda = ({Id, id}) => {
     const [listadoRefrenda, setListadoRefrenda] = useState([]);
     const { data, loading, refetch } = useQuery(getRefrendaPorIdEpleado, {
         variables: {
             id_empleado_motorista: Id,
         },
     });
-    const [deleteRefren] = useMutation(deleteRefrenda);
+    const [deleteRefren] = useMutation(deleteRefrendaLicencia);
     useEffect(() => {
         if (loading) {
-            console.log(Id);
             return
         }
         if (data) {
             setListadoRefrenda(data.refrenda_documentos_motorista);
-            console.log(data);
         }
         //eslint-disable-next-line
     }, [loading, data]);
@@ -47,6 +45,7 @@ const TablaListaRefrenda = (Id, id) => {
                         <th>Fecha de Emisión</th>
                         <th>Fehca de Refrenda</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

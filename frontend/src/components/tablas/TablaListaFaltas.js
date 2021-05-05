@@ -34,7 +34,6 @@ const TablaListaFaltas = ({Id,id}) => {
             }
         })
     }
-    
     return (
         <Fragment>
             <br/>

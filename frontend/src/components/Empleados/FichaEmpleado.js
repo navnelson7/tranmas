@@ -20,9 +20,8 @@ const FichaEmpleado = () => {
     if (data) {
       setEmpleado(data.empleados_by_pk);
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line 
   }, [data]);
-
   return (
     <Fragment>
       <div className="box-left">
@@ -78,8 +77,12 @@ const FichaEmpleado = () => {
                 </td>
               </tr>
               <tr>
-                <td key={empleado}>Departamento: </td>
-                <td>Estado:</td>
+                <td key={empleado}>Departamento: 
+                  {empleado.departamento_de_empleado === undefined ? "" :empleado.departamento_de_empleado.departamento}
+                </td>
+                <td>Estado:
+                  {empleado.estado_de_empleado === undefined ? "" :empleado.estado_de_empleado.estado_empleado  }
+                </td>
               </tr>
               <tr>
                 <td>Comentarios:</td>
