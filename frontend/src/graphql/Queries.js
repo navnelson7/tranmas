@@ -331,8 +331,10 @@ export const EmpleadoByid = gql `
       departamento_de_empleado {
         departamento
       }
+      estado_de_empleado{
+        estado_empleado
+      }
       picture
-      id_estado_empleados
       id
       picture
     }
