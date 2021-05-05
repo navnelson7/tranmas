@@ -4,7 +4,7 @@ import Refrenda from '../Empleados/Refrenda';
 
 import { useMutation, useQuery } from '@apollo/client';
 import { getRefrendaPorIdEpleado } from '../../graphql/Queries';
-import { deleteRefrenda } from '../../graphql/Mutations';
+import { deleteRefrendaLicencia } from '../../graphql/Mutations';
 
 const TablaListaRefrenda = ({Id, id}) => {
     const [listadoRefrenda, setListadoRefrenda] = useState([]);
@@ -13,7 +13,7 @@ const TablaListaRefrenda = ({Id, id}) => {
             id_empleado_motorista: Id,
         },
     });
-    const [deleteRefren] = useMutation(deleteRefrenda);
+    const [deleteRefren] = useMutation(deleteRefrendaLicencia);
     useEffect(() => {
         if (loading) {
             return
