@@ -75,6 +75,11 @@ function ListadoEmpleados() {
               <FontAwesomeIcon icon={faUserEdit} /> Registro Falta
             </Button>
           </Link>
+          <Link to={`/registro-refrenda`} variant="danger">
+            <Button variant="info">
+              <FontAwesomeIcon icon={faUserEdit} /> Refrenda Licencia
+            </Button>
+          </Link>
           <br />
           <br />
           <Table striped bordered hover>
