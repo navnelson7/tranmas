@@ -1305,14 +1305,14 @@ export const deleteRefrenda = gql`
 `;
 
 export const insertViajeOne = gql`
-  mutation insert_control_viajes_one( 
-  $fecha: date
-  $id_empleado_motorista: uuid,
-  $id_unidad_transporte: uuid,
-  $kilometrajes_recogidos:  float8,
-  $numero_de_viajes_realizados: Int,
-  $tipo_viaje: String
-  ){
+  mutation insert_control_viajes_one(
+    $fecha: date
+    $id_empleado_motorista: uuid
+    $id_unidad_transporte: uuid
+    $kilometrajes_recogidos: float8
+    $numero_de_viajes_realizados: Int
+    $tipo_viaje: String
+  ) {
     insert_control_viajes_one(
       object: {
         fecha: $fecha
@@ -1322,6 +1322,40 @@ export const insertViajeOne = gql`
         numero_de_viajes_realizados: $numero_de_viajes_realizados
         tipo_viaje: $tipo_viaje
       }
+    ) {
+      id
+    }
+  }
+`;
+
+export const deleteViajeById = gql`
+  mutation delete_control_viajes_by_pk($id: uuid!) {
+    delete_control_viajes_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
+export const updateViajesById = gql`
+  mutation update_control_viajes_by_pk(
+    $fecha: date
+    $id_empleado_motorista: uuid
+    $id_unidad_transporte: uuid
+    $kilometrajes_recogidos: float8
+    $numero_de_viajes_realizados: Int
+    $tipo_viaje: String
+    $id: uuid!
+  ) {
+    update_control_viajes_by_pk(
+      _set: {
+        fecha: $fecha
+        id_empleado_motorista: $id_empleado_motorista
+        id_unidad_transporte: $id_unidad_transporte
+        kilometrajes_recogidos: $kilometrajes_recogidos
+        numero_de_viajes_realizados: $numero_de_viajes_realizados
+        tipo_viaje: $tipo_viaje
+      }
+      pk_columns: { id: $id }
     ) {
       id
     }

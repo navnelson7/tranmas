@@ -10,6 +10,9 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import Login from "./components/Auth/Login";
 
 // LAZY IMPORTS
+const EditarViajes = lazy(() =>
+  import("./components/UnidadesTransporte/ControlViajes/Editar")
+);
 const RegistroViajes = lazy(() =>
   import("./components/UnidadesTransporte/ControlViajes/Registro")
 );
@@ -237,6 +240,11 @@ function App() {
               </Suspense>
             </Route>
 
+            <Route exact path="/editar/viajes/:idUnidadTransporte/:idViaje">
+              <Suspense fallback={<Loader />}>
+                <EditarViajes />
+              </Suspense>
+            </Route>
             <Route exact path="/registro/viajes/:idUnidadTransporte">
               <Suspense fallback={<Loader />}>
                 <RegistroViajes />
