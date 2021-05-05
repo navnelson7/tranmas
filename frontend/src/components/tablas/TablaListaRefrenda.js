@@ -45,6 +45,7 @@ const TablaListaRefrenda = ({Id, id}) => {
                         <th>Fecha de Emisión</th>
                         <th>Fehca de Refrenda</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

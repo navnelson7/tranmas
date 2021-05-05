@@ -1,7 +1,6 @@
 import React from "react";
 import { Fragment } from "react";
 const Refrenda = (refrenda,eliminarRefrenda, id) => {
-    console.log(refrenda)
 
   return (
     <Fragment>
