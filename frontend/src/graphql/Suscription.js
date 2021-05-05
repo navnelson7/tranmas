@@ -673,3 +673,24 @@ export const listenRepuestosReparadosById = gql`
     }
   }
 `;
+
+export const listenViajesByUnidadTransporte = gql`
+  subscription control_viajes($idUnidadTransporte: uuid) {
+    control_viajes(
+      where: { id_unidad_transporte: { _eq: $idUnidadTransporte } }
+    ) {
+      id
+      fecha
+      tipo_viaje
+      numero_de_viajes_realizados
+      kilometrajes_recogidos
+      empleado_motorista {
+        nombres
+        apellidos
+      }
+      unidad_transporte {
+        numero_equipo
+      }
+    }
+  }
+`;
