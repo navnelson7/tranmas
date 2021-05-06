@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import styled from "styled-components";
 import { useParams, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,13 +14,20 @@ function TableViajes() {
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
-
+  const [Fecha, setFecha] = useState(
+    new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate()
+  );
   const { idUnidadTransporte } = useParams();
   const { data, loading, error } = useSubscription(
     listenViajesByUnidadTransporte,
     {
       variables: {
         idUnidadTransporte: idUnidadTransporte,
+        fecha: Fecha,
       },
     }
   );
@@ -63,6 +70,25 @@ function TableViajes() {
         iconType={IconType}
         textAlert={TextAlert}
       />
+      <br />
+      <br />
+      <div className="d-flex justify-content-end">
+        <Col sm={4}>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1">Fecha</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              placeholder="Fecha"
+              name="fecha"
+              type="date"
+              autoComplete="off"
+              value={Fecha}
+              onChange={(e) => setFecha(e.target.value)}
+            />
+          </InputGroup>
+        </Col>
+      </div>
       <StyleAire>
         <div className="box-left-aire">
           <Link to={`/registro/viajes/${idUnidadTransporte}`}>

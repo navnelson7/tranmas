@@ -7,6 +7,7 @@ import { useMutation, useSubscription } from "@apollo/client";
 import {
   saveRegistroCombustibleDaily,
   updateRepuestosReparadosByUnidadTransporte,
+  submitNuevoKilometrajeGlobal,
 } from "../../../../graphql/Mutations";
 import { useParams, useHistory } from "react-router-dom";
 import { ToastComponent } from "../../../Toast";
@@ -51,7 +52,7 @@ function RegistroCombustible() {
     kilometrajeData =
       data === undefined
         ? 0
-        : data.registro_combustible_aggregate.aggregate.max.kilometraje_actual;
+        : data.kilometraje_global_aggregate.aggregate.max.kilometraje;
 
     setNuevoCombustible({
       ...NuevoCombustible,
@@ -73,6 +74,36 @@ function RegistroCombustible() {
     }
   };
 
+  // ACTUALIZA EL KILOMETRAJE GLOBAL DE LA UNIDAD DE TRANSPORTE
+  const [updateKilometrajeGlobal] = useMutation(submitNuevoKilometrajeGlobal);
+
+  const submitUpdateKilometrajeGlobal = () => {
+    updateKilometrajeGlobal({
+      variables: {
+        id_unidad_transporte: id,
+        kilometraje: NuevoCombustible.kilometraje_actual,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          setLoading(false);
+          setIconType("success");
+          setTextAlert("Registrado correctamente");
+          setshowAlert(true);
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push("/unidades-transporte");
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        setTextAlert(error.message);
+        setIconType("error");
+        setshowAlert(true);
+      });
+  };
+
   const [
     ExecuteCleanRepuestosReparados,
     setExecuteCleanRepuestosReparados,
@@ -87,14 +118,7 @@ function RegistroCombustible() {
       })
         .then((res) => {
           if (res.data) {
-            setLoading(false);
-            setIconType("success");
-            setTextAlert("Registrado correctamente");
-            setshowAlert(true);
-            setTimeout(() => {
-              //si todo va bien lo redirecciona al inicio
-              push("/unidades-transporte");
-            }, 2000);
+            submitUpdateKilometrajeGlobal();
           }
         })
         .catch((error) => {

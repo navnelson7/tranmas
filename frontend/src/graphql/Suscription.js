@@ -135,6 +135,20 @@ export const listenCombustibleinTable = gql`
 
 export const listenKilomatrajeMax = gql`
   subscription registro_combustible_aggregate($id: uuid!) {
+    kilometraje_global_aggregate(
+      where: { id_unidad_transporte: { _eq: $id } }
+    ) {
+      aggregate {
+        max {
+          kilometraje
+        }
+      }
+    }
+  }
+`;
+
+export const listenKilometrajeMaxRegistroCombustible = gql`
+  subscription registro_combustible_aggregate($id: uuid!) {
     registro_combustible_aggregate(
       where: { id_unidad_transporte: { _eq: $id } }
     ) {
@@ -675,9 +689,13 @@ export const listenRepuestosReparadosById = gql`
 `;
 
 export const listenViajesByUnidadTransporte = gql`
-  subscription control_viajes($idUnidadTransporte: uuid) {
+  subscription control_viajes($idUnidadTransporte: uuid, $fecha: date) {
     control_viajes(
-      where: { id_unidad_transporte: { _eq: $idUnidadTransporte } }
+      order_by: { id: asc }
+      where: {
+        id_unidad_transporte: { _eq: $idUnidadTransporte }
+        fecha: { _eq: $fecha }
+      }
     ) {
       id
       fecha
@@ -708,6 +726,17 @@ export const listenViajeById = gql`
         nombres
         apellidos
       }
+    }
+  }
+`;
+
+export const listenValidateKilometrajeGlobalByUnidad = gql`
+  subscription kilometraje_global($id_unidad_transporte: uuid) {
+    kilometraje_global(
+      where: { id_unidad_transporte: { _eq: $id_unidad_transporte } }
+    ) {
+      id
+      kilometraje
     }
   }
 `;
