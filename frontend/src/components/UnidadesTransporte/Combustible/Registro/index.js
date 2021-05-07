@@ -11,7 +11,7 @@ import {
 } from "../../../../graphql/Mutations";
 import { useParams, useHistory } from "react-router-dom";
 import { ToastComponent } from "../../../Toast";
-import { listenKilomatrajeMax } from "../../../../graphql/Suscription";
+import { listenKilometrajeMax } from "../../../../graphql/Suscription";
 
 function RegistroCombustible() {
   const { id } = useParams();
@@ -22,7 +22,7 @@ function RegistroCombustible() {
     updateRepuestosReparadosByUnidadTransporte
   );
 
-  const { data, loading, error } = useSubscription(listenKilomatrajeMax, {
+  const { data, loading, error } = useSubscription(listenKilometrajeMax, {
     variables: { id: id },
   });
 

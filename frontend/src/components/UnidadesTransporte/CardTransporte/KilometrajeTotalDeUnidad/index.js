@@ -1,9 +1,9 @@
 import React from "react";
 import { useSubscription } from "@apollo/client";
-import { listenKilomatrajeMax } from "../../../../graphql/Suscription";
+import { listenKilometrajeMax } from "../../../../graphql/Suscription";
 
 function KilometrajeTotalDeUnidad({ idUnidadTransporte }) {
-  const { data, loading, error } = useSubscription(listenKilomatrajeMax, {
+  const { data, loading, error } = useSubscription(listenKilometrajeMax, {
     variables: {
       id: idUnidadTransporte,
     },

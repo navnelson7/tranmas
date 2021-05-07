@@ -10,26 +10,30 @@ import { useParams } from "react-router";
 
 function AlertasCambioRepuesto() {
   const { idUnidadTransporte } = useParams();
+
+  //TRAE EL NOMBRE DE  REPUESTO Y KM DE CAMBIO
   const { loading, data, error } = useSubscription(listenNombresDeRepuestos);
-  const KilometrajeMax = useSubscription(listenKilometrajeMax, {
+
+  // TRAE EL KILOMETRAJE REAL DE LA UNIDAD
+  const kilometrajeGlobalMax = useSubscription(listenKilometrajeMax, {
     variables: {
       id: idUnidadTransporte,
     },
   });
 
-  if (loading || KilometrajeMax.loading)
+  if (loading || kilometrajeGlobalMax.loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
           <span className="sr-only">Loading...</span>
         </div>
-      </div> 
+      </div>
     );
   if (error) {
     return <p align="box-center">{`Error! ${error.message}`}</p>;
   }
-  if (KilometrajeMax.error) {
-    return <p align="box-center">{`Error! ${KilometrajeMax.error}`}</p>;
+  if (kilometrajeGlobalMax.error) {
+    return <p align="box-center">{`Error! ${kilometrajeGlobalMax.error}`}</p>;
   }
   return (
     <Fragment>
@@ -41,11 +45,15 @@ function AlertasCambioRepuesto() {
             return (
               <Fragment key={repuestos.id}>
                 <RowAlertasCambioRepuesto
+                  kilometrajeCambioRepuesto={repuestos.km_para_cambio}
                   idRepuesto={repuestos.id}
                   nombreRepuesto={repuestos.nombre}
-                  kilometrajeActual={
-                    KilometrajeMax.data.registro_combustible_aggregate.aggregate
-                      .max.kilometraje_actual
+                  kilometrajeGlobalMax={
+                    kilometrajeGlobalMax.data.kilometraje_global_aggregate
+                      .aggregate.max.kilometraje === null
+                      ? 0
+                      : kilometrajeGlobalMax.data.kilometraje_global_aggregate
+                          .aggregate.max.kilometraje
                   }
                 />
               </Fragment>

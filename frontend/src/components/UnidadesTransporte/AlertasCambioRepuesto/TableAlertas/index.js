@@ -2,17 +2,15 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import { useSubscription } from "@apollo/client";
-import {
-  listenRepuestosCambios,
-  listenRepuestosReparadosById,
-} from "../../../../graphql/Suscription";
+import { listenRepuestosCambios } from "../../../../graphql/Suscription";
 import { Fragment } from "react";
 import styled from "styled-components";
 
 function RowAlertasCambioRepuesto({
+  kilometrajeCambioRepuesto,
   idRepuesto,
   nombreRepuesto,
-  kilometrajeActual,
+  kilometrajeGlobalMax,
 }) {
   const { idUnidadTransporte } = useParams();
   const { data, loading, error } = useSubscription(listenRepuestosCambios, {
@@ -28,13 +26,7 @@ function RowAlertasCambioRepuesto({
     },
   });
 
-  const RepuestosReparados = useSubscription(listenRepuestosReparadosById, {
-    variables: {
-      idUnidadTransporte: idUnidadTransporte,
-    },
-  });
-
-  if (loading || RepuestosReparados.loading)
+  if (loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -48,49 +40,17 @@ function RowAlertasCambioRepuesto({
     <Fragment>
       <StyleAlert>
         <div className="flex-center-box">
-          {data.detalle_trabajo_taller === 0
+          {/*  el kilometraje actual con la resta de la ultima vez que se cambio el repuesto comparar con km de cambio si es mayor o igual */}
+          {data.detalle_trabajo_taller[0] === undefined
             ? ""
-            : data.detalle_trabajo_taller[0] === undefined
-            ? ""
-            : data.detalle_trabajo_taller[0].registro_taller.kilometraje >=
-              kilometrajeActual
-            ? JSON.parse(
-                RepuestosReparados.data.unidades_de_transporte_by_pk
-                  .id_repuestos_reparados
-              ) === null
-              ? ""
-              : JSON.parse(
-                  RepuestosReparados.data.unidades_de_transporte_by_pk
-                    .id_repuestos_reparados
-                ).map((repuestoReparado) => {
-                  return (
-                    <Alert
-                      variant={
-                        repuestoReparado === idRepuesto ? "primary" : "warning"
-                      }
-                      key={repuestoReparado}
-                    >
-                      <Alert.Heading>
-                        ¡Oh vaya!{" "}
-                        {repuestoReparado === idRepuesto
-                          ? "el repuesto ha sido colocado"
-                          : ""}
-                      </Alert.Heading>
-                      {repuestoReparado === idRepuesto ? (
-                        <strike>
-                          La unidad de transporte necesita un cambio de{" "}
-                          <strong>{nombreRepuesto}</strong>
-                        </strike>
-                      ) : (
-                        <p>
-                          La unidad de transporte necesita un cambio de{" "}
-                          <strong>{nombreRepuesto}</strong>
-                        </p>
-                      )}
-                    </Alert>
-                  );
-                })
-            : ""}
+            : kilometrajeGlobalMax -
+                data.detalle_trabajo_taller[0].registro_taller.kilometraje >=
+                kilometrajeCambioRepuesto && (
+                <Alert variant="warning">
+                  <Alert.Heading>¡Oh vaya! </Alert.Heading>
+                  <p>Esta es una prueba {nombreRepuesto}</p>
+                </Alert>
+              )}
         </div>
       </StyleAlert>
     </Fragment>

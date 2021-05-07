@@ -133,8 +133,8 @@ export const listenCombustibleinTable = gql`
   }
 `;
 
-export const listenKilomatrajeMax = gql`
-  subscription registro_combustible_aggregate($id: uuid!) {
+export const listenKilometrajeMax = gql`
+  subscription kilometraje_global_aggregate($id: uuid!) {
     kilometraje_global_aggregate(
       where: { id_unidad_transporte: { _eq: $id } }
     ) {
@@ -396,20 +396,6 @@ export const listenControlCarwashById = gql`
   }
 `;
 
-export const listenKilometrajeMax = gql`
-  subscription registro_combustible_aggregate($id: uuid) {
-    registro_combustible_aggregate(
-      where: { id_unidad_transporte: { _eq: $id } }
-    ) {
-      aggregate {
-        max {
-          kilometraje_actual
-        }
-      }
-    }
-  }
-`;
-
 export const listenUnidadBySearch = gql`
   subscription unidades_de_transporte($numero_unidad: numeric) {
     unidades_de_transporte(where: { numero_equipo: { _eq: $numero_unidad } }) {
@@ -512,6 +498,7 @@ export const listenNombresDeRepuestos = gql`
     repuestos {
       id
       nombre
+      km_para_cambio
     }
   }
 `;
@@ -676,14 +663,6 @@ export const listenRepuestosCambios = gql`
       registro_taller {
         kilometraje
       }
-    }
-  }
-`;
-
-export const listenRepuestosReparadosById = gql`
-  subscription unidades_de_transporte_by_pk($idUnidadTransporte: uuid!) {
-    unidades_de_transporte_by_pk(id: $idUnidadTransporte) {
-      id_repuestos_reparados
     }
   }
 `;

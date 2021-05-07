@@ -28,8 +28,8 @@ function FormDetalleEnTaller({
                     onChange={(e) => changeTaller(e)}
                     autoComplete="off"
                     value={
-                      stateDetalleTaller === undefined
-                        ? ""
+                      stateDetalleTaller === undefined || null
+                        ? 0
                         : stateDetalleTaller.cantidad
                     }
                   />
