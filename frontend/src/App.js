@@ -226,6 +226,10 @@ const RegistroFaltas = lazy(() =>
 
 const Proveedores = lazy(() => import("./components/Proveedores/index"));
 
+const ContratosEmpleados = lazy(() =>
+    import("./components/Empleados/ContratosEmpleados")
+);
+
 function App() {
   return (
     <Fragment>
@@ -616,6 +620,11 @@ function App() {
             <Route exact path="/registro-refrenda">
               <Suspense fallback={<Loader />}>
                 <RegistroRefrenda />
+              </Suspense>
+            </Route>
+            <Route exact path="/registro-contratos">
+              <Suspense fallback={<Loader />}>
+                <ContratosEmpleados />
               </Suspense>
             </Route>
           </Switch>
