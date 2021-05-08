@@ -27,11 +27,7 @@ function FormDetalleEnTaller({
                     type="number"
                     onChange={(e) => changeTaller(e)}
                     autoComplete="off"
-                    value={
-                      stateDetalleTaller === undefined || null
-                        ? 0
-                        : stateDetalleTaller.cantidad
-                    }
+                    value={stateDetalleTaller.cantidad}
                   />
                 </InputGroup>
               </Col>

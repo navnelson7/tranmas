@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import FormDetalleEnTaller from "../FormDetalleTaller";
-import { useSubscription, useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ToastComponent } from "../../../../Toast";
 import { StyleRegistroTaller } from "../Registro";
-import { listenDetalleTallerUpdate } from "../../../../../graphql/Suscription";
+import { listenDetalleTallerUpdate } from "../../../../../graphql/Queries";
 import {
   updateDetalleTrabajoTaller,
   deleteDetalleEnTaller,
@@ -21,7 +21,7 @@ function EditarDetalleEnTaller() {
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
 
-  const { data, loading, error } = useSubscription(listenDetalleTallerUpdate, {
+  const { data, loading, error } = useQuery(listenDetalleTallerUpdate, {
     variables: {
       id: id,
     },

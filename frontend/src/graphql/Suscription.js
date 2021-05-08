@@ -194,19 +194,6 @@ export const listenDetallesTaller = gql`
   }
 `;
 
-export const listenDetalleTallerUpdate = gql`
-  subscription detalle_trabajo_taller_by_pk($id: uuid!) {
-    detalle_trabajo_taller_by_pk(id: $id) {
-      cantidad
-      comentarios
-      id_repuesto
-      repuesto {
-        nombre
-      }
-    }
-  }
-`;
-
 export const listenRegistroTallerById = gql`
   query registro_taller_by_pk($id: uuid!) {
     registro_taller_by_pk(id: $id) {
@@ -481,9 +468,9 @@ export const listenDetalleTaller = gql`
       }
       nodes {
         id
+        comentarios
         registro_taller {
           fecha
-          comentarios
           unidad_transporte {
             numero_placa
           }
@@ -494,14 +481,21 @@ export const listenDetalleTaller = gql`
 `;
 
 export const listenNombresDeRepuestos = gql`
-  subscription {
-    repuestos {
-      id
-      nombre
-      km_para_cambio
+  subscription detalle_trabajo_taller($idUnidadTransporte: uuid) {
+    detalle_trabajo_taller(
+      distinct_on: [id_repuesto]
+      where: {
+        registro_taller: { id_unidad_transporte: { _eq: $idUnidadTransporte } }
+      }
+    ) {
+      repuesto {
+        id
+        nombre
+        km_para_cambio
+      }
     }
   }
-`;
+`;  
 
 export const listenFacturaRepuesto = gql`
   subscription {

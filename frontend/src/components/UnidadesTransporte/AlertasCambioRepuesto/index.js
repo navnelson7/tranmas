@@ -7,6 +7,7 @@ import {
 } from "../../../graphql/Suscription";
 import RowAlertasCambioRepuesto from "./TableAlertas";
 import { useParams } from "react-router";
+import { v4 as uuid } from "uuid";
 
 function AlertasCambioRepuesto() {
   const { idUnidadTransporte } = useParams();
@@ -41,21 +42,31 @@ function AlertasCambioRepuesto() {
         <br />
         <h2 className="center-box">Alertas de cambio de repuesto</h2>
         <div className="box-left-aire">
-          {data.repuestos.map((repuestos) => {
+          {data.detalle_trabajo_taller.map((repuestos) => {
             return (
-              <Fragment key={repuestos.id}>
-                <RowAlertasCambioRepuesto
-                  kilometrajeCambioRepuesto={repuestos.km_para_cambio}
-                  idRepuesto={repuestos.id}
-                  nombreRepuesto={repuestos.nombre}
-                  kilometrajeGlobalMax={
-                    kilometrajeGlobalMax.data.kilometraje_global_aggregate
-                      .aggregate.max.kilometraje === null
-                      ? 0
-                      : kilometrajeGlobalMax.data.kilometraje_global_aggregate
-                          .aggregate.max.kilometraje
-                  }
-                />
+              <Fragment
+                key={
+                  repuestos.repuesto === null ? uuid() : repuestos.repuesto.id
+                }
+              >
+                {repuestos.repuesto === null ? (
+                  ""
+                ) : (
+                  <RowAlertasCambioRepuesto
+                    kilometrajeCambioRepuesto={
+                      repuestos.repuesto.km_para_cambio
+                    }
+                    idRepuesto={repuestos.repuesto.id}
+                    nombreRepuesto={repuestos.repuesto.nombre}
+                    kilometrajeGlobalMax={
+                      kilometrajeGlobalMax.data.kilometraje_global_aggregate
+                        .aggregate.max.kilometraje === null
+                        ? 0
+                        : kilometrajeGlobalMax.data.kilometraje_global_aggregate
+                            .aggregate.max.kilometraje
+                    }
+                  />
+                )}
               </Fragment>
             );
           })}

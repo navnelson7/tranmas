@@ -3,9 +3,15 @@ import styled from "styled-components";
 import { useSubscription } from "@apollo/client";
 import { listenNombresDeRepuestos } from "../../../../graphql/Suscription";
 import RowDetalleTaller from "./RowDetalleTaller";
+import { useParams } from "react-router";
 
 function LecturaFallas() {
-  const NombresRepuestos = useSubscription(listenNombresDeRepuestos);
+  const { id } = useParams();
+  const NombresRepuestos = useSubscription(listenNombresDeRepuestos, {
+    variables: {
+      idUnidadTransporte: id,
+    },
+  });
 
   if (NombresRepuestos.loading)
     return (
@@ -19,18 +25,18 @@ function LecturaFallas() {
     return (
       <p align="box-center">{`Error! ${NombresRepuestos.error.message}`}</p>
     );
-  return (
+   return (
     <Fragment>
       <StyleAire>
-        <br/>
-          <h2 className="center-box">Lectura de frecuencia en fallas</h2>
+        <br />
+        <h2 className="center-box">Lectura de frecuencia en fallas</h2>
         <div className="box-left-aire">
-          {NombresRepuestos.data.repuestos.map((repuestos) => {
+          {NombresRepuestos.data.detalle_trabajo_taller.map((repuesto) => {
             return (
-              <Fragment key={repuestos.id}>
+              <Fragment key={repuesto.repuesto.id}>
                 <RowDetalleTaller
-                  idRepuesto={repuestos.id}
-                  nombreRepuesto={repuestos.nombre}
+                  idRepuesto={repuesto.repuesto.id}
+                  nombreRepuesto={repuesto.repuesto.nombre}
                 />
               </Fragment>
             );

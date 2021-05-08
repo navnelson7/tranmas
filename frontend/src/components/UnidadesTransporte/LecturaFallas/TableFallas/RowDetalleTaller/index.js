@@ -25,13 +25,13 @@ function RowDetalleTaller({ idRepuesto, nombreRepuesto }) {
       </div>
     );
   if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
-
+  console.log(data);
   return (
     <Fragment>
       <OverlayTrigger
-        placement={"top"}
+        placement="top"
         overlay={
-          <Tooltip id={`tooltip`}>
+          <Tooltip id="tooltip">
             Numero de veces que se cambio el repuesto
           </Tooltip>
         }
@@ -42,10 +42,10 @@ function RowDetalleTaller({ idRepuesto, nombreRepuesto }) {
         </Button>
       </OverlayTrigger>
       <Table bordered size="sm">
-        <thead class="table-dark">
+        <thead className="table-dark">
           <tr>
             <th>#</th>
-            <th>Descripción</th>
+            <th>Comentarios</th>
             <th>Fecha</th>
             <th>Acción</th>
           </tr>
@@ -55,15 +55,15 @@ function RowDetalleTaller({ idRepuesto, nombreRepuesto }) {
             {data.detalle_trabajo_taller_aggregate.nodes.map(
               (detalle, index) => {
                 return (
-                  <Fragment>
+                  <Fragment key={detalle.id}>
                     {index < 1 && (
-                      <tr key={detalle.id}>
+                      <tr>
                         <td>{index + 1}</td>
-                        <td>{detalle.registro_taller.comentarios}</td>
+                        <td>{detalle.comentarios}</td>
                         <td>{detalle.registro_taller.fecha}</td>
                         <td>
                           <Link
-                            to={`/editar/detalle/taller/${detalle.id}`}
+                            to={`/editar/detalle/taller/${detalle.id}/${id}`}
                             title="Editar"
                           >
                             <Button variant="primary">
@@ -86,11 +86,11 @@ function RowDetalleTaller({ idRepuesto, nombreRepuesto }) {
                 return (
                   <tr key={detalle.id}>
                     <td>{index + 1}</td>
-                    <td>{detalle.registro_taller.comentarios}</td>
+                    <td>{detalle.comentarios}</td>
                     <td>{detalle.registro_taller.fecha}</td>
                     <td>
                       <Link
-                        to={`/editar/detalle/taller/${detalle.id}`}
+                        to={`/editar/detalle/taller/${detalle.id}/${id}`}
                         title="Editar"
                       >
                         <Button variant="primary">
