@@ -86,7 +86,7 @@ function TableRegistroEdificios() {
                   <tr key={mantenimiento.id}>
                     <td>{index + 1}</td>
                     <td>
-                      {mantenimiento.edificio.nombre === null
+                      {mantenimiento.edificio === null
                         ? ""
                         : mantenimiento.edificio.nombre}
                     </td>

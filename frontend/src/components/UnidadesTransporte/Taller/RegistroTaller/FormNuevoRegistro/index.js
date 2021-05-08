@@ -5,7 +5,7 @@ import ButtonDesitions from "../../../../ButtonsDesitions";
 import EstadoTaller from "./EstadoTaller";
 import { useSubscription, useMutation } from "@apollo/client";
 import { useParams } from "react-router";
-import { listenKilomatrajeMax } from "../../../../../graphql/Suscription";
+import { listenKilometrajeMax } from "../../../../../graphql/Suscription";
 import { setRegistroTallerOne } from "../../../../../graphql/Mutations";
 import ListBoxMotorista from "../../../../listbox/ListBoxMotorista";
 import ListBoxMecanico from "../../../../listbox/ListboxMecanico";
@@ -29,7 +29,7 @@ function FormNuevoRegistro() {
   });
   const [ExecuteEstadoTaller, setExecuteEstadoTaller] = useState(false);
   const [ExecuteRegistroTaller, setExecuteRegistroTaller] = useState(false);
-  const { data, loading, error } = useSubscription(listenKilomatrajeMax, {
+  const { data, loading, error } = useSubscription(listenKilometrajeMax, {
     variables: { id: id },
   });
 
@@ -40,7 +40,7 @@ function FormNuevoRegistro() {
     kilometrajeData =
       data === undefined
         ? 0
-        : data.registro_combustible_aggregate.aggregate.max.kilometraje_actual;
+        : data.kilometraje_global_aggregate.aggregate.max.kilometraje;
 
     setRegistroTaller({
       ...RegistroTaller,

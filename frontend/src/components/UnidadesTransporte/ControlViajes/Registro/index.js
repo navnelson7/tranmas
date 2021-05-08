@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import FormViajes from "../FormViajes";
-import { useMutation } from "@apollo/client";
-import { insertViajeOne } from "../../../../graphql/Mutations";
+import { useMutation, useSubscription } from "@apollo/client";
+import {
+  insertViajeOne,
+  submitNuevoKilometrajeGlobal,
+  updateKilometrajeGlobalExistente,
+} from "../../../../graphql/Mutations";
 import { useHistory, useParams } from "react-router";
 import { ToastComponent } from "../../../Toast";
+import {
+  listenValidateKilometrajeGlobalByUnidad,
+  listenKilometrajeMaxRegistroCombustible,
+} from "../../../../graphql/Suscription";
 
 function Registro() {
   const { idUnidadTransporte } = useParams();
@@ -22,6 +30,24 @@ function Registro() {
     id_empleado_motorista: "",
     id_unidad_transporte: idUnidadTransporte,
   });
+
+  const { data, loading, error } = useSubscription(
+    listenValidateKilometrajeGlobalByUnidad,
+    {
+      variables: {
+        id_unidad_transporte: idUnidadTransporte,
+      },
+    }
+  );
+
+  const KilometrajeMaxRegistroCombustible = useSubscription(
+    listenKilometrajeMaxRegistroCombustible,
+    {
+      variables: {
+        id: idUnidadTransporte,
+      },
+    }
+  );
 
   const changeViaje = (e) => {
     if (e.target.type === "number") {
@@ -42,6 +68,36 @@ function Registro() {
     })
       .then((res) => {
         if (res.data) {
+          if (data.kilometraje_global.length === 0) {
+            submitKilometrajeGlobalPorPrimeraVez();
+          } else {
+            submitKilometrajeGlobalExistente();
+          }
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        setTextAlert(error.message);
+        setIconType("error");
+        setshowAlert(true);
+      });
+  };
+
+  const [setKilometrajeExistente] = useMutation(
+    updateKilometrajeGlobalExistente
+  );
+  // ACTUALIZA EL KILOMETRAJE GLOBAL DE LA UNIDAD DE TRANSPORTE
+  const submitKilometrajeGlobalExistente = () => {
+    setKilometrajeExistente({
+      variables: {
+        id_unidad_transporte: idUnidadTransporte,
+        kilometraje:
+          NuevoViaje.kilometrajes_recogidos *
+          NuevoViaje.numero_de_viajes_realizados,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
           setLoading(false);
           setIconType("success");
           setshowAlert(true);
@@ -59,7 +115,52 @@ function Registro() {
         setshowAlert(true);
       });
   };
-  if (Loading)
+
+  const [setKilometrajePrimeraVez] = useMutation(submitNuevoKilometrajeGlobal, {
+    variables: {
+      id_unidad_transporte: idUnidadTransporte,
+      kilometraje:
+        NuevoViaje.kilometrajes_recogidos *
+        NuevoViaje.numero_de_viajes_realizados,
+    },
+  });
+
+  const submitKilometrajeGlobalPorPrimeraVez = () => {
+    setKilometrajePrimeraVez({
+      variables: {
+        id_unidad_transporte: idUnidadTransporte,
+        kilometraje:
+          KilometrajeMaxRegistroCombustible.data.registro_combustible_aggregate
+            .aggregate.max.kilometraje_actual === null
+            ? 0
+            : // KILOMETRAJE DE LA UNIDAD SI YA EXISITIAN REGISTROS DE COMBUSTIBLE
+              KilometrajeMaxRegistroCombustible.data
+                .registro_combustible_aggregate.aggregate.max
+                .kilometraje_actual +
+              NuevoViaje.kilometrajes_recogidos *
+                NuevoViaje.numero_de_viajes_realizados,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          setLoading(false);
+          setIconType("success");
+          setshowAlert(true);
+          setTextAlert("Registrado correctamente");
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push(`/control/viajes/${idUnidadTransporte}`);
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        setTextAlert(error.message);
+        setIconType("error");
+        setshowAlert(true);
+      });
+  };
+  if (Loading || loading || KilometrajeMaxRegistroCombustible.loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -67,6 +168,8 @@ function Registro() {
         </div>
       </div>
     );
+
+  if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
   return (
     <div>
       <ToastComponent

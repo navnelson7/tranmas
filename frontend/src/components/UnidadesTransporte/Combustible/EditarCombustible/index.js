@@ -5,7 +5,10 @@ import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 import ButtonDesitions from "../../../ButtonsDesitions";
 import { useMutation, useSubscription } from "@apollo/client";
 import { registroCombustibleById } from "../../../../graphql/Queries";
-import { updateRegistroCombustibleById } from "../../../../graphql/Mutations";
+import {
+  updateRegistroCombustibleById,
+  submitNuevoKilometrajeGlobal,
+} from "../../../../graphql/Mutations";
 import { useHistory, useParams } from "react-router-dom";
 import { ToastComponent } from "../../../Toast";
 
@@ -44,6 +47,36 @@ function EditarCombustible() {
     }
   };
 
+  // ACTUALIZA EL KILOMETRAJE GLOBAL DE LA UNIDAD DE TRANSPORTE
+  const [updateKilometrajeGlobal] = useMutation(submitNuevoKilometrajeGlobal);
+
+  const submitUpdateKilometrajeGlobal = () => {
+    updateKilometrajeGlobal({
+      variables: {
+        id_unidad_transporte: idUnidadTransporte,
+        kilometraje: EditarCombustible.kilometraje_actual,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          setLoading(false);
+          setIconType("success");
+          setTextAlert("Actualizado correctamente");
+          setshowAlert(true);
+          setTimeout(() => {
+            //si todo va bien lo redirecciona al inicio
+            push("/unidades-transporte");
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        setTextAlert(error.message);
+        setIconType("error");
+        setshowAlert(true);
+      });
+  };
+
   const submitEditarCombustible = (e) => {
     e.preventDefault();
     updateCombustible({
@@ -58,14 +91,7 @@ function EditarCombustible() {
     })
       .then((res) => {
         if (res.data) {
-          setLoading(false);
-          setIconType("success");
-          setshowAlert(true);
-          setTextAlert("Actualizado correctamente");
-          setTimeout(() => {
-            //si todo va bien lo redirecciona al inicio
-            push("/unidades-transporte");
-          }, 2000);
+          submitUpdateKilometrajeGlobal();
         }
       })
       .catch((error) => {

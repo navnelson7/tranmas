@@ -12,6 +12,7 @@ import ButtonCarwash from "./ButtonCarwash";
 import ButtonFallas from "./ButtonFallas";
 import ButtonCambioRepuesto from "./ButtonCambioRepuesto";
 import ButtonViajes from "./ButtonViajes";
+import KilometrajeTotalDeUnidad from "./KilometrajeTotalDeUnidad";
 
 function CardTransporte({ unidad }) {
   return (
@@ -41,6 +42,7 @@ function CardTransporte({ unidad }) {
               </div>
             </StyleGridCircle>
             <br />
+            <KilometrajeTotalDeUnidad idUnidadTransporte={unidad.id} />
             <p className="center-box">Unidad N° {unidad.numero_equipo} </p>
             <div className="box-placa">
               <div className="box-blue-top">EL SALVADOR</div>
