@@ -1,6 +1,8 @@
-import { useSubscription } from '@apollo/react-hooks';
 import React,{Fragment, useEffect, useState} from 'react';
-import {Container, Table} from 'react-bootstrap';
+import { useSubscription } from '@apollo/react-hooks';
+import {Container, Table, Button} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { getEmpleados } from '../../graphql/Queries';
 import BusquedaEmpleados from './BusquedaEmpleados';
 const ContratosEmpleados = () => {
@@ -56,6 +58,7 @@ const ContratosEmpleados = () => {
                             <tr>
                                 <th>Codigo</th>
                                 <th>Nombre de Empleado</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,8 +68,24 @@ const ContratosEmpleados = () => {
                                 </tr>
                             ):(
                                 encontrados.map((encontrado)=>(
-                                    <tr>
-                                        <td>vamos</td>
+                                    <tr key={encontrado.codigo_empleado}>
+                                        <td>{encontrado.codigo_empleado}</td>
+                                        <td>{encontrado.nombres} {encontrado.apellidos}</td>
+                                        <td>
+                                            <Button
+                                                variant="danger"
+                                                onClick={()=>{
+                                                    //agregarContrato();
+                                                    setId(encontrado.id);
+                                                    setNombre(encontrado.nombres);
+                                                }}
+                                                value={encontrado.id}
+                                                name="id"
+                                            >
+                                                Agregar Contrato{" "}
+                                                <FontAwesomeIcon icon={faExclamationCircle} />
+                                            </Button>
+                                        </td>
                                     </tr>
                                 ))
                             )}
