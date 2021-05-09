@@ -31,7 +31,9 @@ function UnidadesTransporte() {
           body: JSON.stringify({
             query: `
         query unnamedQuery1 {
-          unidades_de_transporte(where: {activo: {_eq: true}}, offset: ${pageNumber}, limit: 10) {
+          unidades_de_transporte(order_by:{
+            id: asc
+          },where: {activo: {_eq: true}}, offset: ${pageNumber}, limit: 10) {
             activo
             numero_pasajeros
             numero_placa
