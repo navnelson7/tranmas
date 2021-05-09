@@ -7,6 +7,8 @@ import { getEmpleados } from '../../graphql/Queries';
 import BusquedaEmpleados from './BusquedaEmpleados';
 const ContratosEmpleados = () => {
     
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
     const [listadoEmpleados, setListadoEmpleados] =useState([]);
     const {loading, data} = useSubscription(getEmpleados);
 
@@ -47,6 +49,10 @@ const ContratosEmpleados = () => {
             guardarEncontrados(search);
         }
     };
+
+    const agregarContrato = () =>{
+        setMostrarFormulario(true);
+    }
     return (
         <Fragment>
             <div className="box-left">
@@ -75,7 +81,7 @@ const ContratosEmpleados = () => {
                                             <Button
                                                 variant="danger"
                                                 onClick={()=>{
-                                                    //agregarContrato();
+                                                    agregarContrato();
                                                     setId(encontrado.id);
                                                     setNombre(encontrado.nombres);
                                                 }}

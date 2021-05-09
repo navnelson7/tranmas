@@ -7,8 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import FormularioRefrenda from "./FormularioRefrenda";
 import TablaListaRefrenda from "../tablas/TablaListaRefrenda";
-//importar formulario refrendas
-//importar tabla refrenda
+
 const RegistroRefrenda = () => {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
