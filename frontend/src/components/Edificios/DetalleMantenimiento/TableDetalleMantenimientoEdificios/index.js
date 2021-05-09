@@ -17,7 +17,9 @@ function TableDetalleMantenimientoEdificios() {
 
   const { idMantenimiento } = useParams();
   const { data, loading, error } = useSubscription(listenDetalleMantenimiento, {
-    idMantenimiento: idMantenimiento,
+    variables:{
+     idMantenimiento: idMantenimiento,
+    }
   });
   const [deleteRegistroEdificio] = useMutation(
     deleteDetalleMantenimientoEdificioById
