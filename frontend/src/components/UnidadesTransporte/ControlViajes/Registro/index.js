@@ -23,7 +23,12 @@ function Registro() {
   const [Loading, setLoading] = useState(false);
   const [setViaje] = useMutation(insertViajeOne);
   const [NuevoViaje, setNuevoViaje] = useState({
-    fecha: "",
+    fecha:
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate(),
     numero_de_viajes_realizados: 0,
     kilometrajes_recogidos: "",
     tipo_viaje: "",
@@ -63,24 +68,31 @@ function Registro() {
     }
   };
   const submitViaje = () => {
-    setViaje({
-      variables: NuevoViaje,
-    })
-      .then((res) => {
-        if (res.data) {
-          if (data.kilometraje_global.length === 0) {
-            submitKilometrajeGlobalPorPrimeraVez();
-          } else {
-            submitKilometrajeGlobalExistente();
-          }
-        }
+    if (NuevoViaje.tipo_viaje === "") {
+      setLoading(false);
+      setTextAlert("Selecciona el tipo de viaje");
+      setIconType("error");
+      setshowAlert(true);
+    } else {
+      setViaje({
+        variables: NuevoViaje,
       })
-      .catch((error) => {
-        setLoading(false);
-        setTextAlert(error.message);
-        setIconType("error");
-        setshowAlert(true);
-      });
+        .then((res) => {
+          if (res.data) {
+            if (data.kilometraje_global.length === 0) {
+              submitKilometrajeGlobalPorPrimeraVez();
+            } else {
+              submitKilometrajeGlobalExistente();
+            }
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setTextAlert(error.message);
+          setIconType("error");
+          setshowAlert(true);
+        });
+    }
   };
 
   const [setKilometrajeExistente] = useMutation(
@@ -116,14 +128,7 @@ function Registro() {
       });
   };
 
-  const [setKilometrajePrimeraVez] = useMutation(submitNuevoKilometrajeGlobal, {
-    variables: {
-      id_unidad_transporte: idUnidadTransporte,
-      kilometraje:
-        NuevoViaje.kilometrajes_recogidos *
-        NuevoViaje.numero_de_viajes_realizados,
-    },
-  });
+  const [setKilometrajePrimeraVez] = useMutation(submitNuevoKilometrajeGlobal);
 
   const submitKilometrajeGlobalPorPrimeraVez = () => {
     setKilometrajePrimeraVez({
@@ -134,11 +139,14 @@ function Registro() {
             .aggregate.max.kilometraje_actual === null
             ? 0
             : // KILOMETRAJE DE LA UNIDAD SI YA EXISITIAN REGISTROS DE COMBUSTIBLE
-              KilometrajeMaxRegistroCombustible.data
+            KilometrajeMaxRegistroCombustible.data
                 .registro_combustible_aggregate.aggregate.max
-                .kilometraje_actual +
-              NuevoViaje.kilometrajes_recogidos *
-                NuevoViaje.numero_de_viajes_realizados,
+                .kilometraje_actual + // VALIDO EL TIPO DE VIAJE SI ES DIARIO MULTIPLICA SINO TAL CUAL
+                NuevoViaje.tipo_viaje ===
+              "Diario"
+            ? NuevoViaje.kilometrajes_recogidos *
+              NuevoViaje.numero_de_viajes_realizados
+            : NuevoViaje.kilometrajes_recogidos,
       },
     })
       .then((res) => {
