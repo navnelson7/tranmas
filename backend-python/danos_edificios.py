@@ -5,13 +5,13 @@ from bson.objectid import ObjectId
 from flask_cors import cross_origin
 
 
-api_accidente = Blueprint('api_accidente', __name__)
+dano_edificios = Blueprint('dano_edificios', __name__)
 
-PATH_IMAGE = "/imagenes-accidentes/"
-PATH_IMAGE_ACCIDENTE = "./imagenes-accidentes"
+PATH_IMAGE = "/imagenes-daños-edificios/"
+PATH_IMAGE_ACCIDENTE = "./imagenes-daños-edificios"
 
 
-@api_accidente.errorhandler(400)
+@dano_edificios.errorhandler(400)
 def not_found(error=str):
     response = jsonify({
         "message": error,
@@ -21,7 +21,7 @@ def not_found(error=str):
     return response
 
 
-@api_accidente.route('/upload/mutiple/accidentes', methods=["POST"])
+@dano_edificios.route('/upload/mutiple/daños/edificios', methods=["POST"])
 def upload_image_accidente():
     if request.method == 'POST':
         files = request.files.getlist("files")
@@ -46,14 +46,14 @@ def upload_image_accidente():
         })
 
 
-@api_accidente.route('/imagenes/accidentes/<string:filename>')
+@dano_edificios.route('/imagenes/daño/edificio/<string:filename>')
 def get_images_accidentes(filename):
     image_name = str(filename)
     return send_from_directory(directory=os.path.join(PATH_IMAGE_ACCIDENTE), filename=image_name, as_attachment=False)
 
 
 # REMOVE IMAGES
-@api_accidente.route('/delete/image/accidente', methods=['POST'])
+@dano_edificios.route('/delete/daño/edificio', methods=['POST'])
 def remove_images_accidente():
     filename = request.form['filename']
     try:

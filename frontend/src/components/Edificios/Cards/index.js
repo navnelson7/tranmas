@@ -35,20 +35,12 @@ function CardsEdificios() {
                 </Card>
               </Link>
             </Col>
+
             <Col md={4}>
               <Card className="card-hover" style={{ width: "18rem" }}>
                 <Card.Body>
                   <Card.Title className="text-center">
-                    Registro de emergencias
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={4}>
-              <Card className="card-hover" style={{ width: "18rem" }}>
-                <Card.Body>
-                  <Card.Title className="text-center">
-                    Registro de daños
+                    Registro de daños en edificios
                   </Card.Title>
                 </Card.Body>
               </Card>

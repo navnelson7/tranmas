@@ -1390,3 +1390,23 @@ export const submitNuevoKilometrajeGlobal = gql`
     }
   }
 `;
+
+export const insertRegistroEmergenciasEdificiosOne = gql`
+  mutation insert_registro_emergencias_edificios_one(
+    $descripcion: String
+    $fecha: date
+    $id_edificio: uuid
+    $imagenes: String
+  ) {
+    insert_registro_emergencias_edificios_one(
+      object: {
+        descripcion: $descripcion
+        fecha: $fecha
+        imagenes: $imagenes
+        id_edificio: $id_edificio
+      }
+    ) {
+      id
+    }
+  }
+`;
