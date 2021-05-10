@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { getEmpleados } from '../../graphql/Queries';
 import BusquedaEmpleados from './BusquedaEmpleados';
+import FormularioContratos from  './FormularioContratos';
 const ContratosEmpleados = () => {
     
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -97,6 +98,13 @@ const ContratosEmpleados = () => {
                             )}
                         </tbody>
                     </Table>
+                    {mostrarFormulario === true ?(
+                        <Fragment>
+                            <FormularioContratos Id={Id} Nombre={Nombre} />
+                        </Fragment>
+                    ):(
+                        <h1>No hay Nada que mostrar</h1>
+                    )}
                 </Container>
             </div>
         </Fragment>
