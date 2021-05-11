@@ -260,7 +260,7 @@ export const updateRepuestoOne = gql`
 `;
 
 export const setTransporteOne = gql`
-  mutation(
+  mutation (
     $activo: Boolean
     $color: String
     $color_tapiceria: String
@@ -300,7 +300,7 @@ export const setTransporteOne = gql`
 `;
 
 export const setEmpleadosOne = gql`
-  mutation(
+  mutation (
     $codigo_empleado: String
     $nombres: String
     $apellidos: String
@@ -1406,6 +1406,36 @@ export const insertRegistroEmergenciasEdificiosOne = gql`
         id_edificio: $id_edificio
       }
     ) {
+      id
+    }
+  }
+`;
+
+export const updateRegistroEmergenciasEdificiosOne = gql`
+  mutation update_registro_emergencias_edificios_by_pk(
+    $descripcion: String
+    $fecha: date
+    $id_edificio: uuid
+    $imagenes: String
+    $id: uuid!
+  ) {
+    update_registro_emergencias_edificios_by_pk(
+      _set: {
+        descripcion: $descripcion
+        fecha: $fecha
+        id_edificio: $id_edificio
+        imagenes: $imagenes
+      }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
+
+export const deleteRegistroEmergenciasEdficios = gql`
+  mutation delete_registro_emergencias_edificios_by_pk($id: uuid!) {
+    delete_registro_emergencias_edificios_by_pk(id: $id) {
       id
     }
   }

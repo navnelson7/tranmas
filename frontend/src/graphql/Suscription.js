@@ -35,7 +35,7 @@ export const listenProveedoresTable = gql`
 `;
 
 export const listenUnidadesTranporte = gql`
-  query($paginateNumber: Int) {
+  query ($paginateNumber: Int) {
     unidades_de_transporte(
       where: { activo: { _eq: true } }
       offset: $paginateNumber
@@ -112,7 +112,7 @@ export const listenMecanicoListBox = gql`
   }
 `;
 export const listenCombustibleinTable = gql`
-  subscription($fecha: date, $id_unidad_transporte: uuid) {
+  subscription ($fecha: date, $id_unidad_transporte: uuid) {
     registro_combustible(
       where: {
         fecha: { _eq: $fecha }
@@ -495,7 +495,7 @@ export const listenNombresDeRepuestos = gql`
       }
     }
   }
-`;  
+`;
 
 export const listenFacturaRepuesto = gql`
   subscription {
@@ -710,6 +710,35 @@ export const listenValidateKilometrajeGlobalByUnidad = gql`
     ) {
       id
       kilometraje
+    }
+  }
+`;
+
+export const listenRegistroEmergenciasEdificios = gql`
+  subscription {
+    registro_emergencias_edificios(order_by: { id: asc }) {
+      descripcion
+      id
+      fecha
+      edificio {
+        nombre
+      }
+      imagenes
+    }
+  }
+`;
+
+export const listenRegistroEmergenciasEdificiosById = gql`
+  subscription registro_emergencias_edificios_by_pk($id: uuid!) {
+    registro_emergencias_edificios_by_pk(id: $id) {
+      descripcion
+      id_edificio
+      fecha
+      id
+      edificio {
+        nombre
+      }
+      imagenes
     }
   }
 `;

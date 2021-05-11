@@ -6,6 +6,7 @@ function Upload({
   newDañoEdificio,
   setnewDañoEdificio,
   setExecuteSaveEdificio,
+  setOcultarBotonesPorDefecto,
 }) {
   const [Files, setFiles] = useState([]);
   const [AboutFiles, setAboutFiles] = useState([]);
@@ -23,6 +24,7 @@ function Upload({
         date: iterator.lastModifiedDate,
       });
     }
+    setOcultarBotonesPorDefecto(false);
     setFiles(blobFiles);
     setAboutFiles(filesDescription);
   };

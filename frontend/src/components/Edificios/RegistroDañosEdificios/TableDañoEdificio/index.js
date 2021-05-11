@@ -1,33 +1,39 @@
 import React, { Fragment, useState } from "react";
-import { Table, Button, Modal, Image } from "react-bootstrap";
+import { Table, Button, Modal, Carousel } from "react-bootstrap";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
   faEdit,
   faFileImage,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSubscription, useMutation } from "@apollo/client";
-import { listenTapiceria } from "../../../../graphql/Suscription";
-import { deleteTapiceriaById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
+import { useMutation, useSubscription } from "@apollo/react-hooks";
+import { listenRegistroEmergenciasEdificios } from "../../../../graphql/Suscription";
+import { deleteRegistroEmergenciasEdficios } from "../../../../graphql/Mutations";
 
-function TableTapiceria() {
-  const { id } = useParams();
+function TableDañoEdificio() {
   //ALERTA
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
-  const [ImageSelected, setImageSelected] = useState("");
-  const { data, loading, error } = useSubscription(listenTapiceria, {
-    variables: {
-      id,
-    },
-  });
-  const [deleteTapiceria] = useMutation(deleteTapiceriaById);
-  const submitDeleteTapiceria = (idSelected) => {
-    deleteTapiceria({
+  const [ImageSelected, setImageSelected] = useState([]);
+
+  const { data, loading, error } = useSubscription(
+    listenRegistroEmergenciasEdificios
+  );
+
+  const [deleteRegistroEmergencia] = useMutation(
+    deleteRegistroEmergenciasEdficios
+  );
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const submitDeleteEmergencia = (idSelected) => {
+    deleteRegistroEmergencia({
       variables: {
         id: idSelected,
       },
@@ -46,10 +52,6 @@ function TableTapiceria() {
       });
   };
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   if (loading)
     return (
       <div className="center-box mt-5">
@@ -58,21 +60,30 @@ function TableTapiceria() {
         </div>
       </div>
     );
-  if (error) return <p className="box-center">{`Error! ${error.message}`}</p>;
+  if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
       <Modal show={show} onHide={handleClose}>
-        <Image
-          src={process.env.REACT_APP_BACKEND_FLASK + "images/" + ImageSelected}
-          thumbnail
-        />
+        <Carousel>
+          {ImageSelected.map((foto) => {
+            return (
+              <Carousel.Item key={foto}>
+                <img
+                  className="d-block w-100"
+                  src={`${process.env.REACT_APP_BACKEND_FLASK}imagenes/daño/edificio/${foto}`}
+                  alt=""
+                />
+              </Carousel.Item>
+            );
+          })}
+        </Carousel>
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
             Cerrar
           </Button>
         </Modal.Footer>
       </Modal>
-      <ToastComponent 
+      <ToastComponent
         showAlert={showAlert}
         setShowAlert={setshowAlert}
         iconType={IconType}
@@ -80,7 +91,7 @@ function TableTapiceria() {
       />
       <StyleAire>
         <div className="box-left-aire">
-          <Link to={`/registro/tapiceria/${id}`} variant="danger">
+          <Link to="/registro/daño/edificio" variant="danger">
             <Button variant="info">Nuevo Registro</Button>
           </Link>
           <br />
@@ -89,43 +100,41 @@ function TableTapiceria() {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Motorista</th>
+                <th>Nombre de Edificio</th>
                 <th>Descripción</th>
-                <th>Costo de tapiceria</th>
                 <th>Fecha</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody>
-              {data.control_tapiceria_carroceria.map((tapiceria, index) => {
+              {data.registro_emergencias_edificios.map((daño, index) => {
                 return (
-                  <tr key={tapiceria.id}>
+                  <tr key={daño.id}>
                     <td>{index + 1}</td>
                     <td>
-                      {tapiceria.empleado_motorista.nombres}{" "}
-                      {tapiceria.empleado_motorista.apellidos}
+                      {daño.edificio.nombre === null
+                        ? ""
+                        : daño.edificio.nombre}
                     </td>
-                    <td>{tapiceria.descripcion_dano}</td>
-                    <td>{tapiceria.costo_tapiceria}</td>
-                    <td>{tapiceria.fecha}</td>
+                    <td>{daño.descripcion}</td>
+                    <td>{daño.fecha}</td>
                     <td>
                       <Button
                         title="Ver fotografia"
                         variant="success"
+                        className="mr-2"
                         onClick={() => {
-                          setImageSelected(tapiceria.foto);
+                          setImageSelected(JSON.parse(daño.imagenes));
                           handleShow();
                         }}
-                        className="mr-2"
                       >
                         <FontAwesomeIcon icon={faFileImage} />
                       </Button>
                       <Link
-                        to={`/editar/tapiceria/${tapiceria.id}/${id}`}
+                        to={`/editar/daño/edificio/${daño.id}`}
                         variant="danger"
                         title="Editar"
                         className="mr-2"
-
                       >
                         <Button variant="info">
                           <FontAwesomeIcon icon={faEdit} />
@@ -134,7 +143,7 @@ function TableTapiceria() {
                       <Button
                         variant="danger"
                         title="Eliminar"
-                        onClick={() => submitDeleteTapiceria(tapiceria.id)}
+                        onClick={() => submitDeleteEmergencia(daño.id)}
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
@@ -150,7 +159,7 @@ function TableTapiceria() {
   );
 }
 
-export default TableTapiceria;
+export default TableDañoEdificio;
 
 const StyleAire = styled.div`
   .box-left-aire {

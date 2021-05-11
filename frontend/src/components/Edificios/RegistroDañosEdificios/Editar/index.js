@@ -3,14 +3,17 @@ import { Form, InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import ListBoxEdificios from "../../../listbox/ListBoxEdificios";
 import Upload from "../Upload";
-import { useMutation } from "@apollo/client";
-import { insertRegistroEmergenciasEdificiosOne } from "../../../../graphql/Mutations";
+import { useMutation, useSubscription } from "@apollo/client";
+import { updateRegistroEmergenciasEdificiosOne } from "../../../../graphql/Mutations";
+import { listenRegistroEmergenciasEdificiosById } from "../../../../graphql/Suscription";
 import { ToastComponent } from "../../../Toast";
+import { useHistory, useParams } from "react-router-dom";
 import ButtonsDesitions from "../../../ButtonsDesitions";
-import { useHistory } from "react-router-dom";
+import SliderAccidentes from "./SliderAccidentes";
 
-function Registro() {
+function Editar() {
   const { push } = useHistory();
+  const { id } = useParams();
   //ALERT
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
@@ -18,6 +21,7 @@ function Registro() {
   const [Loading, setLoading] = useState(false);
 
   const [ExecuteSaveEdificio, setExecuteSaveEdificio] = useState(false);
+
   const [OcultarBotonesPorDefecto, setOcultarBotonesPorDefecto] =
     useState(true);
   const [newDañoEdificio, setnewDañoEdificio] = useState({
@@ -32,14 +36,48 @@ function Registro() {
     imagenes: "[]",
   });
 
+  const { data, loading, error } = useSubscription(
+    listenRegistroEmergenciasEdificiosById,
+    {
+      variables: {
+        id: id,
+      },
+    }
+  );
+
+  useEffect(() => {
+    let daño = {};
+    daño =
+      data === undefined
+        ? {
+            descripcion: "",
+            fecha:
+              new Date().getFullYear() +
+              "-" +
+              (new Date().getMonth() + 1) +
+              "-" +
+              new Date().getDate(),
+            id_edificio: "",
+            imagenes: "[]",
+          }
+        : {
+            descripcion: data.registro_emergencias_edificios_by_pk.descripcion,
+            fecha: data.registro_emergencias_edificios_by_pk.fecha,
+            id: data.registro_emergencias_edificios_by_pk.id,
+            imagenes: data.registro_emergencias_edificios_by_pk.imagenes,
+            id_edificio: data.registro_emergencias_edificios_by_pk.id_edificio,
+          };
+    setnewDañoEdificio(daño);
+  }, [data, id]);
+
   const changeAccidente = (e) => {
     setnewDañoEdificio({
       ...newDañoEdificio,
       [e.target.name]: e.target.value,
     });
   };
-  const [newRegistroEmergencia] = useMutation(
-    insertRegistroEmergenciasEdificiosOne
+  const [updateRegistroEmergencia] = useMutation(
+    updateRegistroEmergenciasEdificiosOne
   );
 
   // eslint-disable-next-line
@@ -56,19 +94,15 @@ function Registro() {
       setIconType("error");
       setshowAlert(true);
     } else {
-      newRegistroEmergencia({
+      updateRegistroEmergencia({
         variables: newDañoEdificio,
       })
         .then((res) => {
           if (res.data) {
-            setTextAlert("Registrado correctamente");
+            setTextAlert("Actualizado correctamente");
             setLoading(false);
             setIconType("success");
             setshowAlert(true);
-            setTimeout(() => {
-              //si todo va bien lo redirecciona al inicio
-              push("/tabla/daño/edificio");
-            }, 2000);
           }
         })
         .catch((error) => {
@@ -89,9 +123,13 @@ function Registro() {
 
   const guardarCambios = () => {
     setExecuteSaveEdificio(true);
+    setTimeout(() => {
+      //si todo va bien lo redirecciona al inicio
+      push("/tabla/daño/edificio");
+    }, 2000);
   };
 
-  if (Loading)
+  if (Loading || loading)
     return (
       <div className="center-box mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -99,6 +137,7 @@ function Registro() {
         </div>
       </div>
     );
+  if (error) return <p className="box-center">{`Error! ${error.message}`}</p>;
 
   return (
     <Fragment>
@@ -126,7 +165,12 @@ function Registro() {
                   onChange={changeAccidente}
                 />
               </InputGroup>
-              <ListBoxEdificios changeEdificio={changeAccidente} />
+              <ListBoxEdificios
+                changeEdificio={changeAccidente}
+                edificioSeleccionado={
+                  data.registro_emergencias_edificios_by_pk.edificio.nombre
+                }
+              />
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
                   <InputGroup.Text>Fecha</InputGroup.Text>
@@ -139,6 +183,17 @@ function Registro() {
                   onChange={changeAccidente}
                 />
               </InputGroup>
+              <SliderAccidentes
+                fotos={
+                  newDañoEdificio.imagenes
+                    ? JSON.parse(newDañoEdificio.imagenes)
+                    : []
+                }
+                setnewAccidente={setnewDañoEdificio}
+                newAccidente={newDañoEdificio}
+                setTextAlert={setTextAlert}
+                endpointImage={"imagenes/daño/edificio/"}
+              />
               {OcultarBotonesPorDefecto && (
                 <ButtonsDesitions
                   linkCancel="/tabla/daño/edificio"
@@ -166,7 +221,7 @@ function Registro() {
   );
 }
 
-export default Registro;
+export default Editar;
 
 export const StyleRegitroUnidades = styled.div`
   .center-txt {
