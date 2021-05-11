@@ -43,6 +43,7 @@ services:
     volumes:
       - ./images:/code/images
       - ./imagenes-accidentes/:/code/imagenes-accidentes
+      - ./imagenes-daños-edificios:/code/imagenes-daños-edificios
     ports:
       - "5000:5000"
 
@@ -64,6 +65,6 @@ services:
       - graphql-engine
       - webflask
     restart: always
-
+ 
 volumes:
   db_data:
