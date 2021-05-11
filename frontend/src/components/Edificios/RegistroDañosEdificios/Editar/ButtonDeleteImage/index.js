@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import axios from "axios";
 import { useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { updateImagenesAccidente } from "../../../../../graphql/Mutations";
+import { updateImageofEmergenciaEdificioById } from "../../../../../graphql/Mutations";
 import { ToastComponent } from "../../../../Toast";
 
 function ButtonDeleteImage({
@@ -15,7 +15,9 @@ function ButtonDeleteImage({
 }) {
   const { id } = useParams();
   const [ExecuteUpdate, setExecuteUpdate] = useState(false);
-  const [updateAccidente] = useMutation(updateImagenesAccidente);
+  const [updateImagenEmergencia] = useMutation(
+    updateImageofEmergenciaEdificioById
+  );
 
   //ALERT
   const [showAlert, setshowAlert] = useState(false);
@@ -28,19 +30,19 @@ function ButtonDeleteImage({
     axios
       .request({
         method: "POST",
-        url: process.env.REACT_APP_BACKEND_FLASK + "delete/image/accidente",
+        url: process.env.REACT_APP_BACKEND_FLASK + "delete/daño/edificio",
         data: formdata,
       })
       .then(() => {
         // ELIMINO DEL ARRAY LA IMAGEN QUE HAYA SELECCIONADO
-        const imagesResults = JSON.parse(newAccidente.registro_fotos).filter(
+        const imagesResults = JSON.parse(newAccidente.imagenes).filter(
           (foto) => {
             return foto !== infoImage.nameImage;
           }
         );
         setnewAccidente({
           ...newAccidente,
-          registro_fotos: JSON.stringify(imagesResults),
+          imagenes: JSON.stringify(imagesResults),
         });
         setExecuteUpdate(true);
       })
@@ -53,10 +55,10 @@ function ButtonDeleteImage({
 
   useEffect(() => {
     if (ExecuteUpdate) {
-      updateAccidente({
+      updateImagenEmergencia({
         variables: {
           id: id,
-          registro_fotos: newAccidente.registro_fotos,
+          imagenes: newAccidente.imagenes,
         },
       })
         .then((res) => {
@@ -86,7 +88,7 @@ function ButtonDeleteImage({
     <Fragment>
       <ToastComponent showAlert={showAlert} setShowAlert={setshowAlert} />
       <Button variant="danger" onClick={(e) => submitDeleteImage(e)}>
-        Eliminar imagen {infoImage.position + 1}
+        Eliminar imagen {infoImage.position + 1} 
       </Button>
     </Fragment>
   );

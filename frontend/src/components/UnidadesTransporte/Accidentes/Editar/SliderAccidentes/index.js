@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import ButtonDeleteImage from "../ButtonDeleteImage";
 
@@ -13,6 +13,12 @@ function SliderAccidente({
     nameImage: "",
   });
 
+  useEffect(() => {
+    setinfoImage({
+      position: 0,
+      nameImage: fotos[0],
+    });
+  }, [fotos]);
   const handleSelect = (selectedIndex) => {
     setinfoImage({
       position: selectedIndex,
