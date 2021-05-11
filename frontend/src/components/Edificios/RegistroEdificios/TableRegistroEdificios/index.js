@@ -47,6 +47,7 @@ function TableRegistroEdificios() {
       </div>
     );
   if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
+
   return (
     <Fragment>
       <ToastComponent

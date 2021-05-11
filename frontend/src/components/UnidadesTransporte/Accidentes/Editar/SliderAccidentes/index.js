@@ -25,7 +25,7 @@ function SliderAccidente({
       <Carousel onSelect={handleSelect}>
         {fotos.map((foto) => {
           return (
-            <Carousel.Item>
+            <Carousel.Item key={foto}>
               <img
                 className="d-block w-100"
                 src={`${process.env.REACT_APP_BACKEND_FLASK}imagenes/accidentes/${foto}`}

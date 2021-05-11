@@ -1390,22 +1390,43 @@ export const submitNuevoKilometrajeGlobal = gql `
     }
   }
 `;
+
+export const insertRegistroEmergenciasEdificiosOne = gql `
+  mutation insert_registro_emergencias_edificios_one(
+    $descripcion: String
+    $fecha: date
+    $id_edificio: uuid
+    $imagenes: String
+  ) {
+    insert_registro_emergencias_edificios_one(
+      object: {
+        descripcion: $descripcion
+        fecha: $fecha
+        imagenes: $imagenes
+        id_edificio: $id_edificio
+      }
+    ) {
+      id
+    }
+  }
+`;
+
 export const setContratosOne = gql `
-  mutation setContratosOne {
-  insert_registro_contratos_one(
+ mutation insert_registro_contratos_one(
     $id_empleado: uuid
     $fecha_contrato: date
     $fecha_de_registro: date
     $contrato_digital: String
-  ){
-    insert_registro_contratos_one(
+) {
+  insert_registro_contratos_one(
       object:{
         id_empleado: $id_empleado
         fecha_contrato: $fecha_contrato
         fecha_de_registro: $fecha_de_registro
         contrato_digital: $contrato_digital
       }
-    )
+  ){
+    id
   }
 }
 `;
