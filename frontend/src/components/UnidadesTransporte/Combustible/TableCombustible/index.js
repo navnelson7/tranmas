@@ -131,21 +131,25 @@ function TableCombustible() {
               </tr>
             </thead>
             <tbody>
-              {data.registro_combustible.map((carwash, index) => {
+              {data.registro_combustible.map((combustible, index) => {
                 return (
-                  <tr key={carwash.id}>
+                  <tr key={combustible.id}>
                     <td>{index + 1}</td>
-                    <td>{carwash.galones_servidos}</td>
-                    <td>{carwash.kilometraje_actual}</td>
+                    <td>{combustible.galones_servidos}</td>
+                    <td>{combustible.kilometraje_actual}</td>
                     <td>
-                      {carwash.empleado_motorista.nombres}{" "}
-                      {carwash.empleado_motorista.apellidos}
+                      {combustible.empleado_motorista.nombres}{" "}
+                      {combustible.empleado_motorista.apellidos}
                     </td>
-                    <td>{carwash.comentarios}</td>
-                    <td>{carwash.fecha}</td>
+                    <td>{combustible.comentarios}</td>
+                    <td>
+                      {new Date(combustible.fecha).getDate() + 1} de{" "}
+                      {meses[new Date(combustible.fecha).getMonth()]}{" "}
+                      {new Date(combustible.fecha).getFullYear()}
+                    </td>
                     <td>
                       <Link
-                        to={`/editar/combustible/${carwash.id}/${idUnidadTransporte}`}
+                        to={`/editar/combustible/${combustible.id}/${idUnidadTransporte}`}
                       >
                         <Button variant="info">
                           <FontAwesomeIcon icon={faEdit} />
@@ -154,7 +158,8 @@ function TableCombustible() {
                       <Button
                         variant="danger"
                         title="Eliminar"
-                        onClick={() => submitDeleteCombustible(carwash.id)}
+                        onClick={() => submitDeleteCombustible(combustible.id)}
+                        className="ml-2"
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>

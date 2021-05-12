@@ -1473,3 +1473,33 @@ export const updateImageofEmergenciaEdificioById = gql`
     }
   }
 `;
+
+export const insertContratoEmpleadoOne = gql`
+  mutation insert_registro_contratos_one(
+    $contrato_digital: String
+    $descripcion: String
+    $fecha_contrato: date
+    $fecha_de_registro: date
+    $id_empleado: uuid
+  ) {
+    insert_registro_contratos_one(
+      object: {
+        contrato_digital: $contrato_digital
+        descripcion: $descripcion
+        fecha_contrato: $fecha_contrato
+        fecha_de_registro: $fecha_de_registro
+        id_empleado: $id_empleado
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const deleteContratoEmpleadoById = gql`
+  mutation delete_registro_contratos_by_pk($id: uuid!) {
+    delete_registro_contratos_by_pk(id: $id) {
+      id
+    }
+  }
+`;

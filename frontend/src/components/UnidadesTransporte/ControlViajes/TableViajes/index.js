@@ -10,7 +10,22 @@ import { deleteViajeById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
 
 function TableViajes() {
+  const [meses] = useState([
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ]);
   //ALERTA
+
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
@@ -62,6 +77,7 @@ function TableViajes() {
       </div>
     );
   if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
+
   return (
     <Fragment>
       <ToastComponent
@@ -82,7 +98,6 @@ function TableViajes() {
               placeholder="Fecha"
               name="fecha"
               type="date"
-              autoComplete="off"
               value={Fecha}
               onChange={(e) => setFecha(e.target.value)}
             />
@@ -125,7 +140,11 @@ function TableViajes() {
                           " " +
                           viaje.empleado_motorista.apellidos}
                     </td>
-                    <td>{viaje.fecha}</td>
+                    <td>
+                      {new Date(viaje.fecha).getDate() + 1} de{" "}
+                      {meses[new Date(viaje.fecha).getMonth()]}{" "}
+                      {new Date(viaje.fecha).getFullYear()}
+                    </td>
                     <td>
                       <Link
                         to={`/editar/viajes/${idUnidadTransporte}/${viaje.id}`}
@@ -138,6 +157,7 @@ function TableViajes() {
                         variant="danger"
                         title="Eliminar"
                         onClick={() => submitDeleteViaje(viaje.id)}
+                        className="ml-2"
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>

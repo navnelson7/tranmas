@@ -5,11 +5,11 @@ import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useSubscription, useMutation } from "@apollo/client";
-import { listenTableAireAcondicionado } from "../../../../graphql/Suscription";
-import { deleteAireAcondicionado } from "../../../../graphql/Mutations";
+import { listenContratos } from "../../../../graphql/Suscription";
+import { deleteContratoEmpleadoById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
 
-function TableAireAcondicionado() {
+function TableCarwash() {
   const [meses] = useState([
     "Enero",
     "Febrero",
@@ -29,18 +29,15 @@ function TableAireAcondicionado() {
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");
+  const { data, loading, error } = useSubscription(listenContratos, {
+    variables: {
+      id,
+    },
+  });
+  const [deleteContrato] = useMutation(deleteContratoEmpleadoById);
 
-  const { data, loading, error } = useSubscription(
-    listenTableAireAcondicionado,
-    {
-      variables: {
-        id,
-      },
-    }
-  );
-  const [deleteAire] = useMutation(deleteAireAcondicionado);
-  const submitDeleteAire = (idSelected) => {
-    deleteAire({
+  const submitDeleteContrato = (idSelected) => {
+    deleteContrato({
       variables: {
         id: idSelected,
       },
@@ -66,7 +63,8 @@ function TableAireAcondicionado() {
         </div>
       </div>
     );
-  if (error) return <p align="center">{`Error! ${error.message}`}</p>;
+  if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
+
   return (
     <Fragment>
       <ToastComponent
@@ -77,7 +75,7 @@ function TableAireAcondicionado() {
       />
       <StyleAire>
         <div className="box-left-aire">
-          <Link to={`/registro/aire/acondicionado/${id}`} variant="danger">
+          <Link to="/registro/contrato/empleado" variant="danger">
             <Button variant="info">Nuevo Registro</Button>
           </Link>
           <br />
@@ -86,38 +84,45 @@ function TableAireAcondicionado() {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Motorista</th>
+                <th>Nombre de empleado</th>
                 <th>Descripción</th>
-                <th>Fecha</th>
+                <th>Fecha de registro</th>
+                <th>Fecha de contrato</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody>
-              {data.aire_acondicionado.map((aire, index) => {
+              {data.registro_contratos.map((contrato, index) => {
                 return (
-                  <tr key={aire.id}>
+                  <tr key={contrato.id}>
                     <td>{index + 1}</td>
                     <td>
-                      {aire.motorista.nombres} {aire.motorista.apellidos}
+                      {contrato.empleado.nombres +
+                        " " +
+                        contrato.empleado.apellidos}
                     </td>
-                    <td>{aire.descripcion}</td>
+                    <td>{contrato.descripcion}</td>
                     <td>
-                      {new Date(aire.fecha).getDate() + 1} de{" "}
-                      {meses[new Date(aire.fecha).getMonth()]}{" "}
-                      {new Date(aire.fecha).getFullYear()}
+                      {new Date(contrato.fecha_de_registro).getDate() + 1} de{" "}
+                      {meses[new Date(contrato.fecha_de_registro).getMonth()]}{" "}
+                      {new Date(contrato.fecha_de_registro).getFullYear()}
                     </td>
                     <td>
-                      <Link
-                        to={`/editar/aire/acondicionado/${id}/${aire.id}`}
-                        variant="danger"
-                      >
-                        <Button variant="info">
-                          <FontAwesomeIcon icon={faEdit} />
-                        </Button>
-                      </Link>
+                      {new Date(contrato.fecha_contrato).getDate() + 1} de{" "}
+                      {meses[new Date(contrato.fecha_contrato).getMonth()]}{" "}
+                      {new Date(contrato.fecha_contrato).getFullYear()}
+                    </td>
+                    <td>
+                      <Button variant="info">
+                        <FontAwesomeIcon icon={faEdit} />
+                      </Button>
                       <Button
                         variant="danger"
-                        onClick={() => submitDeleteAire(aire.id)}
+                        title="Eliminar"
+                        className="ml-2"
+                        onClick={() => {
+                          submitDeleteContrato(contrato.id);
+                        }}
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>
@@ -133,7 +138,7 @@ function TableAireAcondicionado() {
   );
 }
 
-export default TableAireAcondicionado;
+export default TableCarwash;
 
 const StyleAire = styled.div`
   .box-left-aire {

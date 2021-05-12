@@ -6,7 +6,11 @@ import { getEmpleados } from "../../graphql/Queries";
 import "bootstrap/dist/css/bootstrap.css";
 import { Container, Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserEdit,
+  faUserTie,
+  faIdCard,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { updateActivoEmpleado } from "../../graphql/Mutations";
 import { ToastComponent } from "../Toast";
@@ -70,14 +74,19 @@ function ListadoEmpleados() {
               <FontAwesomeIcon icon={faUserEdit} /> Nuevo Empleado
             </Button>
           </Link>
-          <Link to={`/registro-faltas`} variant="danger">
+          <Link to={`/registro-faltas`} variant="danger" className="ml-2">
             <Button variant="info">
               <FontAwesomeIcon icon={faUserEdit} /> Registro Falta
             </Button>
           </Link>
-          <Link to={`/registro-refrenda`} variant="danger">
+          <Link to={`/registro-refrenda`} variant="danger" className="ml-2">
             <Button variant="info">
-              <FontAwesomeIcon icon={faUserEdit} /> Refrenda Licencia
+              <FontAwesomeIcon icon={faIdCard} /> Refrenda Licencia
+            </Button>
+          </Link>
+          <Link to="/tabla/contrato/empleado" variant="danger" className="ml-2">
+            <Button variant="info">
+              <FontAwesomeIcon icon={faUserTie} /> Contratos
             </Button>
           </Link>
           <br />

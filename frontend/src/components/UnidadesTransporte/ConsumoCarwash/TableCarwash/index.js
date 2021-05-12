@@ -11,6 +11,21 @@ import { ToastComponent } from "../../../Toast";
 
 function TableCarwash() {
   const { id } = useParams();
+
+  const [meses] = useState([
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ]);
   //ALERTA
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
@@ -18,14 +33,14 @@ function TableCarwash() {
   const { data, loading, error } = useSubscription(listenControlCarwash, {
     variables: {
       id,
-    }, 
+    },
   });
   const [deleteCarwash] = useMutation(deleteControlCarwashById);
   const submitDeleteCarwash = (idSelected) => {
     deleteCarwash({
       variables: {
         id: idSelected,
-      }, 
+      },
     })
       .then((res) => {
         if (res.data) {
@@ -81,7 +96,11 @@ function TableCarwash() {
                     <td>{index + 1}</td>
                     <td>{carwash.costo}</td>
                     <td>{carwash.descripcion_trabajo}</td>
-                    <td>{carwash.fecha}</td>
+                    <td>
+                      {new Date(carwash.fecha).getDate() + 1} de{" "}
+                      {meses[new Date(carwash.fecha).getMonth()]}{" "}
+                      {new Date(carwash.fecha).getFullYear()}
+                    </td>
                     <td>
                       <Link
                         to={`/editar/consumo/carwash/${carwash.id}/${id}`}
@@ -96,6 +115,7 @@ function TableCarwash() {
                         variant="danger"
                         title="Eliminar"
                         onClick={() => submitDeleteCarwash(carwash.id)}
+                        className="ml-2"
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </Button>

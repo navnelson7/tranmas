@@ -40,10 +40,17 @@ function Registro() {
   };
   // eslint-disable-next-line
   const submitAccidente = () => {
-    if (
-      newAccidente.descripcion_accidente === "" ||
-      newAccidente.id_empleado_motorista === ""
-    ) {
+    if (newAccidente.descripcion_accidente === "") {
+      setTextAlert("Escribe una descripción");
+      setLoading(false);
+      setIconType("error");
+      setshowAlert(true);
+    }
+    if (newAccidente.id_empleado_motorista === "") {
+      setTextAlert("Selecciona un empleado");
+      setLoading(false);
+      setIconType("error");
+      setshowAlert(true);
     } else {
       setNewAccidenteMutation({
         variables: newAccidente,
