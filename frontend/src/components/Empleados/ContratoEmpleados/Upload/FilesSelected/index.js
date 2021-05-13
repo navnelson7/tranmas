@@ -2,7 +2,9 @@ import React, { Fragment, useRef, useState } from "react";
 import styled from "styled-components";
 import axios, { isCancel } from "axios";
 import { v4 as uuid } from "uuid";
-import imageIcon from "./image.svg";
+import docIcon from "./doc.svg";
+import pdfIcon from "./pdf.svg";
+
 import SpinnerLoad from "../SpinnerLoad";
 import { formatBytes } from "../../../../../functions/formatBytes";
 
@@ -13,7 +15,7 @@ function FilesSelected({
   setAboutFiles,
   newContratoEmpleado,
   setnewContratoEmpleado,
-  setExecuteSaveEdificio,
+  setExecuteSaveContrato,
 }) {
   const [Loader, setLoader] = useState(null);
   const cancelFileUpload = useRef(null);
@@ -23,15 +25,11 @@ function FilesSelected({
     e.preventDefault();
     // create formData object
     const formdata = new FormData();
-    AboutFiles.forEach((file, index) => {
-      formdata.append("files", Files[index], file.name);
-    });
+    formdata.append("file", Files[0]);
     axios
       .request({
         method: "POST",
-        url:
-          process.env.REACT_APP_BACKEND_FLASK +
-          "upload/mutiple/daños/edificios",
+        url: process.env.REACT_APP_BACKEND_FLASK + "upload/contrato/empleado",
         data: formdata,
         onUploadProgress: (progressEvent) => {
           var percentCompleted = Math.round(
@@ -44,9 +42,9 @@ function FilesSelected({
         // GUARDA EL NOMBRE DE COMO SE GUARDO EL PDF EN EL SERVER
         setnewContratoEmpleado({
           ...newContratoEmpleado,
-          contrato_digital: response.data.images,
+          contrato_digital: response.data.filename,
         });
-        setExecuteSaveEdificio(true);
+        setExecuteSaveContrato(true);
       })
       .catch((err) => {
         if (isCancel(err)) {
@@ -90,7 +88,20 @@ function FilesSelected({
                 return (
                   <div className="grid-file" key={uuid()}>
                     <div>
-                      <img src={imageIcon} alt="" />
+                      {file.name.split(".").length >= 2 ? (
+                        <Fragment>
+                          <img
+                            src={
+                              file.name.split(".")[1] === "pdf"
+                                ? pdfIcon
+                                : docIcon
+                            }
+                            alt=""
+                          />
+                        </Fragment>
+                      ) : (
+                        <img src={docIcon} alt="" />
+                      )}
                     </div>
                     <div>{file.name}</div>
                     <div>{formatBytes(file.size)}</div>

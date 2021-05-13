@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import ListBoxEmpleados from "../../../listbox/ListBoxEmpleados";
@@ -17,7 +17,7 @@ function Registro() {
   const [TextAlert, setTextAlert] = useState("");
   const [Loading, setLoading] = useState(false);
 
-  const [ExecuteSaveEdificio, setExecuteSaveEdificio] = useState(false);
+  const [ExecuteSaveContrato, setExecuteSaveContrato] = useState(false);
 
   const [OcultarBotonesPorDefecto, setOcultarBotonesPorDefecto] =
     useState(true);
@@ -47,7 +47,8 @@ function Registro() {
   };
 
   const [setContrato] = useMutation(insertContratoEmpleadoOne);
-
+  
+  // eslint-disable-next-line
   const submitContrato = () => {
     setContrato({
       variables: newContratoEmpleado,
@@ -72,6 +73,21 @@ function Registro() {
       });
   };
 
+  useEffect(() => {
+    if (ExecuteSaveContrato) {
+      submitContrato();
+      setExecuteSaveContrato(false);
+    }
+  }, [ExecuteSaveContrato, submitContrato]);
+
+  if (Loading)
+    return (
+      <div className="center-box mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   return (
     <Fragment>
       <ToastComponent
@@ -136,7 +152,7 @@ function Registro() {
                 setOcultarBotonesPorDefecto={setOcultarBotonesPorDefecto}
                 newContratoEmpleado={newContratoEmpleado}
                 setnewContratoEmpleado={setnewContratoEmpleado}
-                setExecuteSaveEdificio={setExecuteSaveEdificio}
+                setExecuteSaveContrato={setExecuteSaveContrato}
               />
             </div>
 

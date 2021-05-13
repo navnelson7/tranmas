@@ -120,7 +120,7 @@ export const getEmpleados = gql `
       tipo_empleado {
         tipo_empleado
       }
-      departamento_empleado {
+      departamento_de_empleado {
         departamento
       }
       dui

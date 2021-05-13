@@ -1,11 +1,10 @@
-from flask import Flask, request, jsonify
-from werkzeug.utils import secure_filename
+from flask import Flask
 import os
-import typing
 from flask_cors import CORS
 from images import api_images
 from accidentes import api_accidente
 from danos_edificios import dano_edificios
+from contratos_empleados import contratos_empleados
 
 app = Flask(__name__)
 
@@ -13,6 +12,8 @@ app.config["CLIENT_IMAGES"] = "./images"  # files folder
 app.register_blueprint(api_images, url_prefix='/flask')
 app.register_blueprint(api_accidente, url_prefix='/flask')
 app.register_blueprint(dano_edificios, url_prefix='/flask')
+app.register_blueprint(contratos_empleados, url_prefix='/flask')
+
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -37,6 +38,12 @@ def create_folder_dano_edificios():
     if os.path.exists(os.getcwd() + "/imagenes-daños-edificios") != True:
         os.makedirs(os.getcwd() + "/imagenes-daños-edificios")
 
+# MIDDLEWARE QUE CREA EL FOLDER IMAGES SI NO EXISTE
+@app.before_first_request
+def create_folder_dano_edificios():
+    if os.path.exists(os.getcwd() + "/archivos-contratos") != True:
+        os.makedirs(os.getcwd() + "/archivos-contratos")
+
 
 @app.route('/')
 def index():
@@ -44,4 +51,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=False, port=5000, threaded=True, host="0.0.0.0")
+    app.run(debug=True, port=5000, threaded=True, host="0.0.0.0")

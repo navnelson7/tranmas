@@ -3,9 +3,9 @@ import FilesSelected from "./FilesSelected";
 import SelectFiles from "./SelectFiles";
 
 function Upload({
-  newDañoEdificio,
-  setnewDañoEdificio,
-  setExecuteSaveEdificio,
+  newContratoEmpleado,
+  setnewContratoEmpleado,
+  setExecuteSaveContrato,
   setOcultarBotonesPorDefecto,
 }) {
   const [Files, setFiles] = useState([]);
@@ -42,9 +42,9 @@ function Upload({
           Files={Files} // DATOS A GUARDAR DEL ARCHIVO
           setAboutFiles={setAboutFiles} // INFORMACION DEL ARCHIVO
           AboutFiles={AboutFiles}
-          newDañoEdificio={newDañoEdificio}
-          setnewDañoEdificio={setnewDañoEdificio}
-          setExecuteSaveEdificio={setExecuteSaveEdificio}
+          newContratoEmpleado={newContratoEmpleado}
+          setnewContratoEmpleado={setnewContratoEmpleado}
+          setExecuteSaveContrato={setExecuteSaveContrato}
         />
       )}
     </Fragment>

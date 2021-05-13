@@ -3,11 +3,12 @@ import { Table, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useSubscription, useMutation } from "@apollo/client";
 import { listenContratos } from "../../../../graphql/Suscription";
 import { deleteContratoEmpleadoById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
+import DownloadFile from "../DownloadFile";
 
 function TableCarwash() {
   const [meses] = useState([
@@ -34,6 +35,7 @@ function TableCarwash() {
       id,
     },
   });
+  const [NombreArchivo, setNombreArchivo] = useState("");
   const [deleteContrato] = useMutation(deleteContratoEmpleadoById);
 
   const submitDeleteContrato = (idSelected) => {
@@ -55,6 +57,11 @@ function TableCarwash() {
         setshowAlert(true);
       });
   };
+  const showAlertFileNotFound = () => {
+    setTextAlert("No encontro ningun archivo");
+    setIconType("error");
+    setshowAlert(true);
+  };
   if (loading)
     return (
       <div className="center-box mt-5">
@@ -75,6 +82,10 @@ function TableCarwash() {
       />
       <StyleAire>
         <div className="box-left-aire">
+          <DownloadFile
+            setNombreArchivo={setNombreArchivo}
+            NombreArchivo={NombreArchivo}
+          />
           <Link to="/registro/contrato/empleado" variant="danger">
             <Button variant="info">Nuevo Registro</Button>
           </Link>
@@ -113,7 +124,20 @@ function TableCarwash() {
                       {new Date(contrato.fecha_contrato).getFullYear()}
                     </td>
                     <td>
-                      <Button variant="info">
+                      <Button
+                        title="Descargar archivo"
+                        variant="primary"
+                        onClick={() => {
+                          if (contrato.contrato_digital === "") {
+                            showAlertFileNotFound();
+                          } else {
+                            setNombreArchivo(contrato.contrato_digital);
+                          }
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faDownload} />
+                      </Button>
+                      <Button className="ml-2" variant="info">
                         <FontAwesomeIcon icon={faEdit} />
                       </Button>
                       <Button

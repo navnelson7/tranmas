@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from bson.objectid import ObjectId
-from flask_cors import cross_origin
 
 
 dano_edificios = Blueprint('dano_edificios', __name__)

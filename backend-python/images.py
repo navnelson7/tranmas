@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from PIL import Image
-import typing
 from bson.objectid import ObjectId
 
 api_images = Blueprint('api_images', __name__)
