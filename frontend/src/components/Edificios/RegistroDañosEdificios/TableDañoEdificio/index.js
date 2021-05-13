@@ -9,7 +9,7 @@ import {
   faFileImage,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastComponent } from "../../../Toast";
-import { useMutation, useSubscription } from "@apollo/react-hooks";
+import { useMutation, useSubscription } from "@apollo/client";
 import { listenRegistroEmergenciasEdificios } from "../../../../graphql/Suscription";
 import { deleteRegistroEmergenciasEdficios } from "../../../../graphql/Mutations";
 
