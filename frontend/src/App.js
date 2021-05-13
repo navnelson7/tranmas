@@ -239,15 +239,11 @@ const RegistroFaltas = lazy(() =>
   import("./components/Empleados/RegistroFaltas")
 );
 
-const Proveedores = lazy(() => import("./components/Proveedores/index"));
-
-const ContratosEmpleados = lazy(() =>
-  import("./components/Empleados/ContratosEmpleados")
-);
-
 const HistoricoTaller = lazy(() =>
   import("./components/UnidadesTransporte/Reportes/HistoricoTaller")
 );
+
+const Proveedores = lazy(() => import("./components/Proveedores/index"));
 
 function App() {
   return (
