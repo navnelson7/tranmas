@@ -241,7 +241,6 @@ const RegistroFaltas = lazy(() =>
 
 const Proveedores = lazy(() => import("./components/Proveedores/index"));
 
-<<<<<<< HEAD
 const ContratosEmpleados = lazy(() =>
   import("./components/Empleados/ContratosEmpleados")
 );
@@ -250,8 +249,6 @@ const HistoricoTaller = lazy(() =>
   import("./components/UnidadesTransporte/Reportes/HistoricoTaller")
 );
 
-=======
->>>>>>> c234319aa571af4659c58023cda54cd2941f8134
 function App() {
   return (
     <Fragment>
