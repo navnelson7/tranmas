@@ -130,6 +130,8 @@ const EditarEmpleado = () => {
       </div>
     );
   if (error) return <p align="center">{`Error! ${error.message}`}</p>;
+
+  console.log(data);
   return (
     <Fragment>
       <ToastComponent
