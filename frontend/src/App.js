@@ -239,6 +239,10 @@ const ContratosEmpleados = lazy(() =>
   import("./components/Empleados/ContratosEmpleados")
 );
 
+const HistoricoTaller = lazy(() =>
+  import("./components/UnidadesTransporte/Reportes/HistoricoTaller")
+);
+
 function App() {
   return (
     <Fragment>
@@ -650,6 +654,9 @@ function App() {
               <Suspense fallback={<Loader />}>
                 <ContratosEmpleados />
               </Suspense>
+            </Route>
+            <Route exact path="/historico-taller">
+              <HistoricoTaller />
             </Route>
           </Switch>
         </SearchContextProvider>
