@@ -135,15 +135,7 @@ function Registro() {
       variables: {
         id_unidad_transporte: idUnidadTransporte,
         kilometraje:
-          KilometrajeMaxRegistroCombustible.data.registro_combustible_aggregate
-            .aggregate.max.kilometraje_actual === null
-            ? 0
-            : // KILOMETRAJE DE LA UNIDAD SI YA EXISITIAN REGISTROS DE COMBUSTIBLE
-            KilometrajeMaxRegistroCombustible.data
-                .registro_combustible_aggregate.aggregate.max
-                .kilometraje_actual + // VALIDO EL TIPO DE VIAJE SI ES DIARIO MULTIPLICA SINO TAL CUAL
-                NuevoViaje.tipo_viaje ===
-              "Diario"
+          NuevoViaje.tipo_viaje === "Diario"
             ? NuevoViaje.kilometrajes_recogidos *
               NuevoViaje.numero_de_viajes_realizados
             : NuevoViaje.kilometrajes_recogidos,
