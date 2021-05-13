@@ -742,3 +742,19 @@ export const listenRegistroEmergenciasEdificiosById = gql`
     }
   }
 `;
+
+export const listenContratos = gql`
+  subscription {
+    registro_contratos {
+      contrato_digital
+      descripcion
+      empleado {
+        nombres
+        apellidos
+      }
+      fecha_contrato
+      fecha_de_registro
+      id
+    }
+  }
+`;

@@ -97,7 +97,7 @@ function TableFacturas() {
                           <FontAwesomeIcon icon={faEdit} />
                         </Button>
                       </Link>
-                      <Button variant="danger" title="Eliminar">
+                      <Button variant="danger" title="Eliminar" className="ml-2">
                         <FontAwesomeIcon
                           icon={faTrash}
                           onClick={() => deletFacturaByid(factura.id)}

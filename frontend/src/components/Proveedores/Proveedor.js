@@ -7,6 +7,20 @@ import { updateActivoProveedor } from "../../graphql/Mutations";
 import { Link } from "react-router-dom";
 
 function Proveedor({ setshowAlert, setIconType, setTextAlert }) {
+  const [meses] = useState([
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ]);
   const [PaginateNumber, setPaginateNumber] = useState(0);
   const [PaginacionPantalla, setPaginacionPantalla] = useState(0);
   // GET DATA FROM TABLE
@@ -138,7 +152,11 @@ function Proveedor({ setshowAlert, setIconType, setTextAlert }) {
                     </td>
                     <td data-th="NRC">{proveedor.nrc}</td>
                     <td data-th="NRC">{proveedor.comentarios}</td>
-                    <td data-th="Fecha">{proveedor.updated_at}</td>
+                    <td>
+                      {new Date(proveedor.updated_at).getDate() + 1} de{" "}
+                      {meses[new Date(proveedor.updated_at).getMonth()]}{" "}
+                      {new Date(proveedor.updated_at).getFullYear()}
+                    </td>
                   </tr>
                 ) : null;
               })}

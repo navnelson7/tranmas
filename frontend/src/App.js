@@ -10,6 +10,12 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import Login from "./components/Auth/Login";
 
 // LAZY IMPORTS
+const TablaContratoEmpleados = lazy(() =>
+  import("./components/Empleados/ContratoEmpleados/TableContratos")
+);
+const RegistroContratoEmpleados = lazy(() =>
+  import("./components/Empleados/ContratoEmpleados/Registro")
+);
 const EditarDañoEdificio = lazy(() =>
   import("./components/Edificios/RegistroDañosEdificios/Editar")
 );
@@ -235,6 +241,7 @@ const RegistroFaltas = lazy(() =>
 
 const Proveedores = lazy(() => import("./components/Proveedores/index"));
 
+<<<<<<< HEAD
 const ContratosEmpleados = lazy(() =>
   import("./components/Empleados/ContratosEmpleados")
 );
@@ -243,6 +250,8 @@ const HistoricoTaller = lazy(() =>
   import("./components/UnidadesTransporte/Reportes/HistoricoTaller")
 );
 
+=======
+>>>>>>> c234319aa571af4659c58023cda54cd2941f8134
 function App() {
   return (
     <Fragment>
@@ -650,9 +659,15 @@ function App() {
                 <RegistroRefrenda />
               </Suspense>
             </Route>
-            <Route exact path="/registro-contratos">
+            <Route exact path="/registro/contrato/empleado">
               <Suspense fallback={<Loader />}>
-                <ContratosEmpleados />
+                <RegistroContratoEmpleados />
+              </Suspense>
+            </Route>
+
+            <Route exact path="/tabla/contrato/empleado">
+              <Suspense fallback={<Loader />}>
+                <TablaContratoEmpleados />
               </Suspense>
             </Route>
             <Route exact path="/historico-taller">
