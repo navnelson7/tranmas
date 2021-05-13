@@ -44,8 +44,9 @@ services:
       - ./images:/code/images
       - ./imagenes-accidentes/:/code/imagenes-accidentes
       - ./imagenes-daños-edificios:/code/imagenes-daños-edificios
+      - ./archivos-contratos:/code/archivos-contratos
     ports:
-      - "5001:5000"
+      - "5000:5000"
 
   frontend:
     container_name: frontend
