@@ -26,6 +26,7 @@ function FilesSelected({
     // create formData object
     const formdata = new FormData();
     formdata.append("file", Files[0]);
+    formdata.append("file_exist", newContratoEmpleado.contrato_digital)
     axios
       .request({
         method: "POST",

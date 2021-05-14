@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { useLocation } from "react-router";
 import FilesSelected from "./FilesSelected";
 import SelectFiles from "./SelectFiles";
 
@@ -8,6 +9,7 @@ function Upload({
   setExecuteSaveContrato,
   setOcultarBotonesPorDefecto,
 }) {
+  const { pathname } = useLocation();
   const [Files, setFiles] = useState([]);
   const [AboutFiles, setAboutFiles] = useState([]);
 
@@ -34,6 +36,14 @@ function Upload({
 
   return (
     <Fragment>
+      <h6 className="text-center">
+        <strong>
+          {" "}
+          {pathname.includes("/editar/contrato/empleado/")
+            ? "Nota: Si agrega un archivo reemplezara el existente"
+            : ""}
+        </strong>
+      </h6>
       {Files === null || AboutFiles.length === 0 ? (
         <SelectFiles changeFiles={changeFiles} />
       ) : (

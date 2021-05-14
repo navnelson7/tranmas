@@ -27,9 +27,9 @@ def upload_image_contrato():
         if 'file' not in request.files:
             return not_found(error="Image not found") 
 
-        file = request.files['file']       
-        print(file)
-
+        file = request.files['file'] 
+        file_exist = request.form['file_exist']       
+      
         if file.filename == '':
             return not_found(error="Select a file")
 
@@ -37,7 +37,10 @@ def upload_image_contrato():
         filename_finally = f'{ObjectId()}{filename}'
         try:
             file.save(os.getcwd() + PATH_CONTRATO + filename_finally)
-
+              # Eliminamos el archivo anterior
+            if file_exist != "":
+                if os.path.exists(os.getcwd() + PATH_CONTRATO + file_exist):
+                    os.remove(os.getcwd() + PATH_CONTRATO + file_exist)
         except FileNotFoundError:
             return jsonify({
                 "message": "Error, folder does not exist",
@@ -56,7 +59,7 @@ def upload_image_contrato():
 @contratos_empleados.route('/download/contrato/empleado/<string:filename>')
 def download_contrato(filename):
     image_name = str(filename)
-    return send_from_directory(directory=os.path.join(PATH_FILE_CONTRATO), filename=image_name, as_attachment=True)
+    return send_from_directory(directory=os.path.join(PATH_FILE_CONTRATO), filename=image_name, as_attachment=False)
 
 
 # REMOVE IMAGES

@@ -1503,3 +1503,27 @@ export const deleteContratoEmpleadoById = gql`
     }
   }
 `;
+
+export const updateContratoById = gql`
+  mutation update_registro_contratos_by_pk(
+    $contrato_digital: String
+    $descripcion: String
+    $fecha_contrato: date
+    $fecha_de_registro: date
+    $id_empleado: uuid
+    $id: uuid!
+  ) {
+    update_registro_contratos_by_pk(
+      _set: {
+        contrato_digital: $contrato_digital
+        descripcion: $descripcion
+        fecha_contrato: $fecha_contrato
+        fecha_de_registro: $fecha_de_registro
+        id_empleado: $id_empleado
+      }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
