@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-export const listenNotification = gql`
+export const listenNotification = gql `
   subscription {
     notificaciones {
       fecha
@@ -11,7 +11,7 @@ export const listenNotification = gql`
   }
 `;
 
-export const listenProveedoresTable = gql`
+export const listenProveedoresTable = gql `
   subscription proveedores($limit: Int, $offset: Int) {
     proveedores(
       limit: $limit
@@ -34,7 +34,7 @@ export const listenProveedoresTable = gql`
   }
 `;
 
-export const listenUnidadesTranporte = gql`
+export const listenUnidadesTranporte = gql `
   query ($paginateNumber: Int) {
     unidades_de_transporte(
       where: { activo: { _eq: true } }
@@ -51,7 +51,7 @@ export const listenUnidadesTranporte = gql`
   }
 `;
 
-export const listenMarcasTransporte = gql`
+export const listenMarcasTransporte = gql `
   subscription {
     marca_transporte {
       id
@@ -60,7 +60,7 @@ export const listenMarcasTransporte = gql`
   }
 `;
 
-export const listenMotoristasListBox = gql`
+export const listenMotoristasListBox = gql `
   subscription {
     empleados(
       where: { tipo_empleado: { tipo_empleado: { _eq: "Motorista" } } }
@@ -72,7 +72,7 @@ export const listenMotoristasListBox = gql`
   }
 `;
 
-export const listenEmpleadosListBox = gql`
+export const listenEmpleadosListBox = gql `
   subscription {
     empleados {
       id
@@ -82,7 +82,7 @@ export const listenEmpleadosListBox = gql`
   }
 `;
 
-export const listenEdificiosListBox = gql`
+export const listenEdificiosListBox = gql `
   subscription {
     registro_edificios {
       nombre
@@ -91,7 +91,7 @@ export const listenEdificiosListBox = gql`
   }
 `;
 
-export const listenRepuestosListbox = gql`
+export const listenRepuestosListbox = gql `
   subscription {
     repuestos(where: { activo: { _eq: true }, cantidad: { _gt: 0 } }) {
       nombre
@@ -100,7 +100,7 @@ export const listenRepuestosListbox = gql`
   }
 `;
 
-export const listenMecanicoListBox = gql`
+export const listenMecanicoListBox = gql `
   subscription {
     empleados(
       where: { tipo_empleado: { tipo_empleado: { _eq: "Mecanico" } } }
@@ -111,7 +111,7 @@ export const listenMecanicoListBox = gql`
     }
   }
 `;
-export const listenCombustibleinTable = gql`
+export const listenCombustibleinTable = gql `
   subscription ($fecha: date, $id_unidad_transporte: uuid) {
     registro_combustible(
       where: {
@@ -133,7 +133,7 @@ export const listenCombustibleinTable = gql`
   }
 `;
 
-export const listenKilometrajeMax = gql`
+export const listenKilometrajeMax = gql `
   subscription kilometraje_global_aggregate($id: uuid!) {
     kilometraje_global_aggregate(
       where: { id_unidad_transporte: { _eq: $id } }
@@ -147,7 +147,7 @@ export const listenKilometrajeMax = gql`
   }
 `;
 
-export const listenKilometrajeMaxRegistroCombustible = gql`
+export const listenKilometrajeMaxRegistroCombustible = gql `
   subscription registro_combustible_aggregate($id: uuid!) {
     registro_combustible_aggregate(
       where: { id_unidad_transporte: { _eq: $id } }
@@ -161,7 +161,7 @@ export const listenKilometrajeMaxRegistroCombustible = gql`
   }
 `;
 
-export const listenRegistrosTaller = gql`
+export const listenRegistrosTaller = gql `
   subscription registro_taller($id_unidad_transporte: uuid!) {
     registro_taller(
       where: { id_unidad_transporte: { _eq: $id_unidad_transporte } }
@@ -177,7 +177,7 @@ export const listenRegistrosTaller = gql`
   }
 `;
 
-export const listenDetallesTaller = gql`
+export const listenDetallesTaller = gql `
   subscription detalle_trabajo_taller($id_registro_taller: uuid!) {
     detalle_trabajo_taller(
       where: { id_registro_taller: { _eq: $id_registro_taller } }
@@ -194,7 +194,7 @@ export const listenDetallesTaller = gql`
   }
 `;
 
-export const listenRegistroTallerById = gql`
+export const listenRegistroTallerById = gql `
   query registro_taller_by_pk($id: uuid!) {
     registro_taller_by_pk(id: $id) {
       kilometraje
@@ -219,7 +219,7 @@ export const listenRegistroTallerById = gql`
   }
 `;
 
-export const listenDetalleTrabajoExcludeId = gql`
+export const listenDetalleTrabajoExcludeId = gql `
   subscription detalle_trabajo_taller($id: uuid!, $id_registro_taller: uuid!) {
     detalle_trabajo_taller(
       where: {
@@ -237,7 +237,7 @@ export const listenDetalleTrabajoExcludeId = gql`
   }
 `;
 
-export const listenAccidentes = gql`
+export const listenAccidentes = gql `
   subscription accidentes($id_unidad_transporte: uuid!) {
     accidentes(
       where: { id_unidad_transporte: { _eq: $id_unidad_transporte } }
@@ -254,7 +254,7 @@ export const listenAccidentes = gql`
   }
 `;
 
-export const listenTableAireAcondicionado = gql`
+export const listenTableAireAcondicionado = gql `
   subscription aire_acondicionado($id: uuid!) {
     aire_acondicionado(
       order_by: { id: desc }
@@ -271,7 +271,7 @@ export const listenTableAireAcondicionado = gql`
   }
 `;
 
-export const listenAireAcondicionadoById = gql`
+export const listenAireAcondicionadoById = gql `
   subscription aire_acondicionado_by_pk($id: uuid!) {
     aire_acondicionado_by_pk(id: $id) {
       descripcion
@@ -280,7 +280,7 @@ export const listenAireAcondicionadoById = gql`
   }
 `;
 
-export const listenTapiceria = gql`
+export const listenTapiceria = gql `
   subscription control_tapiceria_carroceria($id: uuid!) {
     control_tapiceria_carroceria(
       order_by: { id: desc }
@@ -299,7 +299,7 @@ export const listenTapiceria = gql`
   }
 `;
 
-export const listenTapiceriaOne = gql`
+export const listenTapiceriaOne = gql `
   subscription control_tapiceria_carroceria_by_pk($id: uuid!) {
     control_tapiceria_carroceria_by_pk(id: $id) {
       descripcion_dano
@@ -316,7 +316,7 @@ export const listenTapiceriaOne = gql`
   }
 `;
 
-export const listenRefrendasCiculacion = gql`
+export const listenRefrendasCiculacion = gql `
   subscription refrendas_tarjeta_circulacion($id: uuid!) {
     refrendas_tarjeta_circulacion(
       where: { id_unidad_transporte: { _eq: $id } }
@@ -334,7 +334,7 @@ export const listenRefrendasCiculacion = gql`
   }
 `;
 
-export const listenRefrendaCirculacion = gql`
+export const listenRefrendaCirculacion = gql `
   subscription refrendas_tarjeta_circulacion_by_pk($id: uuid!) {
     refrendas_tarjeta_circulacion_by_pk(id: $id) {
       costo_refrenda
@@ -346,7 +346,7 @@ export const listenRefrendaCirculacion = gql`
   }
 `;
 
-export const listenRefrendaVencida = gql`
+export const listenRefrendaVencida = gql `
   subscription refrendas_tarjeta_circulacion($fecha: date) {
     refrendas_tarjeta_circulacion(where: { fecha_refrenda: { _lte: $fecha } }) {
       id
@@ -360,7 +360,7 @@ export const listenRefrendaVencida = gql`
   }
 `;
 
-export const listenControlCarwash = gql`
+export const listenControlCarwash = gql `
   subscription registro_carwash($id: uuid!) {
     registro_carwash(
       order_by: { id: desc }
@@ -374,7 +374,7 @@ export const listenControlCarwash = gql`
   }
 `;
 
-export const listenControlCarwashById = gql`
+export const listenControlCarwashById = gql `
   subscription registro_carwash_by_pk($id: uuid!) {
     registro_carwash_by_pk(id: $id) {
       costo
@@ -383,7 +383,7 @@ export const listenControlCarwashById = gql`
   }
 `;
 
-export const listenUnidadBySearch = gql`
+export const listenUnidadBySearch = gql `
   subscription unidades_de_transporte($numero_unidad: numeric) {
     unidades_de_transporte(where: { numero_equipo: { _eq: $numero_unidad } }) {
       activo
@@ -401,7 +401,7 @@ export const listenUnidadBySearch = gql`
   }
 `;
 
-export const RepuestosReperadosByUnidadDeTransporte = gql`
+export const RepuestosReperadosByUnidadDeTransporte = gql `
   subscription unidades_de_transporte_by_pk($id: uuid!) {
     unidades_de_transporte_by_pk(id: $id) {
       id_repuestos_reparados
@@ -409,7 +409,7 @@ export const RepuestosReperadosByUnidadDeTransporte = gql`
   }
 `;
 
-export const listenRepuestosByEdit = gql`
+export const listenRepuestosByEdit = gql `
   subscription repuestos_by_pk($id: uuid!) {
     repuestos_by_pk(id: $id) {
       cantidad
@@ -429,7 +429,7 @@ export const listenRepuestosByEdit = gql`
   }
 `;
 
-export const listenRelacionesRepuestoEdit = gql`
+export const listenRelacionesRepuestoEdit = gql `
   subscription repuestos_by_pk($id: uuid!) {
     repuestos_by_pk(id: $id) {
       id_estado
@@ -452,7 +452,7 @@ export const listenRelacionesRepuestoEdit = gql`
   }
 `;
 
-export const listenDetalleTaller = gql`
+export const listenDetalleTaller = gql `
   subscription detalle_trabajo_taller_aggregate(
     $idRepuesto: uuid
     $idUnidadTransporte: uuid
@@ -480,7 +480,7 @@ export const listenDetalleTaller = gql`
   }
 `;
 
-export const listenNombresDeRepuestos = gql`
+export const listenNombresDeRepuestos = gql `
   subscription detalle_trabajo_taller($idUnidadTransporte: uuid) {
     detalle_trabajo_taller(
       distinct_on: [id_repuesto]
@@ -497,7 +497,7 @@ export const listenNombresDeRepuestos = gql`
   }
 `;
 
-export const listenFacturaRepuesto = gql`
+export const listenFacturaRepuesto = gql `
   subscription {
     registro_facturas {
       cantidad_comprada
@@ -512,7 +512,7 @@ export const listenFacturaRepuesto = gql`
   }
 `;
 
-export const listenFacturaRepuestoById = gql`
+export const listenFacturaRepuestoById = gql `
   subscription registro_facturas_by_pk($id: uuid!) {
     registro_facturas_by_pk(id: $id) {
       cantidad_comprada
@@ -527,7 +527,7 @@ export const listenFacturaRepuestoById = gql`
   }
 `;
 
-export const listenRegistroEdificios = gql`
+export const listenRegistroEdificios = gql `
   subscription {
     registro_edificios {
       descripcion
@@ -539,7 +539,7 @@ export const listenRegistroEdificios = gql`
   }
 `;
 
-export const listenRegistroEdificioById = gql`
+export const listenRegistroEdificioById = gql `
   subscription registro_edificios_by_pk($id: uuid!) {
     registro_edificios_by_pk(id: $id) {
       descripcion
@@ -551,7 +551,7 @@ export const listenRegistroEdificioById = gql`
   }
 `;
 
-export const listenDetalleMantenimiento = gql`
+export const listenDetalleMantenimiento = gql `
   subscription detalle_mantenimiento_edificios($idMantenimiento: uuid) {
     detalle_mantenimiento_edificios(
       where: { id_mantenimiento: { _eq: $idMantenimiento } }
@@ -570,7 +570,7 @@ export const listenDetalleMantenimiento = gql`
   }
 `;
 
-export const listenMantenimientoEdificios = gql`
+export const listenMantenimientoEdificios = gql `
   subscription {
     mantenimiento_edificios {
       id
@@ -586,7 +586,7 @@ export const listenMantenimientoEdificios = gql`
   }
 `;
 
-export const listenMantenimientoById = gql`
+export const listenMantenimientoById = gql `
   subscription mantenimiento_edificios_by_pk($id: uuid!) {
     mantenimiento_edificios_by_pk(id: $id) {
       id
@@ -606,7 +606,7 @@ export const listenMantenimientoById = gql`
   }
 `;
 
-export const listenDetalleMantenimientoEdificioById = gql`
+export const listenDetalleMantenimientoEdificioById = gql `
   subscription detalle_mantenimiento_edificios_by_pk($id: uuid!) {
     detalle_mantenimiento_edificios_by_pk(id: $id) {
       costo
@@ -618,7 +618,7 @@ export const listenDetalleMantenimientoEdificioById = gql`
   }
 `;
 
-export const listenAccidenteById = gql`
+export const listenAccidenteById = gql `
   subscription accidentes_by_pk($id: uuid!) {
     accidentes_by_pk(id: $id) {
       descripcion_accidente
@@ -634,7 +634,7 @@ export const listenAccidenteById = gql`
   }
 `;
 
-export const listenRepuestosCambios = gql`
+export const listenRepuestosCambios = gql `
   subscription detalle_trabajo_taller(
     $idRepuesto: uuid
     $idUnidadTransporte: uuid
@@ -661,7 +661,7 @@ export const listenRepuestosCambios = gql`
   }
 `;
 
-export const listenViajesByUnidadTransporte = gql`
+export const listenViajesByUnidadTransporte = gql `
   subscription control_viajes($idUnidadTransporte: uuid, $fecha: date) {
     control_viajes(
       order_by: { id: asc }
@@ -686,7 +686,7 @@ export const listenViajesByUnidadTransporte = gql`
   }
 `;
 
-export const listenViajeById = gql`
+export const listenViajeById = gql `
   subscription control_viajes_by_pk($id: uuid!) {
     control_viajes_by_pk(id: $id) {
       id
@@ -703,7 +703,7 @@ export const listenViajeById = gql`
   }
 `;
 
-export const listenValidateKilometrajeGlobalByUnidad = gql`
+export const listenValidateKilometrajeGlobalByUnidad = gql `
   subscription kilometraje_global($id_unidad_transporte: uuid) {
     kilometraje_global(
       where: { id_unidad_transporte: { _eq: $id_unidad_transporte } }
@@ -714,7 +714,7 @@ export const listenValidateKilometrajeGlobalByUnidad = gql`
   }
 `;
 
-export const listenRegistroEmergenciasEdificios = gql`
+export const listenRegistroEmergenciasEdificios = gql `
   subscription {
     registro_emergencias_edificios(order_by: { id: asc }) {
       descripcion
@@ -728,7 +728,7 @@ export const listenRegistroEmergenciasEdificios = gql`
   }
 `;
 
-export const listenRegistroEmergenciasEdificiosById = gql`
+export const listenRegistroEmergenciasEdificiosById = gql `
   subscription registro_emergencias_edificios_by_pk($id: uuid!) {
     registro_emergencias_edificios_by_pk(id: $id) {
       descripcion
@@ -743,7 +743,7 @@ export const listenRegistroEmergenciasEdificiosById = gql`
   }
 `;
 
-export const listenContratos = gql`
+export const listenContratos = gql `
   subscription {
     registro_contratos {
       contrato_digital
@@ -759,7 +759,7 @@ export const listenContratos = gql`
   }
 `;
 
-export const listenContratoById = gql`
+export const listenContratoById = gql `
   subscription registro_contratos_by_pk($id: uuid!){
     registro_contratos_by_pk(id: $id) {
       descripcion
@@ -773,4 +773,30 @@ export const listenContratoById = gql`
       }
     }
   }
+`;
+
+export const historicoTaller = gql `
+  subscription historicotaller{
+  registro_taller(where:{fecha:{_gte: "2021-05-01", _lte: "2021-05-30"}}){
+    fecha
+    unidad_transporte{
+      numero_equipo
+    }
+    empleado_mecanico{
+      nombres
+      apellidos
+    }
+    empleado_motorista{
+      nombres
+      apellidos
+    }
+    trabajo_detalle{
+      comentarios
+      repuesto{
+        nombre
+      }
+      cantidad
+    }
+  }
+}
 `;
