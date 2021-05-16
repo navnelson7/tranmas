@@ -4,14 +4,17 @@ import { Container, Table } from "react-bootstrap";
 import {useSubscription} from "@apollo/client";
 import {historicoTaller} from "../../../graphql/Suscription";
 
+import BusquedaFechas from "../Reportes/BusquedaFechas";
+
 const HistoricoTaller = () => {
     const {loading, data, error} = useSubscription(historicoTaller);
     return ( 
         <Fragment>
             <Container>
                 <div className="box-left">
-                    
+
                     <h1>HISTORICO TALLER</h1>
+                    <BusquedaFechas />
                     <Table striped bordered hover>
                         <thead>
                             <tr>
