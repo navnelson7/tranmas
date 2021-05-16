@@ -1,8 +1,14 @@
 import React,{Fragment} from 'react';
+import { Container } from "react-bootstrap";
+
 const HistoricoTaller = () => {
     return ( 
         <Fragment>
-            <h1>ya estamos viendo la vista adecuada</h1>
+            <Container>
+                <div className="box-left">
+                    <h1>HISTORICO TALLER</h1>
+                </div>
+            </Container>
         </Fragment>
      );
 }
