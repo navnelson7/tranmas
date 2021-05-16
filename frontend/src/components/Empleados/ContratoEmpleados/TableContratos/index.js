@@ -10,7 +10,7 @@ import { deleteContratoEmpleadoById } from "../../../../graphql/Mutations";
 import { ToastComponent } from "../../../Toast";
 import DownloadFile from "../DownloadFile";
 
-function TableCarwash() {
+function TableContratos() {
   const [meses] = useState([
     "Enero",
     "Febrero",
@@ -70,7 +70,7 @@ function TableCarwash() {
         </div>
       </div>
     );
-  if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
+  if (error) return <p className="box-center">{`Error! ${error.message}`}</p>;
 
   return (
     <Fragment>
@@ -137,9 +137,11 @@ function TableCarwash() {
                       >
                         <FontAwesomeIcon icon={faDownload} />
                       </Button>
-                      <Button className="ml-2" variant="info">
-                        <FontAwesomeIcon icon={faEdit} />
-                      </Button>
+                      <Link to={`/editar/contrato/empleado/${contrato.id}`}>
+                        <Button className="ml-2" variant="info">
+                          <FontAwesomeIcon icon={faEdit} />
+                        </Button>
+                      </Link>
                       <Button
                         variant="danger"
                         title="Eliminar"
@@ -162,7 +164,7 @@ function TableCarwash() {
   );
 }
 
-export default TableCarwash;
+export default TableContratos;
 
 const StyleAire = styled.div`
   .box-left-aire {

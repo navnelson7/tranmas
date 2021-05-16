@@ -10,6 +10,9 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import Login from "./components/Auth/Login";
 
 // LAZY IMPORTS
+const EditarContratoEmpleados = lazy(() =>
+  import("./components/Empleados/ContratoEmpleados/Editar")
+);
 const TablaContratoEmpleados = lazy(() =>
   import("./components/Empleados/ContratoEmpleados/TableContratos")
 );
@@ -655,6 +658,12 @@ function App() {
             <Route exact path="/registro/contrato/empleado">
               <Suspense fallback={<Loader />}>
                 <RegistroContratoEmpleados />
+              </Suspense>
+            </Route>
+
+            <Route exact path="/editar/contrato/empleado/:idContrato">
+              <Suspense fallback={<Loader />}>
+                <EditarContratoEmpleados />
               </Suspense>
             </Route>
 

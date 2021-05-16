@@ -758,3 +758,19 @@ export const listenContratos = gql`
     }
   }
 `;
+
+export const listenContratoById = gql`
+  subscription registro_contratos_by_pk($id: uuid!){
+    registro_contratos_by_pk(id: $id) {
+      descripcion
+      fecha_contrato
+      fecha_de_registro
+      id_empleado
+      contrato_digital
+      empleado {
+        nombres
+        apellidos
+      }
+    }
+  }
+`;
