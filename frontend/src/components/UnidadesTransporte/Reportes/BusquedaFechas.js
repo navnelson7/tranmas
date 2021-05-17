@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Fragment } from 'react';
 import { Container, Row, Form, Col, InputGroup, FormControl } from 'react-bootstrap';
 const BusquedaFechas = () => {
+
+    const [fechaInicio, setFechaInicio] = useState({
+        fecha_inicio: ""
+    });
+
+    const {
+        fecha_inicio
+    } = fechaInicio;
+
+    const [ fechaFin, setFechaFin] = useState({
+        fecha_fin: ""
+    });
+
+    const {
+        fecha_fin
+    } = fechaFin;
+
+    const onChange = (e) => {
+        setFechaInicio({
+            ...fechaInicio,
+            [e.target.name]: e.target.value
+        });
+        setFechaFin({
+            ...fechaFin,
+            [e.target.name]: e.target.value
+        });
+    }
+
     return (
         <Fragment>
             <Container>
@@ -20,8 +48,8 @@ const BusquedaFechas = () => {
                                     aria-describedby="Fecha Inicio"
                                     type="date"
                                     name="fecha_inicio"
-                                    //value={}
-                                    //onChange={onChange}
+                                    value={fecha_inicio}
+                                    onChange={onChange}
                                 />
                             </InputGroup>
                         </Col>
@@ -37,8 +65,8 @@ const BusquedaFechas = () => {
                                     aria-describedby="Fecha Fin"
                                     type="date"
                                     name="fecha_fin"
-                                    //value={}
-                                    //onChange={onChange}
+                                    value={fecha_fin}
+                                    onChange={onChange}
                                 />
                             </InputGroup>
                         </Col>

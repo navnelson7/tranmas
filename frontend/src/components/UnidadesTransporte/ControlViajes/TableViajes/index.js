@@ -25,7 +25,6 @@ function TableViajes() {
     "Diciembre",
   ]);
   //ALERTA
-
   const [TextAlert, setTextAlert] = useState("");
   const [showAlert, setshowAlert] = useState(false);
   const [IconType, setIconType] = useState("");

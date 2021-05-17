@@ -19,7 +19,7 @@ const RegistroFaltas = () => {
     if (data) {
       setListadoEmpleados(data.empleados);
     }
-    console.log(data);
+    //console.log(data);
   }, [data, loading]);
 
   const [state, setState] = useState({

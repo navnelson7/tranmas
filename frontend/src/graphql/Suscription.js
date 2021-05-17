@@ -776,8 +776,8 @@ export const listenContratoById = gql `
 `;
 
 export const historicoTaller = gql `
-  subscription historicotaller{
-  registro_taller(where:{fecha:{_gte: "2021-05-01", _lte: "2021-05-30"}}){
+  subscription historicotaller($fechainicio: date, $fechafin: date){
+  registro_taller(where:{fecha:{_gte: $fechainicio, _lte: $fechafin}}){
     fecha
     unidad_transporte{
       numero_equipo
@@ -794,6 +794,7 @@ export const historicoTaller = gql `
       comentarios
       repuesto{
         nombre
+        precio
       }
       cantidad
     }
