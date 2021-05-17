@@ -151,28 +151,41 @@ function Registro() {
   }, [ExecuteSaveAfter, ImagenUrlGettingAfter]);
 
   const submitMantenimiento = () => {
-    setLoading(true);
-    setMantenimiento({
-      variables: NuevoMantenimiento,
-    })
-      .then((res) => {
-        if (res.data) {
-          setLoading(false);
-          setIconType("success");
-          setshowAlert(true);
-          setTextAlert("Registrado correctamente");
-          setTimeout(() => {
-            //si todo va bien lo redirecciona al inicio
-            push("/tabla/matenimiento/edificios");
-          }, 2000);
-        }
+    if (NuevoMantenimiento.id_edificio === "") {
+      setLoading(false);
+      setTextAlert("Selecciona el edificio");
+      setIconType("error");
+      setshowAlert(true);
+    }
+    if (NuevoMantenimiento.id_empleado === "") {
+      setLoading(false);
+      setTextAlert("Selecciona un empleado");
+      setIconType("error");
+      setshowAlert(true);
+    } else {
+      setLoading(true);
+      setMantenimiento({
+        variables: NuevoMantenimiento,
       })
-      .catch((error) => {
-        setLoading(false);
-        setTextAlert(error.message);
-        setIconType("error");
-        setshowAlert(true);
-      });
+        .then((res) => {
+          if (res.data) {
+            setLoading(false);
+            setIconType("success");
+            setshowAlert(true);
+            setTextAlert("Registrado correctamente");
+            setTimeout(() => {
+              //si todo va bien lo redirecciona al inicio
+              push("/tabla/matenimiento/edificios");
+            }, 2000);
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setTextAlert(error.message);
+          setIconType("error");
+          setshowAlert(true);
+        });
+    }
   };
   if (Loading)
     return (
