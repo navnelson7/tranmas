@@ -25,6 +25,18 @@ const HistoricoTaller = () => {
     const {
         fecha_fin
     } = fechaFin;
+
+    const onChange = (e) => {
+        setFechaInicio({
+            ...fechaInicio,
+            [e.target.name]: e.target.value
+        });
+        setFechaFin({
+            ...fechaFin,
+            [e.target.name]: e.target.value
+        });
+        setListadoHistorico();
+    }
    
     const {loading, data} = useSubscription(
         historicoTaller,
@@ -36,19 +48,6 @@ const HistoricoTaller = () => {
         }
         );
 
-   
-
-    const onChange = (e) => {
-        setFechaInicio({
-            ...fechaInicio,
-            [e.target.name]: e.target.value
-        });
-        setFechaFin({
-            ...fechaFin,
-            [e.target.name]: e.target.value
-        });
-    }
-   
 
     useEffect(() =>{
         if(loading){
@@ -56,6 +55,7 @@ const HistoricoTaller = () => {
         }
         if(data){
             setListadoHistorico(data.registro_taller);
+            console.log(listadoHistorico);
         }
     },[data, loading]);
     return ( 
