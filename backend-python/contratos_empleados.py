@@ -59,7 +59,7 @@ def upload_image_contrato():
 @contratos_empleados.route('/download/contrato/empleado/<string:filename>')
 def download_contrato(filename):
     image_name = str(filename)
-    return send_from_directory(directory=os.path.join(PATH_FILE_CONTRATO), filename=image_name, as_attachment=False)
+    return send_from_directory(directory=os.path.join(PATH_FILE_CONTRATO), path=image_name, as_attachment=False)
 
 
 # REMOVE IMAGES
