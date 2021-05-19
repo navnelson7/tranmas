@@ -10,6 +10,17 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import Login from "./components/Auth/Login";
 
 // LAZY IMPORTS
+const EditarCompatibilidaRepuesto = lazy(() =>
+  import("./components/UnidadesTransporte/CompatibilidadRepuestos/Editar")
+);
+const RegistroCompatibilidaRepuesto = lazy(() =>
+  import("./components/UnidadesTransporte/CompatibilidadRepuestos/Registro")
+);
+const TableCompatibilidaRepuesto = lazy(() =>
+  import(
+    "./components/UnidadesTransporte/CompatibilidadRepuestos/TableCompatibilidaRepuesto"
+  )
+);
 const EditarContratoEmpleados = lazy(() =>
   import("./components/Empleados/ContratoEmpleados/Editar")
 );
@@ -674,6 +685,33 @@ function App() {
             </Route>
             <Route exact path="/historico-taller">
               <HistoricoTaller />
+            </Route>
+
+            <Route
+              exact
+              path="/tabla/compatibilidad/repuesto/:idUnidadTransporte"
+            >
+              <Suspense fallback={<Loader />}>
+                <TableCompatibilidaRepuesto />
+              </Suspense>
+            </Route>
+
+            <Route
+              exact
+              path="/registro/compatibilidad/repuesto/:idUnidadTransporte"
+            >
+              <Suspense fallback={<Loader />}>
+                <RegistroCompatibilidaRepuesto />
+              </Suspense>
+            </Route>
+
+            <Route
+              exact
+              path="/editar/compatibilidad/repuesto/:idUnidadTransporte/:idCompatibilidad"
+            >
+              <Suspense fallback={<Loader />}>
+                <EditarCompatibilidaRepuesto />
+              </Suspense>
             </Route>
           </Switch>
         </SearchContextProvider>

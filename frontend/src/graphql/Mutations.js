@@ -1527,3 +1527,44 @@ export const updateContratoById = gql`
     }
   }
 `;
+
+export const insertCompatibilidadRepuesto = gql`
+  mutation insert_registro_compatibilidad_repuestos_one(
+    $fecha: date
+    $id_unidad_transporte: uuid
+    $id_repuesto: uuid
+  ) {
+    insert_registro_compatibilidad_repuestos_one(
+      object: {
+        fecha: $fecha
+        id_unidad_transporte: $id_unidad_transporte
+        id_repuesto: $id_repuesto
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const deleteCompatibilidadRepuesto = gql`
+  mutation delete_registro_compatibilidad_repuestos_by_pk($id: uuid!) {
+    delete_registro_compatibilidad_repuestos_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
+export const updateCompatibilidadRepuesto = gql`
+  mutation update_registro_compatibilidad_repuestos_by_pk(
+    $fecha: date
+    $id_repuesto: uuid
+    $id: uuid!
+  ) {
+    update_registro_compatibilidad_repuestos_by_pk(
+      _set: { fecha: $fecha, id_repuesto: $id_repuesto }
+      pk_columns: { id: $id }
+    ) {
+      id
+    }
+  }
+`;
