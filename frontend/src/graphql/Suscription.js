@@ -802,7 +802,7 @@ export const historicoTaller = gql `
 }
 `;
 
-export const historico_taller_por_unidad = gql = `
+export const historico_taller_por_unidad = gql `
 subscription registro_taller_por_unidad($id_unidad: uuid!, $fechafin: date, $fechainicio:date){
   registro_taller(where: {_and: [{id_unidad_transporte: {_eq: $id_unidad}}, {fecha: {_gte: $fechainicio}}, {fecha: {_lte: $fechafin}}]}){
     fecha
