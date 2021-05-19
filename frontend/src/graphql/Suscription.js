@@ -778,6 +778,7 @@ export const listenContratoById = gql `
 export const historicoTaller = gql `
   subscription historicotaller($fechainicio: date, $fechafin: date){
   registro_taller(where:{fecha:{_gte: $fechainicio, _lte: $fechafin}}){
+    id
     fecha
     unidad_transporte{
       numero_equipo

@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
-
+import Historico from "../Reportes/Historico"
 import { useSubscription } from "@apollo/client";
 import { historicoTaller } from "../../../graphql/Suscription";
 
-//import BusquedaFechas from "../Reportes/BusquedaFechas";
 import { Row, Form, Col, InputGroup, FormControl } from "react-bootstrap";
 
 const HistoricoTaller = () => {
@@ -43,6 +42,9 @@ const HistoricoTaller = () => {
   
 
   useEffect(() => {
+    if(loading){
+        return
+    }
     let listadoHistorico = {};
     listadoHistorico = data === undefined ? {} : data.registro_taller;
     if(data){
@@ -118,7 +120,13 @@ const HistoricoTaller = () => {
                 {
                     listadoHistorico.length === 0
                     ? (<tr><td>No ha registros</td></tr>)
-                    : <tr><td>hay vamos</td></tr>
+                    : listadoHistorico.registro_taller.map(historico =>(
+                        <tr key={historico.id}>
+                            <Historico 
+                                historico={historico}
+                            />  
+                        </tr>
+                    ))
                 }
             </tbody>
           </Table>
