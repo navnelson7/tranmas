@@ -5,7 +5,7 @@ import { useSubscription } from "@apollo/client";
 import { historicoTaller } from "../../../graphql/Suscription";
 
 import { Row, Form, Col, InputGroup, FormControl } from "react-bootstrap";
-
+import { v4 as uuidv4 } from 'uuid';
 const HistoricoTaller = () => {
   const [listadoHistorico, setListadoHistorico] = useState([]);
   const [fechaInicio, setFechaInicio] = useState({
@@ -123,7 +123,7 @@ const HistoricoTaller = () => {
                     listadoHistorico.length === 0
                     ? (<tr><td>No ha registros</td></tr>)
                     : listadoHistorico.registro_taller.map(historico =>(
-                        <tr key={historico.id}>
+                        <tr key={uuidv4()}>
                             <Historico 
                                 historico={historico}
                             />  
