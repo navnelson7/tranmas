@@ -61,7 +61,6 @@ const HistoricoTaller = () => {
       </div>
   );
 
-  //console.log(listadoHistorico);
   return (
     <Fragment>
       <Container>
