@@ -30,7 +30,7 @@ function FormCompatibilidad({
                     <ListBoxRepuestos
                       changeRepuesto={changeCompatibilidadTransporte}
                       respuestoSeleccionado={
-                        NuevoCompatibilidadTransporte.repuesto.nombre
+                        NuevoCompatibilidadTransporte.repuesto === undefined ? "" : NuevoCompatibilidadTransporte.repuesto.nombre
                       }
                     />
                   </Col>
