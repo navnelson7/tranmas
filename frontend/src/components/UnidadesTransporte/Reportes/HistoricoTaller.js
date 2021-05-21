@@ -35,7 +35,7 @@ const HistoricoTaller = () => {
   const { loading, data } = useSubscription(historicoTaller, {
     variables: {
       fechainicio: "2021-05-01",
-      fechafin: "2021-05-10",
+      fechafin: "2021-05-30",
     },
   });
 
@@ -61,7 +61,7 @@ const HistoricoTaller = () => {
       </div>
   );
 
-  console.log(listadoHistorico);
+  //console.log(listadoHistorico);
   return (
     <Fragment>
       <Container>
@@ -114,6 +114,9 @@ const HistoricoTaller = () => {
                 <th>Mecanico</th>
                 <th>Motorista</th>
                 <th>Repuesto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tbody>
