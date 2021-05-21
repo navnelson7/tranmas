@@ -47,7 +47,7 @@ def upload_image_accidente():
 @api_accidente.route('/imagenes/accidentes/<string:filename>')
 def get_images_accidentes(filename):
     image_name = str(filename)
-    return send_from_directory(directory=os.path.join(PATH_IMAGE_ACCIDENTE), filename=image_name, as_attachment=False)
+    return send_from_directory(directory=os.path.join(PATH_IMAGE_ACCIDENTE), path=image_name, as_attachment=False)
 
 
 # REMOVE IMAGES
