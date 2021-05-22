@@ -7,15 +7,16 @@ import { historicoTaller } from "../../../graphql/Suscription";
 import { Row, Form, Col, InputGroup, FormControl } from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 const HistoricoTaller = () => {
+  let total = 0;
   const [listadoHistorico, setListadoHistorico] = useState([]);
   const [fechaInicio, setFechaInicio] = useState({
-    fechainicio: "",
+    fechaInicio: "1900-01-01",
   });
 
   const { fecha_inicio } = fechaInicio;
 
   const [fechaFin, setFechaFin] = useState({
-    fechafin: "",
+    fechaFin: "1900-01-02",
   });
 
   const { fecha_fin } = fechaFin;
@@ -34,8 +35,8 @@ const HistoricoTaller = () => {
 
   const { loading, data } = useSubscription(historicoTaller, {
     variables: {
-      fechainicio: "2021-05-01",
-      fechafin: "2021-05-30",
+      fechainicio: fecha_inicio,
+      fechafin: fecha_fin,
     },
   });
 
@@ -50,7 +51,7 @@ const HistoricoTaller = () => {
     if(data){
         setListadoHistorico(data);
     }
-  }, [data]);
+  }, [loading,data]);
 
   if (loading)
     return (
@@ -80,7 +81,7 @@ const HistoricoTaller = () => {
                     aria-describedby="Fecha Inicio"
                     type="date"
                     name="fecha_inicio"
-                    value={fecha_inicio}
+                    value={fecha_inicio === null ? "" :fecha_inicio}
                     onChange={onChange}
                   />
                 </InputGroup>
@@ -97,7 +98,7 @@ const HistoricoTaller = () => {
                     aria-describedby="Fecha Fin"
                     type="date"
                     name="fecha_fin"
-                    value={fecha_fin}
+                    value={fecha_fin === null ? "" :fecha_fin}
                     onChange={onChange}
                   />
                 </InputGroup>
@@ -115,7 +116,7 @@ const HistoricoTaller = () => {
                 <th>Repuesto</th>
                 <th>Cantidad</th>
                 <th>Precio</th>
-                <th>Total</th>
+                <th>Sub Total</th>
               </tr>
             </thead>
             <tbody>
@@ -123,6 +124,7 @@ const HistoricoTaller = () => {
                     listadoHistorico.length === 0
                     ? (<tr><td>No ha registros</td></tr>)
                     : listadoHistorico.registro_taller.map(historico =>(
+                        total += historico.viendo_detalle.repuesto.precio * historico.viendo_detalle.cantidad,
                         <tr key={uuidv4()}>
                             <Historico 
                                 historico={historico}
@@ -130,6 +132,10 @@ const HistoricoTaller = () => {
                         </tr>
                     ))
                 }
+                <tr>
+                  <td colSpan={7}>Total</td>
+                  <td>${total}</td>
+                </tr>
             </tbody>
           </Table>
         </div>

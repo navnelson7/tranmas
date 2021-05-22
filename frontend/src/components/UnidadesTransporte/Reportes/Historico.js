@@ -9,8 +9,8 @@ const Historico = ({historico}) => {
             <td>{historico.empleado_motorista.nombres} {historico.empleado_motorista.apellidos}</td>
             <td>{historico.viendo_detalle.repuesto.nombre}</td>
             <td>{historico.viendo_detalle.cantidad}</td>
-            <td>{historico.viendo_detalle.repuesto.precio}</td>
-            <td>{parseFloat(historico.viendo_detalle.repuesto.precio) * parseInt(historico.viendo_detalle.cantidad) }</td>
+            <td>$ {historico.viendo_detalle.repuesto.precio}</td>
+            <td>$ {parseFloat(historico.viendo_detalle.repuesto.precio) * parseInt(historico.viendo_detalle.cantidad) }</td>
         </Fragment>
      );
 }
