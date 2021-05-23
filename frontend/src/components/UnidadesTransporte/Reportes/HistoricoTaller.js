@@ -10,13 +10,13 @@ const HistoricoTaller = () => {
   let total = 0;
   const [listadoHistorico, setListadoHistorico] = useState([]);
   const [fechaInicio, setFechaInicio] = useState({
-    fechaInicio: "1900-01-01",
+    fechaInicio: "",
   });
 
   const { fecha_inicio } = fechaInicio;
 
   const [fechaFin, setFechaFin] = useState({
-    fechaFin: "1900-01-02",
+    fechaFin: "",
   });
 
   const { fecha_fin } = fechaFin;
@@ -40,7 +40,7 @@ const HistoricoTaller = () => {
     },
   });
 
-  
+  console.log(fechaInicio);
 
   useEffect(() => {
     if(loading){
