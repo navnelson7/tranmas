@@ -34,8 +34,8 @@ const HistoricoTaller = () => {
 
   const { loading, data } = useSubscription(historicoTaller, {
     variables: {
-      fechainicio: fechaInicio,
-      fechafin: fechaFin,
+      fechainicio: fechaInicio.fechaInicio,
+      fechafin: fechaFin.fechaFin,
     },
   });
 
@@ -80,7 +80,7 @@ const HistoricoTaller = () => {
                     aria-describedby="Fecha Inicio"
                     type="date"
                     name="fechaInicio"
-                    value={fechaInicio === null ? "" :fechaInicio}
+                    value={fechaInicio.fechaInicio === null ? "" :fechaInicio.fechaInicio}
                     onChange={onChange}
                   />
                 </InputGroup>
@@ -97,7 +97,7 @@ const HistoricoTaller = () => {
                     aria-describedby="Fecha Fin"
                     type="date"
                     name="fechaFin"
-                    value={fechaFin === null ? "" :fechaFin}
+                    value={fechaFin.fechaFin === null ? "" :fechaFin.fechaFin}
                     onChange={onChange}
                   />
                 </InputGroup>
