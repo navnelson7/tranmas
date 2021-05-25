@@ -257,6 +257,10 @@ const HistoricoTaller = lazy(() =>
   import("./components/UnidadesTransporte/Reportes/HistoricoTaller")
 );
 
+const HistoricoPorUnidad = lazy(() =>
+    import("./components/UnidadesTransporte/Reportes/HistoricoPorUnidad")
+);
+
 const Proveedores = lazy(() => import("./components/Proveedores/index"));
 
 function App() {
@@ -711,6 +715,13 @@ function App() {
             >
               <Suspense fallback={<Loader />}>
                 <EditarCompatibilidaRepuesto />
+              </Suspense>
+            </Route>
+            <Route
+              exact path="/historico-por-unidad"
+            >
+              <Suspense fallback={<Loader />}>
+                <HistoricoPorUnidad />
               </Suspense>
             </Route>
           </Switch>
