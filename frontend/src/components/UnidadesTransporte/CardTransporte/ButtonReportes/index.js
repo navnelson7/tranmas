@@ -2,11 +2,14 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function ButtonGraphic({ idUnidadTransporte }) {
+function ButtonReportes({ idUnidadTransporte }) {
   return (
     <Fragment>
       <StyleLoaderEspera>
-        <Link title="Analiticas" to={`/estadisticas/combustible/${idUnidadTransporte}`}>
+        <Link
+          title="Reportes"
+          to={`/cards/reportes/unidades/${idUnidadTransporte}`}
+        >
           <div className="cursor-pointer">
             <div className="center-loader">
               <div className="flip-box">
@@ -16,17 +19,17 @@ function ButtonGraphic({ idUnidadTransporte }) {
                       <svg
                         aria-hidden="true"
                         focusable="false"
-                        data-prefix="fas"
-                        data-icon="chart-bar"
+                        data-prefix="fal"
+                        data-icon="file-edit"
                         role="img"
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
+                        viewBox="0 0 384 512"
                         height="30px"
                         width="30px"
                       >
                         <path
                           fill="currentColor"
-                          d="M332.8 320h38.4c6.4 0 12.8-6.4 12.8-12.8V172.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v134.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V76.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v230.4c0 6.4 6.4 12.8 12.8 12.8zm-288 0h38.4c6.4 0 12.8-6.4 12.8-12.8v-70.4c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v70.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V108.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v198.4c0 6.4 6.4 12.8 12.8 12.8zM496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"
+                          d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zm-22.6 22.7c2.1 2.1 3.5 4.6 4.2 7.4H256V32.5c2.8.7 5.3 2.1 7.4 4.2l83.9 83.9zM336 480H48c-8.8 0-16-7.2-16-16V48c0-8.8 7.2-16 16-16h176v104c0 13.3 10.7 24 24 24h104v304c0 8.8-7.2 16-16 16zM219.2 247.2l29.6 29.6c1.8 1.8 1.8 4.6 0 6.4L136.4 395.6l-30.1 4.3c-5.9.8-11-4.2-10.2-10.2l4.3-30.1 112.4-112.4c1.8-1.8 4.6-1.8 6.4 0zm64.4 1.2l-16.4 16.4c-1.8 1.8-4.6 1.8-6.4 0l-29.6-29.6c-1.8-1.8-1.8-4.6 0-6.4l16.4-16.4c5.9-5.9 15.4-5.9 21.2 0l14.8 14.8c5.9 5.8 5.9 15.3 0 21.2z"
                         ></path>
                       </svg>
                     </div>
@@ -41,7 +44,7 @@ function ButtonGraphic({ idUnidadTransporte }) {
   );
 }
 
-export default ButtonGraphic;
+export default ButtonReportes;
 
 export const StyleLoaderEspera = styled.div`
   .cursor-pointer {

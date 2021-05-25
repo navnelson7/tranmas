@@ -1,15 +1,12 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { StyleLoaderEspera } from "../ButtonGraphic";
+import { StyleLoaderEspera } from "../ButtonAccidentes";
 
 function ButtonTapiceria({ idUnidadTransporte }) {
   return (
     <Fragment>
       <StyleLoaderEspera>
-        <Link
-          title="Tapiceria"
-          to={`/tabla/tapiceria/${idUnidadTransporte}`}
-        >
+        <Link title="Tapiceria" to={`/tabla/tapiceria/${idUnidadTransporte}`}>
           <div className="cursor-pointer">
             <div className="center-loader">
               <div className="flip-box">

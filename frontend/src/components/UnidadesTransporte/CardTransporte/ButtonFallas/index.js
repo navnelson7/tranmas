@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { StyleLoaderEspera } from "../ButtonGraphic";
+import { StyleLoaderEspera } from "../ButtonAccidentes";
 
 function ButtonFallas({ idUnidadTransporte }) {
   return (
