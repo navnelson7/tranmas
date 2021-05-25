@@ -10,6 +10,9 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import Login from "./components/Auth/Login";
 
 // LAZY IMPORTS
+const ReportesAireAcondicionado = lazy(() =>
+  import("./components/UnidadesTransporte/Reportes/AireAcondicionado")
+);
 const EditarCompatibilidaRepuesto = lazy(() =>
   import("./components/UnidadesTransporte/CompatibilidadRepuestos/Editar")
 );
@@ -258,7 +261,7 @@ const HistoricoTaller = lazy(() =>
 );
 
 const HistoricoPorUnidad = lazy(() =>
-    import("./components/UnidadesTransporte/Reportes/HistoricoPorUnidad")
+  import("./components/UnidadesTransporte/Reportes/HistoricoPorUnidad")
 );
 
 const Proveedores = lazy(() => import("./components/Proveedores/index"));
@@ -291,7 +294,6 @@ function App() {
                 <RegistroDañoEdificio />
               </Suspense>
             </Route>
-
             <Route exact path="/editar/viajes/:idUnidadTransporte/:idViaje">
               <Suspense fallback={<Loader />}>
                 <EditarViajes />
@@ -302,7 +304,6 @@ function App() {
                 <RegistroViajes />
               </Suspense>
             </Route>
-
             <Route exact path="/control/viajes/:idUnidadTransporte">
               <Suspense fallback={<Loader />}>
                 <TableViajes />
@@ -338,19 +339,16 @@ function App() {
                 <EditarRegistroEnTaller />
               </Suspense>
             </Route>
-
             <Route exact path="/alertas/cambio/repuesto/:idUnidadTransporte">
               <Suspense fallback={<Loader />}>
                 <AlertasCambioRepuesto />
               </Suspense>
             </Route>
-
             <Route exact path="/fallas/transporte/:id">
               <Suspense fallback={<Loader />}>
                 <TableFallasTransporte />
               </Suspense>
             </Route>
-
             <Route exact path="/editar/facturas/repuestos/:id">
               <Suspense fallback={<Loader />}>
                 <EditarFacturaRepuesto />
@@ -361,19 +359,16 @@ function App() {
                 <RegistroFacturaRepuesto />
               </Suspense>
             </Route>
-
             <Route exact path="/editar/matenimiento/edificios/:idMantenimiento">
               <Suspense fallback={<Loader />}>
                 <EditarMantenimientoEdificios />
               </Suspense>
             </Route>
-
             <Route exact path="/registro/matenimiento/edificios">
               <Suspense fallback={<Loader />}>
                 <RegistroMantenimientoEdificios />
               </Suspense>
             </Route>
-
             <Route
               exact
               path="/editar/detalle/matenimiento/edificios/:idDetalle/:idMantenimiento"
@@ -382,7 +377,6 @@ function App() {
                 <EditarDetalleMantenimientoEdificios />
               </Suspense>
             </Route>
-
             <Route
               exact
               path="/registro/detalle/matenimiento/edificios/:idMantenimiento"
@@ -399,7 +393,6 @@ function App() {
                 <TableDetalleMantenimientoEdificios />
               </Suspense>
             </Route>
-
             <Route
               exact
               path="/editar/registro/accidente/:id/:idUnidadTransporte"
@@ -416,7 +409,6 @@ function App() {
                 <TableRegistroCombustible />
               </Suspense>
             </Route>
-
             <Route exact path="/tabla/matenimiento/edificios">
               <Suspense fallback={<Loader />}>
                 <TableMantenimientoEdificios />
@@ -432,25 +424,21 @@ function App() {
                 <RegistroEdificios />
               </Suspense>
             </Route>
-
             <Route path="/tabla/edificios">
               <Suspense fallback={<Loader />}>
                 <TableRegistroEdificios />
               </Suspense>
             </Route>
-
             <Route exact path="/edificios">
               <Suspense fallback={<Loader />}>
                 <CardsEdificios />
               </Suspense>
             </Route>
-
             <Route exact path="/facturas/repuestos">
               <Suspense fallback={<Loader />}>
                 <TableFacturas />
               </Suspense>
             </Route>
-
             <Route
               exact
               path="/editar/aire/acondicionado/:idTransporte/:idAireAcondicionado"
@@ -459,31 +447,26 @@ function App() {
                 <EditarAireAcondicionado />
               </Suspense>
             </Route>
-
             <Route exact path="/registro/aire/acondicionado/:id">
               <Suspense fallback={<Loader />}>
                 <RegistroAireAcondicionado />
               </Suspense>
             </Route>
-
             <Route exact path="/editar/tapiceria/:idTapiceria/:idTransporte">
               <Suspense fallback={<Loader />}>
                 <EditarTapiceria />
               </Suspense>
             </Route>
-
             <Route exact path="/registro/tapiceria/:id">
               <Suspense fallback={<Loader />}>
                 <RegistroTapiceria />
               </Suspense>
             </Route>
-
             <Route exact path="/tabla/tapiceria/:id">
               <Suspense fallback={<Loader />}>
                 <TableTapiceria />
               </Suspense>
             </Route>
-
             <Route
               exact
               path="/editar/consumo/carwash/:idCarwash/:idTransporte"
@@ -502,7 +485,6 @@ function App() {
                 <TableCarwash />
               </Suspense>
             </Route>
-
             <Route
               exact
               path="/editar/refrenda/circulacion/:idRefrenda/:idTransporte"
@@ -511,7 +493,6 @@ function App() {
                 <EditarRefrendaCirculacion />
               </Suspense>
             </Route>
-
             <Route exact path="/registro/refrenda/circulacion/:id">
               <Suspense fallback={<Loader />}>
                 <RegistroRefrendaCirculacion />
@@ -527,7 +508,6 @@ function App() {
                 <TableAireAcondicionado />
               </Suspense>
             </Route>
-
             <Route exact path="/editar/detalle/taller/:id/:idUnidadTransporte">
               <Suspense fallback={<Loader />}>
                 <EditarDetalleEnTaller />
@@ -538,7 +518,6 @@ function App() {
                 <RegistroDetalleEnTaller />
               </Suspense>
             </Route>
-
             <Route exact path="/registro/taller/:id">
               <Suspense fallback={<Loader />}>
                 <RegistroTaller />
@@ -599,13 +578,11 @@ function App() {
                 <FichaEmpleado />
               </Suspense>
             </Route>
-
             <Route exact path="/listado-repuestos">
               <Suspense fallback={<Loader />}>
                 <ListadoRepuestos />
               </Suspense>
             </Route>
-
             <Route exact path="/formulario-repuestos">
               <Suspense fallback={<Loader />}>
                 <FormRepuestos />
@@ -675,13 +652,11 @@ function App() {
                 <RegistroContratoEmpleados />
               </Suspense>
             </Route>
-
             <Route exact path="/editar/contrato/empleado/:idContrato">
               <Suspense fallback={<Loader />}>
                 <EditarContratoEmpleados />
               </Suspense>
             </Route>
-
             <Route exact path="/tabla/contrato/empleado">
               <Suspense fallback={<Loader />}>
                 <TablaContratoEmpleados />
@@ -690,7 +665,6 @@ function App() {
             <Route exact path="/historico-taller">
               <HistoricoTaller />
             </Route>
-
             <Route
               exact
               path="/tabla/compatibilidad/repuesto/:idUnidadTransporte"
@@ -699,7 +673,6 @@ function App() {
                 <TableCompatibilidaRepuesto />
               </Suspense>
             </Route>
-
             <Route
               exact
               path="/registro/compatibilidad/repuesto/:idUnidadTransporte"
@@ -708,7 +681,6 @@ function App() {
                 <RegistroCompatibilidaRepuesto />
               </Suspense>
             </Route>
-
             <Route
               exact
               path="/editar/compatibilidad/repuesto/:idUnidadTransporte/:idCompatibilidad"
@@ -717,11 +689,15 @@ function App() {
                 <EditarCompatibilidaRepuesto />
               </Suspense>
             </Route>
-            <Route
-              exact path="/historico-por-unidad"
-            >
+            <Route exact path="/historico-por-unidad">
               <Suspense fallback={<Loader />}>
                 <HistoricoPorUnidad />
+              </Suspense>
+            </Route>
+
+            <Route exact path="/reporte/aire/acondicionado">
+              <Suspense fallback={<Loader />}>
+                <ReportesAireAcondicionado />
               </Suspense>
             </Route>
           </Switch>

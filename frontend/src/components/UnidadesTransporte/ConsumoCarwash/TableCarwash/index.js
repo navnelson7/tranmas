@@ -63,7 +63,7 @@ function TableCarwash() {
         </div>
       </div>
     );
-  if (error) return <p align="box-center">{`Error! ${error.message}`}</p>;
+  if (error) return <p className="box-center">{`Error! ${error.message}`}</p>;
   return (
     <Fragment>
       <ToastComponent
