@@ -62,6 +62,20 @@ function CardsReportes() {
                 </Card>
               </Link>
             </Col>
+            <Col md={4}>
+              <Link
+                to={`/reporte/viajes/${idUnidadTransporte}`}
+                className="txt-decoration"
+              >
+                <Card className="card-hover" style={{ width: "18rem" }}>
+                  <Card.Body>
+                    <Card.Title className="text-center">
+                      Reporte de viajes
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
           </Row>
         </div>
       </StyleCards>

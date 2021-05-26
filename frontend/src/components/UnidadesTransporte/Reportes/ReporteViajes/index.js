@@ -3,9 +3,12 @@ import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { useSubscription } from "@apollo/client";
 import { Row, InputGroup, Col, FormControl } from "react-bootstrap";
-import { reporteAireAcondicionado } from "../../../../graphql/Suscription";
+import { getReporteViajes } from "../../../../graphql/Suscription";
+import { useParams } from "react-router";
 
-function AireAcondicionado() {
+function ReporteViajes() {
+  const { idUnidadTransporte } = useParams();
+
   const [FechaInicio, setFechaInicio] = useState(
     new Date().getFullYear() +
       "-" +
@@ -13,6 +16,7 @@ function AireAcondicionado() {
       "-" +
       new Date().getDate()
   );
+
   const [FechaFinal, setFechaFinal] = useState(
     new Date().getFullYear() +
       "-" +
@@ -20,8 +24,10 @@ function AireAcondicionado() {
       "-" +
       new Date().getDate()
   );
-  const { data, loading, error } = useSubscription(reporteAireAcondicionado, {
+
+  const { data, loading, error } = useSubscription(getReporteViajes, {
     variables: {
+      idUnidadTransporte: idUnidadTransporte,
       fechainicio: FechaInicio,
       fechafin: FechaFinal,
     },
@@ -49,6 +55,7 @@ function AireAcondicionado() {
       </div>
     );
   if (error) return <p className="box-center">{`Error! ${error.message}`}</p>;
+  console.log(data.control_viajes_aggregate);
   return (
     <Fragment>
       <StyleAire>
@@ -104,27 +111,29 @@ function AireAcondicionado() {
               <tr>
                 <th>#</th>
                 <th>Motorista</th>
-                <th>Descripción</th>
+                <th>Tipo de viaje</th>
+                <th>Kilometrajes recogidos</th>
                 <th>Fecha</th>
               </tr>
             </thead>
             <tbody>
-              {data.aire_acondicionado_aggregate.nodes.map((aire, index) => {
+              {data.control_viajes_aggregate.nodes.map((viaje, index) => {
                 return (
-                  <tr key={aire.id}>
+                  <tr key={viaje.id}>
                     <td>{index + 1}</td>
                     <td>
-                      {aire.motorista === null
+                      {viaje.empleado_motorista === null
                         ? ""
-                        : aire.motorista.nombres +
+                        : viaje.empleado_motorista.nombres +
                           " " +
-                          aire.motorista.apellidos}
+                          viaje.empleado_motorista.apellidos}
                     </td>
-                    <td>{aire.descripcion}</td>
+                    <td>{viaje.tipo_viaje}</td>
+                    <td>{viaje.kilometrajes_recogidos} km</td>
                     <td>
-                      {new Date(aire.fecha).getDate() + 1} de{" "}
-                      {meses[new Date(aire.fecha).getMonth()]}{" "}
-                      {new Date(aire.fecha).getFullYear()}
+                      {new Date(viaje.fecha).getDate() + 1} de{" "}
+                      {meses[new Date(viaje.fecha).getMonth()]}{" "}
+                      {new Date(viaje.fecha).getFullYear()}
                     </td>
                   </tr>
                 );
@@ -132,41 +141,51 @@ function AireAcondicionado() {
             </tbody>
             <thead>
               <tr>
-                <th colSpan={2}>Número de placa</th>
-                <th>Número de equipo</th>
                 <th>Registros totales</th>
+                <th>Máximo de kilometraje recogido</th>
+                <th>Mínimo de kilometraje recogido</th>
+                <th>Viajes totales realizados</th>
+                <th>Kilometraje total recogido</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colSpan={2}>
-                  <div className="box-placa">
-                    <div className="box-blue-top">EL SALVADOR</div>
-                    <div className="box-white">
-                      <strong>
-                        {data.aire_acondicionado_aggregate.nodes.length === 0
-                          ? ""
-                          : data.aire_acondicionado_aggregate.nodes[0]
-                              .unidad_transporte === null || undefined
-                          ? ""
-                          : data.aire_acondicionado_aggregate.nodes[0]
-                              .unidad_transporte.numero_placa}
-                      </strong>
-                    </div>
-                    <div className="box-blue-bottom">CENTRO AMERICA</div>
-                  </div>
+                <td>
+                  {" "}
+                  {data.control_viajes_aggregate.aggregate === null
+                    ? ""
+                    : data.control_viajes_aggregate.aggregate.count}
                 </td>
 
                 <td>
-                  {data.aire_acondicionado_aggregate.nodes.length === 0
+                  {" "}
+                  {data.control_viajes_aggregate.aggregate === null
                     ? ""
-                    : data.aire_acondicionado_aggregate.nodes[0]
-                        .unidad_transporte.numero_placa}
+                    : data.control_viajes_aggregate.aggregate.max
+                        .kilometrajes_recogidos}{" "}
+                  km
                 </td>
                 <td>
-                  {data.aire_acondicionado_aggregate.aggregate.count === null
+                  {" "}
+                  {data.control_viajes_aggregate.aggregate === null
                     ? ""
-                    : data.aire_acondicionado_aggregate.aggregate.count}
+                    : data.control_viajes_aggregate.aggregate.min
+                        .kilometrajes_recogidos}{" "}
+                  km
+                </td>
+
+                <td>
+                  {data.control_viajes_aggregate.aggregate === null
+                    ? ""
+                    : data.control_viajes_aggregate.aggregate.sum
+                        .numero_de_viajes_realizados}
+                </td>
+                <td>
+                  {data.control_viajes_aggregate.aggregate === null
+                    ? ""
+                    : data.control_viajes_aggregate.aggregate.sum
+                        .kilometrajes_recogidos}{" "}
+                  km
                 </td>
               </tr>
             </tbody>
@@ -177,7 +196,7 @@ function AireAcondicionado() {
   );
 }
 
-export default AireAcondicionado;
+export default ReporteViajes;
 
 const StyleAire = styled.div`
   .box-left-aire {
