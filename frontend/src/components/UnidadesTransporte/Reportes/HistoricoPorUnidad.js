@@ -61,8 +61,15 @@ const HistoricoPorUnidad = () => {
         <Fragment>
             <Container>
                 <div className="box-left">
-                    <h1>entrando bien</h1>
+                    <h3>Seleccione rango de fechas</h3>
                 </div>
+                <Form>
+                    <Row>
+                        <Col sm={6}>
+
+                        </Col> 
+                    </Row>
+                </Form>
             </Container>
         </Fragment>
      );
