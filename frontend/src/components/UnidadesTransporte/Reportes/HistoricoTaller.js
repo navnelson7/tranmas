@@ -121,7 +121,7 @@ const HistoricoTaller = () => {
             <tbody>
                 {
                     listadoHistorico.length === 0
-                    ? (<tr><td>No ha registros</td></tr>)
+                    ? (<tr><td>No hay registros</td></tr>)
                     : listadoHistorico.registro_taller.map(historico =>(
                         total += historico.viendo_detalle.repuesto.precio * historico.viendo_detalle.cantidad,
                         <tr key={uuidv4()}>

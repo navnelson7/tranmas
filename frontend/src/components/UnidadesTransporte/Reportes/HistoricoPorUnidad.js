@@ -4,7 +4,7 @@ import {Container} from "react-bootstrap";
 import {Historico} from "../Reportes/Historico";
 import {useSuscription} from "@apollo/client";
 
-import {Row, Form, Col, InputGroup, FormControl} from "react-bootstrap";
+import {Row, Form, Col, InputGroup, FormControl, Table} from "react-bootstrap";
 import {v4 as uuidv4} from 'uuid';
 import { useSubscription } from '@apollo/react-hooks';
 import { historico_taller_por_unidad } from '../../../graphql/Suscription';
@@ -101,6 +101,32 @@ const HistoricoPorUnidad = () => {
                         </Col>
                     </Row>
                 </Form>
+                <h1>HISTORICO TALLER POR UNIDAD DE TRANSPORTE</h1>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th># de Equipo</th>
+                            <th>Mecanico</th>
+                            <th>Motorista</th>
+                            <th>Repuestos</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            listadoHistorico.length === 0
+                            ? (<tr><td>No hay Registros</td></tr>)
+                            : <tr><td>Quiza hay algo</td></tr>
+                        }
+                    </tbody>
+                    <tr>
+                        <td colSpan={7}>Total</td>
+                        <td>${total}</td>
+                    </tr>
+                </Table>
             </Container>
         </Fragment>
      );
