@@ -66,8 +66,39 @@ const HistoricoPorUnidad = () => {
                 <Form>
                     <Row>
                         <Col sm={6}>
-
+                            <InputGroup className="mb-3">
+                                <InputGroup.Append>
+                                    <InputGroup.Text id="basic -addon1">
+                                        Fecha Inicio
+                                    </InputGroup.Text>
+                                </InputGroup.Append>
+                                <FormControl
+                                    aria-label="Fecha Inicio"
+                                    aria-describedby="Fecha Inicio"
+                                    type="date"
+                                    name="fechaInicio"
+                                    value={fechaInicio.fechaInicio === null ? "" : fechaInicio.fechaInicio}
+                                    onChange={onChange}
+                                ></FormControl>
+                            </InputGroup>
                         </Col> 
+                        <Col sm={6}>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Append>
+                                    <InputGroup.Text id="basic -addon1">
+                                        Fecha Fin
+                                    </InputGroup.Text>
+                                </InputGroup.Append>
+                                <FormControl
+                                    aria-label="Fecha Fin"
+                                    aria-describedby="Fecha Fin"
+                                    type="date"
+                                    name="fechaFin"
+                                    value={fechaFin.fechaFin === null ? "" :fechaFin.fechaFin}
+                                    onChange={onChange}
+                                />
+                            </InputGroup>
+                        </Col>
                     </Row>
                 </Form>
             </Container>
