@@ -11,7 +11,7 @@ import {useParams} from "react-router-dom";
 
 const HistoricoPorUnidad = () => {
     let total = 0;
-    const {Id} = useParams()
+    const {idUnidadTransporte} = useParams();
     const [listadoHistorico, setListadoHistorico] = useState([]);
     const [fechaInicio, setFechaInicio] = useState({
         fechaInicio: "",
@@ -31,15 +31,14 @@ const HistoricoPorUnidad = () => {
             [e.target.name]: e.target.value,
         });
     }
-
     const {loading, data} = useSubscription(historico_taller_por_unidad,{
         variables: {
-            id_unidad: Id,
             fechaInicio: fechaInicio.fechaInicio,
             fechaFin: fechaFin.fechaFin,
-
+            idUnidadTransporte: idUnidadTransporte,
         },
     })
+    console.log(data);
 
     useEffect(() =>{
         if(loading){
@@ -49,6 +48,7 @@ const HistoricoPorUnidad = () => {
         listadoHistorico = data === undefined ? {} : data.registro_taller;
         if(data){
             setListadoHistorico(data);
+            console.log(data);
         }
     }, [loading,data]);
 
@@ -60,7 +60,7 @@ const HistoricoPorUnidad = () => {
         </div>
       </div>
   );    
-  console.log(data);
+
     return ( 
         <Fragment>
             <Container>
