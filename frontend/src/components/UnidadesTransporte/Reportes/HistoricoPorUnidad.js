@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import {Container} from "react-bootstrap";
-import {Historico} from "../Reportes/Historico";
-import {useSuscription} from "@apollo/client";
+import Historico from "../../UnidadesTransporte/Reportes/Historico";
 
 import {Row, Form, Col, InputGroup, FormControl, Table} from "react-bootstrap";
 import {v4 as uuidv4} from 'uuid';
@@ -119,7 +118,14 @@ const HistoricoPorUnidad = () => {
                         {
                             listadoHistorico.length === 0
                             ? (<tr><td>No hay Registros</td></tr>)
-                            : <tr><td>Quiza hay algo</td></tr>
+                            : listadoHistorico.registro_taller.map(historico =>(
+                                total+= historico.viendo_detalle.repuesto.precio * historico.viendo_detalle.cantidad,
+                                <tr key={uuidv4()}>
+                                    <Historico 
+                                        historico={historico}    
+                                    />
+                                </tr>
+                            ))
                         }
                     </tbody>
                     <tr>

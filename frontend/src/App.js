@@ -695,7 +695,7 @@ function App() {
                 <EditarCompatibilidaRepuesto />
               </Suspense>
             </Route>
-            <Route exact path="/historico-por-unidad">
+            <Route exact path="/historico-por-unidad/:idUnidadTransporte">
               <Suspense fallback={<Loader />}>
                 <HistoricoPorUnidad />
               </Suspense>
