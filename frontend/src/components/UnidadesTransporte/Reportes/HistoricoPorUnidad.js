@@ -33,12 +33,11 @@ const HistoricoPorUnidad = () => {
     }
     const {loading, data} = useSubscription(historico_taller_por_unidad,{
         variables: {
-            fechaInicio: fechaInicio.fechaInicio,
-            fechaFin: fechaFin.fechaFin,
-            idUnidadTransporte: idUnidadTransporte,
+            fechainicio: fechaInicio.fechaInicio,
+            fechafin: fechaFin.fechaFin,
+            id_unidad: idUnidadTransporte,
         },
     })
-    console.log(data);
 
     useEffect(() =>{
         if(loading){
@@ -48,7 +47,6 @@ const HistoricoPorUnidad = () => {
         listadoHistorico = data === undefined ? {} : data.registro_taller;
         if(data){
             setListadoHistorico(data);
-            console.log(data);
         }
     }, [loading,data]);
 
