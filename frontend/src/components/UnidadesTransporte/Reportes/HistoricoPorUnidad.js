@@ -7,9 +7,11 @@ import {Row, Form, Col, InputGroup, FormControl, Table} from "react-bootstrap";
 import {v4 as uuidv4} from 'uuid';
 import { useSubscription } from '@apollo/react-hooks';
 import { historico_taller_por_unidad } from '../../../graphql/Suscription';
+import {useParams} from "react-router-dom";
 
 const HistoricoPorUnidad = () => {
     let total = 0;
+    const {Id} = useParams()
     const [listadoHistorico, setListadoHistorico] = useState([]);
     const [fechaInicio, setFechaInicio] = useState({
         fechaInicio: "",
@@ -32,8 +34,10 @@ const HistoricoPorUnidad = () => {
 
     const {loading, data} = useSubscription(historico_taller_por_unidad,{
         variables: {
+            id_unidad: Id,
             fechaInicio: fechaInicio.fechaInicio,
             fechaFin: fechaFin.fechaFin,
+
         },
     })
 
@@ -56,6 +60,7 @@ const HistoricoPorUnidad = () => {
         </div>
       </div>
   );    
+  console.log(data);
     return ( 
         <Fragment>
             <Container>
