@@ -899,3 +899,46 @@ export const reporteAireAcondicionado = gql`
     }
   }
 `;
+
+export const getReporteViajes = gql`
+  subscription control_viajes_aggregate(
+    $idUnidadTransporte: uuid
+    $fechainicio: date
+    $fechafin: date
+  ) {
+    control_viajes_aggregate(
+      where: {
+        id_unidad_transporte: { _eq: $idUnidadTransporte }
+        fecha: { _gte: $fechainicio, _lte: $fechafin }
+      }
+    ) {
+      aggregate {
+        count
+        max {
+          kilometrajes_recogidos
+        }
+        min {
+          kilometrajes_recogidos
+        }
+        sum {
+          kilometrajes_recogidos
+          numero_de_viajes_realizados
+        }
+      }
+      nodes {
+        empleado_motorista {
+          nombres
+          apellidos
+        }
+        fecha
+        unidad_transporte {
+          numero_placa
+        }
+        kilometrajes_recogidos
+        tipo_viaje
+        fecha
+        id
+      }
+    }
+  }
+`;
