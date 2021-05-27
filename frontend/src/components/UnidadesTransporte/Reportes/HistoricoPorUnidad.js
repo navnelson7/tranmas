@@ -130,11 +130,12 @@ const HistoricoPorUnidad = () => {
                                 </tr>
                             ))
                         }
-                    </tbody>
-                    <tr>
+                        <tr>
                         <td colSpan={7}>Total</td>
                         <td>${total}</td>
                     </tr>
+                    </tbody>
+                    
                 </Table>
             </Container>
         </Fragment>
