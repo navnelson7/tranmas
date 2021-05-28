@@ -6,7 +6,7 @@ import { Row, InputGroup, Col, FormControl } from "react-bootstrap";
 import { getReporteViajes } from "../../../../graphql/Suscription";
 import { useParams } from "react-router";
 
-function ReporteViajes() {
+function ReporteEdificios() {
   const { idUnidadTransporte } = useParams();
 
   const [FechaInicio, setFechaInicio] = useState(
@@ -195,7 +195,7 @@ function ReporteViajes() {
   );
 }
 
-export default ReporteViajes;
+export default ReporteEdificios;
 
 const StyleAire = styled.div`
   .box-left-aire {
