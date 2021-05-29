@@ -270,6 +270,10 @@ const HistoricoPorUnidad = lazy(() =>
   import("./components/UnidadesTransporte/Reportes/HistoricoPorUnidad")
 );
 
+const ReporteFaltas = lazy(() =>
+    import("./components/Empleados/Reportes/ReporteFaltas")
+);
+
 const Proveedores = lazy(() => import("./components/Proveedores/index"));
 
 function App() {
@@ -716,6 +720,11 @@ function App() {
             <Route exact path="/reporte/viajes/:idUnidadTransporte">
               <Suspense fallback={<Loader />}>
                 <ReporteViajes />
+              </Suspense>
+            </Route>
+            <Route exact path="/reporte-faltas">
+              <Suspense fallback={<Loader />}>
+                <ReporteFaltas />
               </Suspense>
             </Route>
           </Switch>
