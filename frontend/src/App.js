@@ -10,6 +10,9 @@ import { SpinnerLazy } from "./components/Loader/SpinnerLazy";
 import Login from "./components/Auth/Login";
 
 // LAZY IMPORTS
+const ReporteEdificios = lazy(() =>
+  import("./components/UnidadesTransporte/Reportes/ReporteEdificios")
+);
 const ReporteViajes = lazy(() =>
   import("./components/UnidadesTransporte/Reportes/ReporteViajes")
 );
@@ -722,9 +725,16 @@ function App() {
                 <ReporteViajes />
               </Suspense>
             </Route>
+<<<<<<< HEAD
             <Route exact path="/reporte-faltas">
               <Suspense fallback={<Loader />}>
                 <ReporteFaltas />
+=======
+
+            <Route exact path="/reporte/edificios">
+              <Suspense fallback={<Loader />}>
+                <ReporteEdificios />
+>>>>>>> dc064023ef7d63abdf27b3c4c0cecf7699719998
               </Suspense>
             </Route>
           </Switch>

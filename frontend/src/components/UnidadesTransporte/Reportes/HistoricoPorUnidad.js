@@ -5,7 +5,7 @@ import Historico from "../../UnidadesTransporte/Reportes/Historico";
 
 import {Row, Form, Col, InputGroup, FormControl, Table} from "react-bootstrap";
 import {v4 as uuidv4} from 'uuid';
-import { useSubscription } from '@apollo/react-hooks';
+import { useSubscription } from '@apollo/client';
 import { historico_taller_por_unidad } from '../../../graphql/Suscription';
 import {useParams} from "react-router-dom";
 
