@@ -81,10 +81,7 @@ function CardsReportes() {
             </Col>
 
             <Col md={4}>
-              <Link
-                to={`/reporte/viajes/${idUnidadTransporte}`}
-                className="txt-decoration"
-              >
+              <Link to="/reporte/edificios" className="txt-decoration">
                 <Card className="card-hover" style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Title className="text-center">

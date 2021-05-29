@@ -3,12 +3,9 @@ import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { useSubscription } from "@apollo/client";
 import { Row, InputGroup, Col, FormControl } from "react-bootstrap";
-import { getReporteViajes } from "../../../../graphql/Suscription";
-import { useParams } from "react-router";
+import { reporteEdificios } from "../../../../graphql/Suscription";
 
 function ReporteEdificios() {
-  const { idUnidadTransporte } = useParams();
-
   const [FechaInicio, setFechaInicio] = useState(
     new Date().getFullYear() +
       "-" +
@@ -16,7 +13,6 @@ function ReporteEdificios() {
       "-" +
       new Date().getDate()
   );
-
   const [FechaFinal, setFechaFinal] = useState(
     new Date().getFullYear() +
       "-" +
@@ -25,9 +21,8 @@ function ReporteEdificios() {
       new Date().getDate()
   );
 
-  const { data, loading, error } = useSubscription(getReporteViajes, {
+  const { data, loading, error } = useSubscription(reporteEdificios, {
     variables: {
-      idUnidadTransporte: idUnidadTransporte,
       fechainicio: FechaInicio,
       fechafin: FechaFinal,
     },
@@ -55,6 +50,8 @@ function ReporteEdificios() {
       </div>
     );
   if (error) return <p className="box-center">{`Error! ${error.message}`}</p>;
+
+  console.log(data);
   return (
     <Fragment>
       <StyleAire>
@@ -108,83 +105,79 @@ function ReporteEdificios() {
           <Table striped bordered hover size="sm">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Motorista</th>
-                <th>Tipo de viaje</th>
-                <th>Kilometrajes recogidos</th>
-                <th>Fecha</th>
+                <th>Empleado</th>
+                <th>Costo de mantenimiento</th>
+                <th>Descripcion de trabajo</th>
+                <th>Numero de factura</th>
+                <th>Material</th>
+                <th>Edificio</th>
               </tr>
             </thead>
             <tbody>
-              {data.control_viajes_aggregate.nodes.map((viaje, index) => {
-                return (
-                  <tr key={viaje.id}>
-                    <td>{index + 1}</td>
-                    <td>
-                      {viaje.empleado_motorista === null
-                        ? ""
-                        : viaje.empleado_motorista.nombres +
-                          " " +
-                          viaje.empleado_motorista.apellidos}
-                    </td>
-                    <td>{viaje.tipo_viaje}</td>
-                    <td>{viaje.kilometrajes_recogidos} km</td>
-                    <td>
-                      {new Date(viaje.fecha).getDate() + 1} de{" "}
-                      {meses[new Date(viaje.fecha).getMonth()]}{" "}
-                      {new Date(viaje.fecha).getFullYear()}
-                    </td>
-                  </tr>
-                );
-              })}
+              {data.detalle_mantenimiento_edificios_aggregate.nodes.map(
+                (viaje, index) => {
+                  return (
+                    <tr key={viaje.id}>
+                      <td>
+                        {viaje.mantenimiento_edificio === null
+                          ? ""
+                          : viaje.mantenimiento_edificio.empleado === null
+                          ? ""
+                          : viaje.mantenimiento_edificio.empleado.nombres +
+                            " " +
+                            viaje.mantenimiento_edificio.empleado.apellidos}
+                      </td>
+                      <td>{viaje.costo} USD</td>
+                      <td>{viaje.descripcion_de_trabajo} km</td>
+                      <td>{viaje.numero_factura}</td>
+                      <td>{viaje.material}</td>
+                      <td>
+                        {viaje.mantenimiento_edificio === null
+                          ? ""
+                          : viaje.mantenimiento_edificio.edificio.nombre}
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
             </tbody>
             <thead>
               <tr>
-                <th>Registros totales</th>
-                <th>Máximo de kilometraje recogido</th>
-                <th>Mínimo de kilometraje recogido</th>
-                <th>Viajes totales realizados</th>
-                <th>Kilometraje total recogido</th>
+                <th colSpan={2}>Registros totales</th>
+                <th>Costo de mantenimiento maximo</th>
+                <th>Costo de mantenimiento minimo</th>
+                <th colSpan={2}>Costo de mantenimiento total</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>
-                  {" "}
-                  {data.control_viajes_aggregate.aggregate === null
+                <td colSpan={2}>
+                  {data.detalle_mantenimiento_edificios_aggregate.aggregate ===
+                  null
                     ? ""
-                    : data.control_viajes_aggregate.aggregate.count}
-                </td>
-
-                <td>
-                  {" "}
-                  {data.control_viajes_aggregate.aggregate === null
-                    ? ""
-                    : data.control_viajes_aggregate.aggregate.max
-                        .kilometrajes_recogidos}{" "}
-                  km
+                    : data.detalle_mantenimiento_edificios_aggregate.aggregate
+                        .count}
                 </td>
                 <td>
-                  {" "}
-                  {data.control_viajes_aggregate.aggregate === null
+                  {data.detalle_mantenimiento_edificios_aggregate.aggregate ===
+                  null
                     ? ""
-                    : data.control_viajes_aggregate.aggregate.min
-                        .kilometrajes_recogidos}{" "}
-                  km
-                </td>
-
-                <td>
-                  {data.control_viajes_aggregate.aggregate === null
-                    ? ""
-                    : data.control_viajes_aggregate.aggregate.sum
-                        .numero_de_viajes_realizados}
+                    : data.detalle_mantenimiento_edificios_aggregate.aggregate
+                        .max.costo} USD
                 </td>
                 <td>
-                  {data.control_viajes_aggregate.aggregate === null
+                  {data.detalle_mantenimiento_edificios_aggregate.aggregate ===
+                  null
                     ? ""
-                    : data.control_viajes_aggregate.aggregate.sum
-                        .kilometrajes_recogidos}{" "}
-                  km
+                    : data.detalle_mantenimiento_edificios_aggregate.aggregate
+                        .min.costo} USD
+                </td>
+                <td colSpan={2}>
+                  {data.detalle_mantenimiento_edificios_aggregate.aggregate ===
+                  null
+                    ? ""
+                    : data.detalle_mantenimiento_edificios_aggregate.aggregate
+                        .sum.costo} USD
                 </td>
               </tr>
             </tbody>
