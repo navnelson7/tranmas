@@ -1,12 +1,18 @@
 import React from 'react';
 import { Fragment } from 'react';
-import {Container} from 'react-bootstrap';
+import {Container, Form, Row} from 'react-bootstrap';
 const ReporteFaltas = () => {
     return ( 
         <Fragment>
             <Container>
                 <div className="box-left">
-                    <h1>Reporte Faltas</h1>
+                    <h3>Seleccionar Rango de Fechas</h3>
+                    <Form>
+                        <Row sm={6}>
+                            
+                        </Row>
+                    </Form>
+
                 </div>
             </Container>
         </Fragment>
