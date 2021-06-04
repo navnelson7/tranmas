@@ -39,7 +39,6 @@ const HistoricoTaller = () => {
     },
   });
 
-  console.log(fechaInicio);
 
   useEffect(() => {
     if(loading){
