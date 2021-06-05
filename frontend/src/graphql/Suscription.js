@@ -1002,15 +1002,12 @@ export const repuestosACero = gql `
 }
 `
 export const faltasEmpleado = gql `
-  subscription faltasEmpleado($id_empleado: uuid!, $fecha_inicio: date, $fecha_fin:date) {
-    faltas_motoristas( where: {
-        _and: [
-          { id_empleado: { _eq: $id_empleado } }
-          { fecha_de_falta: { _gte: $fecha_inicio } }
-          { fecha_de_falta: { _lte: $fecha_fin } }
-        ]
-      }){
+  subscription faltasEmpleados($id_empleado: uuid!) {
+    faltas_motoristas( where: { id_empleado:{_eq:$id_empleado}}){
       id_empleado
+      tipo_de_falta_cometida{
+        falta
+      }
     empleado_que_cometio_falta{
       nombres
       apellidos

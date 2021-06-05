@@ -725,7 +725,7 @@ function App() {
                 <ReporteViajes />
               </Suspense>
             </Route>
-            <Route exact path="/reporte-faltas">
+            <Route exact path="/reporte-faltas/:id_empleado">
               <Suspense fallback={<Loader />}>
                 <ReporteFaltas />
               </Suspense>
