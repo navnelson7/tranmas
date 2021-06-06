@@ -9,7 +9,6 @@ import {useParams} from "react-router-dom";
 const ReporteFaltas = () => {
     
     const {id_empleado} = useParams();
-    const [nombres, setNombres] = useState();
     const [listadoFaltas, setListadoFaltas] = useState([]);
     const {loading, data} = useSubscription(faltasEmpleado,{
         variables: {
@@ -25,7 +24,6 @@ const ReporteFaltas = () => {
         listadoFaltas = data === undefined ? {} : data.faltas_motoristas;
         if(data){
             setListadoFaltas(data);
-            console.log(data.faltas_motoristas.id_empleado);
         }
     },[loading, data]);
     if(loading)
@@ -42,7 +40,7 @@ const ReporteFaltas = () => {
             <Container>
                 <div className="box-left">
                     
-                    <h2>Reporte de Faltas de: {} </h2>
+                    <h2>Reporte de Faltas </h2>
                         <Table striped bordered hover>
                             <thead>
                                 <tr>

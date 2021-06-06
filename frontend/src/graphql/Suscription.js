@@ -997,7 +997,6 @@ export const repuestosACero = gql `
         email_empresa
         email_contacto
       }
-      cantidad
     }
 }
 `

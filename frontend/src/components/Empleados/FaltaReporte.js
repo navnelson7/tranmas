@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import {Button} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faTable, faTrash} from '@fortawesome/free-solid-svg-icons';
-const FaltaReporte = ({falta,eliminarFalta,id}) => {
+const FaltaReporte = ({falta}) => {
     return ( 
         <Fragment>
             <td>{falta.fecha_de_falta}</td>
