@@ -118,7 +118,8 @@ const HistoricoTaller = () => {
               </tr>
             </thead>
             <tbody>
-                {
+                {   
+                    listadoHistorico.viendo_detalle === undefined ? " Hay un trabajo de taller sin detalle" :
                     listadoHistorico.length === 0
                     ? (<tr><td>No hay registros</td></tr>)
                     : listadoHistorico.registro_taller.map(historico =>(
