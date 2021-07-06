@@ -1012,7 +1012,7 @@ export const updateRepuestoById = gql `
     $km_para_cambio: Int
     $nombre: String
     $numero_factura: Int
-    $precio: numeric
+    $precio: money
     $id: uuid!
     $__typename: String
   ) {
