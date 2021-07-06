@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
-import Historico from "../Reportes/Historico"
+import Historico from "../Reportes/Historico";
 import { useSubscription } from "@apollo/client";
 import { historicoTaller } from "../../../graphql/Suscription";
 
 import { Row, Form, Col, InputGroup, FormControl } from "react-bootstrap";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 const HistoricoTaller = () => {
   let total = 0;
   const [listadoHistorico, setListadoHistorico] = useState([]);
@@ -19,7 +19,6 @@ const HistoricoTaller = () => {
     fechaFin: "",
   });
 
-
   const onChange = (e) => {
     setFechaInicio({
       ...fechaInicio,
@@ -31,7 +30,6 @@ const HistoricoTaller = () => {
     });
   };
 
-
   const { loading, data } = useSubscription(historicoTaller, {
     variables: {
       fechainicio: fechaInicio.fechaInicio,
@@ -39,17 +37,9 @@ const HistoricoTaller = () => {
     },
   });
 
-
   useEffect(() => {
-    if(loading){
-        return
-    }
-    let listadoHistorico = {};
-    listadoHistorico = data === undefined ? {} : data.registro_taller;
-    if(data){
-        setListadoHistorico(data);
-    }
-  }, [loading,data]);
+    setListadoHistorico(data === undefined ? [] : data.registro_talle);
+  }, [data]);
 
   if (loading)
     return (
@@ -58,7 +48,7 @@ const HistoricoTaller = () => {
           <span className="sr-only">Loading...</span>
         </div>
       </div>
-  );
+    );
 
   return (
     <Fragment>
@@ -79,7 +69,11 @@ const HistoricoTaller = () => {
                     aria-describedby="Fecha Inicio"
                     type="date"
                     name="fechaInicio"
-                    value={fechaInicio.fechaInicio === null ? "" :fechaInicio.fechaInicio}
+                    value={
+                      fechaInicio.fechaInicio === null
+                        ? ""
+                        : fechaInicio.fechaInicio
+                    }
                     onChange={onChange}
                   />
                 </InputGroup>
@@ -96,7 +90,7 @@ const HistoricoTaller = () => {
                     aria-describedby="Fecha Fin"
                     type="date"
                     name="fechaFin"
-                    value={fechaFin.fechaFin === null ? "" :fechaFin.fechaFin}
+                    value={fechaFin.fechaFin === null ? "" : fechaFin.fechaFin}
                     onChange={onChange}
                   />
                 </InputGroup>
@@ -118,23 +112,27 @@ const HistoricoTaller = () => {
               </tr>
             </thead>
             <tbody>
-                {   
-                    listadoHistorico.viendo_detalle === undefined ? " Hay un trabajo de taller sin detalle" :
-                    listadoHistorico.length === 0
-                    ? (<tr><td>No hay registros</td></tr>)
-                    : listadoHistorico.registro_taller.map(historico =>(
-                        total += historico.viendo_detalle.repuesto.precio * historico.viendo_detalle.cantidad,
-                        <tr key={uuidv4()}>
-                            <Historico 
-                                historico={historico}
-                            />  
-                        </tr>
-                    ))
-                }
+              {listadoHistorico.viendo_detalle === undefined ? (
+                " Hay un trabajo de taller sin detalle"
+              ) : listadoHistorico.length === 0 ? (
                 <tr>
-                  <td colSpan={7}>Total</td>
-                  <td>${total}</td>
+                  <td>No hay registros</td>
                 </tr>
+              ) : (
+                listadoHistorico.registro_taller.map((historico) =>
+                  (total +=
+                    historico.viendo_detalle.repuesto.precio *
+                    historico.viendo_detalle.cantidad)(
+                    <tr key={uuidv4()}>
+                      <Historico historico={historico} />
+                    </tr>
+                  )
+                )
+              )}
+              <tr>
+                <td colSpan={7}>Total</td>
+                <td>${total}</td>
+              </tr>
             </tbody>
           </Table>
         </div>

@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-export const getEmpmleados = gql `
+export const getEmpmleados = gql`
   query getEmpleados {
     empleados(where: { activo: { _eq: true } }) {
       id
@@ -26,9 +26,9 @@ export const getEmpmleados = gql `
   }
 `;
 
-export const getRepuestos = gql `
+export const getRepuestos = gql`
   query allrepuestos {
-    repuestos {
+    repuestos(where: { activo: { _eq: true } }) {
       id
       nombre
       km_para_cambio
@@ -54,7 +54,35 @@ export const getRepuestos = gql `
     }
   }
 `;
-export const getDepartamentos = gql `
+export const getRepuestosInactivos = gql`
+  query allrepuestos {
+    repuestos(where: { activo: { _eq: false } }) {
+      id
+      nombre
+      km_para_cambio
+      codigo_repuesto
+      marcar_de_repuestos {
+        marca
+      }
+      cantidad
+      unidad_medida_repuesto {
+        unidad_de_medida
+      }
+      fecha_factura
+      precio
+      proveedor_de_repuesto {
+        nombre_proveedor
+      }
+      estado_repuesto_stock {
+        estado_repuestos
+      }
+    }
+    unidades_de_medida {
+      unidad_de_medida
+    }
+  }
+`;
+export const getDepartamentos = gql`
   query getDepartamentos {
     departamentos {
       id
@@ -63,7 +91,7 @@ export const getDepartamentos = gql `
   }
 `;
 
-export const getEstadoRepuestos = gql `
+export const getEstadoRepuestos = gql`
   query getEstadoRepuestos {
     estado_repuestos_stock {
       id
@@ -73,7 +101,7 @@ export const getEstadoRepuestos = gql `
   }
 `;
 
-export const getProveedores = gql `
+export const getProveedores = gql`
   query getProveedores {
     proveedores {
       id
@@ -82,7 +110,7 @@ export const getProveedores = gql `
   }
 `;
 
-export const getUnidadMedida = gql `
+export const getUnidadMedida = gql`
   query getUnidadesMedida {
     unidades_de_medida {
       id
@@ -91,7 +119,7 @@ export const getUnidadMedida = gql `
   }
 `;
 
-export const getMarcas = gql `
+export const getMarcas = gql`
   query getMarcas {
     marcas {
       id
@@ -100,7 +128,7 @@ export const getMarcas = gql `
   }
 `;
 
-export const getRoles = gql `
+export const getRoles = gql`
   query {
     roles {
       id
@@ -109,7 +137,7 @@ export const getRoles = gql `
   }
 `;
 
-export const getEmpleados = gql `
+export const getEmpleados = gql`
   subscription {
     empleados(where: { activo: { _eq: true } }) {
       codigo_empleado
@@ -134,7 +162,7 @@ export const getEmpleados = gql `
   }
 `;
 
-export const getEmailUsers = gql `
+export const getEmailUsers = gql`
   query {
     users {
       email
@@ -142,7 +170,7 @@ export const getEmailUsers = gql `
   }
 `;
 
-export const getProveedoresById = gql `
+export const getProveedoresById = gql`
   query proveedores_by_pk($id: uuid!) {
     proveedores_by_pk(id: $id) {
       id
@@ -162,7 +190,7 @@ export const getProveedoresById = gql `
   }
 `;
 
-export const getMedidas = gql `
+export const getMedidas = gql`
   query getMedidas {
     unidades_de_medida {
       id
@@ -171,7 +199,7 @@ export const getMedidas = gql `
   }
 `;
 
-export const getRepuestosById = gql `
+export const getRepuestosById = gql`
   query repuestos_by_pk($id: uuid!) {
     repuestos_by_pk(id: $id) {
       id
@@ -188,7 +216,7 @@ export const getRepuestosById = gql `
   }
 `;
 
-export const getEstadoEmpleados = gql `
+export const getEstadoEmpleados = gql`
   query getEstadoEmpleados {
     estados_de_empleados {
       id
@@ -197,7 +225,7 @@ export const getEstadoEmpleados = gql `
   }
 `;
 
-export const getTipoEmpleados = gql `
+export const getTipoEmpleados = gql`
   query getTipoEmpleados {
     tipos_empleados {
       id
@@ -206,7 +234,7 @@ export const getTipoEmpleados = gql `
   }
 `;
 
-export const getEmpleadosByCodigo = gql `
+export const getEmpleadosByCodigo = gql`
   query getEmpleadosByCodigo($codigo_empleado: String) {
     empleados(where: { codigo_empleado: { _eq: $codigo_empleado } }) {
       codigo_empleado
@@ -230,7 +258,7 @@ export const getEmpleadosByCodigo = gql `
   }
 `;
 
-export const queryUnidadTransporteById = gql `
+export const queryUnidadTransporteById = gql`
   query unidades_de_transporte_by_pk($id: uuid!) {
     unidades_de_transporte_by_pk(id: $id) {
       activo
@@ -253,7 +281,7 @@ export const queryUnidadTransporteById = gql `
 `;
 
 //ELIMINAR<
-export const getMarcaTransporteById = gql `
+export const getMarcaTransporteById = gql`
   query unidades_de_transporte_by_pk($id: uuid!) {
     unidades_de_transporte_by_pk(id: $id) {
       marca_transporte {
@@ -263,7 +291,7 @@ export const getMarcaTransporteById = gql `
   }
 `;
 
-export const registroCombustibleById = gql `
+export const registroCombustibleById = gql`
   subscription registro_combustible_by_pk($id: uuid!) {
     registro_combustible_by_pk(id: $id) {
       comentarios
@@ -280,7 +308,7 @@ export const registroCombustibleById = gql `
   }
 `;
 
-export const getTipoFaltas = gql `
+export const getTipoFaltas = gql`
   query getTipoFaltas {
     tipos_de_faltas {
       id
@@ -289,7 +317,7 @@ export const getTipoFaltas = gql `
   }
 `;
 
-export const getFaltaPorIdEmpleado = gql `
+export const getFaltaPorIdEmpleado = gql`
   query getFaltaPorIdEmpleado($id_empleado: uuid!) {
     faltas_motoristas(where: { id_empleado: { _eq: $id_empleado } }) {
       empleado_que_cometio_falta {
@@ -306,7 +334,7 @@ export const getFaltaPorIdEmpleado = gql `
   }
 `;
 
-export const EmpleadoByid = gql `
+export const EmpleadoByid = gql`
   query empleados_by_pk($id: uuid!) {
     empleados_by_pk(id: $id) {
       codigo_empleado
@@ -331,7 +359,7 @@ export const EmpleadoByid = gql `
       departamento_de_empleado {
         departamento
       }
-      estado_de_empleado{
+      estado_de_empleado {
         estado_empleado
       }
       picture
@@ -341,19 +369,21 @@ export const EmpleadoByid = gql `
   }
 `;
 
-export const getRefrendaPorIdEpleado = gql `
-  query getRefrendaPorIdEpleado($id_empleado_motorista: uuid!){
-    refrenda_documentos_motorista(where: {id_empleado_motorista:{_eq: $id_empleado_motorista}}) {
-    motorista{
-      nombres
-      apellidos
-  		licencia_conducir    
+export const getRefrendaPorIdEpleado = gql`
+  query getRefrendaPorIdEpleado($id_empleado_motorista: uuid!) {
+    refrenda_documentos_motorista(
+      where: { id_empleado_motorista: { _eq: $id_empleado_motorista } }
+    ) {
+      motorista {
+        nombres
+        apellidos
+        licencia_conducir
+      }
+      fecha_emision
+      fecha_vencimiento
+      refrendado
+      id
     }
-    fecha_emision
-    fecha_vencimiento
-    refrendado
-    id
-  }   
   }
 `;
 

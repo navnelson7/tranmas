@@ -1,13 +1,12 @@
 import React, { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { updateRepuestotoFalse } from "../../graphql/Mutations";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { updateRepuestoTrue } from "../../../graphql/Mutations";
 import { useMutation } from "@apollo/client";
 
 const Repuesto = ({ repuesto, listadoRepuestos = [], setListadoRepuestos }) => {
-  const [updateRepuesto] = useMutation(updateRepuestotoFalse);
+  const [updateRepuesto] = useMutation(updateRepuestoTrue);
 
   const updateRepuestoById = (idSelected) => {
     updateRepuesto({
@@ -34,24 +33,13 @@ const Repuesto = ({ repuesto, listadoRepuestos = [], setListadoRepuestos }) => {
       <td> {repuesto.estado_repuesto_stock.estado_repuestos} </td>
       <td>{repuesto.km_para_cambio}</td>
       <td>
-        <Link
-          to={`/actualizar-repuestos/${repuesto.id}`}
-          variant="danger"
-          value={repuesto.id}
-        >
-          {" "}
-          <Button variant="info" value={repuesto.id}>
-            {" "}
-            <FontAwesomeIcon icon={faEdit} />
-          </Button>{" "}
-        </Link>{" "}
         <Button
-          variant="danger"
+          variant="primary"
           value={repuesto.id}
           onClick={() => updateRepuestoById(repuesto.id)}
         >
-          {" "}
-          <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon icon={faEdit} style={{ marginRight: "2px" }} />
+          Restaurar
         </Button>
       </td>
     </Fragment>

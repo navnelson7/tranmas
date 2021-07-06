@@ -1,18 +1,13 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Repuesto from "./Repuesto";
 import { Table, Container } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "react-bootstrap";
-import { faUserEdit, faScroll, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-
 import { useQuery } from "@apollo/client";
-import { getRepuestos } from "../../graphql/Queries";
+import { getRepuestosInactivos } from "../../../graphql/Queries";
 
 const ListadoRepuestos = () => {
   const [listadoRepuestos, setListadoRepuestos] = useState([]);
 
-  const { data, loading } = useQuery(getRepuestos);
+  const { data, loading } = useQuery(getRepuestosInactivos);
 
   useEffect(() => {
     if (loading) {
@@ -28,23 +23,7 @@ const ListadoRepuestos = () => {
     <Fragment>
       <Container>
         <div className="box-left">
-          <h1>LISTADO DE REPUESTO</h1>
-          <Link to={`/formulario-repuestos`} variant="danger">
-            <Button variant="info">
-              <FontAwesomeIcon icon={faUserEdit} /> Nuevo Repuesto
-            </Button>
-          </Link>
-
-          <Link className="ml-3" to="/facturas/repuestos" variant="danger">
-            <Button variant="primary">
-              <FontAwesomeIcon icon={faScroll} /> Facturas de repuestos
-            </Button>
-          </Link>
-          <Link className="ml-3" to="/papelera/repuestos" variant="danger">
-            <Button variant="primary">
-              <FontAwesomeIcon icon={faTrash} /> Papelera de repuestos
-            </Button>
-          </Link>
+          <h1>PAPELERA DE REPUESTO</h1>
           <br />
           <br />
           <Table striped bordered hover responsive size="sm">
