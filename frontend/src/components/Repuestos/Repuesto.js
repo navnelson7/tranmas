@@ -28,6 +28,7 @@ const Repuesto = ({ repuesto, listadoRepuestos = [], setListadoRepuestos }) => {
       <td> {repuesto.nombre} </td>
       <td> {repuesto.marcar_de_repuestos.marca} </td>
       <td> {repuesto.cantidad} </td>
+      <td>{repuesto.codigo_repuesto}</td>
       <td> {repuesto.unidad_medida_repuesto.unidad_de_medida} </td>
       <td> {repuesto.precio} </td>
       <td> {repuesto.proveedor_de_repuesto.nombre_proveedor} </td>

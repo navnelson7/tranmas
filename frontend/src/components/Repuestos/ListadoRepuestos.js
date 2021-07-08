@@ -3,11 +3,16 @@ import Repuesto from "./Repuesto";
 import { Table, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
-import { faUserEdit, faScroll, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserEdit,
+  faScroll,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
 import { getRepuestos } from "../../graphql/Queries";
+import InputSearch from "./InputSearch";
 
 const ListadoRepuestos = () => {
   const [listadoRepuestos, setListadoRepuestos] = useState([]);
@@ -15,14 +20,11 @@ const ListadoRepuestos = () => {
   const { data, loading } = useQuery(getRepuestos);
 
   useEffect(() => {
-    if (loading) {
-      return;
-    }
     if (data) {
       setListadoRepuestos(data.repuestos);
     }
     // eslint-disable-next-line
-  }, [loading, data]);
+  }, [data]);
   if (loading) return <p>cargando</p>;
   return (
     <Fragment>
@@ -47,12 +49,18 @@ const ListadoRepuestos = () => {
           </Link>
           <br />
           <br />
+          <InputSearch
+            listadoRepuestos={listadoRepuestos}
+            setListadoRepuestos={setListadoRepuestos}
+          />
+          <br />
           <Table striped bordered hover responsive size="sm">
             <thead>
               <tr>
                 <th>Nombres</th>
                 <th>Marca</th>
                 <th>Cantidad</th>
+                <th>Código</th>
                 <th>U. Medida</th>
                 <th>Precio</th>
                 <th>Proveedor</th>
