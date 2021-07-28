@@ -7,7 +7,7 @@ services:
     ports:
       - "5439:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - ./db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgrespassword
       POSTGRES_DB: tranmas
@@ -66,6 +66,3 @@ services:
       - graphql-engine
       - webflask
     restart: always
- 
-volumes:
-  db_data:
