@@ -34,7 +34,7 @@ export const useSubmitGraphQL = ({
       };
       executeSubmit();
     }
-  }, [execute]);
+  }, [execute, mutationSubmit, push, pushUrl, variables]);
 
   return {
     TextAlert,
