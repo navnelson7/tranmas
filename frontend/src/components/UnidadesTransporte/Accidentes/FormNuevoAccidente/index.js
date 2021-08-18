@@ -5,17 +5,14 @@ import ListBoxMotorista from "../../../listbox/ListBoxMotorista";
 import Upload from "../Upload";
 import { useMutation } from "@apollo/client";
 import { insertNewAccidentes } from "../../../../graphql/Mutations";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import { ToastComponent } from "../../../Toast";
+import { useSubmitGraphQL } from "../../../../hooks/useSubmitGraphQL";
 
 function Registro() {
   const { id } = useParams();
-  const { push } = useHistory();
-  //ALERT
-  const [showAlert, setshowAlert] = useState(false);
-  const [IconType, setIconType] = useState("");
-  const [TextAlert, setTextAlert] = useState("");
-  const [Loading, setLoading] = useState(false);
+
+  const [Execute, setExecute] = useState(false);
 
   const [setNewAccidenteMutation] = useMutation(insertNewAccidentes);
   const [ExecuteSaveAccidente, setExecuteSaveAccidente] = useState(false);
@@ -38,50 +35,21 @@ function Registro() {
       [e.target.name]: e.target.value,
     });
   };
-  // eslint-disable-next-line
-  const submitAccidente = () => {
-    if (newAccidente.descripcion_accidente === "") {
-      setTextAlert("Escribe una descripción");
-      setLoading(false);
-      setIconType("error");
-      setshowAlert(true);
-    }
-    if (newAccidente.id_empleado_motorista === "") {
-      setTextAlert("Selecciona un empleado");
-      setLoading(false);
-      setIconType("error");
-      setshowAlert(true);
-    } else {
-      setNewAccidenteMutation({
-        variables: newAccidente,
-      })
-        .then((res) => {
-          if (res.data) {
-            setTextAlert("Registrado correctamente");
-            setLoading(false);
-            setIconType("success");
-            setshowAlert(true);
-            setTimeout(() => {
-              //si todo va bien lo redirecciona al inicio
-              push(`/accidentes/${id}`);
-            }, 2000);
-          }
-        })
-        .catch((error) => {
-          setLoading(false);
-          setIconType("error");
-          setshowAlert(true);
-          setTextAlert(error.message);
-        });
-    }
-  };
 
   useEffect(() => {
     if (ExecuteSaveAccidente) {
-      submitAccidente();
+      setExecute(true);
       setExecuteSaveAccidente(false);
     }
-  }, [ExecuteSaveAccidente, submitAccidente]);
+  }, [ExecuteSaveAccidente]);
+
+  const { TextAlert, showAlert, IconType, Loading, setshowAlert } =
+    useSubmitGraphQL({
+      variables: newAccidente,
+      mutationSubmit: setNewAccidenteMutation,
+      execute: Execute,
+      pushUrl: `/accidentes/${id}`,
+    });
 
   if (Loading)
     return (
