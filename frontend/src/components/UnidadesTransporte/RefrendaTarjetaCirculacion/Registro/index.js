@@ -2,17 +2,14 @@ import React, { useState } from "react";
 import FormRefrenda from "../FormRefrenda";
 import { useMutation } from "@apollo/client";
 import { insertRefrendaCirculacion } from "../../../../graphql/Mutations";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import { ToastComponent } from "../../../Toast";
+import { useSubmitGraphQL } from "../../../../hooks/useSubmitGraphQL";
 
 function Registro() {
+  const [Execute, setExecute] = useState(false);
   const { id } = useParams();
-  const { push } = useHistory();
-  //ALERTA
-  const [TextAlert, setTextAlert] = useState("");
-  const [showAlert, setshowAlert] = useState(false);
-  const [IconType, setIconType] = useState("");
-  const [Loading, setLoading] = useState(false);
+
   const [setRefrenda] = useMutation(insertRefrendaCirculacion);
   const [NuevoRefrendaCirculacion, setNuevoRefrendaCirculacion] = useState({
     costo_refrenda: 0,
@@ -37,29 +34,14 @@ function Registro() {
       });
     }
   };
-  const submitRefrendaCirculacion = (e) => {
-    setRefrenda({
+
+  const { TextAlert, showAlert, IconType, Loading, setshowAlert } =
+    useSubmitGraphQL({
+      mutationSubmit: setRefrenda,
       variables: NuevoRefrendaCirculacion,
-    })
-      .then((res) => {
-        if (res.data) {
-          setLoading(false);
-          setIconType("success");
-          setshowAlert(true);
-          setTextAlert("Registrado correctamente");
-          setTimeout(() => {
-            //si todo va bien lo redirecciona al inicio
-            push(`/tabla/refrenda/circulacion/${id}`);
-          }, 2000);
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        setTextAlert(error.message);
-        setIconType("error");
-        setshowAlert(true);
-      });
-  };
+      pushUrl: `/tabla/refrenda/circulacion/${id}`,
+      execute: Execute,
+    });
   if (Loading)
     return (
       <div className="center-box mt-5">
@@ -79,7 +61,9 @@ function Registro() {
       <FormRefrenda
         NuevoRefrendaCirculacion={NuevoRefrendaCirculacion}
         changeNuevoRefrendaCirculacion={changeNuevoRefrendaCirculacion}
-        submitRefrendaCirculacion={submitRefrendaCirculacion}
+        submitRefrendaCirculacion={() => {
+          setExecute(true);
+        }}
       />
     </div>
   );

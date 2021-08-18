@@ -3,18 +3,15 @@ import FormRefrenda from "../FormRefrenda";
 import { useMutation, useSubscription } from "@apollo/client";
 import { updateRefrendaLicencia } from "../../../../graphql/Mutations";
 import { listenRefrendaCirculacion } from "../../../../graphql/Suscription";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import { ToastComponent } from "../../../Toast";
+import { useSubmitGraphQL } from "../../../../hooks/useSubmitGraphQL";
 
 function EditarRefrendaCirculacion() {
   const { idRefrenda, idTransporte } = useParams();
-  const { push } = useHistory();
-  //ALERTA
-  const [TextAlert, setTextAlert] = useState("");
-  const [showAlert, setshowAlert] = useState(false);
-  const [IconType, setIconType] = useState("");
-  const [Loading, setLoading] = useState(false);
   const [setRefrenda] = useMutation(updateRefrendaLicencia);
+
+  const [Execute, setExecute] = useState(false);
 
   const { data, loading, error } = useSubscription(listenRefrendaCirculacion, {
     variables: {
@@ -53,29 +50,15 @@ function EditarRefrendaCirculacion() {
       });
     }
   };
-  const submitRefrendaCirculacion = (e) => {
-    setRefrenda({
+
+  const { TextAlert, showAlert, IconType, Loading, setshowAlert } =
+    useSubmitGraphQL({
+      mutationSubmit: setRefrenda,
       variables: NuevoRefrendaCirculacion,
-    })
-      .then((res) => {
-        if (res.data) {
-          setLoading(false);
-          setIconType("success");
-          setshowAlert(true);
-          setTextAlert("Actualizado correctamente");
-          setTimeout(() => {
-            //si todo va bien lo redirecciona al inicio
-            push(`/tabla/refrenda/circulacion/${idTransporte}`);
-          }, 2000);
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        setTextAlert(error.message);
-        setIconType("error");
-        setshowAlert(true);
-      });
-  };
+      pushUrl: `/tabla/refrenda/circulacion/${idTransporte}`,
+      execute: Execute,
+    });
+
   if (Loading || loading)
     return (
       <div className="center-box mt-5">
@@ -96,7 +79,7 @@ function EditarRefrendaCirculacion() {
       <FormRefrenda
         NuevoRefrendaCirculacion={NuevoRefrendaCirculacion}
         changeNuevoRefrendaCirculacion={changeNuevoRefrendaCirculacion}
-        submitRefrendaCirculacion={submitRefrendaCirculacion}
+        submitRefrendaCirculacion={() => setExecute(true)}
         idTransporte={idTransporte}
       />
     </div>
