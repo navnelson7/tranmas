@@ -162,10 +162,17 @@ function EditarTransporte() {
       </div>
     );
 
+  console.log(
+    responseMarcaTransporte.data.unidades_de_transporte_by_pk.marca_transporte
+      .marca
+      ? responseMarcaTransporte.data.unidades_de_transporte_by_pk
+          .marca_transporte.marca
+      : ""
+  );
   return (
     <Fragment>
       <ToastComponent
-        showAlert={showAlert} 
+        showAlert={showAlert}
         setShowAlert={setshowAlert}
         iconType={IconType}
         textAlert={TextAlert}
@@ -197,6 +204,9 @@ function EditarTransporte() {
                 marcaSeleccionada={
                   responseMarcaTransporte.data.unidades_de_transporte_by_pk
                     .marca_transporte.marca
+                    ? responseMarcaTransporte.data.unidades_de_transporte_by_pk
+                        .marca_transporte.marca
+                    : ""
                 }
               />
               <br />
